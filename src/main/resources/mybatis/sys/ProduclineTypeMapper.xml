@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.ProduclineTypeMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.ProduclineType" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="productline_type_id" property="productlineTypeId" jdbcType="VARCHAR" />
+    <result column="productline_type_name" property="productlineTypeName" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="price-install" property="priceInstall" jdbcType="INTEGER" />
+    <result column="period_install" property="periodInstall" jdbcType="INTEGER" />
+    <result column="period_change" property="periodChange" jdbcType="INTEGER" />
+    <result column="cost_change" property="costChange" jdbcType="DECIMAL" />
+    <result column="cost_salvage" property="costSalvage" jdbcType="DECIMAL" />
+    <result column="period_dep1" property="periodDep1" jdbcType="DECIMAL" />
+    <result column="period_dep2" property="periodDep2" jdbcType="DECIMAL" />
+    <result column="period_dep3" property="periodDep3" jdbcType="DECIMAL" />
+    <result column="period_dep4" property="periodDep4" jdbcType="DECIMAL" />
+    <result column="period_dep5" property="periodDep5" jdbcType="DECIMAL" />
+    <result column="cost_check" property="costCheck" jdbcType="DECIMAL" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

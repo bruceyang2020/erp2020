@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.AccountingVoucherMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.AccountingVoucher" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="substract" property="substract" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="vnumber" property="vnumber" jdbcType="INTEGER" />
+    <result column="acode" property="acode" jdbcType="VARCHAR" />
+    <result column="money_d" property="moneyD" jdbcType="DECIMAL" />
+    <result column="money_c" property="moneyC" jdbcType="DECIMAL" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="team_count" property="teamCount" jdbcType="VARCHAR" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="material_id" property="materialId" jdbcType="VARCHAR" />
+    <result column="morder_id" property="morderId" jdbcType="VARCHAR" />
+    <result column="porder_id" property="porderId" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

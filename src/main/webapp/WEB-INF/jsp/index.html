@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script>
+        function click1() {
+            $.ajax(
+                {
+                    type: 'POST',
+                    method: 'POST',
+                    url: 'http://localhost:8085/api/public/login',
+                    dataType: 'json',
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify({
+                        username: 'admin',
+                        password: '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',
+                        captcha: '1',
+                        isFrontend: 1
+                    }),
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    }
+                }
+            );
+        }
+
+        function click2() {
+            $.ajax(
+                {
+                    type: 'POST',
+                    method: 'POST',
+                    url: 'http://localhost:8085/api/public/sso-login',
+                    dataType: 'json',
+                    contentType: "application/json;charset=UTF-8",
+                    data: JSON.stringify({
+                        token: 'token1'
+                    }),
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    }
+                }
+            );
+        }
+
+        function getTodoCount() {
+            $.ajax(
+                {
+                    type: 'POST',
+                    method: 'POST',
+                    url: 'http://localhost:8085/api/work-flow/todo-task-list-count',
+                    dataType: 'json',
+                    contentType: "application/json;charset=UTF-8",
+                    success: function (res) {
+                        console.log(res);
+                    },
+                    xhrFields: {
+                        withCredentials: true
+                    }
+                }
+            );
+        }
+    </script>
+    <title>
+        ceshi
+    </title>
+</head>
+<body>
+<div>
+    <p>ceshi</p>
+    <button onclick="click1()">用户名密码登录</button>
+    <a href="http://localhost:8085/#/frontend/home">跳转到内控首页</a>
+    <button onclick="click2()">token登录</button>
+</div>
+<div>
+    <h3>待办数量</h3>
+    <button onclick="getTodoCount()">得到待办数量</button>
+</div>
+
+</body>
+
+</html>
