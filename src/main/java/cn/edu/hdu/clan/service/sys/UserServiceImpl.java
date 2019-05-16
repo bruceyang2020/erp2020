@@ -9,12 +9,15 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.SystemException;
 import cn.edu.hdu.clan.entity.sys.SysUser;
+import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.SysUserMapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,6 +41,9 @@ public class UserServiceImpl implements UserService {
         if (count != 0) {
             throw new SystemException("该用户名已存在");
         }
+        BaseBeanHelper.insert(record);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        record.setRegistrationTime(format.format(new Date()));
         userMapper.insert(record);
     }
 

@@ -35,8 +35,8 @@ public class Material extends BaseBean {
     /**
      * @return id
      */
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return String.valueOf(id);
     }
 
     /**

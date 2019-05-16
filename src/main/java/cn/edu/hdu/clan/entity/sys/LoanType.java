@@ -10,7 +10,7 @@ import java.util.Date;
 public class LoanType extends BaseBean {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
     private Integer number;
 
@@ -19,7 +19,7 @@ public class LoanType extends BaseBean {
     @Column(name = "period_max")
     private Integer periodMax;
 
-    @Column(name = ""create _user"")
+    @Column(name = "create _user")
     private String createUser;
 
     @Column(name = "create_time")
@@ -34,8 +34,8 @@ public class LoanType extends BaseBean {
     /**
      * @return id
      */
-    public Integer getId() {
-        return id;
+    public String getId() {
+        return String.valueOf(id);
     }
 
     /**
