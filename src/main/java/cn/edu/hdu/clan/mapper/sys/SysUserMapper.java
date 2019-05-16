@@ -4,4 +4,5 @@ import cn.edu.hdu.clan.entity.sys.SysUser;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface SysUserMapper extends Mapper<SysUser> {
+
 }

@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.edu.hdu.clan</groupId>
-    <artifactId>springbootdemo</artifactId>
+    <artifactId>erp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>springbootdemo</name>
-    <description>Demo project for Spring Boot</description>
+    <name>erp</name>
+    <description>erp</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -35,11 +35,6 @@
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
             <version>1.3.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.10</version>
         </dependency>
 
         <dependency>

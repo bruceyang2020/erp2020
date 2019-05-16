@@ -53,26 +53,23 @@ public class IndexController extends BaseController {
         } catch (AuthenticationException ex) {
             System.out.println("登陆失败: " + ex.getMessage());
         }
-
         return success("登陆成功");
-
-
     }
 
 
     @ResponseBody
     @RequestMapping("register")
     public String register(@RequestBody SysUser user) {
-//        userService.addUser("")
-        return success("ok");
+        userService.addUser(user);
+        return success("注册成功");
     }
 
     @ResponseBody
     @RequestMapping("logout")
     public String logout(@RequestBody SysUser user) {
 //        userService.addUser("")
-        Subject subject= SecurityUtils.getSubject();
+        Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        return success("ok");
+        return success("退出成功");
     }
 }

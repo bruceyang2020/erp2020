@@ -7,10 +7,12 @@ package cn.edu.hdu.clan.service.sys;
  */
 
 
+import cn.edu.hdu.clan.SystemException;
 import cn.edu.hdu.clan.entity.sys.SysUser;
 import cn.edu.hdu.clan.mapper.sys.SysUserMapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -19,32 +21,38 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Resource
-    private SysUserMapper userDao;
+    private SysUserMapper userMapper;
 
 
     public SysUser getUserById(int userId) {
-        return userDao.selectByPrimaryKey(userId);
+        return userMapper.selectByPrimaryKey(userId);
     }
 
-    public boolean addUser(SysUser record){
-        boolean result = false;
-        try {
-            userDao.insertSelective(record);
-            result = true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void addUser(SysUser record) {
 
-        return result;
+        SysUser user = new SysUser();
+        user.setUsername(record.getUsername());
+        Example example = new Example(SysUser.class);
+        example.createCriteria().andEqualTo(user);
+        int count = userMapper.selectCountByExample(example);
+        if (count != 0) {
+            throw new SystemException("该用户名已存在");
+        }
+        userMapper.insert(record);
     }
 
     @Override
-    public SysUser findByUsernamAndPassword(String username, char[] password) {
-        List<SysUser> users = userDao.getByUsernamAndPassword(username, String.valueOf(password));
+    public SysUser findByUsernameAndPassword(String username, char[] password) {
+        SysUser user = new SysUser();
+        user.setUsername(username);
+        user.setPassword(String.valueOf(password));
+        Example example = new Example(SysUser.class);
+        example.createCriteria().andEqualTo(user);
+        List<SysUser> users = userMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(users)) {
             return null;
         }
-        if (users.size()>1){
+        if (users.size() > 1) {
             return null;
         }
         return users.get(0);

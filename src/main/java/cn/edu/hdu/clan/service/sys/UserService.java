@@ -13,9 +13,9 @@ public interface UserService {
     /**
      * 添加用户
      * @param record
-     * @return
+     *
      */
-    boolean addUser(SysUser record);
+    void addUser(SysUser record);
 
-    SysUser findByUsernamAndPassword(String username, char[] password);
+    SysUser findByUsernameAndPassword(String username, char[] password);
 }
