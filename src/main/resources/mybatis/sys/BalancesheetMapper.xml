@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.BalancesheetMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Balancesheet" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="money_now" property="moneyNow" jdbcType="VARCHAR" />
+    <result column="money_get" property="moneyGet" jdbcType="VARCHAR" />
+    <result column="money_making" property="moneyMaking" jdbcType="VARCHAR" />
+    <result column="money_sale" property="moneySale" jdbcType="VARCHAR" />
+    <result column="money_buy" property="moneyBuy" jdbcType="VARCHAR" />
+    <result column="money_flow" property="moneyFlow" jdbcType="VARCHAR" />
+    <result column="longterm_loan" property="longtermLoan" jdbcType="VARCHAR" />
+    <result column="shortterm_loan" property="shorttermLoan" jdbcType="VARCHAR" />
+    <result column="money_orderget" property="moneyOrderget" jdbcType="VARCHAR" />
+    <result column="money_tax" property="moneyTax" jdbcType="VARCHAR" />
+    <result column="longterm_loanyear" property="longtermLoanyear" jdbcType="VARCHAR" />
+    <result column="money_loan" property="moneyLoan" jdbcType="VARCHAR" />
+    <result column="money_j" property="moneyJ" jdbcType="VARCHAR" />
+    <result column="money_p" property="moneyP" jdbcType="VARCHAR" />
+    <result column="money_m" property="moneyM" jdbcType="VARCHAR" />
+    <result column="money_static" property="moneyStatic" jdbcType="VARCHAR" />
+    <result column="money_g" property="moneyG" jdbcType="VARCHAR" />
+    <result column="money_stay" property="moneyStay" jdbcType="VARCHAR" />
+    <result column="money_year" property="moneyYear" jdbcType="VARCHAR" />
+    <result column="money_user" property="moneyUser" jdbcType="VARCHAR" />
+    <result column="money_all" property="moneyAll" jdbcType="VARCHAR" />
+    <result column="money_alls" property="moneyAlls" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>
