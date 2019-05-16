@@ -1,13 +1,9 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "advertise")
 public class Advertise extends BaseBean {

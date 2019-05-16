@@ -1,20 +1,36 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.AdvertiseMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Advertise" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.AdvertiseMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Advertise">
     <!--
       WARNING - @mbg.generated
     -->
-    <result column="id" property="id" jdbcType="VARCHAR" />
-    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
-    <result column="team_count" property="teamCount" jdbcType="VARCHAR" />
-    <result column="period" property="period" jdbcType="INTEGER" />
-    <result column="product_id" property="productId" jdbcType="VARCHAR" />
-    <result column="market_id" property="marketId" jdbcType="VARCHAR" />
-    <result column="money_number" property="moneyNumber" jdbcType="DECIMAL" />
-    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
-    <result column="edit-time" property="editTime" jdbcType="TIMESTAMP" />
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="market_id" jdbcType="VARCHAR" property="marketId" />
+    <result column="money_number" jdbcType="DECIMAL" property="moneyNumber" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit-time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Advertise">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="market_id" jdbcType="VARCHAR" property="marketId" />
+    <result column="money_number" jdbcType="DECIMAL" property="moneyNumber" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit-time" jdbcType="TIMESTAMP" property="editTime" />
   </resultMap>
 </mapper>

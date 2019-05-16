@@ -1,17 +1,30 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.LoanTypeMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.LoanType" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.LoanTypeMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.LoanType">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="number" property="number" jdbcType="INTEGER" />
-    <result column="rate" property="rate" jdbcType="DECIMAL" />
-    <result column="period_max" property="periodMax" jdbcType="INTEGER" />
-    <result column="create _user" property="createUser" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
-    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="rate" jdbcType="DECIMAL" property="rate" />
+    <result column="period_max" jdbcType="INTEGER" property="periodMax" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.LoanType">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="rate" jdbcType="DECIMAL" property="rate" />
+    <result column="period_max" jdbcType="INTEGER" property="periodMax" />
+    <result column="create _user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
   </resultMap>
 </mapper>

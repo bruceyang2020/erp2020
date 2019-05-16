@@ -1,9 +1,8 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
-
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "period")
 public class Period extends BaseBean {

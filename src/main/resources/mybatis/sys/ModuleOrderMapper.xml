@@ -1,29 +1,54 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.ModuleOrderMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.ModuleOrder" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.ModuleOrderMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.ModuleOrder">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
-    <result column="team_count" property="teamCount" jdbcType="VARCHAR" />
-    <result column="advertises" property="advertises" jdbcType="INTEGER" />
-    <result column="group_order" property="groupOrder" jdbcType="INTEGER" />
-    <result column="sale_order" property="saleOrder" jdbcType="INTEGER" />
-    <result column="short_term" property="shortTerm" jdbcType="INTEGER" />
-    <result column="usury" property="usury" jdbcType="INTEGER" />
-    <result column="raw_materials_order" property="rawMaterialsOrder" jdbcType="INTEGER" />
-    <result column="produtline" property="produtline" jdbcType="INTEGER" />
-    <result column="account_pay" property="accountPay" jdbcType="INTEGER" />
-    <result column="account_receive" property="accountReceive" jdbcType="INTEGER" />
-    <result column="product_order" property="productOrder" jdbcType="INTEGER" />
-    <result column="product_development" property="productDevelopment" jdbcType="INTEGER" />
-    <result column="other_fees" property="otherFees" jdbcType="INTEGER" />
-    <result column="iso_certification" property="isoCertification" jdbcType="INTEGER" />
-    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
-    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
+    <result column="advertises" jdbcType="INTEGER" property="advertises" />
+    <result column="group_order" jdbcType="INTEGER" property="groupOrder" />
+    <result column="sale_order" jdbcType="INTEGER" property="saleOrder" />
+    <result column="short_term" jdbcType="INTEGER" property="shortTerm" />
+    <result column="usury" jdbcType="INTEGER" property="usury" />
+    <result column="raw_materials_order" jdbcType="INTEGER" property="rawMaterialsOrder" />
+    <result column="produtline" jdbcType="INTEGER" property="produtline" />
+    <result column="account_pay" jdbcType="INTEGER" property="accountPay" />
+    <result column="account_receive" jdbcType="INTEGER" property="accountReceive" />
+    <result column="product_order" jdbcType="INTEGER" property="productOrder" />
+    <result column="product_development" jdbcType="INTEGER" property="productDevelopment" />
+    <result column="other_fees" jdbcType="INTEGER" property="otherFees" />
+    <result column="iso_certification" jdbcType="INTEGER" property="isoCertification" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.ModuleOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
+    <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
+    <result column="advertises" jdbcType="INTEGER" property="advertises" />
+    <result column="group_order" jdbcType="INTEGER" property="groupOrder" />
+    <result column="sale_order" jdbcType="INTEGER" property="saleOrder" />
+    <result column="short_term" jdbcType="INTEGER" property="shortTerm" />
+    <result column="usury" jdbcType="INTEGER" property="usury" />
+    <result column="raw_materials_order" jdbcType="INTEGER" property="rawMaterialsOrder" />
+    <result column="produtline" jdbcType="INTEGER" property="produtline" />
+    <result column="account_pay" jdbcType="INTEGER" property="accountPay" />
+    <result column="account_receive" jdbcType="INTEGER" property="accountReceive" />
+    <result column="product_order" jdbcType="INTEGER" property="productOrder" />
+    <result column="product_development" jdbcType="INTEGER" property="productDevelopment" />
+    <result column="other_fees" jdbcType="INTEGER" property="otherFees" />
+    <result column="iso_certification" jdbcType="INTEGER" property="isoCertification" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
   </resultMap>
 </mapper>

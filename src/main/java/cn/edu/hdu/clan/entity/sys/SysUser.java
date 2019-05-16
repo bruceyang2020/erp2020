@@ -1,7 +1,6 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
-
 import javax.persistence.*;
 
 @Table(name = "sys_user")

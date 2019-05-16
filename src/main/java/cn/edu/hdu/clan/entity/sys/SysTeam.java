@@ -1,9 +1,8 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
-
-import javax.persistence.*;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "sys_team")
 public class SysTeam extends BaseBean {
@@ -16,6 +15,8 @@ public class SysTeam extends BaseBean {
 
     private String name;
 
+    private Integer state;
+
     @Column(name = "create_user")
     private String createUser;
 
@@ -27,8 +28,6 @@ public class SysTeam extends BaseBean {
 
     @Column(name = "edit_time")
     private Date editTime;
-
-    private Integer state;
 
     /**
      * @return id
@@ -70,6 +69,20 @@ public class SysTeam extends BaseBean {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return state
+     */
+    public Integer getState() {
+        return state;
+    }
+
+    /**
+     * @param state
+     */
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     /**
@@ -126,19 +139,5 @@ public class SysTeam extends BaseBean {
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;
-    }
-
-    /**
-     * @return state
-     */
-    public Integer getState() {
-        return state;
-    }
-
-    /**
-     * @param state
-     */
-    public void setState(Integer state) {
-        this.state = state;
     }
 }

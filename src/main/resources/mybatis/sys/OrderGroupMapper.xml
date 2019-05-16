@@ -1,26 +1,48 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.OrderGroupMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.OrderGroup" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.OrderGroupMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.OrderGroup">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="group-id" property="groupId" jdbcType="VARCHAR" />
-    <result column="order-id" property="orderId" jdbcType="VARCHAR" />
-    <result column="order_name" property="orderName" jdbcType="VARCHAR" />
-    <result column="market-id" property="marketId" jdbcType="VARCHAR" />
-    <result column="product_id" property="productId" jdbcType="VARCHAR" />
-    <result column="period" property="period" jdbcType="INTEGER" />
-    <result column="price_total" property="priceTotal" jdbcType="DECIMAL" />
-    <result column="amount" property="amount" jdbcType="DECIMAL" />
-    <result column="period_pay" property="periodPay" jdbcType="INTEGER" />
-    <result column="isurgent" property="isurgent" jdbcType="INTEGER" />
-    <result column="iso" property="iso" jdbcType="VARCHAR" />
-    <result column="isvalid" property="isvalid" jdbcType="INTEGER" />
-    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="DATE" />
-    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
-    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group-id" jdbcType="VARCHAR" property="groupId" />
+    <result column="order-id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_name" jdbcType="VARCHAR" property="orderName" />
+    <result column="market-id" jdbcType="VARCHAR" property="marketId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="price_total" jdbcType="DECIMAL" property="priceTotal" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="period_pay" jdbcType="INTEGER" property="periodPay" />
+    <result column="isurgent" jdbcType="INTEGER" property="isurgent" />
+    <result column="iso" jdbcType="VARCHAR" property="iso" />
+    <result column="isvalid" jdbcType="INTEGER" property="isvalid" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.OrderGroup">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group-id" jdbcType="VARCHAR" property="groupId" />
+    <result column="order-id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_name" jdbcType="VARCHAR" property="orderName" />
+    <result column="market-id" jdbcType="VARCHAR" property="marketId" />
+    <result column="product_id" jdbcType="VARCHAR" property="productId" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="price_total" jdbcType="DECIMAL" property="priceTotal" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="period_pay" jdbcType="INTEGER" property="periodPay" />
+    <result column="isurgent" jdbcType="INTEGER" property="isurgent" />
+    <result column="iso" jdbcType="VARCHAR" property="iso" />
+    <result column="isvalid" jdbcType="INTEGER" property="isvalid" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
   </resultMap>
 </mapper>

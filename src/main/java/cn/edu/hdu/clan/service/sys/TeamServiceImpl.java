@@ -3,6 +3,8 @@ package cn.edu.hdu.clan.service.sys;
 import cn.edu.hdu.clan.entity.sys.SysTeam;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.SysTeamMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +44,12 @@ public class TeamServiceImpl implements TeamService {
         Example example = new Example(SysTeam.class);
         example.createCriteria().andEqualTo("groupId", id);
         return teamMapper.selectByExample(example);
+    }
+
+    @Override
+    public PageInfo<SysTeam> list(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return new PageInfo<>(teamMapper.selectAll());
     }
 
 }

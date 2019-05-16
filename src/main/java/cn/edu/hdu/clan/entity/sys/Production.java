@@ -1,16 +1,15 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "production")
 public class Production extends BaseBean {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     @Column(name = "product_id")
     private String productId;
@@ -49,13 +48,13 @@ public class Production extends BaseBean {
      * @return id
      */
     public String getId() {
-        return String.valueOf(id);
+        return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 

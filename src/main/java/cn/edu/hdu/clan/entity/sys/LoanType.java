@@ -1,16 +1,15 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "loan_type")
 public class LoanType extends BaseBean {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String id;
 
     private Integer number;
 
@@ -19,7 +18,7 @@ public class LoanType extends BaseBean {
     @Column(name = "period_max")
     private Integer periodMax;
 
-    @Column(name = "create _user")
+    @Column(name = "create_user")
     private String createUser;
 
     @Column(name = "create_time")
@@ -35,13 +34,13 @@ public class LoanType extends BaseBean {
      * @return id
      */
     public String getId() {
-        return String.valueOf(id);
+        return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,7 +87,7 @@ public class LoanType extends BaseBean {
     }
 
     /**
-     * @return create _user
+     * @return create_user
      */
     public String getCreateUser() {
         return createUser;

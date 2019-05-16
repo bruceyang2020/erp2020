@@ -1,16 +1,15 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
-
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "producline_type")
 public class ProduclineType extends BaseBean {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private String id;
 
     @Column(name = "productline_type_id")
     private String productlineTypeId;
@@ -42,7 +41,7 @@ public class ProduclineType extends BaseBean {
     private BigDecimal periodDep2;
 
     @Column(name = "period_dep3")
-    private Long periodDep3;
+    private BigDecimal periodDep3;
 
     @Column(name = "period_dep4")
     private Long periodDep4;
@@ -69,13 +68,13 @@ public class ProduclineType extends BaseBean {
      * @return id
      */
     public String getId() {
-        return String.valueOf(id);
+        return id;
     }
 
     /**
      * @param id
      */
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -222,14 +221,14 @@ public class ProduclineType extends BaseBean {
     /**
      * @return period_dep3
      */
-    public Long getPeriodDep3() {
+    public BigDecimal getPeriodDep3() {
         return periodDep3;
     }
 
     /**
      * @param periodDep3
      */
-    public void setPeriodDep3(Long periodDep3) {
+    public void setPeriodDep3(BigDecimal periodDep3) {
         this.periodDep3 = periodDep3;
     }
 

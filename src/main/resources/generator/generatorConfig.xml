@@ -13,124 +13,26 @@
         </plugin>
 
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/springboot"
-                        userId="root"
-                        password="root">
+                        connectionURL="jdbc:mysql://47.100.255.179:3306/springboot"
+                        userId="admin"
+                        password="cloud233">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="cn.edu.hdu.clan.entity.sys" targetProject="E:\recent\demo\springbootdemo-master\src\main\java">
+        <javaModelGenerator targetPackage="cn.edu.hdu.clan.entity.sys" targetProject="D:\江俊作案工具\erp\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="rootClass" value="cn.edu.hdu.clan.entity.BaseBean"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="sys"  targetProject="E:\recent\demo\springbootdemo-master\src\main\resources\mybatis"/>
+        <sqlMapGenerator targetPackage="sys"  targetProject="D:\江俊作案工具\erp\src\main\resources\mybatis"/>
 
-        <javaClientGenerator targetPackage="cn.edu.hdu.clan.mapper.sys" targetProject="E:\recent\demo\springbootdemo-master\src\main\java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="cn.edu.hdu.clan.mapper.sys" targetProject="D:\江俊作案工具\erp\src\main\java" type="XMLMAPPER" />
 
-        <table tableName="sys_user" >
+        <!--<table tableName="sys_user" >-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
+        <!--</table>-->
+        <table tableName="%" >
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
         </table>
-        <table tableName="sys_team" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="sys_group" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="market" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="account_balance"  >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="account_code" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="accounting_voucher" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="advertise" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="bom" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="factory" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="factory_type" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="inv" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="iso" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="isofee" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="loan_type" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="longterm_loans" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="market_fee" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="market_order" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="material" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="material_order" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="module_order" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="order" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="order_group" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="order_management" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="payables" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="period" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="plan" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="producline_type" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="product_line" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="production" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="research_fee" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="salepayment" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="shortterm_loan" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="usury" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
-        <table tableName="user_t" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+
     </context>
 </generatorConfiguration>

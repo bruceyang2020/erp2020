@@ -15,6 +15,7 @@ public class TeamController extends BaseController {
 
     @Autowired
     private TeamService teamService;
+
     @RequestMapping("add")
     public String add(@RequestBody SysTeam team) {
         teamService.add(team);
@@ -23,19 +24,25 @@ public class TeamController extends BaseController {
     }
 
     @RequestMapping("delete")
-    public String delete(@RequestBody Map<String,String> param) {
+    public String delete(@RequestBody Map<String, String> param) {
         teamService.delete(param.get("id"));
         return success();
     }
+
     @RequestMapping("update")
-    public String update(@RequestBody SysTeam team){
+    public String update(@RequestBody SysTeam team) {
         teamService.update(team);
         return success();
     }
 
+    @RequestMapping("list")
+    public String list(@RequestBody Map<String, Integer> param) {
+        return success(teamService.list(param.get("pageNum"), param.get("pageSize")));
+    }
+
     @RequestMapping("getByGroupId")
-    public String getByGroupId(@RequestBody Map<String,String> param) {
-        return  success(
+    public String getByGroupId(@RequestBody Map<String, String> param) {
+        return success(
                 teamService.getByGroupId(param.get("id"))
         );
     }
