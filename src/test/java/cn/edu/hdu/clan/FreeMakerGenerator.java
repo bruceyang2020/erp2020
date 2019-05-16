@@ -4,7 +4,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.junit.Test;
-import org.springframework.beans.BeanUtils;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
