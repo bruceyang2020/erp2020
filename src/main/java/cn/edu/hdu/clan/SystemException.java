@@ -4,6 +4,7 @@ public class SystemException extends RuntimeException {
     private String msg;
 
     public SystemException(String error) {
+        this.printStackTrace();
         msg = error;
     }
 

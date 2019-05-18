@@ -42,7 +42,7 @@ public class UserServiceImpl implements UserService {
             throw new SystemException("该用户名已存在");
         }
         BaseBeanHelper.insert(record);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        BaseBeanHelper.insert(record);
         record.setRegistrationTime(new Date());
         userMapper.insert(record);
     }

@@ -45,7 +45,7 @@ public class IndexController extends BaseController {
 
     @ResponseBody
     @RequestMapping("login")
-    public String login(@RequestParam Map<String, String> params) {
+    public String login(@RequestBody Map<String, String> params) {
         Subject subject = SecurityUtils.getSubject();
         try {
             // 调用安全认证框架的登录方法
@@ -59,15 +59,17 @@ public class IndexController extends BaseController {
 
     @ResponseBody
     @RequestMapping("register")
-    public String register(@RequestBody SysUser user) {
+    public String register(@RequestBody Map<String, String> params) {
+        SysUser user = new SysUser();
+        user.setUsername(params.get("username"));
+        user.setPassword(params.get("password"));
         userService.addUser(user);
         return success("注册成功");
     }
 
     @ResponseBody
     @RequestMapping("logout")
-    public String logout(@RequestBody SysUser user) {
-//        userService.addUser("")
+    public String logout() {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return success("退出成功");
