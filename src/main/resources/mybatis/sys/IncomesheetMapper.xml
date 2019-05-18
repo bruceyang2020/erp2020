@@ -1,38 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.IncomesheetMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Incomesheet">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.IncomesheetMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Incomesheet" >
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="income_sale" jdbcType="DECIMAL" property="incomeSale" />
-    <result column="income_l" jdbcType="DECIMAL" property="incomeL" />
-    <result column="money_new" jdbcType="DECIMAL" property="moneyNew" />
-    <result column="money_norate" jdbcType="DECIMAL" property="moneyNorate" />
-    <result column="money_notax" jdbcType="DECIMAL" property="moneyNotax" />
-    <result column="money_income" jdbcType="DECIMAL" property="moneyIncome" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
-  </resultMap>
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Incomesheet">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="period" jdbcType="VARCHAR" property="period" />
-    <result column="income_sale" jdbcType="VARCHAR" property="incomeSale" />
-    <result column="income_l" jdbcType="VARCHAR" property="incomeL" />
-    <result column="money_new" jdbcType="VARCHAR" property="moneyNew" />
-    <result column="money_norate" jdbcType="VARCHAR" property="moneyNorate" />
-    <result column="money_notax" jdbcType="VARCHAR" property="moneyNotax" />
-    <result column="money_income" jdbcType="VARCHAR" property="moneyIncome" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="income_sale" property="incomeSale" jdbcType="DECIMAL" />
+    <result column="income_l" property="incomeL" jdbcType="DECIMAL" />
+    <result column="money_new" property="moneyNew" jdbcType="DECIMAL" />
+    <result column="money_norate" property="moneyNorate" jdbcType="DECIMAL" />
+    <result column="money_notax" property="moneyNotax" jdbcType="DECIMAL" />
+    <result column="money_income" property="moneyIncome" jdbcType="DECIMAL" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
 </mapper>

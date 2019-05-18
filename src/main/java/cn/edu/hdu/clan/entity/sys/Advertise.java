@@ -10,7 +10,6 @@ public class Advertise extends BaseBean {
     /**
      * 主键
      */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "group_id")
@@ -69,7 +68,7 @@ public class Advertise extends BaseBean {
     /**
      * 编辑时间
      */
-    @Column(name = "edit-time")
+    @Column(name = "edit_time")
     private Date editTime;
 
     /**
@@ -265,7 +264,7 @@ public class Advertise extends BaseBean {
     /**
      * 获取编辑时间
      *
-     * @return edit-time - 编辑时间
+     * @return edit_time - 编辑时间
      */
     public Date getEditTime() {
         return editTime;
