@@ -30,9 +30,7 @@
         <!--<table tableName="sys_user" >-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
-        <table tableName="%" >
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-        </table>
+        <table tableName="%" />
 
     </context>
 </generatorConfiguration>

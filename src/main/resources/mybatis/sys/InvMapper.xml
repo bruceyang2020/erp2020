@@ -1,64 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.InvMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Inv">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.InvMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Inv" >
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="group_id" jdbcType="INTEGER" property="groupId" />
-    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="number" jdbcType="INTEGER" property="number" />
-    <result column="amount_b" jdbcType="DECIMAL" property="amountB" />
-    <result column="money_b" jdbcType="DECIMAL" property="moneyB" />
-    <result column="amount_l" jdbcType="DECIMAL" property="amountL" />
-    <result column="money_l" jdbcType="DECIMAL" property="moneyL" />
-    <result column="amount_o" jdbcType="DECIMAL" property="amountO" />
-    <result column="money_o" jdbcType="DECIMAL" property="moneyO" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
-  </resultMap>
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Inv">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
-    <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="number" jdbcType="VARCHAR" property="number" />
-    <result column="amount_b" jdbcType="DECIMAL" property="amountB" />
-    <result column="money_b" jdbcType="DECIMAL" property="moneyB" />
-    <result column="amount_l" jdbcType="DECIMAL" property="amountL" />
-    <result column="money_l" jdbcType="DECIMAL" property="moneyL" />
-    <result column="amount_o" jdbcType="DECIMAL" property="amountO" />
-    <result column="money_o" jdbcType="DECIMAL" property="moneyO" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
-  </resultMap>
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Inv">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
-    <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="number" jdbcType="VARCHAR" property="number" />
-    <result column="amount_b" jdbcType="DECIMAL" property="amountB" />
-    <result column="money_b" jdbcType="DECIMAL" property="moneyB" />
-    <result column="amount_l" jdbcType="DECIMAL" property="amountL" />
-    <result column="money_l" jdbcType="DECIMAL" property="moneyL" />
-    <result column="amount_o" jdbcType="DECIMAL" property="amountO" />
-    <result column="money_o" jdbcType="DECIMAL" property="moneyO" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="team_count" property="teamCount" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="amount_b" property="amountB" jdbcType="DECIMAL" />
+    <result column="money_b" property="moneyB" jdbcType="DECIMAL" />
+    <result column="amount_l" property="amountL" jdbcType="DECIMAL" />
+    <result column="money_l" property="moneyL" jdbcType="DECIMAL" />
+    <result column="amount_o" property="amountO" jdbcType="DECIMAL" />
+    <result column="money_o" property="moneyO" jdbcType="DECIMAL" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
 </mapper>

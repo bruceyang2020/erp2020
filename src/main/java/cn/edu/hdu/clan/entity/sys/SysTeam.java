@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Table(name = "sys_team")
 public class SysTeam extends BaseBean {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "group_id")

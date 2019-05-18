@@ -10,7 +10,6 @@ public class ResearchFee extends BaseBean {
      * 主键
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "group_id")

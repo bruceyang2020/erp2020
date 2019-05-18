@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.FactoryMapper" >
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Factory" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.IsoFeeMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.IsoFee" >
     <!--
       WARNING - @mbg.generated
     -->
-    <result column="id" property="id" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="group_id" property="groupId" jdbcType="INTEGER" />
     <result column="team_count" property="teamCount" jdbcType="INTEGER" />
     <result column="number" property="number" jdbcType="INTEGER" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="period" property="period" jdbcType="INTEGER" />
-    <result column="left_capacity" property="leftCapacity" jdbcType="INTEGER" />
     <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="period_left" property="periodLeft" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="creae_time" property="creaeTime" jdbcType="TIMESTAMP" />
+    <result column="edit-user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
 </mapper>

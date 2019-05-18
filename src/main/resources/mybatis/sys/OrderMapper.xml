@@ -1,64 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.OrderMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Order">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.OrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Order" >
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="group_id" jdbcType="INTEGER" property="groupId" />
-    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="market_id" jdbcType="INTEGER" property="marketId" />
-    <result column="product_id" jdbcType="INTEGER" property="productId" />
-    <result column="order_turn" jdbcType="VARCHAR" property="orderTurn" />
-    <result column="number" jdbcType="INTEGER" property="number" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="time_left" jdbcType="TIMESTAMP" property="timeLeft" />
-    <result column="time_out" jdbcType="INTEGER" property="timeOut" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="eidt-user" jdbcType="VARCHAR" property="eidtUser" />
-    <result column="edit-time" jdbcType="DATE" property="editTime" />
-  </resultMap>
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Order">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
-    <result column="team_cout" jdbcType="VARCHAR" property="teamCout" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="market_id" jdbcType="VARCHAR" property="marketId" />
-    <result column="product_id" jdbcType="VARCHAR" property="productId" />
-    <result column="order_turn" jdbcType="INTEGER" property="orderTurn" />
-    <result column="number" jdbcType="INTEGER" property="number" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="time_left" jdbcType="TIMESTAMP" property="timeLeft" />
-    <result column="time_out" jdbcType="INTEGER" property="timeOut" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="eidt-user" jdbcType="VARCHAR" property="eidtUser" />
-    <result column="edit-time" jdbcType="DATE" property="editTime" />
-  </resultMap>
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Order">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="group_id" jdbcType="VARCHAR" property="groupId" />
-    <result column="team_cout" jdbcType="VARCHAR" property="teamCout" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="market_id" jdbcType="VARCHAR" property="marketId" />
-    <result column="product_id" jdbcType="VARCHAR" property="productId" />
-    <result column="order_turn" jdbcType="INTEGER" property="orderTurn" />
-    <result column="number" jdbcType="INTEGER" property="number" />
-    <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="time_left" jdbcType="TIMESTAMP" property="timeLeft" />
-    <result column="time_out" jdbcType="INTEGER" property="timeOut" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="eidt-user" jdbcType="VARCHAR" property="eidtUser" />
-    <result column="edit-time" jdbcType="DATE" property="editTime" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="team_count" property="teamCount" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="market_id" property="marketId" jdbcType="INTEGER" />
+    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="order_turn" property="orderTurn" jdbcType="VARCHAR" />
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="time_left" property="timeLeft" jdbcType="TIMESTAMP" />
+    <result column="time_out" property="timeOut" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="eidt-user" property="eidtUser" jdbcType="VARCHAR" />
+    <result column="edit-time" property="editTime" jdbcType="DATE" />
   </resultMap>
 </mapper>

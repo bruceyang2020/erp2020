@@ -11,7 +11,6 @@ public class ProduclineType extends BaseBean {
      * 主键
      */
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     /**

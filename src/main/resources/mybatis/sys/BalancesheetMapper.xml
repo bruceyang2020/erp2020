@@ -1,70 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.BalancesheetMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Balancesheet">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.BalancesheetMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Balancesheet" >
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="money_now" jdbcType="DECIMAL" property="moneyNow" />
-    <result column="money_get" jdbcType="DECIMAL" property="moneyGet" />
-    <result column="money_making" jdbcType="DECIMAL" property="moneyMaking" />
-    <result column="money_sale" jdbcType="DECIMAL" property="moneySale" />
-    <result column="money_buy" jdbcType="DECIMAL" property="moneyBuy" />
-    <result column="money_flow" jdbcType="DECIMAL" property="moneyFlow" />
-    <result column="long_term_loan" jdbcType="DECIMAL" property="longTermLoan" />
-    <result column="short_term_loan" jdbcType="DECIMAL" property="shortTermLoan" />
-    <result column="money_order_get" jdbcType="DECIMAL" property="moneyOrderGet" />
-    <result column="money_tax" jdbcType="DECIMAL" property="moneyTax" />
-    <result column="long_term_loan_year" jdbcType="DECIMAL" property="longTermLoanYear" />
-    <result column="money_loan" jdbcType="DECIMAL" property="moneyLoan" />
-    <result column="money_j" jdbcType="DECIMAL" property="moneyJ" />
-    <result column="money_p" jdbcType="DECIMAL" property="moneyP" />
-    <result column="money_m" jdbcType="DECIMAL" property="moneyM" />
-    <result column="money_static" jdbcType="DECIMAL" property="moneyStatic" />
-    <result column="money_g" jdbcType="DECIMAL" property="moneyG" />
-    <result column="money_stay" jdbcType="DECIMAL" property="moneyStay" />
-    <result column="money_year" jdbcType="DECIMAL" property="moneyYear" />
-    <result column="money_user" jdbcType="DECIMAL" property="moneyUser" />
-    <result column="money_all" jdbcType="DECIMAL" property="moneyAll" />
-    <result column="money_alls" jdbcType="DECIMAL" property="moneyAlls" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
-  </resultMap>
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Balancesheet">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="period" jdbcType="VARCHAR" property="period" />
-    <result column="money_now" jdbcType="VARCHAR" property="moneyNow" />
-    <result column="money_get" jdbcType="VARCHAR" property="moneyGet" />
-    <result column="money_making" jdbcType="VARCHAR" property="moneyMaking" />
-    <result column="money_sale" jdbcType="VARCHAR" property="moneySale" />
-    <result column="money_buy" jdbcType="VARCHAR" property="moneyBuy" />
-    <result column="money_flow" jdbcType="VARCHAR" property="moneyFlow" />
-    <result column="longterm_loan" jdbcType="VARCHAR" property="longtermLoan" />
-    <result column="shortterm_loan" jdbcType="VARCHAR" property="shorttermLoan" />
-    <result column="money_orderget" jdbcType="VARCHAR" property="moneyOrderget" />
-    <result column="money_tax" jdbcType="VARCHAR" property="moneyTax" />
-    <result column="longterm_loanyear" jdbcType="VARCHAR" property="longtermLoanyear" />
-    <result column="money_loan" jdbcType="VARCHAR" property="moneyLoan" />
-    <result column="money_j" jdbcType="VARCHAR" property="moneyJ" />
-    <result column="money_p" jdbcType="VARCHAR" property="moneyP" />
-    <result column="money_m" jdbcType="VARCHAR" property="moneyM" />
-    <result column="money_static" jdbcType="VARCHAR" property="moneyStatic" />
-    <result column="money_g" jdbcType="VARCHAR" property="moneyG" />
-    <result column="money_stay" jdbcType="VARCHAR" property="moneyStay" />
-    <result column="money_year" jdbcType="VARCHAR" property="moneyYear" />
-    <result column="money_user" jdbcType="VARCHAR" property="moneyUser" />
-    <result column="money_all" jdbcType="VARCHAR" property="moneyAll" />
-    <result column="money_alls" jdbcType="VARCHAR" property="moneyAlls" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="money_now" property="moneyNow" jdbcType="DECIMAL" />
+    <result column="money_get" property="moneyGet" jdbcType="DECIMAL" />
+    <result column="money_making" property="moneyMaking" jdbcType="DECIMAL" />
+    <result column="money_sale" property="moneySale" jdbcType="DECIMAL" />
+    <result column="money_buy" property="moneyBuy" jdbcType="DECIMAL" />
+    <result column="money_flow" property="moneyFlow" jdbcType="DECIMAL" />
+    <result column="long_term_loan" property="longTermLoan" jdbcType="DECIMAL" />
+    <result column="short_term_loan" property="shortTermLoan" jdbcType="DECIMAL" />
+    <result column="money_order_get" property="moneyOrderGet" jdbcType="DECIMAL" />
+    <result column="money_tax" property="moneyTax" jdbcType="DECIMAL" />
+    <result column="long_term_loan_year" property="longTermLoanYear" jdbcType="DECIMAL" />
+    <result column="money_loan" property="moneyLoan" jdbcType="DECIMAL" />
+    <result column="money_j" property="moneyJ" jdbcType="DECIMAL" />
+    <result column="money_p" property="moneyP" jdbcType="DECIMAL" />
+    <result column="money_m" property="moneyM" jdbcType="DECIMAL" />
+    <result column="money_static" property="moneyStatic" jdbcType="DECIMAL" />
+    <result column="money_g" property="moneyG" jdbcType="DECIMAL" />
+    <result column="money_stay" property="moneyStay" jdbcType="DECIMAL" />
+    <result column="money_year" property="moneyYear" jdbcType="DECIMAL" />
+    <result column="money_user" property="moneyUser" jdbcType="DECIMAL" />
+    <result column="money_all" property="moneyAll" jdbcType="DECIMAL" />
+    <result column="money_alls" property="moneyAlls" jdbcType="DECIMAL" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
 </mapper>

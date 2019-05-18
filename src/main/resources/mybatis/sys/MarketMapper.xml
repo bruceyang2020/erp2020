@@ -1,52 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.MarketMapper">
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Market">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.MarketMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Market" >
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="market_id" jdbcType="INTEGER" property="marketId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="cost" jdbcType="DECIMAL" property="cost" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="cost_total" jdbcType="DECIMAL" property="costTotal" />
-    <result column="points" jdbcType="INTEGER" property="points" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
-  </resultMap>
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Market">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="VARCHAR" property="id" />
-    <result column="market_id" jdbcType="VARCHAR" property="marketId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="cost" jdbcType="DECIMAL" property="cost" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="cost_total" jdbcType="DECIMAL" property="costTotal" />
-    <result column="points" jdbcType="INTEGER" property="points" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
-  </resultMap>
-  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Market">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="market_id" jdbcType="VARCHAR" property="marketId" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="cost" jdbcType="DECIMAL" property="cost" />
-    <result column="period" jdbcType="INTEGER" property="period" />
-    <result column="cost_total" jdbcType="DECIMAL" property="costTotal" />
-    <result column="points" jdbcType="INTEGER" property="points" />
-    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
-    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="market_id" property="marketId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="cost_total" property="costTotal" jdbcType="DECIMAL" />
+    <result column="points" property="points" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
 </mapper>

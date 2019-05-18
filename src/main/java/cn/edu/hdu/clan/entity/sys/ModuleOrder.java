@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Table(name = "module_order")
 public class ModuleOrder extends BaseBean {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "group_id")

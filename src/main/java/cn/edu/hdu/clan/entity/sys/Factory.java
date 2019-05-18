@@ -9,7 +9,6 @@ public class Factory extends BaseBean {
     /**
      * 主键
      */
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "group_id")
