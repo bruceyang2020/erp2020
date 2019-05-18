@@ -6,6 +6,23 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="research_cost" jdbcType="INTEGER" property="researchCost" />
+    <result column="research_period" jdbcType="INTEGER" property="researchPeriod" />
+    <result column="cost_total_research" jdbcType="DECIMAL" property="costTotalResearch" />
+    <result column="cost_labor" jdbcType="DECIMAL" property="costLabor" />
+    <result column="cost_material" jdbcType="DECIMAL" property="costMaterial" />
+    <result column="cost_total" jdbcType="DECIMAL" property="costTotal" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Production">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="product_id" jdbcType="VARCHAR" property="productId" />
     <result column="research_cost" jdbcType="VARCHAR" property="researchCost" />
     <result column="research_period" jdbcType="DECIMAL" property="researchPeriod" />

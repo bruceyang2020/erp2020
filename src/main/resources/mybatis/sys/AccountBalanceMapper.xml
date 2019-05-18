@@ -6,6 +6,26 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="acode" jdbcType="INTEGER" property="acode" />
+    <result column="aname" jdbcType="VARCHAR" property="aname" />
+    <result column="money_b" jdbcType="DECIMAL" property="moneyB" />
+    <result column="money_e" jdbcType="DECIMAL" property="moneyE" />
+    <result column="money_d" jdbcType="DECIMAL" property="moneyD" />
+    <result column="money_c" jdbcType="DECIMAL" property="moneyC" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.AccountBalance">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="group_id" jdbcType="VARCHAR" property="groupId" />
     <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
     <result column="name" jdbcType="VARCHAR" property="name" />

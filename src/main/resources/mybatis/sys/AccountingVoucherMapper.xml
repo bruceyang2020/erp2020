@@ -9,6 +9,29 @@
     <result column="substract" jdbcType="VARCHAR" property="substract" />
     <result column="period" jdbcType="INTEGER" property="period" />
     <result column="vnumber" jdbcType="INTEGER" property="vnumber" />
+    <result column="acode" jdbcType="INTEGER" property="acode" />
+    <result column="money_d" jdbcType="DECIMAL" property="moneyD" />
+    <result column="money_c" jdbcType="DECIMAL" property="moneyC" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
+    <result column="aname" jdbcType="VARCHAR" property="aname" />
+    <result column="amount" jdbcType="DECIMAL" property="amount" />
+    <result column="material_id" jdbcType="INTEGER" property="materialId" />
+    <result column="morder_id" jdbcType="INTEGER" property="morderId" />
+    <result column="porder_id" jdbcType="INTEGER" property="porderId" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.AccountingVoucher">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="substract" jdbcType="VARCHAR" property="substract" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="vnumber" jdbcType="INTEGER" property="vnumber" />
     <result column="acode" jdbcType="VARCHAR" property="acode" />
     <result column="money_d" jdbcType="DECIMAL" property="moneyD" />
     <result column="money_c" jdbcType="DECIMAL" property="moneyC" />

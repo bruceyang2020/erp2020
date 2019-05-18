@@ -7,164 +7,247 @@ import javax.persistence.*;
 
 @Table(name = "accounting_voucher")
 public class AccountingVoucher extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
+    /**
+     * 摘要
+     */
     private String substract;
 
+    /**
+     * 时间
+     */
     private Integer period;
 
+    /**
+     * 凭证号
+     */
     private Integer vnumber;
 
-    private String acode;
+    /**
+     * 科目编号
+     */
+    private Integer acode;
 
+    /**
+     * 借方金额
+     */
     @Column(name = "money_d")
     private BigDecimal moneyD;
 
+    /**
+     * 贷方金额
+     */
     @Column(name = "money_c")
     private BigDecimal moneyC;
 
+    /**
+     * 群组编号
+     */
     @Column(name = "group_id")
-    private String groupId;
+    private Integer groupId;
 
     @Column(name = "team_count")
     private String teamCount;
 
+    /**
+     * 科目名称
+     */
     private String aname;
 
+    /**
+     * 数量
+     */
     private BigDecimal amount;
 
+    /**
+     * 物料编码
+     */
     @Column(name = "material_id")
-    private String materialId;
+    private Integer materialId;
 
+    /**
+     * 物料订单编码
+     */
     @Column(name = "morder_id")
-    private String morderId;
+    private Integer morderId;
 
+    /**
+     * 产品订单编码
+     */
     @Column(name = "porder_id")
-    private String porderId;
+    private Integer porderId;
 
+    /**
+     * 创建人
+     */
     @Column(name = "create_user")
     private String createUser;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
 
+    /**
+     * 编辑人
+     */
     @Column(name = "edit_user")
     private String editUser;
 
+    /**
+     * 编辑时间
+     */
     @Column(name = "edit_time")
     private Date editTime;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return substract
+     * 获取摘要
+     *
+     * @return substract - 摘要
      */
     public String getSubstract() {
         return substract;
     }
 
     /**
-     * @param substract
+     * 设置摘要
+     *
+     * @param substract 摘要
      */
     public void setSubstract(String substract) {
         this.substract = substract;
     }
 
     /**
-     * @return period
+     * 获取时间
+     *
+     * @return period - 时间
      */
     public Integer getPeriod() {
         return period;
     }
 
     /**
-     * @param period
+     * 设置时间
+     *
+     * @param period 时间
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
 
     /**
-     * @return vnumber
+     * 获取凭证号
+     *
+     * @return vnumber - 凭证号
      */
     public Integer getVnumber() {
         return vnumber;
     }
 
     /**
-     * @param vnumber
+     * 设置凭证号
+     *
+     * @param vnumber 凭证号
      */
     public void setVnumber(Integer vnumber) {
         this.vnumber = vnumber;
     }
 
     /**
-     * @return acode
+     * 获取科目编号
+     *
+     * @return acode - 科目编号
      */
-    public String getAcode() {
+    public Integer getAcode() {
         return acode;
     }
 
     /**
-     * @param acode
+     * 设置科目编号
+     *
+     * @param acode 科目编号
      */
-    public void setAcode(String acode) {
+    public void setAcode(Integer acode) {
         this.acode = acode;
     }
 
     /**
-     * @return money_d
+     * 获取借方金额
+     *
+     * @return money_d - 借方金额
      */
     public BigDecimal getMoneyD() {
         return moneyD;
     }
 
     /**
-     * @param moneyD
+     * 设置借方金额
+     *
+     * @param moneyD 借方金额
      */
     public void setMoneyD(BigDecimal moneyD) {
         this.moneyD = moneyD;
     }
 
     /**
-     * @return money_c
+     * 获取贷方金额
+     *
+     * @return money_c - 贷方金额
      */
     public BigDecimal getMoneyC() {
         return moneyC;
     }
 
     /**
-     * @param moneyC
+     * 设置贷方金额
+     *
+     * @param moneyC 贷方金额
      */
     public void setMoneyC(BigDecimal moneyC) {
         this.moneyC = moneyC;
     }
 
     /**
-     * @return group_id
+     * 获取群组编号
+     *
+     * @return group_id - 群组编号
      */
-    public String getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
     /**
-     * @param groupId
+     * 设置群组编号
+     *
+     * @param groupId 群组编号
      */
-    public void setGroupId(String groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
@@ -183,126 +266,162 @@ public class AccountingVoucher extends BaseBean {
     }
 
     /**
-     * @return aname
+     * 获取科目名称
+     *
+     * @return aname - 科目名称
      */
     public String getAname() {
         return aname;
     }
 
     /**
-     * @param aname
+     * 设置科目名称
+     *
+     * @param aname 科目名称
      */
     public void setAname(String aname) {
         this.aname = aname;
     }
 
     /**
-     * @return amount
+     * 获取数量
+     *
+     * @return amount - 数量
      */
     public BigDecimal getAmount() {
         return amount;
     }
 
     /**
-     * @param amount
+     * 设置数量
+     *
+     * @param amount 数量
      */
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
     /**
-     * @return material_id
+     * 获取物料编码
+     *
+     * @return material_id - 物料编码
      */
-    public String getMaterialId() {
+    public Integer getMaterialId() {
         return materialId;
     }
 
     /**
-     * @param materialId
+     * 设置物料编码
+     *
+     * @param materialId 物料编码
      */
-    public void setMaterialId(String materialId) {
+    public void setMaterialId(Integer materialId) {
         this.materialId = materialId;
     }
 
     /**
-     * @return morder_id
+     * 获取物料订单编码
+     *
+     * @return morder_id - 物料订单编码
      */
-    public String getMorderId() {
+    public Integer getMorderId() {
         return morderId;
     }
 
     /**
-     * @param morderId
+     * 设置物料订单编码
+     *
+     * @param morderId 物料订单编码
      */
-    public void setMorderId(String morderId) {
+    public void setMorderId(Integer morderId) {
         this.morderId = morderId;
     }
 
     /**
-     * @return porder_id
+     * 获取产品订单编码
+     *
+     * @return porder_id - 产品订单编码
      */
-    public String getPorderId() {
+    public Integer getPorderId() {
         return porderId;
     }
 
     /**
-     * @param porderId
+     * 设置产品订单编码
+     *
+     * @param porderId 产品订单编码
      */
-    public void setPorderId(String porderId) {
+    public void setPorderId(Integer porderId) {
         this.porderId = porderId;
     }
 
     /**
-     * @return create_user
+     * 获取创建人
+     *
+     * @return create_user - 创建人
      */
     public String getCreateUser() {
         return createUser;
     }
 
     /**
-     * @param createUser
+     * 设置创建人
+     *
+     * @param createUser 创建人
      */
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 
     /**
-     * @return create_time
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
     /**
-     * @param createTime
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * @return edit_user
+     * 获取编辑人
+     *
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;
     }
 
     /**
-     * @param editUser
+     * 设置编辑人
+     *
+     * @param editUser 编辑人
      */
     public void setEditUser(String editUser) {
         this.editUser = editUser;
     }
 
     /**
-     * @return edit_time
+     * 获取编辑时间
+     *
+     * @return edit_time - 编辑时间
      */
     public Date getEditTime() {
         return editTime;
     }
 
     /**
-     * @param editTime
+     * 设置编辑时间
+     *
+     * @param editTime 编辑时间
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;

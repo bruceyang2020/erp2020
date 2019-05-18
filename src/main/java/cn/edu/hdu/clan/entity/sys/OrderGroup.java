@@ -7,24 +7,42 @@ import javax.persistence.*;
 
 @Table(name = "order_group")
 public class OrderGroup extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
+    /**
+     * 群组编码
+     */
     @Column(name = "group-id")
-    private String groupId;
+    private Integer groupId;
 
+    /**
+     * 订单编号
+     */
     @Column(name = "order-id")
-    private String orderId;
+    private Integer orderId;
 
+    /**
+     * 订单名称
+     */
     @Column(name = "order_name")
-    private String orderName;
+    private Integer orderName;
 
+    /**
+     * 市场编码
+     */
     @Column(name = "market-id")
-    private String marketId;
+    private Integer marketId;
 
+    /**
+     * 产品编码
+     */
     @Column(name = "product_id")
-    private String productId;
+    private Integer productId;
 
     private Integer period;
 
@@ -33,6 +51,9 @@ public class OrderGroup extends BaseBean {
 
     private BigDecimal amount;
 
+    /**
+     * 应收周期
+     */
     @Column(name = "period_pay")
     private Integer periodPay;
 
@@ -55,86 +76,110 @@ public class OrderGroup extends BaseBean {
     private Date editTime;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return group-id
+     * 获取群组编码
+     *
+     * @return group-id - 群组编码
      */
-    public String getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
     /**
-     * @param groupId
+     * 设置群组编码
+     *
+     * @param groupId 群组编码
      */
-    public void setGroupId(String groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
     /**
-     * @return order-id
+     * 获取订单编号
+     *
+     * @return order-id - 订单编号
      */
-    public String getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
     /**
-     * @param orderId
+     * 设置订单编号
+     *
+     * @param orderId 订单编号
      */
-    public void setOrderId(String orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
     /**
-     * @return order_name
+     * 获取订单名称
+     *
+     * @return order_name - 订单名称
      */
-    public String getOrderName() {
+    public Integer getOrderName() {
         return orderName;
     }
 
     /**
-     * @param orderName
+     * 设置订单名称
+     *
+     * @param orderName 订单名称
      */
-    public void setOrderName(String orderName) {
+    public void setOrderName(Integer orderName) {
         this.orderName = orderName;
     }
 
     /**
-     * @return market-id
+     * 获取市场编码
+     *
+     * @return market-id - 市场编码
      */
-    public String getMarketId() {
+    public Integer getMarketId() {
         return marketId;
     }
 
     /**
-     * @param marketId
+     * 设置市场编码
+     *
+     * @param marketId 市场编码
      */
-    public void setMarketId(String marketId) {
+    public void setMarketId(Integer marketId) {
         this.marketId = marketId;
     }
 
     /**
-     * @return product_id
+     * 获取产品编码
+     *
+     * @return product_id - 产品编码
      */
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
     /**
-     * @param productId
+     * 设置产品编码
+     *
+     * @param productId 产品编码
      */
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -181,14 +226,18 @@ public class OrderGroup extends BaseBean {
     }
 
     /**
-     * @return period_pay
+     * 获取应收周期
+     *
+     * @return period_pay - 应收周期
      */
     public Integer getPeriodPay() {
         return periodPay;
     }
 
     /**
-     * @param periodPay
+     * 设置应收周期
+     *
+     * @param periodPay 应收周期
      */
     public void setPeriodPay(Integer periodPay) {
         this.periodPay = periodPay;

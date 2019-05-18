@@ -9,6 +9,17 @@
     <result column="team_id" jdbcType="VARCHAR" property="teamId" />
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="telephome" jdbcType="INTEGER" property="telephome" />
+    <result column="registration_time" jdbcType="TIMESTAMP" property="registrationTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.SysUser">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="team_id" jdbcType="VARCHAR" property="teamId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="telephome" jdbcType="VARCHAR" property="telephome" />
     <result column="registration_time" jdbcType="VARCHAR" property="registrationTime" />
   </resultMap>

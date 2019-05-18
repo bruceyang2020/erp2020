@@ -8,10 +8,7 @@ import org.junit.Test;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +20,25 @@ public class FreeMakerGenerator {
         // 参数值
         GenBen genBen = new GenBen("group", "SysGroup");
         genAll(genBen);
+    }
+
+    @Test
+    public void batchGen() {
+        String beanRoot = "D:\\江俊作案工具\\erp\\src\\main\\java\\cn\\edu\\hdu\\clan\\entity\\sys";
+        FilenameFilter fileFilter = new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return !name.equals("SysTerm.java");
+            }
+        };
+        String[] files = new File(beanRoot).list(fileFilter);
+        assert files != null;
+        for (String f : files) {
+            String beanName = f.replaceAll(".java", "");
+            String name = beanName.substring(0, 1).toUpperCase() + beanName.substring(1);
+            GenBen genBen = new GenBen(name, beanName);
+            genAll(genBen);
+        }
     }
 
     private static String targetRootPath = "D:\\江俊作案工具\\erp\\src\\main\\java\\cn\\edu\\hdu\\clan\\";

@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.hdu.clan.mapper.sys.IsofeeMapper">
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.IsoFeeMapper">
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.IsoFee">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="period_left" jdbcType="INTEGER" property="periodLeft" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="creae_time" jdbcType="TIMESTAMP" property="creaeTime" />
+    <result column="edit-user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
   <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Isofee">
     <!--
       WARNING - @mbg.generated

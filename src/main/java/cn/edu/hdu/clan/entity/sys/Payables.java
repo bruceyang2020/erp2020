@@ -7,48 +7,79 @@ import javax.persistence.*;
 
 @Table(name = "payables")
 public class Payables extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "group_id")
-    private String groupId;
+    private Integer groupId;
 
     @Column(name = "team_count")
-    private String teamCount;
+    private Integer teamCount;
 
+    /**
+     * 应付款编码
+     */
     @Column(name = "payables_number")
-    private String payablesNumber;
+    private Integer payablesNumber;
 
+    /**
+     * 金额
+     */
     @Column(name = "money_total")
     private BigDecimal moneyTotal;
 
+    /**
+     * 应付款产生期间
+     */
     private Integer period;
 
+    /**
+     * 剩余款换期
+     */
     @Column(name = "surplus_period")
     private Integer surplusPeriod;
 
+    /**
+     * 创建人外键用户表
+     */
     @Column(name = "create_user")
     private String createUser;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
 
+    /**
+     * 编辑人
+     */
     @Column(name = "edit_user")
     private String editUser;
 
+    /**
+     * 编辑时间
+     */
     @Column(name = "edit_time")
     private Date editTime;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
@@ -57,138 +88,170 @@ public class Payables extends BaseBean {
     /**
      * @return group_id
      */
-    public String getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(String groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public String getTeamCount() {
+    public Integer getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(String teamCount) {
+    public void setTeamCount(Integer teamCount) {
         this.teamCount = teamCount;
     }
 
     /**
-     * @return payables_number
+     * 获取应付款编码
+     *
+     * @return payables_number - 应付款编码
      */
-    public String getPayablesNumber() {
+    public Integer getPayablesNumber() {
         return payablesNumber;
     }
 
     /**
-     * @param payablesNumber
+     * 设置应付款编码
+     *
+     * @param payablesNumber 应付款编码
      */
-    public void setPayablesNumber(String payablesNumber) {
+    public void setPayablesNumber(Integer payablesNumber) {
         this.payablesNumber = payablesNumber;
     }
 
     /**
-     * @return money_total
+     * 获取金额
+     *
+     * @return money_total - 金额
      */
     public BigDecimal getMoneyTotal() {
         return moneyTotal;
     }
 
     /**
-     * @param moneyTotal
+     * 设置金额
+     *
+     * @param moneyTotal 金额
      */
     public void setMoneyTotal(BigDecimal moneyTotal) {
         this.moneyTotal = moneyTotal;
     }
 
     /**
-     * @return period
+     * 获取应付款产生期间
+     *
+     * @return period - 应付款产生期间
      */
     public Integer getPeriod() {
         return period;
     }
 
     /**
-     * @param period
+     * 设置应付款产生期间
+     *
+     * @param period 应付款产生期间
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
 
     /**
-     * @return surplus_period
+     * 获取剩余款换期
+     *
+     * @return surplus_period - 剩余款换期
      */
     public Integer getSurplusPeriod() {
         return surplusPeriod;
     }
 
     /**
-     * @param surplusPeriod
+     * 设置剩余款换期
+     *
+     * @param surplusPeriod 剩余款换期
      */
     public void setSurplusPeriod(Integer surplusPeriod) {
         this.surplusPeriod = surplusPeriod;
     }
 
     /**
-     * @return create_user
+     * 获取创建人外键用户表
+     *
+     * @return create_user - 创建人外键用户表
      */
     public String getCreateUser() {
         return createUser;
     }
 
     /**
-     * @param createUser
+     * 设置创建人外键用户表
+     *
+     * @param createUser 创建人外键用户表
      */
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 
     /**
-     * @return create_time
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
     /**
-     * @param createTime
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * @return edit_user
+     * 获取编辑人
+     *
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;
     }
 
     /**
-     * @param editUser
+     * 设置编辑人
+     *
+     * @param editUser 编辑人
      */
     public void setEditUser(String editUser) {
         this.editUser = editUser;
     }
 
     /**
-     * @return edit_time
+     * 获取编辑时间
+     *
+     * @return edit_time - 编辑时间
      */
     public Date getEditTime() {
         return editTime;
     }
 
     /**
-     * @param editTime
+     * 设置编辑时间
+     *
+     * @param editTime 编辑时间
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;

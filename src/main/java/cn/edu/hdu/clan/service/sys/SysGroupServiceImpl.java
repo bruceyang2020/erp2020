@@ -14,38 +14,38 @@ import tk.mybatis.mapper.entity.Example;
 public class SysGroupServiceImpl implements SysGroupService {
 
     @Autowired
-    private SysGroupMapper groupMapper;
+    private SysGroupMapper SysGroupMapper;
 
     @Transactional
     @Override
-    public void add(SysGroup group) {
-        BaseBeanHelper.insert(group);
-        groupMapper.insert(group);
+    public void add(SysGroup SysGroup) {
+        BaseBeanHelper.insert(SysGroup);
+        SysGroupMapper.insert(SysGroup);
     }
 
     @Override
     public void delete(String id) {
-    groupMapper.deleteByPrimaryKey(id);
+    SysGroupMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public void update(SysGroup group) {
-        BaseBeanHelper.edit(group);
+    public void update(SysGroup SysGroup) {
+        BaseBeanHelper.edit(SysGroup);
         Example example = new Example(SysGroup.class);
-        example.createCriteria().andEqualTo("id", group.getId());
-        groupMapper.updateByExampleSelective(group, example);
+        example.createCriteria().andEqualTo("id", SysGroup.getId());
+        SysGroupMapper.updateByExampleSelective(SysGroup, example);
     }
 
     @Override
     public PageInfo<SysGroup> list(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        return new PageInfo<>(groupMapper.selectAll());
+        return new PageInfo<>(SysGroupMapper.selectAll());
     }
 
     @Override
     public SysGroup getById(String id) {
         Example example = new Example(SysGroup.class);
         example.createCriteria().andEqualTo("id", id);
-        return groupMapper.selectOneByExample(example);
+        return SysGroupMapper.selectOneByExample(example);
     }
 }

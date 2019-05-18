@@ -6,6 +6,22 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="market_id" jdbcType="INTEGER" property="marketId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="cost" jdbcType="DECIMAL" property="cost" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="cost_total" jdbcType="DECIMAL" property="costTotal" />
+    <result column="points" jdbcType="INTEGER" property="points" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Market">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="market_id" jdbcType="VARCHAR" property="marketId" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="cost" jdbcType="DECIMAL" property="cost" />

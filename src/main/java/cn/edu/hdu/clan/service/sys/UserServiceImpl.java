@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         }
         BaseBeanHelper.insert(record);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        record.setRegistrationTime(format.format(new Date()));
+        record.setRegistrationTime(new Date());
         userMapper.insert(record);
     }
 

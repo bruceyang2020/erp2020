@@ -6,6 +6,23 @@
       WARNING - @mbg.generated
     -->
     <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="market_id" jdbcType="INTEGER" property="marketId" />
+    <result column="money_i" jdbcType="DECIMAL" property="moneyI" />
+    <result column="money_total" jdbcType="DECIMAL" property="moneyTotal" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit-time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Advertise">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="id" jdbcType="VARCHAR" property="id" />
     <result column="group_id" jdbcType="VARCHAR" property="groupId" />
     <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
     <result column="period" jdbcType="INTEGER" property="period" />

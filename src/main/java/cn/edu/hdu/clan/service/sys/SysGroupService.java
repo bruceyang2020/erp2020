@@ -4,11 +4,11 @@ import cn.edu.hdu.clan.entity.sys.SysGroup;
 import com.github.pagehelper.PageInfo;
 
 public interface SysGroupService {
-    void add(SysGroup group);
+    void add(SysGroup SysGroup);
 
     void delete(String id);
 
-    void update(SysGroup group);
+    void update(SysGroup SysGroup);
 
     PageInfo<SysGroup> list(int pageNum, int pageSize);
 

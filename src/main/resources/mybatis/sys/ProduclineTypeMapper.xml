@@ -6,6 +6,30 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="productline_type_id" jdbcType="INTEGER" property="productlineTypeId" />
+    <result column="productline_type_name" jdbcType="INTEGER" property="productlineTypeName" />
+    <result column="price" jdbcType="DECIMAL" property="price" />
+    <result column="price-install" jdbcType="INTEGER" property="priceInstall" />
+    <result column="period_install" jdbcType="INTEGER" property="periodInstall" />
+    <result column="period_change" jdbcType="INTEGER" property="periodChange" />
+    <result column="cost_change" jdbcType="DECIMAL" property="costChange" />
+    <result column="cost_salvage" jdbcType="DECIMAL" property="costSalvage" />
+    <result column="period_dep1" jdbcType="DECIMAL" property="periodDep1" />
+    <result column="period_dep2" jdbcType="DECIMAL" property="periodDep2" />
+    <result column="period_dep3" jdbcType="DECIMAL" property="periodDep3" />
+    <result column="period_dep4" jdbcType="DECIMAL" property="periodDep4" />
+    <result column="period_dep5" jdbcType="DECIMAL" property="periodDep5" />
+    <result column="cost_check" jdbcType="DECIMAL" property="costCheck" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.ProduclineType">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="productline_type_id" jdbcType="VARCHAR" property="productlineTypeId" />
     <result column="productline_type_name" jdbcType="VARCHAR" property="productlineTypeName" />
     <result column="price" jdbcType="DECIMAL" property="price" />

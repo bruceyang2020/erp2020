@@ -6,6 +6,31 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
+    <result column="advertises" jdbcType="INTEGER" property="advertises" />
+    <result column="group_order" jdbcType="INTEGER" property="groupOrder" />
+    <result column="sale_order" jdbcType="INTEGER" property="saleOrder" />
+    <result column="short_term" jdbcType="INTEGER" property="shortTerm" />
+    <result column="usury" jdbcType="INTEGER" property="usury" />
+    <result column="raw_materials_order" jdbcType="INTEGER" property="rawMaterialsOrder" />
+    <result column="produtline" jdbcType="INTEGER" property="produtline" />
+    <result column="account_pay" jdbcType="INTEGER" property="accountPay" />
+    <result column="account_receive" jdbcType="INTEGER" property="accountReceive" />
+    <result column="product_order" jdbcType="INTEGER" property="productOrder" />
+    <result column="product_development" jdbcType="INTEGER" property="productDevelopment" />
+    <result column="other_fees" jdbcType="INTEGER" property="otherFees" />
+    <result column="iso_certification" jdbcType="INTEGER" property="isoCertification" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.ModuleOrder">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="group_id" jdbcType="VARCHAR" property="groupId" />
     <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
     <result column="advertises" jdbcType="INTEGER" property="advertises" />

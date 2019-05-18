@@ -1,482 +1,679 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "balancesheet")
 public class Balancesheet extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    private String period;
+    /**
+     * 当前会计期数1.5.9.13.17.21
+     */
+    private Integer period;
 
+    /**
+     * 现金
+     */
     @Column(name = "money_now")
-    private String moneyNow;
+    private BigDecimal moneyNow;
 
+    /**
+     * 应收款
+     */
     @Column(name = "money_get")
-    private String moneyGet;
+    private BigDecimal moneyGet;
 
+    /**
+     * 在制品
+     */
     @Column(name = "money_making")
-    private String moneyMaking;
+    private BigDecimal moneyMaking;
 
+    /**
+     * 成品
+     */
     @Column(name = "money_sale")
-    private String moneySale;
+    private BigDecimal moneySale;
 
+    /**
+     * 原材料
+     */
     @Column(name = "money_buy")
-    private String moneyBuy;
+    private BigDecimal moneyBuy;
 
+    /**
+     * 流动资产
+     */
     @Column(name = "money_flow")
-    private String moneyFlow;
+    private BigDecimal moneyFlow;
 
-    @Column(name = "longterm_loan")
-    private String longtermLoan;
+    /**
+     * 长期贷款
+     */
+    @Column(name = "long_term_loan")
+    private BigDecimal longTermLoan;
 
-    @Column(name = "shortterm_loan")
-    private String shorttermLoan;
+    /**
+     * 短期贷款
+     */
+    @Column(name = "short_term_loan")
+    private BigDecimal shortTermLoan;
 
-    @Column(name = "money_orderget")
-    private String moneyOrderget;
+    /**
+     * 应收账款
+     */
+    @Column(name = "money_order_get")
+    private BigDecimal moneyOrderGet;
 
+    /**
+     * 应交税金
+     */
     @Column(name = "money_tax")
-    private String moneyTax;
+    private BigDecimal moneyTax;
 
-    @Column(name = "longterm_loanyear")
-    private String longtermLoanyear;
+    /**
+     * 一年内到期长期贷款
+     */
+    @Column(name = "long_term_loan_year")
+    private BigDecimal longTermLoanYear;
 
+    /**
+     * 负债合计
+     */
     @Column(name = "money_loan")
-    private String moneyLoan;
+    private BigDecimal moneyLoan;
 
+    /**
+     * 土地建筑
+     */
     @Column(name = "money_j")
-    private String moneyJ;
+    private BigDecimal moneyJ;
 
+    /**
+     * 机器设备
+     */
     @Column(name = "money_p")
-    private String moneyP;
+    private BigDecimal moneyP;
 
+    /**
+     * 在建工程
+     */
     @Column(name = "money_m")
-    private String moneyM;
+    private BigDecimal moneyM;
 
+    /**
+     * 固定资产
+     */
     @Column(name = "money_static")
-    private String moneyStatic;
+    private BigDecimal moneyStatic;
 
+    /**
+     * 股东资本
+     */
     @Column(name = "money_g")
-    private String moneyG;
+    private BigDecimal moneyG;
 
+    /**
+     * 利润留存
+     */
     @Column(name = "money_stay")
-    private String moneyStay;
+    private BigDecimal moneyStay;
 
+    /**
+     * 年度利润
+     */
     @Column(name = "money_year")
-    private String moneyYear;
+    private BigDecimal moneyYear;
 
+    /**
+     * 所有者权益
+     */
     @Column(name = "money_user")
-    private String moneyUser;
+    private BigDecimal moneyUser;
 
+    /**
+     * 资产总计
+     */
     @Column(name = "money_all")
-    private String moneyAll;
+    private BigDecimal moneyAll;
 
+    /**
+     * 负债和所有者权益总计
+     */
     @Column(name = "money_alls")
-    private String moneyAlls;
+    private BigDecimal moneyAlls;
 
+    /**
+     * 创建人外键用户表
+     */
     @Column(name = "create_user")
     private String createUser;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
 
+    /**
+     * 编辑人
+     */
     @Column(name = "edit_user")
     private String editUser;
 
+    /**
+     * 编辑时间
+     */
     @Column(name = "edit_time")
     private Date editTime;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return period
+     * 获取当前会计期数1.5.9.13.17.21
+     *
+     * @return period - 当前会计期数1.5.9.13.17.21
      */
-    public String getPeriod() {
+    public Integer getPeriod() {
         return period;
     }
 
     /**
-     * @param period
+     * 设置当前会计期数1.5.9.13.17.21
+     *
+     * @param period 当前会计期数1.5.9.13.17.21
      */
-    public void setPeriod(String period) {
+    public void setPeriod(Integer period) {
         this.period = period;
     }
 
     /**
-     * @return money_now
+     * 获取现金
+     *
+     * @return money_now - 现金
      */
-    public String getMoneyNow() {
+    public BigDecimal getMoneyNow() {
         return moneyNow;
     }
 
     /**
-     * @param moneyNow
+     * 设置现金
+     *
+     * @param moneyNow 现金
      */
-    public void setMoneyNow(String moneyNow) {
+    public void setMoneyNow(BigDecimal moneyNow) {
         this.moneyNow = moneyNow;
     }
 
     /**
-     * @return money_get
+     * 获取应收款
+     *
+     * @return money_get - 应收款
      */
-    public String getMoneyGet() {
+    public BigDecimal getMoneyGet() {
         return moneyGet;
     }
 
     /**
-     * @param moneyGet
+     * 设置应收款
+     *
+     * @param moneyGet 应收款
      */
-    public void setMoneyGet(String moneyGet) {
+    public void setMoneyGet(BigDecimal moneyGet) {
         this.moneyGet = moneyGet;
     }
 
     /**
-     * @return money_making
+     * 获取在制品
+     *
+     * @return money_making - 在制品
      */
-    public String getMoneyMaking() {
+    public BigDecimal getMoneyMaking() {
         return moneyMaking;
     }
 
     /**
-     * @param moneyMaking
+     * 设置在制品
+     *
+     * @param moneyMaking 在制品
      */
-    public void setMoneyMaking(String moneyMaking) {
+    public void setMoneyMaking(BigDecimal moneyMaking) {
         this.moneyMaking = moneyMaking;
     }
 
     /**
-     * @return money_sale
+     * 获取成品
+     *
+     * @return money_sale - 成品
      */
-    public String getMoneySale() {
+    public BigDecimal getMoneySale() {
         return moneySale;
     }
 
     /**
-     * @param moneySale
+     * 设置成品
+     *
+     * @param moneySale 成品
      */
-    public void setMoneySale(String moneySale) {
+    public void setMoneySale(BigDecimal moneySale) {
         this.moneySale = moneySale;
     }
 
     /**
-     * @return money_buy
+     * 获取原材料
+     *
+     * @return money_buy - 原材料
      */
-    public String getMoneyBuy() {
+    public BigDecimal getMoneyBuy() {
         return moneyBuy;
     }
 
     /**
-     * @param moneyBuy
+     * 设置原材料
+     *
+     * @param moneyBuy 原材料
      */
-    public void setMoneyBuy(String moneyBuy) {
+    public void setMoneyBuy(BigDecimal moneyBuy) {
         this.moneyBuy = moneyBuy;
     }
 
     /**
-     * @return money_flow
+     * 获取流动资产
+     *
+     * @return money_flow - 流动资产
      */
-    public String getMoneyFlow() {
+    public BigDecimal getMoneyFlow() {
         return moneyFlow;
     }
 
     /**
-     * @param moneyFlow
+     * 设置流动资产
+     *
+     * @param moneyFlow 流动资产
      */
-    public void setMoneyFlow(String moneyFlow) {
+    public void setMoneyFlow(BigDecimal moneyFlow) {
         this.moneyFlow = moneyFlow;
     }
 
     /**
-     * @return longterm_loan
+     * 获取长期贷款
+     *
+     * @return long_term_loan - 长期贷款
      */
-    public String getLongtermLoan() {
-        return longtermLoan;
+    public BigDecimal getLongTermLoan() {
+        return longTermLoan;
     }
 
     /**
-     * @param longtermLoan
+     * 设置长期贷款
+     *
+     * @param longTermLoan 长期贷款
      */
-    public void setLongtermLoan(String longtermLoan) {
-        this.longtermLoan = longtermLoan;
+    public void setLongTermLoan(BigDecimal longTermLoan) {
+        this.longTermLoan = longTermLoan;
     }
 
     /**
-     * @return shortterm_loan
+     * 获取短期贷款
+     *
+     * @return short_term_loan - 短期贷款
      */
-    public String getShorttermLoan() {
-        return shorttermLoan;
+    public BigDecimal getShortTermLoan() {
+        return shortTermLoan;
     }
 
     /**
-     * @param shorttermLoan
+     * 设置短期贷款
+     *
+     * @param shortTermLoan 短期贷款
      */
-    public void setShorttermLoan(String shorttermLoan) {
-        this.shorttermLoan = shorttermLoan;
+    public void setShortTermLoan(BigDecimal shortTermLoan) {
+        this.shortTermLoan = shortTermLoan;
     }
 
     /**
-     * @return money_orderget
+     * 获取应收账款
+     *
+     * @return money_order_get - 应收账款
      */
-    public String getMoneyOrderget() {
-        return moneyOrderget;
+    public BigDecimal getMoneyOrderGet() {
+        return moneyOrderGet;
     }
 
     /**
-     * @param moneyOrderget
+     * 设置应收账款
+     *
+     * @param moneyOrderGet 应收账款
      */
-    public void setMoneyOrderget(String moneyOrderget) {
-        this.moneyOrderget = moneyOrderget;
+    public void setMoneyOrderGet(BigDecimal moneyOrderGet) {
+        this.moneyOrderGet = moneyOrderGet;
     }
 
     /**
-     * @return money_tax
+     * 获取应交税金
+     *
+     * @return money_tax - 应交税金
      */
-    public String getMoneyTax() {
+    public BigDecimal getMoneyTax() {
         return moneyTax;
     }
 
     /**
-     * @param moneyTax
+     * 设置应交税金
+     *
+     * @param moneyTax 应交税金
      */
-    public void setMoneyTax(String moneyTax) {
+    public void setMoneyTax(BigDecimal moneyTax) {
         this.moneyTax = moneyTax;
     }
 
     /**
-     * @return longterm_loanyear
+     * 获取一年内到期长期贷款
+     *
+     * @return long_term_loan_year - 一年内到期长期贷款
      */
-    public String getLongtermLoanyear() {
-        return longtermLoanyear;
+    public BigDecimal getLongTermLoanYear() {
+        return longTermLoanYear;
     }
 
     /**
-     * @param longtermLoanyear
+     * 设置一年内到期长期贷款
+     *
+     * @param longTermLoanYear 一年内到期长期贷款
      */
-    public void setLongtermLoanyear(String longtermLoanyear) {
-        this.longtermLoanyear = longtermLoanyear;
+    public void setLongTermLoanYear(BigDecimal longTermLoanYear) {
+        this.longTermLoanYear = longTermLoanYear;
     }
 
     /**
-     * @return money_loan
+     * 获取负债合计
+     *
+     * @return money_loan - 负债合计
      */
-    public String getMoneyLoan() {
+    public BigDecimal getMoneyLoan() {
         return moneyLoan;
     }
 
     /**
-     * @param moneyLoan
+     * 设置负债合计
+     *
+     * @param moneyLoan 负债合计
      */
-    public void setMoneyLoan(String moneyLoan) {
+    public void setMoneyLoan(BigDecimal moneyLoan) {
         this.moneyLoan = moneyLoan;
     }
 
     /**
-     * @return money_j
+     * 获取土地建筑
+     *
+     * @return money_j - 土地建筑
      */
-    public String getMoneyJ() {
+    public BigDecimal getMoneyJ() {
         return moneyJ;
     }
 
     /**
-     * @param moneyJ
+     * 设置土地建筑
+     *
+     * @param moneyJ 土地建筑
      */
-    public void setMoneyJ(String moneyJ) {
+    public void setMoneyJ(BigDecimal moneyJ) {
         this.moneyJ = moneyJ;
     }
 
     /**
-     * @return money_p
+     * 获取机器设备
+     *
+     * @return money_p - 机器设备
      */
-    public String getMoneyP() {
+    public BigDecimal getMoneyP() {
         return moneyP;
     }
 
     /**
-     * @param moneyP
+     * 设置机器设备
+     *
+     * @param moneyP 机器设备
      */
-    public void setMoneyP(String moneyP) {
+    public void setMoneyP(BigDecimal moneyP) {
         this.moneyP = moneyP;
     }
 
     /**
-     * @return money_m
+     * 获取在建工程
+     *
+     * @return money_m - 在建工程
      */
-    public String getMoneyM() {
+    public BigDecimal getMoneyM() {
         return moneyM;
     }
 
     /**
-     * @param moneyM
+     * 设置在建工程
+     *
+     * @param moneyM 在建工程
      */
-    public void setMoneyM(String moneyM) {
+    public void setMoneyM(BigDecimal moneyM) {
         this.moneyM = moneyM;
     }
 
     /**
-     * @return money_static
+     * 获取固定资产
+     *
+     * @return money_static - 固定资产
      */
-    public String getMoneyStatic() {
+    public BigDecimal getMoneyStatic() {
         return moneyStatic;
     }
 
     /**
-     * @param moneyStatic
+     * 设置固定资产
+     *
+     * @param moneyStatic 固定资产
      */
-    public void setMoneyStatic(String moneyStatic) {
+    public void setMoneyStatic(BigDecimal moneyStatic) {
         this.moneyStatic = moneyStatic;
     }
 
     /**
-     * @return money_g
+     * 获取股东资本
+     *
+     * @return money_g - 股东资本
      */
-    public String getMoneyG() {
+    public BigDecimal getMoneyG() {
         return moneyG;
     }
 
     /**
-     * @param moneyG
+     * 设置股东资本
+     *
+     * @param moneyG 股东资本
      */
-    public void setMoneyG(String moneyG) {
+    public void setMoneyG(BigDecimal moneyG) {
         this.moneyG = moneyG;
     }
 
     /**
-     * @return money_stay
+     * 获取利润留存
+     *
+     * @return money_stay - 利润留存
      */
-    public String getMoneyStay() {
+    public BigDecimal getMoneyStay() {
         return moneyStay;
     }
 
     /**
-     * @param moneyStay
+     * 设置利润留存
+     *
+     * @param moneyStay 利润留存
      */
-    public void setMoneyStay(String moneyStay) {
+    public void setMoneyStay(BigDecimal moneyStay) {
         this.moneyStay = moneyStay;
     }
 
     /**
-     * @return money_year
+     * 获取年度利润
+     *
+     * @return money_year - 年度利润
      */
-    public String getMoneyYear() {
+    public BigDecimal getMoneyYear() {
         return moneyYear;
     }
 
     /**
-     * @param moneyYear
+     * 设置年度利润
+     *
+     * @param moneyYear 年度利润
      */
-    public void setMoneyYear(String moneyYear) {
+    public void setMoneyYear(BigDecimal moneyYear) {
         this.moneyYear = moneyYear;
     }
 
     /**
-     * @return money_user
+     * 获取所有者权益
+     *
+     * @return money_user - 所有者权益
      */
-    public String getMoneyUser() {
+    public BigDecimal getMoneyUser() {
         return moneyUser;
     }
 
     /**
-     * @param moneyUser
+     * 设置所有者权益
+     *
+     * @param moneyUser 所有者权益
      */
-    public void setMoneyUser(String moneyUser) {
+    public void setMoneyUser(BigDecimal moneyUser) {
         this.moneyUser = moneyUser;
     }
 
     /**
-     * @return money_all
+     * 获取资产总计
+     *
+     * @return money_all - 资产总计
      */
-    public String getMoneyAll() {
+    public BigDecimal getMoneyAll() {
         return moneyAll;
     }
 
     /**
-     * @param moneyAll
+     * 设置资产总计
+     *
+     * @param moneyAll 资产总计
      */
-    public void setMoneyAll(String moneyAll) {
+    public void setMoneyAll(BigDecimal moneyAll) {
         this.moneyAll = moneyAll;
     }
 
     /**
-     * @return money_alls
+     * 获取负债和所有者权益总计
+     *
+     * @return money_alls - 负债和所有者权益总计
      */
-    public String getMoneyAlls() {
+    public BigDecimal getMoneyAlls() {
         return moneyAlls;
     }
 
     /**
-     * @param moneyAlls
+     * 设置负债和所有者权益总计
+     *
+     * @param moneyAlls 负债和所有者权益总计
      */
-    public void setMoneyAlls(String moneyAlls) {
+    public void setMoneyAlls(BigDecimal moneyAlls) {
         this.moneyAlls = moneyAlls;
     }
 
     /**
-     * @return create_user
+     * 获取创建人外键用户表
+     *
+     * @return create_user - 创建人外键用户表
      */
     public String getCreateUser() {
         return createUser;
     }
 
     /**
-     * @param createUser
+     * 设置创建人外键用户表
+     *
+     * @param createUser 创建人外键用户表
      */
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 
     /**
-     * @return create_time
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
     /**
-     * @param createTime
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * @return edit_user
+     * 获取编辑人
+     *
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;
     }
 
     /**
-     * @param editUser
+     * 设置编辑人
+     *
+     * @param editUser 编辑人
      */
     public void setEditUser(String editUser) {
         this.editUser = editUser;
     }
 
     /**
-     * @return edit_time
+     * 获取编辑时间
+     *
+     * @return edit_time - 编辑时间
      */
     public Date getEditTime() {
         return editTime;
     }
 
     /**
-     * @param editTime
+     * 设置编辑时间
+     *
+     * @param editTime 编辑时间
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;

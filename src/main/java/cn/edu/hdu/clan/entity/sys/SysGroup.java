@@ -10,7 +10,7 @@ public class SysGroup extends BaseBean {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    private String code;
+    private Integer code;
 
     private String name;
 
@@ -45,14 +45,14 @@ public class SysGroup extends BaseBean {
     /**
      * @return code
      */
-    public String getCode() {
+    public Integer getCode() {
         return code;
     }
 
     /**
      * @param code
      */
-    public void setCode(String code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 

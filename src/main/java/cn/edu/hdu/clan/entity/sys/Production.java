@@ -7,206 +7,290 @@ import javax.persistence.*;
 
 @Table(name = "production")
 public class Production extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
+    /**
+     * 产品编号
+     */
     @Column(name = "product_id")
-    private String productId;
+    private Integer productId;
 
+    /**
+     * 研发单位成本
+     */
     @Column(name = "research_cost")
-    private String researchCost;
+    private Integer researchCost;
 
+    /**
+     * 研发期数
+     */
     @Column(name = "research_period")
-    private BigDecimal researchPeriod;
+    private Integer researchPeriod;
 
+    /**
+     * 研发总投入
+     */
     @Column(name = "cost_total_research")
     private BigDecimal costTotalResearch;
 
+    /**
+     * 生产人工
+     */
     @Column(name = "cost_labor")
     private BigDecimal costLabor;
 
+    /**
+     * 材料成本
+     */
     @Column(name = "cost_material")
     private BigDecimal costMaterial;
 
+    /**
+     * 总成本
+     */
     @Column(name = "cost_total")
     private BigDecimal costTotal;
 
+    /**
+     * 创建人
+     */
     @Column(name = "create_user")
     private String createUser;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
 
+    /**
+     * 编辑人
+     */
     @Column(name = "edit_user")
     private String editUser;
 
+    /**
+     * 编辑时间
+     */
     @Column(name = "edit_time")
     private Date editTime;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return product_id
+     * 获取产品编号
+     *
+     * @return product_id - 产品编号
      */
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
     /**
-     * @param productId
+     * 设置产品编号
+     *
+     * @param productId 产品编号
      */
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
     /**
-     * @return research_cost
+     * 获取研发单位成本
+     *
+     * @return research_cost - 研发单位成本
      */
-    public String getResearchCost() {
+    public Integer getResearchCost() {
         return researchCost;
     }
 
     /**
-     * @param researchCost
+     * 设置研发单位成本
+     *
+     * @param researchCost 研发单位成本
      */
-    public void setResearchCost(String researchCost) {
+    public void setResearchCost(Integer researchCost) {
         this.researchCost = researchCost;
     }
 
     /**
-     * @return research_period
+     * 获取研发期数
+     *
+     * @return research_period - 研发期数
      */
-    public BigDecimal getResearchPeriod() {
+    public Integer getResearchPeriod() {
         return researchPeriod;
     }
 
     /**
-     * @param researchPeriod
+     * 设置研发期数
+     *
+     * @param researchPeriod 研发期数
      */
-    public void setResearchPeriod(BigDecimal researchPeriod) {
+    public void setResearchPeriod(Integer researchPeriod) {
         this.researchPeriod = researchPeriod;
     }
 
     /**
-     * @return cost_total_research
+     * 获取研发总投入
+     *
+     * @return cost_total_research - 研发总投入
      */
     public BigDecimal getCostTotalResearch() {
         return costTotalResearch;
     }
 
     /**
-     * @param costTotalResearch
+     * 设置研发总投入
+     *
+     * @param costTotalResearch 研发总投入
      */
     public void setCostTotalResearch(BigDecimal costTotalResearch) {
         this.costTotalResearch = costTotalResearch;
     }
 
     /**
-     * @return cost_labor
+     * 获取生产人工
+     *
+     * @return cost_labor - 生产人工
      */
     public BigDecimal getCostLabor() {
         return costLabor;
     }
 
     /**
-     * @param costLabor
+     * 设置生产人工
+     *
+     * @param costLabor 生产人工
      */
     public void setCostLabor(BigDecimal costLabor) {
         this.costLabor = costLabor;
     }
 
     /**
-     * @return cost_material
+     * 获取材料成本
+     *
+     * @return cost_material - 材料成本
      */
     public BigDecimal getCostMaterial() {
         return costMaterial;
     }
 
     /**
-     * @param costMaterial
+     * 设置材料成本
+     *
+     * @param costMaterial 材料成本
      */
     public void setCostMaterial(BigDecimal costMaterial) {
         this.costMaterial = costMaterial;
     }
 
     /**
-     * @return cost_total
+     * 获取总成本
+     *
+     * @return cost_total - 总成本
      */
     public BigDecimal getCostTotal() {
         return costTotal;
     }
 
     /**
-     * @param costTotal
+     * 设置总成本
+     *
+     * @param costTotal 总成本
      */
     public void setCostTotal(BigDecimal costTotal) {
         this.costTotal = costTotal;
     }
 
     /**
-     * @return create_user
+     * 获取创建人
+     *
+     * @return create_user - 创建人
      */
     public String getCreateUser() {
         return createUser;
     }
 
     /**
-     * @param createUser
+     * 设置创建人
+     *
+     * @param createUser 创建人
      */
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 
     /**
-     * @return create_time
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
     /**
-     * @param createTime
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * @return edit_user
+     * 获取编辑人
+     *
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;
     }
 
     /**
-     * @param editUser
+     * 设置编辑人
+     *
+     * @param editUser 编辑人
      */
     public void setEditUser(String editUser) {
         this.editUser = editUser;
     }
 
     /**
-     * @return edit_time
+     * 获取编辑时间
+     *
+     * @return edit_time - 编辑时间
      */
     public Date getEditTime() {
         return editTime;
     }
 
     /**
-     * @param editTime
+     * 设置编辑时间
+     *
+     * @param editTime 编辑时间
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;

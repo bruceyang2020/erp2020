@@ -1,107 +1,150 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
+import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "sys_user")
 public class SysUser extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
+    /**
+     * 公司id
+     */
     @Column(name = "team_id")
     private String teamId;
 
+    /**
+     * 用户名
+     */
     private String username;
 
+    /**
+     * 密码
+     */
     private String password;
 
-    private String telephome;
-
-    @Column(name = "registration_time")
-    private String registrationTime;
+    /**
+     * 电话
+     */
+    private Integer telephome;
 
     /**
-     * @return id
+     * 注册时间
+     */
+    @Column(name = "registration_time")
+    private Date registrationTime;
+
+    /**
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return team_id
+     * 获取公司id
+     *
+     * @return team_id - 公司id
      */
     public String getTeamId() {
         return teamId;
     }
 
     /**
-     * @param teamId
+     * 设置公司id
+     *
+     * @param teamId 公司id
      */
     public void setTeamId(String teamId) {
         this.teamId = teamId;
     }
 
     /**
-     * @return username
+     * 获取用户名
+     *
+     * @return username - 用户名
      */
     public String getUsername() {
         return username;
     }
 
     /**
-     * @param username
+     * 设置用户名
+     *
+     * @param username 用户名
      */
     public void setUsername(String username) {
         this.username = username;
     }
 
     /**
-     * @return password
+     * 获取密码
+     *
+     * @return password - 密码
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * @param password
+     * 设置密码
+     *
+     * @param password 密码
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * @return telephome
+     * 获取电话
+     *
+     * @return telephome - 电话
      */
-    public String getTelephome() {
+    public Integer getTelephome() {
         return telephome;
     }
 
     /**
-     * @param telephome
+     * 设置电话
+     *
+     * @param telephome 电话
      */
-    public void setTelephome(String telephome) {
+    public void setTelephome(Integer telephome) {
         this.telephome = telephome;
     }
 
     /**
-     * @return registration_time
+     * 获取注册时间
+     *
+     * @return registration_time - 注册时间
      */
-    public String getRegistrationTime() {
+    public Date getRegistrationTime() {
         return registrationTime;
     }
 
     /**
-     * @param registrationTime
+     * 设置注册时间
+     *
+     * @param registrationTime 注册时间
      */
-    public void setRegistrationTime(String registrationTime) {
+    public void setRegistrationTime(Date registrationTime) {
         this.registrationTime = registrationTime;
     }
 }

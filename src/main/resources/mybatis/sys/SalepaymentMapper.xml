@@ -6,6 +6,24 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group-id" jdbcType="INTEGER" property="groupId" />
+    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="surplus_period" jdbcType="INTEGER" property="surplusPeriod" />
+    <result column="sale_order_id" jdbcType="INTEGER" property="saleOrderId" />
+    <result column="money" jdbcType="DECIMAL" property="money" />
+    <result column="pay_period" jdbcType="INTEGER" property="payPeriod" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="eidt_time" jdbcType="TIMESTAMP" property="eidtTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.Salepayment">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="group-id" jdbcType="VARCHAR" property="groupId" />
     <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
     <result column="number" jdbcType="VARCHAR" property="number" />

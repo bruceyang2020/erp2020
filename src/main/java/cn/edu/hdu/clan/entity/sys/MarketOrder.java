@@ -7,255 +7,383 @@ import javax.persistence.*;
 
 @Table(name = "market_order")
 public class MarketOrder extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    private String number;
+    /**
+     * 订单编号
+     */
+    private Integer number;
 
+    /**
+     * 订单名称
+     */
     private String name;
 
+    /**
+     * 市场编码
+     */
     @Column(name = "market_id")
-    private String marketId;
+    private Integer marketId;
 
+    /**
+     * 产品编码
+     */
     @Column(name = "product_id")
-    private String productId;
+    private Integer productId;
 
+    /**
+     * 期数
+     */
     private Integer period;
 
+    /**
+     * 总价
+     */
     @Column(name = "price_total")
     private BigDecimal priceTotal;
 
+    /**
+     * 数量
+     */
     private BigDecimal amount;
 
+    /**
+     * 应收周期
+     */
     @Column(name = "period_pay")
     private Integer periodPay;
 
+    /**
+     * 是否加急
+     */
     @Column(name = "is_urgent")
     private Integer isUrgent;
 
+    /**
+     * 质量要求
+     */
+    private Integer iso;
+
+    /**
+     * 是否可选
+     */
     @Column(name = "is_valid")
     private Integer isValid;
 
+    /**
+     * 创建人，外键用户表
+     */
     @Column(name = "create_user")
     private String createUser;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
 
+    /**
+     * 编辑人
+     */
     @Column(name = "edit_user")
     private String editUser;
 
-    @Column(name = "edit_time")
-    private Date editTime;
+    /**
+     * 编辑时间
+     */
+    @Column(name = "edit_timei")
+    private Date editTimei;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return number
+     * 获取订单编号
+     *
+     * @return number - 订单编号
      */
-    public String getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
     /**
-     * @param number
+     * 设置订单编号
+     *
+     * @param number 订单编号
      */
-    public void setNumber(String number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
     /**
-     * @return name
+     * 获取订单名称
+     *
+     * @return name - 订单名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name
+     * 设置订单名称
+     *
+     * @param name 订单名称
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @return market_id
+     * 获取市场编码
+     *
+     * @return market_id - 市场编码
      */
-    public String getMarketId() {
+    public Integer getMarketId() {
         return marketId;
     }
 
     /**
-     * @param marketId
+     * 设置市场编码
+     *
+     * @param marketId 市场编码
      */
-    public void setMarketId(String marketId) {
+    public void setMarketId(Integer marketId) {
         this.marketId = marketId;
     }
 
     /**
-     * @return product_id
+     * 获取产品编码
+     *
+     * @return product_id - 产品编码
      */
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
     /**
-     * @param productId
+     * 设置产品编码
+     *
+     * @param productId 产品编码
      */
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
     /**
-     * @return period
+     * 获取期数
+     *
+     * @return period - 期数
      */
     public Integer getPeriod() {
         return period;
     }
 
     /**
-     * @param period
+     * 设置期数
+     *
+     * @param period 期数
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
 
     /**
-     * @return price_total
+     * 获取总价
+     *
+     * @return price_total - 总价
      */
     public BigDecimal getPriceTotal() {
         return priceTotal;
     }
 
     /**
-     * @param priceTotal
+     * 设置总价
+     *
+     * @param priceTotal 总价
      */
     public void setPriceTotal(BigDecimal priceTotal) {
         this.priceTotal = priceTotal;
     }
 
     /**
-     * @return amount
+     * 获取数量
+     *
+     * @return amount - 数量
      */
     public BigDecimal getAmount() {
         return amount;
     }
 
     /**
-     * @param amount
+     * 设置数量
+     *
+     * @param amount 数量
      */
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
     /**
-     * @return period_pay
+     * 获取应收周期
+     *
+     * @return period_pay - 应收周期
      */
     public Integer getPeriodPay() {
         return periodPay;
     }
 
     /**
-     * @param periodPay
+     * 设置应收周期
+     *
+     * @param periodPay 应收周期
      */
     public void setPeriodPay(Integer periodPay) {
         this.periodPay = periodPay;
     }
 
     /**
-     * @return is_urgent
+     * 获取是否加急
+     *
+     * @return is_urgent - 是否加急
      */
     public Integer getIsUrgent() {
         return isUrgent;
     }
 
     /**
-     * @param isUrgent
+     * 设置是否加急
+     *
+     * @param isUrgent 是否加急
      */
     public void setIsUrgent(Integer isUrgent) {
         this.isUrgent = isUrgent;
     }
 
     /**
-     * @return is_valid
+     * 获取质量要求
+     *
+     * @return iso - 质量要求
+     */
+    public Integer getIso() {
+        return iso;
+    }
+
+    /**
+     * 设置质量要求
+     *
+     * @param iso 质量要求
+     */
+    public void setIso(Integer iso) {
+        this.iso = iso;
+    }
+
+    /**
+     * 获取是否可选
+     *
+     * @return is_valid - 是否可选
      */
     public Integer getIsValid() {
         return isValid;
     }
 
     /**
-     * @param isValid
+     * 设置是否可选
+     *
+     * @param isValid 是否可选
      */
     public void setIsValid(Integer isValid) {
         this.isValid = isValid;
     }
 
     /**
-     * @return create_user
+     * 获取创建人，外键用户表
+     *
+     * @return create_user - 创建人，外键用户表
      */
     public String getCreateUser() {
         return createUser;
     }
 
     /**
-     * @param createUser
+     * 设置创建人，外键用户表
+     *
+     * @param createUser 创建人，外键用户表
      */
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 
     /**
-     * @return create_time
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
     /**
-     * @param createTime
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * @return edit_user
+     * 获取编辑人
+     *
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;
     }
 
     /**
-     * @param editUser
+     * 设置编辑人
+     *
+     * @param editUser 编辑人
      */
     public void setEditUser(String editUser) {
         this.editUser = editUser;
     }
 
     /**
-     * @return edit_time
+     * 获取编辑时间
+     *
+     * @return edit_timei - 编辑时间
      */
-    public Date getEditTime() {
-        return editTime;
+    public Date getEditTimei() {
+        return editTimei;
     }
 
     /**
-     * @param editTime
+     * 设置编辑时间
+     *
+     * @param editTimei 编辑时间
      */
-    public void setEditTime(Date editTime) {
-        this.editTime = editTime;
+    public void setEditTimei(Date editTimei) {
+        this.editTimei = editTimei;
     }
 }

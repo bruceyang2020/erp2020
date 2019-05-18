@@ -7,57 +7,100 @@ import javax.persistence.*;
 
 @Table(name = "account_balance")
 public class AccountBalance extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "group_id")
-    private String groupId;
+    private Integer groupId;
 
     @Column(name = "team_count")
     private String teamCount;
 
+    /**
+     * 摘要
+     */
     private String name;
 
-    private String acode;
+    /**
+     * 科目编号
+     */
+    private Integer acode;
 
+    /**
+     * 科目名称
+     */
     private String aname;
 
+    /**
+     * 期初余额
+     */
     @Column(name = "money_b")
     private BigDecimal moneyB;
 
+    /**
+     * 期末余额
+     */
     @Column(name = "money_e")
     private BigDecimal moneyE;
 
+    /**
+     * 借方金额
+     */
     @Column(name = "money_d")
     private BigDecimal moneyD;
 
+    /**
+     * 贷方金额
+     */
     @Column(name = "money_c")
     private BigDecimal moneyC;
 
+    /**
+     * 当前会计期间
+     */
     private Integer period;
 
+    /**
+     * 创建人
+     */
     @Column(name = "create_user")
     private String createUser;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
 
+    /**
+     * 编辑人
+     */
     @Column(name = "edit_user")
     private String editUser;
 
+    /**
+     * 编辑时间
+     */
     @Column(name = "edit_time")
     private Date editTime;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
@@ -66,14 +109,14 @@ public class AccountBalance extends BaseBean {
     /**
      * @return group_id
      */
-    public String getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(String groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
@@ -92,168 +135,216 @@ public class AccountBalance extends BaseBean {
     }
 
     /**
-     * @return name
+     * 获取摘要
+     *
+     * @return name - 摘要
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name
+     * 设置摘要
+     *
+     * @param name 摘要
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @return acode
+     * 获取科目编号
+     *
+     * @return acode - 科目编号
      */
-    public String getAcode() {
+    public Integer getAcode() {
         return acode;
     }
 
     /**
-     * @param acode
+     * 设置科目编号
+     *
+     * @param acode 科目编号
      */
-    public void setAcode(String acode) {
+    public void setAcode(Integer acode) {
         this.acode = acode;
     }
 
     /**
-     * @return aname
+     * 获取科目名称
+     *
+     * @return aname - 科目名称
      */
     public String getAname() {
         return aname;
     }
 
     /**
-     * @param aname
+     * 设置科目名称
+     *
+     * @param aname 科目名称
      */
     public void setAname(String aname) {
         this.aname = aname;
     }
 
     /**
-     * @return money_b
+     * 获取期初余额
+     *
+     * @return money_b - 期初余额
      */
     public BigDecimal getMoneyB() {
         return moneyB;
     }
 
     /**
-     * @param moneyB
+     * 设置期初余额
+     *
+     * @param moneyB 期初余额
      */
     public void setMoneyB(BigDecimal moneyB) {
         this.moneyB = moneyB;
     }
 
     /**
-     * @return money_e
+     * 获取期末余额
+     *
+     * @return money_e - 期末余额
      */
     public BigDecimal getMoneyE() {
         return moneyE;
     }
 
     /**
-     * @param moneyE
+     * 设置期末余额
+     *
+     * @param moneyE 期末余额
      */
     public void setMoneyE(BigDecimal moneyE) {
         this.moneyE = moneyE;
     }
 
     /**
-     * @return money_d
+     * 获取借方金额
+     *
+     * @return money_d - 借方金额
      */
     public BigDecimal getMoneyD() {
         return moneyD;
     }
 
     /**
-     * @param moneyD
+     * 设置借方金额
+     *
+     * @param moneyD 借方金额
      */
     public void setMoneyD(BigDecimal moneyD) {
         this.moneyD = moneyD;
     }
 
     /**
-     * @return money_c
+     * 获取贷方金额
+     *
+     * @return money_c - 贷方金额
      */
     public BigDecimal getMoneyC() {
         return moneyC;
     }
 
     /**
-     * @param moneyC
+     * 设置贷方金额
+     *
+     * @param moneyC 贷方金额
      */
     public void setMoneyC(BigDecimal moneyC) {
         this.moneyC = moneyC;
     }
 
     /**
-     * @return period
+     * 获取当前会计期间
+     *
+     * @return period - 当前会计期间
      */
     public Integer getPeriod() {
         return period;
     }
 
     /**
-     * @param period
+     * 设置当前会计期间
+     *
+     * @param period 当前会计期间
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
 
     /**
-     * @return create_user
+     * 获取创建人
+     *
+     * @return create_user - 创建人
      */
     public String getCreateUser() {
         return createUser;
     }
 
     /**
-     * @param createUser
+     * 设置创建人
+     *
+     * @param createUser 创建人
      */
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 
     /**
-     * @return create_time
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
     /**
-     * @param createTime
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * @return edit_user
+     * 获取编辑人
+     *
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;
     }
 
     /**
-     * @param editUser
+     * 设置编辑人
+     *
+     * @param editUser 编辑人
      */
     public void setEditUser(String editUser) {
         this.editUser = editUser;
     }
 
     /**
-     * @return edit_time
+     * 获取编辑时间
+     *
+     * @return edit_time - 编辑时间
      */
     public Date getEditTime() {
         return editTime;
     }
 
     /**
-     * @param editTime
+     * 设置编辑时间
+     *
+     * @param editTime 编辑时间
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;

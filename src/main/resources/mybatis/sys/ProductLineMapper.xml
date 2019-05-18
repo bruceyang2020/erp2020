@@ -6,6 +6,35 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_id" jdbcType="INTEGER" property="groupId" />
+    <result column="team_count" jdbcType="INTEGER" property="teamCount" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="product_line_number" jdbcType="INTEGER" property="productLineNumber" />
+    <result column="period" jdbcType="INTEGER" property="period" />
+    <result column="product_line_type_id" jdbcType="INTEGER" property="productLineTypeId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="period_buy" jdbcType="INTEGER" property="periodBuy" />
+    <result column="device_value" jdbcType="DECIMAL" property="deviceValue" />
+    <result column="depreciation_c" jdbcType="DECIMAL" property="depreciationC" />
+    <result column="deprecation_a" jdbcType="DECIMAL" property="deprecationA" />
+    <result column="installed_period_a" jdbcType="INTEGER" property="installedPeriodA" />
+    <result column="transferred_period_a" jdbcType="INTEGER" property="transferredPeriodA" />
+    <result column="transfer_fee_a" jdbcType="DECIMAL" property="transferFeeA" />
+    <result column="investment_amount_a" jdbcType="DECIMAL" property="investmentAmountA" />
+    <result column="maintenance_fee_a" jdbcType="DECIMAL" property="maintenanceFeeA" />
+    <result column="product_c" jdbcType="VARCHAR" property="productC" />
+    <result column="processing_cycle" jdbcType="INTEGER" property="processingCycle" />
+    <result column="processing_cycle_b" jdbcType="INTEGER" property="processingCycleB" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="edit_user" jdbcType="VARCHAR" property="editUser" />
+    <result column="edit_time" jdbcType="TIMESTAMP" property="editTime" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.ProductLine">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="group_id" jdbcType="VARCHAR" property="groupId" />
     <result column="team_count" jdbcType="VARCHAR" property="teamCount" />
     <result column="number" jdbcType="VARCHAR" property="number" />

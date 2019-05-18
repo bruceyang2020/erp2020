@@ -11,10 +11,10 @@ public class ModuleOrder extends BaseBean {
     private String id;
 
     @Column(name = "group_id")
-    private String groupId;
+    private Integer groupId;
 
     @Column(name = "team_count")
-    private String teamCount;
+    private Integer teamCount;
 
     private Integer advertises;
 
@@ -68,7 +68,6 @@ public class ModuleOrder extends BaseBean {
      * @return id
      */
     public String getId() {
-        int loans;
         return id;
     }
 
@@ -82,28 +81,28 @@ public class ModuleOrder extends BaseBean {
     /**
      * @return group_id
      */
-    public String getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(String groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public String getTeamCount() {
+    public Integer getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(String teamCount) {
+    public void setTeamCount(Integer teamCount) {
         this.teamCount = teamCount;
     }
 

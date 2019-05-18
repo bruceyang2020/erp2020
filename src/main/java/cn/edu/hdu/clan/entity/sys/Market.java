@@ -7,185 +7,262 @@ import javax.persistence.*;
 
 @Table(name = "market")
 public class Market extends BaseBean {
+    /**
+     * 主键
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
+    /**
+     * 市场编号
+     */
     @Column(name = "market_id")
-    private String marketId;
+    private Integer marketId;
 
+    /**
+     * 市场名称
+     */
     private String name;
 
+    /**
+     * 单位投入
+     */
     private BigDecimal cost;
 
+    /**
+     * 总开发期数
+     */
     private Integer period;
 
+    /**
+     * 总投入
+     */
     @Column(name = "cost_total")
     private BigDecimal costTotal;
 
+    /**
+     * 单项分值
+     */
     private Integer points;
 
+    /**
+     * 创建人外键用户表
+     */
     @Column(name = "create_user")
     private String createUser;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
 
+    /**
+     * 编辑人
+     */
     @Column(name = "edit_user")
     private String editUser;
 
+    /**
+     * 编辑时间
+     */
     @Column(name = "edit_time")
     private Date editTime;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * @return market_id
+     * 获取市场编号
+     *
+     * @return market_id - 市场编号
      */
-    public String getMarketId() {
+    public Integer getMarketId() {
         return marketId;
     }
 
     /**
-     * @param marketId
+     * 设置市场编号
+     *
+     * @param marketId 市场编号
      */
-    public void setMarketId(String marketId) {
+    public void setMarketId(Integer marketId) {
         this.marketId = marketId;
     }
 
     /**
-     * @return name
+     * 获取市场名称
+     *
+     * @return name - 市场名称
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @param name
+     * 设置市场名称
+     *
+     * @param name 市场名称
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @return cost
+     * 获取单位投入
+     *
+     * @return cost - 单位投入
      */
     public BigDecimal getCost() {
         return cost;
     }
 
     /**
-     * @param cost
+     * 设置单位投入
+     *
+     * @param cost 单位投入
      */
     public void setCost(BigDecimal cost) {
         this.cost = cost;
     }
 
     /**
-     * @return period
+     * 获取总开发期数
+     *
+     * @return period - 总开发期数
      */
     public Integer getPeriod() {
         return period;
     }
 
     /**
-     * @param period
+     * 设置总开发期数
+     *
+     * @param period 总开发期数
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
 
     /**
-     * @return cost_total
+     * 获取总投入
+     *
+     * @return cost_total - 总投入
      */
     public BigDecimal getCostTotal() {
         return costTotal;
     }
 
     /**
-     * @param costTotal
+     * 设置总投入
+     *
+     * @param costTotal 总投入
      */
     public void setCostTotal(BigDecimal costTotal) {
         this.costTotal = costTotal;
     }
 
     /**
-     * @return points
+     * 获取单项分值
+     *
+     * @return points - 单项分值
      */
     public Integer getPoints() {
         return points;
     }
 
     /**
-     * @param points
+     * 设置单项分值
+     *
+     * @param points 单项分值
      */
     public void setPoints(Integer points) {
         this.points = points;
     }
 
     /**
-     * @return create_user
+     * 获取创建人外键用户表
+     *
+     * @return create_user - 创建人外键用户表
      */
     public String getCreateUser() {
         return createUser;
     }
 
     /**
-     * @param createUser
+     * 设置创建人外键用户表
+     *
+     * @param createUser 创建人外键用户表
      */
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 
     /**
-     * @return create_time
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
     /**
-     * @param createTime
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * @return edit_user
+     * 获取编辑人
+     *
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;
     }
 
     /**
-     * @param editUser
+     * 设置编辑人
+     *
+     * @param editUser 编辑人
      */
     public void setEditUser(String editUser) {
         this.editUser = editUser;
     }
 
     /**
-     * @return edit_time
+     * 获取编辑时间
+     *
+     * @return edit_time - 编辑时间
      */
     public Date getEditTime() {
         return editTime;
     }
 
     /**
-     * @param editTime
+     * 设置编辑时间
+     *
+     * @param editTime 编辑时间
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;

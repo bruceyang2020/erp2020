@@ -7,47 +7,84 @@ import javax.persistence.*;
 
 @Table(name = "advertise")
 public class Advertise extends BaseBean {
+    /**
+     * 主键
+     */
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "group_id")
-    private String groupId;
+    private Integer groupId;
 
     @Column(name = "team_count")
-    private String teamCount;
+    private Integer teamCount;
 
+    /**
+     * 当前会计期间
+     */
     private Integer period;
 
+    /**
+     * 产品编码
+     */
     @Column(name = "product_id")
-    private String productId;
+    private Integer productId;
 
+    /**
+     * 市场编码
+     */
     @Column(name = "market_id")
-    private String marketId;
+    private Integer marketId;
 
-    @Column(name = "money_number")
-    private BigDecimal moneyNumber;
+    /**
+     * 金额
+     */
+    @Column(name = "money_i")
+    private BigDecimal moneyI;
 
+    /**
+     * 累积金额
+     */
+    @Column(name = "money_total")
+    private BigDecimal moneyTotal;
+
+    /**
+     * 创建人外键用户表
+     */
     @Column(name = "create_user")
     private String createUser;
 
+    /**
+     * 创建时间
+     */
     @Column(name = "create_time")
     private Date createTime;
 
+    /**
+     * 编辑人
+     */
     @Column(name = "edit_user")
     private String editUser;
 
+    /**
+     * 编辑时间
+     */
     @Column(name = "edit-time")
     private Date editTime;
 
     /**
-     * @return id
+     * 获取主键
+     *
+     * @return id - 主键
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键
+     *
+     * @param id 主键
      */
     public void setId(String id) {
         this.id = id;
@@ -56,138 +93,188 @@ public class Advertise extends BaseBean {
     /**
      * @return group_id
      */
-    public String getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(String groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public String getTeamCount() {
+    public Integer getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(String teamCount) {
+    public void setTeamCount(Integer teamCount) {
         this.teamCount = teamCount;
     }
 
     /**
-     * @return period
+     * 获取当前会计期间
+     *
+     * @return period - 当前会计期间
      */
     public Integer getPeriod() {
         return period;
     }
 
     /**
-     * @param period
+     * 设置当前会计期间
+     *
+     * @param period 当前会计期间
      */
     public void setPeriod(Integer period) {
         this.period = period;
     }
 
     /**
-     * @return product_id
+     * 获取产品编码
+     *
+     * @return product_id - 产品编码
      */
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
     /**
-     * @param productId
+     * 设置产品编码
+     *
+     * @param productId 产品编码
      */
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
     /**
-     * @return market_id
+     * 获取市场编码
+     *
+     * @return market_id - 市场编码
      */
-    public String getMarketId() {
+    public Integer getMarketId() {
         return marketId;
     }
 
     /**
-     * @param marketId
+     * 设置市场编码
+     *
+     * @param marketId 市场编码
      */
-    public void setMarketId(String marketId) {
+    public void setMarketId(Integer marketId) {
         this.marketId = marketId;
     }
 
     /**
-     * @return money_number
+     * 获取金额
+     *
+     * @return money_i - 金额
      */
-    public BigDecimal getMoneyNumber() {
-        return moneyNumber;
+    public BigDecimal getMoneyI() {
+        return moneyI;
     }
 
     /**
-     * @param moneyNumber
+     * 设置金额
+     *
+     * @param moneyI 金额
      */
-    public void setMoneyNumber(BigDecimal moneyNumber) {
-        this.moneyNumber = moneyNumber;
+    public void setMoneyI(BigDecimal moneyI) {
+        this.moneyI = moneyI;
     }
 
     /**
-     * @return create_user
+     * 获取累积金额
+     *
+     * @return money_total - 累积金额
+     */
+    public BigDecimal getMoneyTotal() {
+        return moneyTotal;
+    }
+
+    /**
+     * 设置累积金额
+     *
+     * @param moneyTotal 累积金额
+     */
+    public void setMoneyTotal(BigDecimal moneyTotal) {
+        this.moneyTotal = moneyTotal;
+    }
+
+    /**
+     * 获取创建人外键用户表
+     *
+     * @return create_user - 创建人外键用户表
      */
     public String getCreateUser() {
         return createUser;
     }
 
     /**
-     * @param createUser
+     * 设置创建人外键用户表
+     *
+     * @param createUser 创建人外键用户表
      */
     public void setCreateUser(String createUser) {
         this.createUser = createUser;
     }
 
     /**
-     * @return create_time
+     * 获取创建时间
+     *
+     * @return create_time - 创建时间
      */
     public Date getCreateTime() {
         return createTime;
     }
 
     /**
-     * @param createTime
+     * 设置创建时间
+     *
+     * @param createTime 创建时间
      */
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
     /**
-     * @return edit_user
+     * 获取编辑人
+     *
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;
     }
 
     /**
-     * @param editUser
+     * 设置编辑人
+     *
+     * @param editUser 编辑人
      */
     public void setEditUser(String editUser) {
         this.editUser = editUser;
     }
 
     /**
-     * @return edit-time
+     * 获取编辑时间
+     *
+     * @return edit-time - 编辑时间
      */
     public Date getEditTime() {
         return editTime;
     }
 
     /**
-     * @param editTime
+     * 设置编辑时间
+     *
+     * @param editTime 编辑时间
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;
