@@ -5,6 +5,7 @@
 
     <groupId>cn.edu.hdu.clan</groupId>
     <artifactId>erp</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>erp</name>
