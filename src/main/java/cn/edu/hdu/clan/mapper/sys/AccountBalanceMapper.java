@@ -4,4 +4,5 @@ import cn.edu.hdu.clan.entity.sys.AccountBalance;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface AccountBalanceMapper extends Mapper<AccountBalance> {
+    public void insert();
 }

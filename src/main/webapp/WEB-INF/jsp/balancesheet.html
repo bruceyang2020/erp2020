@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BalanceSheet</title>
+    <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        var arr = [1,5,9,13,17,21]
+        Mock.mock('http://api.com', {
+            'period|1': arr,
+            "money_now|10-99": 1,
+            "money_get|10-99": 1,
+            "money_now|10-99": 1,
+            "money_making|10-99": 1,
+            "money_sale|10-99": 1,
+            "money_buy|10-99": 1,
+            "money_flow|10-99": 1,
+            "longterm_loan|10-99": 1,
+            "shortterm_loan|10-99": 1,
+            "money_orderget|10-99": 1,
+            "money_tax|10-99": 1,
+            "longterm_loanyear|10-99": 1,
+            "money_loan|10-99": 1,
+            "money_j|10-99": 1,
+            "money_p|10-99": 1,
+        });
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "http://api.com",
+            success: function (data) {
+                $('#year').text(Math.floor(data.period/4))
+                $('#money_flow').text(data.money_flow)
+            }
+        });
+    </script>
+</head>
+<body>
+<h4>第<span id="year"></span>年度资产负债表</h4>
+<table id="balance">
+    <tr>
+        <th>资产</th>
+        <th>期初数</th>
+        <th>期末数</th>
+        <th>负债所有者权益</th>
+        <th>期初数</th>
+        <th>期末数</th>
+    </tr>
+    <tr class="light">
+        <td>流动资产：</td>
+        <td><span id=""></span></td>
+        <td></td>
+        <td>负债：</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>现金</td>
+        <td><span id="money_flow"></span></td>
+        <td></td>
+        <td>长期负债</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>应收款</td>
+        <td></td>
+        <td></td>
+        <td>短期负债</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>在制品</td>
+        <td></td>
+        <td></td>
+        <td>应收账款</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>成品</td>
+        <td></td>
+        <td></td>
+        <td>应交税金</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>原料</td>
+        <td></td>
+        <td></td>
+        <td>一年内到期长期负债</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>流动资产合计:</td>
+        <td></td>
+        <td></td>
+        <td>负债合计:</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr class="light">
+        <td>固定资产：</td>
+        <td></td>
+        <td></td>
+        <td>所有者权益：</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>土地与建筑</td>
+        <td></td>
+        <td></td>
+        <td>股东资本</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>机器与设备</td>
+        <td></td>
+        <td></td>
+        <td>利润存留</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>在建工程</td>
+        <td></td>
+        <td></td>
+        <td>年度净利</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>固定资产合计</td>
+        <td></td>
+        <td></td>
+        <td>所有者权益合计</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>资产总计:</td>
+        <td></td>
+        <td></td>
+        <td>负债和所有者权益总计:</td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+
+</body>
+</html>
