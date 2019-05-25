@@ -1,88 +1,363 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
 <html lang="en">
 <head>
-    <script
-            src="https://code.jquery.com/jquery-3.3.1.js"
-            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="js/index.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="style/index.css">
+    <title>ERP沙盘系统</title>
     <script>
-        function click1() {
-            $.ajax(
-                {
-                    type: 'POST',
-                    method: 'POST',
-                    url: 'http://localhost:8085/api/public/login',
-                    dataType: 'json',
-                    contentType: "application/json;charset=UTF-8",
-                    data: JSON.stringify({
-                        username: 'admin',
-                        password: '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b',
-                        captcha: '1',
-                        isFrontend: 1
-                    }),
-                    success: function (res) {
-                        console.log(res);
-                    },
-                    xhrFields: {
-                        withCredentials: true
-                    }
-                }
-            );
-        }
+        Mock.mock('http://test.com', {
+            "user|2-5": [{                              //2-5组数据
+                'name': '@cname',                       //中文名称
+                'age|1-100': 100,                       //100以内随机整数
+                'birthday': '@date("yyyy-MM-dd")',      //日期
+                'city': '@city(true)'                   //中国城市
+            }]
+        });
 
-        function click2() {
-            $.ajax(
-                {
-                    type: 'POST',
-                    method: 'POST',
-                    url: 'http://localhost:8085/api/public/sso-login',
-                    dataType: 'json',
-                    contentType: "application/json;charset=UTF-8",
-                    data: JSON.stringify({
-                        token: 'token1'
-                    }),
-                    success: function (res) {
-                        console.log(res);
-                    },
-                    xhrFields: {
-                        withCredentials: true
-                    }
-                }
-            );
-        }
+        Mock.mock('http://api.com', {
+            "name|3": "ABC",    // 属性值重复3次
+            "age|20-30": 1      // 20~30随机数，1用来确定类型
+        });
 
-        function getTodoCount() {
-            $.ajax(
-                {
-                    type: 'POST',
-                    method: 'POST',
-                    url: 'http://localhost:8085/api/work-flow/todo-task-list-count',
-                    dataType: 'json',
-                    contentType: "application/json;charset=UTF-8",
-                    success: function (res) {
-                        console.log(res);
-                    },
-                    xhrFields: {
-                        withCredentials: true
-                    }
+        /*var xhr = new XMLHttpRequest();
+        xhr.open("get", "http://api.com", true);
+        xhr.send(null);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+            }
+        }*/
+        $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "http://api.com",
+                success: function (data) {
+                    console.log(data.age)
+                    console.log(data.user1)
+                    console.log($('#cash').text())
+                    $('#cash').text(data.age)
                 }
-            );
-        }
+            });
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "http://test.com",
+            data:{
+                name:'',
+                marketID:''
+            },
+            success: function (data) {
+                data.data;
+                data.code;
+                data.msg;
+                console.log(data.user[1].name)
+
+            }
+        });
+        /*var xhr = new XMLHttpRequest();
+        xhr.open("get", "http://api.com", true);
+        xhr.send(null);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+            }
+        }*/
     </script>
-    <title>
-        ceshi
-    </title>
 </head>
 <body>
-<div>
-    <p>ceshi</p>
-    <button onclick="click1()">用户名密码登录</button>
-    <a href="http://localhost:8085/#/frontend/home">跳转到内控首页</a>
-    <button onclick="click2()">token登录</button>
+<div id="wrap">
+    <div id="wrapper">
+        <div class="erp">
+            <div class="content">
+                <div id="jz">
+
+                </div>
+                <div id="ceo">
+                    <input name="financial-report" id="ceo-cw" type="button"/>
+                    <!--财务弹出框-->
+                    <div class="pop">
+                       <div class="tab-contain">
+                            <ul id="tabs">
+                                <li class="current"><a href="#" title="tab1">资产负债表</a></li>
+                                <li><a href="#" title="tab2">利润表</a></li>
+                            </ul>
+                          <div id="pop-content">
+                                <div id="tab1" class="item show">
+                                    <iframe src="balancesheet.html" id="balance-wrap" frameborder="0"></iframe>
+                                </div>
+                                <div id="tab2" class="item">
+                                    <iframe src="incomesheet.html" id="income-wrap" frameborder="0"></iframe>
+                                </div>
+                          </div>
+                        </div>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                    <input name="market-report" id="ceo-sc" type="button"/>
+                    <!--市场预测弹出框-->
+                        <div class="pop2">
+                            <iframe src="marketingPre.html" id="marketingpre-wrap" frameborder="0" onload="reinitIframe()"></iframe>
+                            <div class="pop-foot">
+                                <input type="button" value="关闭" class="pop-cancel pop-close">
+                            </div>
+                        </div>
+                    <!--长期贷款-->
+                    <input name="ceo-cz-c" id="ceo-cz-c" class="cz-btn" type="button"/>
+                        <div class="pop-s1">
+                            <h3>请输入借款金额</h3>
+                            <input name="" id="load-c"/>
+                            <div class="pop-foot">
+                                <input type="button" value="取消" class="pop-cancel pop-close">
+                                <input type="button" value="确定" class="pop-ok">
+                            </div>
+                        </div>
+
+                    <input name="ceo_cz_c1" id="ceo-cz-c1" class= "cz" type="button" value="23"/>
+                    <input name="ceo_cz_c2" id="ceo-cz-c2" class= "cz" type="button"/>
+                    <input name="ceo_cz_c3" id="ceo-cz-c3" class= "cz" type="button"/>
+                    <input name="ceo_cz_c4" id="ceo-cz-c4" class= "cz" type="button"/>
+                    <input name="ceo_cz_c5" id="ceo-cz-c5" class= "cz" type="button"/>
+                    <!--短期贷款-->
+                    <input name="ceo-cz-d" id="ceo-cz-d" class="cz-btn" type="button"/>
+                    <div class="pop-s2">
+                        <h3>请输入借款金额</h3>
+                        <input name="" id="load-d"/>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确定" class="pop-ok">
+                        </div>
+                    </div>
+                    <input name="ceo_cz_d1" id="ceo-cz-d1" class= "cz" type="button"/>
+                    <input name="ceo_cz_d2" id="ceo-cz-d2" class= "cz" type="button"/>
+                    <input name="ceo_cz_d3" id="ceo-cz-d3" class= "cz" type="button"/>
+                    <input name="ceo_cz_d4" id="ceo-cz-d4" class= "cz" type="button"/>
+                    <!--高利贷-->
+                    <input name="ceo-cz-gl" id="ceo-cz-gl" class="cz-btn" type="button"/>
+                    <div class="pop-s3">
+                        <h3>请输入借款金额</h3>
+                        <input name="" id="load-g"/>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确定" class="pop-ok">
+                        </div>
+                    </div>
+                    <input name="ceo_cz_g" id="ceo-cz-g" class= "cz" type="button"/>
+
+                    <input name="ceo_tz_ma1" id="ceo-tz-ma1" class= "tz1" type="button"/>
+                    <div class="pop-s4">
+                        <h3>确认投资？（1M/Q）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-qy" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-qy" class="tz-text">区域</h4>
+
+                    <input name="ceo_tz_ma2" id="ceo-tz-ma2" class= "tz1" type="button"/>
+                    <div class="pop-s5">
+                        <h3>确认投资？（1M/Q）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-gn" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-gn" class="tz-text">国内</h4>
+
+                    <input name="ceo_tz_ma3" id="ceo-tz-ma3" class= "tz1" type="button"/>
+                    <div class="pop-s6">
+                        <h3>确认投资？（1M/Q）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-yz" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-yz" class="tz-text">亚洲</h4>
+
+                    <input name="ceo_tz_ma4" id="ceo-tz-ma4" class= "tz1" type="button"/>
+                    <div class="pop-s7">
+                        <h3>确认投资？（1M/Q）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-gj" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-gj" class="tz-text">国际</h4>
+
+                    <input name="ceo_tz_p1" id="ceo-tz-pr1" class= "tz5" type="button"/>
+                    <h4 id="ceo-tz-p1" class="tz-text">P1</h4>
+
+                    <input name="ceo_tz_p2" id="ceo-tz-pr2" class= "tz1" type="button"/>
+                    <div class="pop-s9">
+                        <h3>确认投资？（1M/Q）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-p2" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-p2" class="tz-text">P2</h4>
+
+                    <input name="ceo_tz_p3" id="ceo-tz-pr3" class= "tz1" type="button"/>
+                    <div class="pop-s10">
+                        <h3>确认投资？（2M/Q）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-p3" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-p3" class="tz-text">P3</h4>
+
+                    <input name="ceo_tz_p4" id="ceo-tz-pr4" class= "tz1" type="button"/>
+                    <div class="pop-s11">
+                        <h3>确认投资？（3M/Q）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-p4" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-p4" class="tz-text">P4</h4>
+
+                    <input name="ceo_tz_iso1" id="ceo-tz-iso1" class= "tz1" type="button"/>
+                    <div class="pop-s12">
+                        <h3>确认投资？（1M/Y）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-9k" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-iso9k" class="tz-text">ISO9000</h4>
+
+                    <input name="ceo_tz_iso2" id="ceo-tz-iso2" class= "tz1" type="button"/>
+                    <div class="pop-s13">
+                        <h3>确认投资？（2M/Y）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-14k" class="pop-ok">
+                        </div>
+                    </div>
+                    <h4 id="ceo-tz-iso14k" class="tz-text">ISO14000</h4>
+                </div>
+                <div id="financial">
+                    <h2 id="cash" class="text">1234</h2>
+                    <h4 id="fin-1" class="text">111</h4>
+                    <h4 id="fin-2" class="text">222</h4>
+                    <h4 id="fin-3" class="text">333</h4>
+                    <h4 id="fin-4" class="text">444</h4>
+
+                    <h5 id="fin-wx" class="text">wx1</h5>
+                    <h5 id="fin-gg" class="text">gg2</h5>
+                    <h5 id="fin-bg" class="text">bg3</h5>
+                    <h5 id="fin-zj" class="text">zj</h5>
+                    <h5 id="fin-sds" class="text">sds</h5>
+                </div>
+                <div id="marketing">
+                    <input name="order" id="order" type="button"/>
+                    <div class="pop3">
+                        <iframe src="ordersheet.html" id="order-wrap" frameborder="0" ></iframe>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                </div>
+                <div id="management">
+                    <h4 id="mag-p1" class="text">p1</h4>
+                    <h4 id="mag-p2" class="text">p2</h4>
+                    <h4 id="mag-p3" class="text">p3</h4>
+                    <h4 id="mag-p4" class="text">p4</h4>
+
+                    <h4 id="mag-r1" class="text">r1</h4>
+                    <h4 id="mag-r2" class="text">r2</h4>
+                    <h4 id="mag-r3" class="text">r3</h4>
+                    <h4 id="mag-r4" class="text">r4</h4>
+
+                </div>
+                <div id="production">
+                    <input name="pro" id="pro-btn" type="button"/>
+                    <div class="pop4">
+                        <iframe src="productionsheet.html" id="pro-wrap" frameborder="0" ></iframe>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                    <div id="pro-l-1" class="pro-line"></div>
+                    <!--<div id="pro-l-2" class="pro-line"></div>
+                    <div id="pro-l-3" class="pro-line"></div>
+                    <div id="pro-l-4" class="pro-line"></div>
+                    <div id="pro-l-5" class="pro-line"></div>
+                    <div id="pro-l-6" class="pro-line"></div>-->
+
+                    <div id="pro-r-1" class="pro-line"></div>
+                    <!--<div id="pro-r-2" class="pro-line"></div>
+                    <div id="pro-r-3" class="pro-line"></div>
+                    <div id="pro-r-4" class="pro-line"></div>-->
+
+                    <div id="pro-l-1-sg" class="pro-sg-l"></div><!--
+                    <div id="pro-l-2-sg" class="pro-sg-l"></div>
+                    <div id="pro-l-3-sg" class="pro-sg-l"></div>
+                    <div id="pro-l-4-sg" class="pro-sg-l"></div>
+                    <div id="pro-l-5-sg" class="pro-sg-l"></div>
+                    <div id="pro-l-6-sg" class="pro-sg-l"></div>-->
+
+                    <div id="pro-r-1-sg" class="pro-sg-r"></div>
+                    <!--div id="pro-r-2-sg" class="pro-sg-r"></div>
+                    <div id="pro-r-3-sg" class="pro-sg-r"></div>
+                    <div id="pro-r-4-sg" class="pro-sg-r"></div-->
+
+                    <div id="pro-l-1-bzd" class="pro-bzd-l"></div>
+                    <!--<div id="pro-l-2-bzd" class="pro-bzd-l"></div>
+                    <div id="pro-l-3-bzd" class="pro-bzd-l"></div>
+                    <div id="pro-l-4-bzd" class="pro-bzd-l"></div>
+                    <div id="pro-l-5-bzd" class="pro-bzd-l"></div>
+                    <div id="pro-l-6-bzd" class="pro-bzd-l"></div>-->
+
+
+                    <div id="pro-r-1-bzd" class="pro-bzd-r"></div>
+                    <!--<div id="pro-r-2-bzd" class="pro-bzd-r"></div>
+                    <div id="pro-r-3-bzd" class="pro-bzd-r"></div>
+                    <div id="pro-r-4-bzd" class="pro-bzd-r"></div>-->
+
+                    <div id="pro-l-1-zd" class="pro-zd-l"></div>
+                    <!--<div id="pro-l-2-zd" class="pro-zd-l"></div>
+                    <div id="pro-l-3-zd" class="pro-zd-l"></div>
+                    <div id="pro-l-4-zd" class="pro-zd-l"></div>
+                    <div id="pro-l-5-zd" class="pro-zd-l"></div>
+                    <div id="pro-l-6-zd" class="pro-zd-l"></div>-->
+
+                    <div id="pro-r-1-zd" class="pro-zd-r"></div>
+                    <!--<div id="pro-r-2-zd" class="pro-zd-r"></div>
+                    <div id="pro-r-3-zd" class="pro-zd-r"></div>
+                    <div id="pro-r-4-zd" class="pro-zd-r"></div>-->
+
+                    <div id="pro-l-1-rx" class="pro-rx-l"></div>
+                    <!--<div id="pro-l-2-rx" class="pro-rx-l"></div>
+                    <div id="pro-l-3-rx" class="pro-rx-l"></div>
+                    <div id="pro-l-4-rx" class="pro-rx-l"></div>
+                    <div id="pro-l-5-rx" class="pro-rx-l"></div>
+                    <div id="pro-l-6-rx" class="pro-rx-l"></div>-->
+
+                    <div id="pro-r-1-rx" class="pro-rx-r"></div>
+                    <!--<div id="pro-r-2-rx" class="pro-rx-r"></div>
+                    <div id="pro-r-3-rx" class="pro-rx-r"></div>
+                    <div id="pro-r-4-rx" class="pro-rx-r"></div>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    <div id="vue_det">
+        <h1>site : {{site}}</h1>
+        <h1>url : {{url}}</h1>
+        <h1>{{details()}}</h1>
+    </div>-->
 </div>
-<div>
-    <h3>待办数量</h3>
-    <button onclick="getTodoCount()">得到待办数量</button>
-</div>
+
 
 </body>
 
