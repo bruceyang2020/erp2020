@@ -15,7 +15,20 @@
             contentType: "application/json;charset=utf-8;",
             success: function (data) {
                 data = data['data'];
+                $("#income_sale").text(data[0].incomeSale);
+                $("#income_l").text(data[0].incomeL);
+                $("#money_new").text(data[0].moneyNew);
+                $("#money_norate").text(data[0].moneyNorate);
+                $("#money_notax").text(data[0].moneyNotax);
+                $("#money_income").text(data[0].moneyIncome);
                 $("#money_flow").text(data[0].period);
+                $("#income_sale1").text("-");
+                $("#income_l1").text("-");
+                $("#money_new1").text("-");
+                $("#money_norate1").text("-");
+                $("#money_notax1").text("-");
+                $("#money_income1").text("-");
+                $("#money_flow").text("-");
                 console.log(data);
                 console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
                 // $('#year').text(Math.floor(data.period / 4))
@@ -34,33 +47,33 @@
     </tr>
     <tr>
         <td>销售收入</td>
-        <td></td>
-        <td></td>
+        <td><span id="income_sale1"></td>
+        <td><span id="income_sale"></span></td>
     </tr>
     <tr>
         <td>毛利</td>
-        <td></td>
-        <td></td>
+        <td><span id="income_l1"></span></td>
+        <td><span id="income_l"></span></td>
     </tr>
     <tr>
         <td>折旧前利润</td>
-        <td></td>
-        <td></td>
+        <td><span id="money_new1"></span></td>
+        <td><span id="money_new"></span></td>
     </tr>
     <tr>
         <td>支付利息前利润</td>
-        <td></td>
-        <td></td>
+        <td><span id="money_norate1"></span></td>
+        <td><span id="money_norate"></span></td>
     </tr>
     <tr>
         <td>税前利润</td>
-        <td></td>
-        <td></td>
+        <td><span id="money_notax1"></span></td>
+        <td><span id="money_notax"></span></td>
     </tr>
     <tr>
         <td>净利润</td>
         <td><span id="money_flow"></span></td>
-        <td></td>
+        <td><span id="money_income"></span></td>
     </tr>
 </table>
 </body>

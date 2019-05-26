@@ -33,11 +33,14 @@ public class BalancesheetController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
+    @RequestMapping("list_de")
     public String list(@RequestBody Map<String, Integer> param) {
         return success(BalancesheetService.list(param.get("pageNum"), param.get("pageSize")));
     }
-
+    @RequestMapping("list")
+    public String list() {
+        return success(BalancesheetService.list());
+    }
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(BalancesheetService.getById(param.get("id")));

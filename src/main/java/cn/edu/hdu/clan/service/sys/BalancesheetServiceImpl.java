@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
+
 @Service
 public class BalancesheetServiceImpl implements BalancesheetService {
 
@@ -40,6 +42,11 @@ public class BalancesheetServiceImpl implements BalancesheetService {
     public PageInfo<Balancesheet> list(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(BalancesheetMapper.selectAll());
+    }
+
+    @Override
+    public List<Balancesheet> list() {
+        return BalancesheetMapper.selectAll();
     }
 
     @Override
