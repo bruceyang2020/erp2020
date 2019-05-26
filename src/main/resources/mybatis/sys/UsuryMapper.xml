@@ -17,4 +17,10 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <update id="save">
+      update usury set period=#{period},money_total=#{money_total} where create_user=#{user_id};
+    </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.Usury">
+    select money_total from usury where period=#{period} and create_user=#{user_id};
+  </select>
 </mapper>

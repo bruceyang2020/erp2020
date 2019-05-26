@@ -18,4 +18,7 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <select id="query" resultType="cn.edu.hdu.clan.entity.sys.Incomesheet">
+      select * from incomesheet where create_user=#{user_id} and period=#{period};
+    </select>
 </mapper>

@@ -13,4 +13,5 @@ public interface IncomesheetService {
     PageInfo<Incomesheet> list(int pageNum, int pageSize);
 
     Incomesheet getById(String id);
+    Incomesheet getincomesheet(Incomesheet incomesheet);
 }

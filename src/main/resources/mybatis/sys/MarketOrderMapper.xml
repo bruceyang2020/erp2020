@@ -22,4 +22,10 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_timei" property="editTimei" jdbcType="TIMESTAMP" />
   </resultMap>
+  <update id="save">
+
+  </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.MarketOrder">
+    select * from market_order where create_user=#{user_id} and period=#{period};
+  </select>
 </mapper>

@@ -30,4 +30,10 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <update id="save">
+    update product_line a set a.product_line_number=#{product_line_number},a.state=#{state},a.processing_cycle=#{processing_cycle},a.number=#{number} where create_user=#{user_id} and period=#{period};
+  </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.ProductLine">
+    select * from product_line where create_user=#{user_id} and period=#{period};
+  </select>
 </mapper>

@@ -17,4 +17,10 @@
     <result column="edit-user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <update id="save">
+      update iso_fee a set a.number=#{number} where a.create_user=#{user_id} and a.period=#{period};
+    </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.IsoFee">
+    select * from iso_fee a where  create_user=#{user_id} and period=#{period};
+  </select>
 </mapper>

@@ -19,4 +19,10 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="eidt_time" property="eidtTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <update id="save">
+      update salepayment set money=#{money} where create_user=#{user_id} and period=#{period};
+    </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.Salepayment">
+  select * from salepayment where create_user=#{user_id} and period=#{period};
+  </select>
 </mapper>

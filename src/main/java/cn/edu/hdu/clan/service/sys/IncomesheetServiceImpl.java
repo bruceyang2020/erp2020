@@ -48,4 +48,8 @@ public class IncomesheetServiceImpl implements IncomesheetService {
         example.createCriteria().andEqualTo("id", id);
         return IncomesheetMapper.selectOneByExample(example);
     }
+    @Override
+    public Incomesheet getincomesheet(Incomesheet incomesheet){
+        return IncomesheetMapper.query();
+    }
 }

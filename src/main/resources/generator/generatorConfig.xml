@@ -18,19 +18,19 @@
                         password="cloud233">
         </jdbcConnection>
 
-        <javaModelGenerator targetPackage="cn.edu.hdu.clan.entity.sys" targetProject="D:\江俊作案工具\erp\src\main\java">
+        <javaModelGenerator targetPackage="cn.edu.hdu.clan.entity.sys" targetProject="E:\recent\demo\springbootdemo-master\src\main\resources\mybatis\sys">
             <property name="enableSubPackages" value="true"/>
             <property name="rootClass" value="cn.edu.hdu.clan.entity.BaseBean"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="sys"  targetProject="D:\江俊作案工具\erp\src\main\resources\mybatis"/>
+        <sqlMapGenerator targetPackage="sys"  targetProject="E:\recent\demo\springbootdemo-master\src\main\resources\mybatis\sys"/>
 
-        <javaClientGenerator targetPackage="cn.edu.hdu.clan.mapper.sys" targetProject="D:\江俊作案工具\erp\src\main\java" type="XMLMAPPER" />
+        <javaClientGenerator targetPackage="cn.edu.hdu.clan.mapper.sys" targetProject="E:\recent\demo\springbootdemo-master\src\main\resources\mybatis\sys" type="XMLMAPPER" />
 
         <!--<table tableName="sys_user" >-->
             <!--<generatedKey column="id" sqlStatement="Mysql" identity="true"/>-->
         <!--</table>-->
-        <table tableName="%" />
-
+        <!--<table tableName="%" />-->
+        <table tableName="long_term_loans" />
     </context>
 </generatorConfiguration>

@@ -33,14 +33,25 @@ public class IndexController extends BaseController {
     public String index() {
         return "index";
     }
-
-    @ResponseBody
-    @RequestMapping("validate-token")
-    public String validateToken(@RequestParam String token) throws IOException {
-        System.out.println(token);
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode jsonNode = objectMapper.readTree("{\"result\":true,\"loginLogname\":\"admin\",\"errMsg\":\"成功\"}");
-        return jsonNode.asText();
+    @RequestMapping("/balancesheet")
+    public String balancesheet() {
+        return "balancesheet";
+    }
+    @RequestMapping("/incomesheet")
+    public String incomesheet() {
+        return "incomesheet";
+    }
+    @RequestMapping("/marketingPre")
+    public String marketingPre() {
+        return "marketingPre";
+    }
+    @RequestMapping("/ordersheet")
+    public String ordersheet() {
+        return "ordersheet";
+    }
+    @RequestMapping("/productionsheet")
+    public String productionsheet() {
+        return "productionsheet";
     }
 
     @ResponseBody

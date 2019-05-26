@@ -14,4 +14,10 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <update id="save">
+      update material set price=#{price} where create_user=#{user_id} and period=#{period} and material_id=#{number};
+    </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.Material">
+    select * from material where create_user=#{user_id} and period=#{period} and material_id=#{number};
+  </select>
 </mapper>

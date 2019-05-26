@@ -17,4 +17,10 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <update id="save">
+      update market_fee set market_id=#{market_id} where create_user=#{user_id} and period=#{period};
+    </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.MarketFee">
+    select * from market_fee where  create_user=#{user_id} and period=#{period};
+  </select>
 </mapper>

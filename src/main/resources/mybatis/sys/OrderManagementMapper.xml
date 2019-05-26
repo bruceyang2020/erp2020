@@ -21,4 +21,10 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
+    <update id="save">
+      update order_management set order_id=#{order_id},money=#{money} where create_user=#{user_id} and period=#{period} and type=#{type};
+    </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.OrderManagement">
+    select * from order_management where create_user=#{user_id} and period=#{period} and type=#{type};
+  </select>
 </mapper>
