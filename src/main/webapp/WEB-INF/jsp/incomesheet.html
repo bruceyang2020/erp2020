@@ -7,38 +7,25 @@
     <script src="http://mockjs.com/dist/mock.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script>
-        var arr = [1,5,9,13,17,21];
-        Mock.mock('http://api.com', {
-            'period|1': arr,
-            "money_now|10-99": 1,
-            "money_get|10-99": 1,
-            "money_now|10-99": 1,
-            "money_making|10-99": 1,
-            "money_sale|10-99": 1,
-            "money_buy|10-99": 1,
-            "money_flow|10-99": 1,
-            "longterm_loan|10-99": 1,
-            "shortterm_loan|10-99": 1,
-            "money_orderget|10-99": 1,
-            "money_tax|10-99": 1,
-            "longterm_loanyear|10-99": 1,
-            "money_loan|10-99": 1,
-            "money_j|10-99": 1,
-            "money_p|10-99": 1,
-        });
         $.ajax({
             type: "post",
             dataType: "json",
-            url: "http://api.com",
+            data: {pageSize: 100, pageNum: 0},
+            url: "/Incomesheet/list",
+            contentType: "application/json;charset=utf-8;",
             success: function (data) {
-                $('#year').text(Math.floor(data.period/4))
-                $('#money_flow').text(data.money_flow)
+                data = data['data'];
+                $("#money_flow").text(data[0].period);
+                console.log(data);
+                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
             }
         });
     </script>
 </head>
 <body>
-<h4>第  年度利润表</h4>
+<h4>第 年度利润表</h4>
 <table id="income">
     <tr class="light">
         <th>项目</th>

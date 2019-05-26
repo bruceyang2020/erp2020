@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
+
 @Service
 public class IncomesheetServiceImpl implements IncomesheetService {
 
@@ -36,10 +38,14 @@ public class IncomesheetServiceImpl implements IncomesheetService {
         IncomesheetMapper.updateByExampleSelective(Incomesheet, example);
     }
 
-    @Override
+       @Override
     public PageInfo<Incomesheet> list(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(IncomesheetMapper.selectAll());
+    }
+    @Override
+    public List<Incomesheet> list( ) {
+        return IncomesheetMapper.selectAll();
     }
 
     @Override

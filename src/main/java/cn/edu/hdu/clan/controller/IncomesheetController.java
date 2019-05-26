@@ -33,10 +33,16 @@ public class IncomesheetController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
+    @RequestMapping("list-de")
     public String list(@RequestBody Map<String, Integer> param) {
         return success(IncomesheetService.list(param.get("pageNum"), param.get("pageSize")));
     }
+
+    @RequestMapping("list")
+    public String list() {
+        return success(IncomesheetService.list());
+    }
+
 
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
