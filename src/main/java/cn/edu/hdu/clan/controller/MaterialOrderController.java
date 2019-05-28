@@ -33,9 +33,13 @@ public class MaterialOrderController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
+    @RequestMapping("list_de")
     public String list(@RequestBody Map<String, Integer> param) {
         return success(MaterialOrderService.list(param.get("pageNum"), param.get("pageSize")));
+    }
+    @RequestMapping("list")
+    public String list() {
+        return success(MaterialOrderService.list());
     }
 
     @RequestMapping("getById")

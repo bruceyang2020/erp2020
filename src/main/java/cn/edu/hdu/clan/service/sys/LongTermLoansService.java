@@ -1,7 +1,10 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.sys.Balancesheet;
 import cn.edu.hdu.clan.entity.sys.LongTermLoans;
 import com.github.pagehelper.PageInfo;
+
+import java.util.List;
 
 public interface LongTermLoansService {
     void add(LongTermLoans LongTermLoans);
@@ -13,4 +16,6 @@ public interface LongTermLoansService {
     PageInfo<LongTermLoans> list(int pageNum, int pageSize);
 
     LongTermLoans getById(String id);
+
+    List<LongTermLoans> list();
 }

@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.sys.LongTermLoans;
 import cn.edu.hdu.clan.entity.sys.Usury;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.UsuryMapper;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 @Service
 public class UsuryServiceImpl implements UsuryService {
@@ -47,5 +50,9 @@ public class UsuryServiceImpl implements UsuryService {
         Example example = new Example(Usury.class);
         example.createCriteria().andEqualTo("id", id);
         return UsuryMapper.selectOneByExample(example);
+    }
+    @Override
+    public List<Usury> list() {
+        return UsuryMapper.selectAll();
     }
 }

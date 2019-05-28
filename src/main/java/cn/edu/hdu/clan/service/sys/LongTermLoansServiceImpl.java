@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.sys.Balancesheet;
 import cn.edu.hdu.clan.entity.sys.LongTermLoans;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.LongTermLoansMapper;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 @Service
 public class LongTermLoansServiceImpl implements LongTermLoansService {
@@ -48,4 +51,9 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
         example.createCriteria().andEqualTo("id", id);
         return LongTermLoansMapper.selectOneByExample(example);
     }
+    @Override
+    public List<LongTermLoans> list() {
+        return LongTermLoansMapper.selectAll();
+    }
+
 }

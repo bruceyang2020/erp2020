@@ -33,9 +33,13 @@ public class LongTermLoansController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
+    @RequestMapping("list_de")
     public String list(@RequestBody Map<String, Integer> param) {
         return success(LongTermLoansService.list(param.get("pageNum"), param.get("pageSize")));
+    }
+    @RequestMapping("list")
+    public String list() {
+        return success(LongTermLoansService.list());
     }
 
     @RequestMapping("getById")

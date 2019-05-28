@@ -1,6 +1,7 @@
 package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.MaterialOrder;
+import cn.edu.hdu.clan.entity.sys.OrderManagement;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.MaterialOrderMapper;
 import com.github.pagehelper.PageHelper;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.List;
 
 @Service
 public class MaterialOrderServiceImpl implements MaterialOrderService {
@@ -48,4 +51,6 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         example.createCriteria().andEqualTo("id", id);
         return MaterialOrderMapper.selectOneByExample(example);
     }
+    public List<MaterialOrder> list() {
+        return MaterialOrderMapper.selectAll();}
 }

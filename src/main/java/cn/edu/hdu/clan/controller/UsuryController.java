@@ -33,9 +33,13 @@ public class UsuryController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
+    @RequestMapping("list_de")
     public String list(@RequestBody Map<String, Integer> param) {
         return success(UsuryService.list(param.get("pageNum"), param.get("pageSize")));
+    }
+    @RequestMapping("list")
+    public String list() {
+        return success(UsuryService.list());
     }
 
     @RequestMapping("getById")
