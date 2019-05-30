@@ -36,6 +36,7 @@ public class OrderManagement extends BaseBean {
     /**
      * 数据
      */
+    @Column(name = "amount")
     private BigDecimal amount;
 
     /**

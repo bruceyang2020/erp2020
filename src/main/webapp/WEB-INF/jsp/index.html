@@ -187,6 +187,41 @@
                 // $('#money_flow').text(data.money_flow)
             }
         });
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: {pageSize: 100, pageNum: 0},
+            url: "/MaterialOrder/list",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                // $("#period").text(data[0].period);
+
+                $("#pro-l-1-zd").text("1");
+                $("#pro-l-1-rx").text("2");
+                console.log(data);
+                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@productline');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
+            }
+        });
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: {pageSize: 100, pageNum: 0},
+            url: "/Balancesheet/list",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                // $("#period").text(data[0].period);
+                $('#cash').text(data[0].moneyNow);
+                console.log(data);
+                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@财务部现金');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
+            }
+        });
         Mock.mock('http://test.com', {
             "user|2-5": [{                              //2-5组数据
                 'name': '@cname',                       //中文名称
@@ -210,33 +245,33 @@
                 console.log(xhr.responseText);
             }
         }*/
-        $.ajax({
-                type: "post",
-                dataType: "json",
-                url: "http://api.com",
-                success: function (data) {
-                    console.log(data.age)
-                    console.log(data.user1)
-                    console.log($('#cash').text())
-                    $('#cash').text(data.age)
-                }
-            });
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "http://test.com",
-            data:{
-                name:'',
-                marketID:''
-            },
-            success: function (data) {
-                data.data;
-                data.code;
-                data.msg;
-                console.log(data.user[1].name)
-
-            }
-        });
+        // $.ajax({
+        //         type: "post",
+        //         dataType: "json",
+        //         url: "http://api.com",
+        //         success: function (data) {
+        //             console.log(data.age)
+        //             console.log(data.user1)
+        //             console.log($('#cash').text())
+        //             $('#cash').text(data.age)
+        //         }
+        //     });
+        // $.ajax({
+        //     type: "post",
+        //     dataType: "json",
+        //     url: "http://test.com",
+        //     data:{
+        //         name:'',
+        //         marketID:''
+        //     },
+        //     success: function (data) {
+        //         data.data;
+        //         data.code;
+        //         data.msg;
+        //         console.log(data.user[1].name)
+        //
+        //     }
+        // });
         /*var xhr = new XMLHttpRequest();
         xhr.open("get", "http://api.com", true);
         xhr.send(null);
@@ -246,6 +281,11 @@
                 console.log(xhr.responseText);
             }
         }*/
+        $(function () {
+            $("jz").click(function () {
+                location.reload(true);
+            });
+        });
     </script>
 </head>
 <body>
@@ -255,6 +295,8 @@
             <div class="content">
                 <div id="jz">
 
+                    <input type="button" onclick="javascript:window.location.reload()" value="" style = "background-color: transparent; border: 0;margin-top: 25px;width: 70px;height: 70px"/>
+                    <!--<button type="button" onclick="javascript:window.location.reload()">刷新</button>-->
                 </div>
                 <div id="ceo">
                     <input name="financial-report" id="ceo-cw" type="button"/>
@@ -512,7 +554,7 @@
                     <div id="pro-r-3-zd" class="pro-zd-r"></div>
                     <div id="pro-r-4-zd" class="pro-zd-r"></div>-->
 
-                    <div id="pro-l-1-rx" class="pro-rx-l"></div>
+                    <div id="pro-l-1-rx" class="pro-rx-l" ></div>
                     <!--<div id="pro-l-2-rx" class="pro-rx-l"></div>
                     <div id="pro-l-3-rx" class="pro-rx-l"></div>
                     <div id="pro-l-4-rx" class="pro-rx-l"></div>

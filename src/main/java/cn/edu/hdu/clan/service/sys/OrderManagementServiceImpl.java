@@ -33,7 +33,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 
     @Override
     public void update(OrderManagement OrderManagement) {
-        BaseBeanHelper.edit(OrderManagement);
+//        BaseBeanHelper.edit(OrderManagement);
         Example example = new Example(OrderManagement.class);
         example.createCriteria().andEqualTo("id", OrderManagement.getId());
         OrderManagementMapper.updateByExampleSelective(OrderManagement, example);

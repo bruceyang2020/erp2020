@@ -5,6 +5,213 @@
     <title>OrderSheet</title>
     <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: {pageSize: 100, pageNum: 0},
+            url: "/Balancesheet/list",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                // $("#period").text(data[0].period);
+                $("#ceo-cz-c1").val(data[0].longTermLoan);
+                console.log(data);
+                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@chang');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
+            }
+        });
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/OrderManagement/list",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                // $("#period").text(data[0].period);
+                $("#order1").val(data[0].amount);
+                console.log(data);
+                console.log('@@@@@@@@@@@@@@@@@@@order1查询');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
+            }
+        })
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/OrderManagement/list",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                // $("#period").text(data[0].period);
+                $("#order2").val(data[1].amount);
+                console.log(data);
+                console.log('@@@@@@@@@@@@@@@@@@@order2查询');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
+            }
+        })
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/OrderManagement/list",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                // $("#period").text(data[0].period);
+                $("#order3").val(data[2].amount);
+                console.log(data);
+                console.log('@@@@@@@@@@@@@@@@@@@order3查询');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
+            }
+        })
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/OrderManagement/list",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                // $("#period").text(data[0].period);
+                $("#order4").val(data[3].amount);
+                console.log(data);
+                console.log('@@@@@@@@@@@@@@@@@@@order4查询');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
+            }
+        })
+
+        Mock.mock('http://test.com', {
+            "user|2-5": [{                              //2-5组数据
+                'name': '@cname',                       //中文名称
+                'age|1-100': 100,                       //100以内随机整数
+                'birthday': '@date("yyyy-MM-dd")',      //日期
+                'city': '@city(true)'                   //中国城市
+            }]
+        });
+
+        Mock.mock('http://api.com', {
+            "name|3": "ABC",    // 属性值重复3次
+            "age|20-30": 1      // 20~30随机数，1用来确定类型
+        });
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "http://test.com",
+            data: {
+                name: '',
+                marketID: ''
+            },
+            success: function (data) {
+                data.data;
+                data.code;
+                data.msg;
+                console.log(data.user[1].name)
+            }
+        });
+        $(function () {
+            $("#btn1").click(function () {
+                $("#order1").val(parseInt(1)+parseInt(document.getElementById("order1").value));
+                var OrderManagement={
+                    id:"1",
+                    amount: $("#order1").val(),
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(OrderManagement),
+                    success: function (data) {
+                        console.log("更新成功");
+                    }
+                })
+            });
+            $("#btn2").click(function () {
+                $("#order2").val(parseInt(1)+parseInt(document.getElementById("order2").value));
+                var OrderManagement={
+                    id:"2",
+                    amount: $("#order2").val(),
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(OrderManagement),
+                    success: function (data) {
+                        console.log("更新成功");
+                    }
+                })
+            });
+            $("#btn3").click(function () {
+                $("#order3").val(parseInt(1)+parseInt(document.getElementById("order3").value));
+                var OrderManagement={
+                    id:"3",
+                    amount: $("#order23").val(),
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(OrderManagement),
+                    success: function (data) {
+                        console.log("更新成功");
+                    }
+                })
+            });
+            $("#btn4").click(function () {
+                $("#order4").val(parseInt(1)+parseInt(document.getElementById("order4").value));
+                var OrderManagement={
+                    id:"4",
+                    amount: $("#order4").val(),
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(OrderManagement),
+                    success: function (data) {
+                        console.log("更新成功");
+                    }
+                })
+            });
+            $("#btn5").click(function () {
+                // var skuval = $(".sku-value").val();
+                // var new_statusval = $("#status option:selected").val();
+                // var old_statusval = $(".old-status-value").val();
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "http://test.com",
+                    contentType: "application/json;charset=utf-8;",
+                    data: {
+                        name: '',
+                        marketID: ''
+                    },
+                    success: function (data) {
+                        data = data['data'];
+                        // $("#period").text(data[0].period);
+                        $("#order5").val(parseInt(1)+parseInt(document.getElementById("order5").value));
+                        console.log($);
+                        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@btn1');
+                        // $('#year').text(Math.floor(data.period / 4))
+                        // $('#money_flow').text(data.money_flow)
+                    }
+                })
+            });
+        });
+
+    </script>
 </head>
 <body style="overflow-x:hidden;overflow-y:auto">
 <h4>第2年度订货会</h4>
@@ -15,12 +222,13 @@
                 <h5 class="card-title">订单编号:98761</h5>
                 <h4 class="card-title">总价:<span class="card-amount">55</span></h4>
                 <div class="card-center">
-                    <span>数量: 3</span>
+                    <span>数量: 1</span>
                     <span>交货期: 3Q </span><br/>
                     <span>账期: 4Q </span>
                     <span>ISO: ISO14000K</span>
                 </div>
-                <div class="card-bottom"><a href="#" class="btn btn-default">选择</a></div>
+                <div class="card-bottom"><a href="#" class="btn btn-default" type="button" id="btn1">下单</a></div>
+                <input name="" id="order1" class= "" value="0" />
             </div>
         </div>
     </div>
@@ -30,12 +238,13 @@
                 <h5 class="card-title">订单编号:98762</h5>
                 <h4 class="card-title">总价:<span class="card-amount">55</span></h4>
                 <div class="card-center">
-                    <span>数量: 4</span>
+                    <span>数量: 1</span>
                     <span>交货期: 4Q </span><br/>
                     <span>账期: 4Q </span>
                     <span>ISO: ISO9000K</span>
                 </div>
-                <div class="card-bottom"><a href="#" class="btn btn-default">选择</a></div>
+                <div class="card-bottom"><a href="#" class="btn btn-default" type="button" id="btn2">下单</a></div>
+                <input name="" id="order2" class= "" value="0" />
             </div>
         </div>
     </div>
@@ -45,12 +254,13 @@
                 <h5 class="card-title">订单编号:98763</h5>
                 <h4 class="card-title">总价:<span class="card-amount">12</span></h4>
                 <div class="card-center">
-                    <span>数量: 2</span>
+                    <span>数量: 1</span>
                     <span>交货期: 4Q </span><br/>
                     <span>账期: 4Q </span>
                     <span>ISO: ISO9000K</span>
                 </div>
-                <div class="card-bottom"><a href="#" class="btn btn-default">选择</a></div>
+                <div class="card-bottom"><a href="#" class="btn btn-default" type="button" id="btn3">下单</a></div>
+                <input name="" id="order3" class= "" value="0" />
             </div>
         </div>
     </div>
@@ -60,12 +270,13 @@
                 <h5 class="card-title">订单编号:98764</h5>
                 <h4 class="card-title">总价:<span class="card-amount">20</span></h4>
                 <div class="card-center">
-                    <span>数量: 4</span>
+                    <span>数量: 1</span>
                     <span>交货期: 4Q </span><br/>
                     <span>账期: 4Q </span>
                     <span>ISO: ISO9000K</span>
                 </div>
-                <div class="card-bottom"><a href="#" class="btn btn-default">选择</a></div>
+                <div class="card-bottom"><a href="#" class="btn btn-default" type="button" id="btn4">下单</a></div>
+                <input name="" id="order4" class= "" value="0" />
             </div>
         </div>
     </div>
@@ -75,12 +286,13 @@
                 <h5 class="card-title">订单编号:98765</h5>
                 <h4 class="card-title">总价:<span class="card-amount">55</span></h4>
                 <div class="card-center">
-                    <span>数量: 4</span>
+                    <span>数量: 1</span>
                     <span>交货期: 4Q </span><br/>
                     <span>账期: 4Q </span>
                     <span>ISO: ISO9000K</span>
                 </div>
-                <div class="card-bottom"><a href="#" class="btn btn-default">选择</a></div>
+                <div class="card-bottom"><a href="#" class="btn btn-default" id="btn5">下单</a></div>
+                <input name="" id="order5" class= "" value="0" />
             </div>
         </div>
     </div>
