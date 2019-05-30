@@ -32,7 +32,7 @@ public class BalancesheetServiceImpl implements BalancesheetService {
 
     @Override
     public void update(Balancesheet Balancesheet) {
-        BaseBeanHelper.edit(Balancesheet);
+//        BaseBeanHelper.edit(Balancesheet);
         Example example = new Example(Balancesheet.class);
         example.createCriteria().andEqualTo("id", Balancesheet.getId());
         BalancesheetMapper.updateByExampleSelective(Balancesheet, example);

@@ -130,7 +130,21 @@
                     contentType: "application/json;charset=utf-8;",
                     data:JSON.stringify(OrderManagement),
                     success: function (data) {
-                        console.log("更新成功");
+                        alert("订单1下单成功");
+                    }
+                })
+                var MaterialOrder={
+                    id:"1",
+                    amount: $("#order1").val(),
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(MaterialOrder),
+                    success: function (data) {
+
                     }
                 })
             });
@@ -147,7 +161,7 @@
                     contentType: "application/json;charset=utf-8;",
                     data:JSON.stringify(OrderManagement),
                     success: function (data) {
-                        console.log("更新成功");
+                        alert("订单2下单成功");
                     }
                 })
             });
@@ -164,7 +178,7 @@
                     contentType: "application/json;charset=utf-8;",
                     data:JSON.stringify(OrderManagement),
                     success: function (data) {
-                        console.log("更新成功");
+                        alert("订单3下单成功");
                     }
                 })
             });
@@ -181,7 +195,7 @@
                     contentType: "application/json;charset=utf-8;",
                     data:JSON.stringify(OrderManagement),
                     success: function (data) {
-                        console.log("更新成功");
+                        alert("订单4下单成功");
                     }
                 })
             });
@@ -206,6 +220,7 @@
                         console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@btn1');
                         // $('#year').text(Math.floor(data.period / 4))
                         // $('#money_flow').text(data.money_flow)
+                        alert("订单5下单成功");
                     }
                 })
             });

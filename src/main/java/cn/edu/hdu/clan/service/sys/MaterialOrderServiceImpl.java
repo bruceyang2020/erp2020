@@ -33,7 +33,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
 
     @Override
     public void update(MaterialOrder MaterialOrder) {
-        BaseBeanHelper.edit(MaterialOrder);
+//        BaseBeanHelper.edit(MaterialOrder);
         Example example = new Example(MaterialOrder.class);
         example.createCriteria().andEqualTo("id", MaterialOrder.getId());
         MaterialOrderMapper.updateByExampleSelective(MaterialOrder, example);
