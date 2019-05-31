@@ -116,6 +116,7 @@
                 console.log(data.user[1].name)
             }
         });
+        //市场订单下单，跟新订单数和材料数
         $(function () {
             $("#btn1").click(function () {
                 $("#order1").val(parseInt(1)+parseInt(document.getElementById("order1").value));
@@ -147,6 +148,21 @@
 
                     }
                 })
+                // //资产负债表重置
+                // var bsn_moneyNow=parseInt("100")+parseInt($('#order1').val());
+                // var BalancesheetNew1 = {
+                //     id: "1",
+                //     moneyNow: bsn_moneyNow,
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/Balancesheet/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(BalancesheetNew1),
+                //     success: function (data) {
+                //     }
+                // })
             });
             $("#btn2").click(function () {
                 $("#order2").val(parseInt(1)+parseInt(document.getElementById("order2").value));
@@ -162,6 +178,20 @@
                     data:JSON.stringify(OrderManagement),
                     success: function (data) {
                         alert("订单2下单成功");
+                    }
+                })
+                var MaterialOrder={
+                    id:"2",
+                    amount: $("#order2").val(),
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(MaterialOrder),
+                    success: function (data) {
+
                     }
                 })
             });
@@ -181,6 +211,20 @@
                         alert("订单3下单成功");
                     }
                 })
+                var MaterialOrder={
+                    id:"3",
+                    amount: $("#order3").val(),
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(MaterialOrder),
+                    success: function (data) {
+
+                    }
+                })
             });
             $("#btn4").click(function () {
                 $("#order4").val(parseInt(1)+parseInt(document.getElementById("order4").value));
@@ -196,6 +240,20 @@
                     data:JSON.stringify(OrderManagement),
                     success: function (data) {
                         alert("订单4下单成功");
+                    }
+                })
+                var MaterialOrder={
+                    id:"4",
+                    amount: $("#order4").val(),
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(MaterialOrder),
+                    success: function (data) {
+
                     }
                 })
             });
@@ -238,8 +296,8 @@
                 <h4 class="card-title">总价:<span class="card-amount">55</span></h4>
                 <div class="card-center">
                     <span>数量: 1</span>
-                    <span>交货期: 3Q </span><br/>
-                    <span>账期: 4Q </span>
+                    <span>类型: 1 </span><br/>
+                    <span>账期: 1Q </span>
                     <span>ISO: ISO14000K</span>
                 </div>
                 <div class="card-bottom"><a href="#" class="btn btn-default" type="button" id="btn1">下单</a></div>
@@ -254,8 +312,8 @@
                 <h4 class="card-title">总价:<span class="card-amount">55</span></h4>
                 <div class="card-center">
                     <span>数量: 1</span>
-                    <span>交货期: 4Q </span><br/>
-                    <span>账期: 4Q </span>
+                    <span>类型：2 </span><br/>
+                    <span>账期: 1Q </span>
                     <span>ISO: ISO9000K</span>
                 </div>
                 <div class="card-bottom"><a href="#" class="btn btn-default" type="button" id="btn2">下单</a></div>
@@ -270,8 +328,8 @@
                 <h4 class="card-title">总价:<span class="card-amount">12</span></h4>
                 <div class="card-center">
                     <span>数量: 1</span>
-                    <span>交货期: 4Q </span><br/>
-                    <span>账期: 4Q </span>
+                    <span>类型：3</span><br/>
+                    <span>账期: 1Q </span>
                     <span>ISO: ISO9000K</span>
                 </div>
                 <div class="card-bottom"><a href="#" class="btn btn-default" type="button" id="btn3">下单</a></div>
@@ -286,8 +344,8 @@
                 <h4 class="card-title">总价:<span class="card-amount">20</span></h4>
                 <div class="card-center">
                     <span>数量: 1</span>
-                    <span>交货期: 4Q </span><br/>
-                    <span>账期: 4Q </span>
+                    <span>类型：4</span><br/>
+                    <span>账期: 1Q </span>
                     <span>ISO: ISO9000K</span>
                 </div>
                 <div class="card-bottom"><a href="#" class="btn btn-default" type="button" id="btn4">下单</a></div>
@@ -302,7 +360,7 @@
                 <h4 class="card-title">总价:<span class="card-amount">55</span></h4>
                 <div class="card-center">
                     <span>数量: 1</span>
-                    <span>交货期: 4Q </span><br/>
+                    <span>类型：5 </span><br/>
                     <span>账期: 4Q </span>
                     <span>ISO: ISO9000K</span>
                 </div>

@@ -33,7 +33,7 @@ public class UsuryServiceImpl implements UsuryService {
 
     @Override
     public void update(Usury Usury) {
-        BaseBeanHelper.edit(Usury);
+//        BaseBeanHelper.edit(Usury);
         Example example = new Example(Usury.class);
         example.createCriteria().andEqualTo("id", Usury.getId());
         UsuryMapper.updateByExampleSelective(Usury, example);
