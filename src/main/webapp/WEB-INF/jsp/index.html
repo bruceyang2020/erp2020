@@ -10,8 +10,9 @@
     <link rel="stylesheet" type="text/css" href="style/index.css">
     <title>ERP沙盘系统</title>
     <script>
-        var daikuan = 0;
-        var touzi = 0;
+        var daikuan = 0;//贷款数
+        var touzi = 0;//投资额
+        var dindan=0;//订单数
         //贷款显示
         $.ajax({
             type: "post",
@@ -72,6 +73,7 @@
                 data = data['data'];
                 // $("#period").text(data[0].period);
                 $("#mag-p1").text(data[0].amount);
+                dindan=parseInt(dindan)+parseInt(data[0].amount);
                 console.log(data);
                 console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@order1');
                 // $('#year').text(Math.floor(data.period / 4))
@@ -88,6 +90,7 @@
                 data = data['data'];
                 // $("#period").text(data[0].period);
                 $("#mag-p2").text(data[1].amount);
+                dindan=parseInt(dindan)+parseInt(data[1].amount);
                 console.log(data);
                 console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@order2');
                 // $('#year').text(Math.floor(data.period / 4))
@@ -104,6 +107,7 @@
                 data = data['data'];
                 // $("#period").text(data[0].period);
                 $("#mag-p3").text(data[2].amount);
+                dindan=parseInt(dindan)+parseInt(data[2].amount);
                 console.log(data);
                 console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@order3');
                 // $('#year').text(Math.floor(data.period / 4))
@@ -120,6 +124,7 @@
                 data = data['data'];
                 // $("#period").text(data[0].period);
                 $("#mag-p4").text(data[3].amount);
+                dindan=parseInt(dindan)+parseInt(data[3].amount);
                 console.log(data);
                 console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@order4');
                 // $('#year').text(Math.floor(data.period / 4))
@@ -343,12 +348,12 @@
                 touzi = parseInt(touzi) + parseInt("20");//记录扣款数
             })
             $("#ok-9k").click(function () {
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//ISO1扣20
-                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("200"));//ISO1扣200
+                touzi = parseInt(touzi) + parseInt("200");//记录扣款数
             })
             $("#ok-14k").click(function () {
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("40"));//ISO2扣20
-                touzi = parseInt(touzi) + parseInt("40");//记录扣款数
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
+                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
             })
         })
         //结转本季，刷新页面
@@ -357,13 +362,17 @@
                 //资产负债表重置
                 var Balancesheet = {
                     id: "1",
-                    // longTermLoan: $('#load-c').val(),//长期贷款
-                    moneyNow: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)).toString(),//现金
-                    moneyFlow: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)).toString(),//流动资金
-                    moneyAll: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi) + parseInt("12")).toString(),//资产总计
-                    moneyAlls: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi) + parseInt("12")).toString(),//所有人权益总计
+                    longTermLoan: $('#load-c').val(),//长期贷款
+                    shortTermLoan:$('#load-d').val(),//短期贷款
+                    moneyNow: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)+parseInt(dindan*30)).toString(),//现金
+                    moneyFlow: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)+parseInt(dindan*30)).toString(),//流动资金
+                    moneyAll: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi) + parseInt("12")+parseInt(dindan*30)).toString(),//资产总计
+                    moneyAlls: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi) + parseInt("12")+parseInt(dindan*30)).toString(),//所有人权益总计
                     moneyLoan: daikuan.toString(),//负债总计
-                    longTermLoanYear:daikuan.toString()//一年内到期贷款
+                    longTermLoanYear:daikuan.toString(),//一年内到期贷款
+                    moneyStay:(parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)+parseInt(dindan*30)).toString(),//利润留存
+                    moneyYear:parseInt(dindan*30).toString(),//年度利润
+                    moneyG:"12"
                     // moneyNow: decimal.parse($('#cash').val())+decimal.parse($('#load-c').val())
                     // moneyFlow: parseInt($('#load-c').val()) + parseInt($('#cash').val()),
                     // moneyAll: parseInt($('#load-c').val()) + parseInt($('#cash').val())+parseInt("12"),
@@ -377,171 +386,190 @@
                     contentType: "application/json;charset=utf-8;",
                     data: JSON.stringify(Balancesheet),
                     success: function (data) {
-                        alert("资产负债表重置成功");
+                        // alert("上季度财务报表已生成，请查看");
                     }
                 })
                 //利润表重置
+                var Incomesheet={
+                    id:"1",
+                    incomeSale:"0",//销售收入
+                    incomeL:"0",//毛利
+                    moneyNew: (parseInt(dindan*30)-parseInt(daikuan) - parseInt(touzi)).toString(),//折旧前利润
+                    moneyNorate:(parseInt(dindan*30) - parseInt(touzi)).toString(),//支付利息前利润
+                    moneyNotax:(parseInt(dindan*30)-parseInt(daikuan) - parseInt(touzi)).toString(),//税前利润
+                    moneyIncome:(parseInt(dindan*30)-parseInt(daikuan) - parseInt(touzi)).toString()//净利润
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Incomesheet/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(Incomesheet),
+                    success: function (data) {
+                        alert("利润表重置成功");
+                    }
+                })
                 //贷款重置
                 // $("#load-c").val("0");
                 // $("#ceo-cz-c1").val("0");
                 //长期贷款重置
-                var Balancesheet = {
-                    id: "1",
-                    longTermLoan: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Balancesheet/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(Balancesheet),
-                    success: function (data) {
-                        console.log("长期贷款重置成功")
-                    }
-                })
+                // var Balancesheet = {
+                //     id: "1",
+                //     longTermLoan: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/Balancesheet/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(Balancesheet),
+                //     success: function (data) {
+                //         console.log("长期贷款重置成功")
+                //     }
+                // })
                 //短期贷款重置
-                var Balancesheet1 = {
-                    id: "1",
-                    shortTermLoan: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Balancesheet/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(Balancesheet1),
-                    success: function (data) {
-
-                    }
-                })
-                //高利贷重置
-                var Balancesheet2 = {
-                    id: "1",
-                    moneyTotal: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Usury/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(Balancesheet2),
-                    success: function (data) {
-                    }
-                })
+                // var Balancesheet1 = {
+                //     id: "1",
+                //     shortTermLoan: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/Balancesheet/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(Balancesheet1),
+                //     success: function (data) {
+                //
+                //     }
+                // })
+                // //高利贷重置
+                // var Balancesheet2 = {
+                //     id: "1",
+                //     moneyTotal: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/Usury/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(Balancesheet2),
+                //     success: function (data) {
+                //     }
+                // })
 
                 //订单重置
-                var OrderManagement = {
-                    id: "1",
-                    amount: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/OrderManagement/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(OrderManagement),
-                    success: function (data) {
-                        console.log("订单1重置成功");
-                    }
-                })
-                var OrderManagement1 = {
-                    id: "2",
-                    amount: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/OrderManagement/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(OrderManagement1),
-                    success: function (data) {
-                        console.log("订单2重置成功");
-                    }
-                })
-                var OrderManagement2 = {
-                    id: "3",
-                    amount: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/OrderManagement/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(OrderManagement2),
-                    success: function (data) {
-                        console.log("订单3重置成功");
-                    }
-                })
-                var OrderManagement3 = {
-                    id: "4",
-                    amount: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/OrderManagement/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(OrderManagement3),
-                    success: function (data) {
-                        console.log("订单4重置成功");
-                    }
-                })
-                //原材料重置
-                var MaterialOrder1 = {
-                    id: "1",
-                    amount: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MaterialOrder/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder1),
-                    success: function (data) {
-
-                    }
-                })
-                var MaterialOrder2 = {
-                    id: "2",
-                    amount: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MaterialOrder/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder2),
-                    success: function (data) {
-
-                    }
-                })
-                var MaterialOrder3 = {
-                    id: "3",
-                    amount: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MaterialOrder/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder3),
-                    success: function (data) {
-
-                    }
-                })
-                var MaterialOrder4 = {
-                    id: "4",
-                    amount: "0",
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MaterialOrder/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder4),
-                    success: function (data) {
-                    }
-                })
+                // var OrderManagement = {
+                //     id: "1",
+                //     amount: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/OrderManagement/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(OrderManagement),
+                //     success: function (data) {
+                //         console.log("订单1重置成功");
+                //     }
+                // })
+                // var OrderManagement1 = {
+                //     id: "2",
+                //     amount: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/OrderManagement/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(OrderManagement1),
+                //     success: function (data) {
+                //         console.log("订单2重置成功");
+                //     }
+                // })
+                // var OrderManagement2 = {
+                //     id: "3",
+                //     amount: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/OrderManagement/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(OrderManagement2),
+                //     success: function (data) {
+                //         console.log("订单3重置成功");
+                //     }
+                // })
+                // var OrderManagement3 = {
+                //     id: "4",
+                //     amount: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/OrderManagement/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(OrderManagement3),
+                //     success: function (data) {
+                //         console.log("订单4重置成功");
+                //     }
+                // })
+                // //原材料重置
+                // var MaterialOrder1 = {
+                //     id: "1",
+                //     amount: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/MaterialOrder/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(MaterialOrder1),
+                //     success: function (data) {
+                //
+                //     }
+                // })
+                // var MaterialOrder2 = {
+                //     id: "2",
+                //     amount: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/MaterialOrder/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(MaterialOrder2),
+                //     success: function (data) {
+                //
+                //     }
+                // })
+                // var MaterialOrder3 = {
+                //     id: "3",
+                //     amount: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/MaterialOrder/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(MaterialOrder3),
+                //     success: function (data) {
+                //
+                //     }
+                // })
+                // var MaterialOrder4 = {
+                //     id: "4",
+                //     amount: "0",
+                // }
+                // $.ajax({
+                //     type: "post",
+                //     dataType: "json",
+                //     url: "/MaterialOrder/update",
+                //     contentType: "application/json;charset=utf-8;",
+                //     data: JSON.stringify(MaterialOrder4),
+                //     success: function (data) {
+                //     }
+                // })
                 //投资重置
                 //厂房重置
                 window.location.reload();//页面刷新
@@ -636,7 +664,7 @@
 
                     <input name="ceo_tz_ma1" id="ceo-tz-ma1" class="tz1" type="button"/>
                     <div class="pop-s4">
-                        <h3>确认投资？（1M/Q）</h3>
+                        <h3>确认投资？（20M/Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-qy" class="pop-ok">
@@ -646,7 +674,7 @@
 
                     <input name="ceo_tz_ma2" id="ceo-tz-ma2" class="tz1" type="button"/>
                     <div class="pop-s5">
-                        <h3>确认投资？（1M/Q）</h3>
+                        <h3>确认投资？（40M/Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-gn" class="pop-ok">
@@ -656,7 +684,7 @@
 
                     <input name="ceo_tz_ma3" id="ceo-tz-ma3" class="tz1" type="button"/>
                     <div class="pop-s6">
-                        <h3>确认投资？（1M/Q）</h3>
+                        <h3>确认投资？（60M/Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-yz" class="pop-ok">
@@ -666,7 +694,7 @@
 
                     <input name="ceo_tz_ma4" id="ceo-tz-ma4" class="tz1" type="button"/>
                     <div class="pop-s7">
-                        <h3>确认投资？（1M/Q）</h3>
+                        <h3>确认投资？（80M/Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-gj" class="pop-ok">
@@ -679,7 +707,7 @@
 
                     <input name="ceo_tz_p2" id="ceo-tz-pr2" class="tz1" type="button"/>
                     <div class="pop-s9">
-                        <h3>确认投资？（1M/Q）</h3>
+                        <h3>确认投资？（20M/Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-p2" class="pop-ok">
@@ -689,7 +717,7 @@
 
                     <input name="ceo_tz_p3" id="ceo-tz-pr3" class="tz1" type="button"/>
                     <div class="pop-s10">
-                        <h3>确认投资？（2M/Q）</h3>
+                        <h3>确认投资？（20M/Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-p3" class="pop-ok">
@@ -699,7 +727,7 @@
 
                     <input name="ceo_tz_p4" id="ceo-tz-pr4" class="tz1" type="button"/>
                     <div class="pop-s11">
-                        <h3>确认投资？（3M/Q）</h3>
+                        <h3>确认投资？（20M/Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-p4" class="pop-ok">
@@ -709,7 +737,7 @@
 
                     <input name="ceo_tz_iso1" id="ceo-tz-iso1" class="tz1" type="button"/>
                     <div class="pop-s12">
-                        <h3>确认投资？（1M/Y）</h3>
+                        <h3>确认投资？（200M/Y）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-9k" class="pop-ok">
@@ -719,7 +747,7 @@
 
                     <input name="ceo_tz_iso2" id="ceo-tz-iso2" class="tz1" type="button"/>
                     <div class="pop-s13">
-                        <h3>确认投资？（2M/Y）</h3>
+                        <h3>确认投资？（400M/Y）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-14k" class="pop-ok">

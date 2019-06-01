@@ -32,7 +32,7 @@ public class IncomesheetServiceImpl implements IncomesheetService {
 
     @Override
     public void update(Incomesheet Incomesheet) {
-        BaseBeanHelper.edit(Incomesheet);
+//        BaseBeanHelper.edit(Incomesheet);
         Example example = new Example(Incomesheet.class);
         example.createCriteria().andEqualTo("id", Incomesheet.getId());
         IncomesheetMapper.updateByExampleSelective(Incomesheet, example);
