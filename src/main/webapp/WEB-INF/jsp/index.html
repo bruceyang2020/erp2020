@@ -10,6 +10,8 @@
     <link rel="stylesheet" type="text/css" href="style/index.css">
     <title>ERP沙盘系统</title>
     <script>
+        var daikuan = 0;
+        var touzi = 0;
         //贷款显示
         $.ajax({
             type: "post",
@@ -218,7 +220,7 @@
             success: function (data) {
                 data = data['data'];
                 // $("#period").text(data[0].period);
-                $('#cash').text(data[0].moneyNow);
+                $('#cash').text(parseInt(data[0].moneyNow));
                 console.log(data);
                 console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@财务部现金');
                 // $('#year').text(Math.floor(data.period / 4))
@@ -244,12 +246,12 @@
                 // $('#load-c').value;
                 var Balancesheet = {
                     id: "1",
-                    longTermLoan: $('#load-c').val(),
-                    // moneyNow: decimal.parse($('#cash').val())+decimal.parse($('#load-c').val())
-                    // moneyFlow: parseInt($('#load-c').val()) + parseInt($('#cash').val()),
-                    // moneyAll: parseInt($('#load-c').val()) + parseInt($('#cash').val())+parseInt("12"),
-                    // moneyAlls: parseInt($('#load-c').val()) + parseInt($('#cash').val())+parseInt("12"),
-                    // moneyLoan: parseInt($('#load-c').val()) + parseInt($('#load-d').val())
+                    longTermLoan: $('#load-c').val()//长期贷款
+                    // moneyNow: (parseInt($('#load-c').val()) + parseInt($('#cash').text())).toString(),//现金
+                    // moneyFlow: (parseInt($('#cash').text()) - parseInt($('#load-c').val())).toString(),//流动资金
+                    // moneyAll: (parseInt($('#cash').text()) + parseInt("12") - parseInt($('#load-c').val())).toString(),//资产总计
+                    // moneyAlls: (parseInt($('#cash').text()) + parseInt("12") - parseInt($('#load-c').val())).toString(),//所有人权益总计
+                    // moneyLoan: $('#load-c').val()//负债总计
                 }
                 $.ajax({
                     type: "post",
@@ -259,30 +261,22 @@
                     data: JSON.stringify(Balancesheet),
                     success: function (data) {
                         alert("长期贷款成功");
+                        daikuan = parseInt(daikuan) + parseInt($('#load-c').val());//记录贷款数
+                        $('#cash').text(parseInt($('#load-c').val()) + parseInt($('#cash').text()));//财务显示更新
                     }
                 })
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    data: {pageSize: 100, pageNum: 0},
-                    url: "/Balancesheet/list",
-                    contentType: "application/json;charset=utf-8;",
-                    success: function (data) {
-                        data = data['data'];
-                        // $("#period").text(data[0].period);
-                        $("#ceo-cz-c1").val(data[0].longTermLoan);
-                        console.log(data);
-                        console.log('@@@@@@@@@@@@@@@@chang');
-                        // $('#year').text(Math.floor(data.period / 4))
-                        // $('#money_flow').text(data.money_flow)
-                    }
-                });
+                $("#ceo-cz-c1").val($('#load-c').val());
             });
             $("#pop-ok1").click(function () {
                 // $('#load-c').value;
                 var Balancesheet = {
                     id: "1",
-                    shortTermLoan: $('#load-d').val(),
+                    shortTermLoan: $('#load-d').val()
+                    // moneyNow: (parseInt($('#load-c').val()) + parseInt($('#cash').text())).toString(),//现金
+                    // moneyFlow: (parseInt($('#cash').text()) - parseInt($('#load-c').val())).toString(),//流动资金
+                    // moneyAll: (parseInt($('#cash').text()) + parseInt("12") - parseInt($('#load-c').val())).toString(),//资产总计
+                    // moneyAlls: (parseInt($('#cash').text()) + parseInt("12") - parseInt($('#load-c').val())).toString(),//所有人权益总计
+                    // moneyLoan: $('#load-c').val()//负债总计
                 }
                 $.ajax({
                     type: "post",
@@ -292,24 +286,11 @@
                     data: JSON.stringify(Balancesheet),
                     success: function (data) {
                         alert("短期贷款成功");
+                        daikuan = parseInt(daikuan) + parseInt($('#load-d').val());//记录贷款数
+                        $('#cash').text(parseInt($('#load-d').val()) + parseInt($('#cash').text()));//财务显示更新
                     }
                 })
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    data: {pageSize: 100, pageNum: 0},
-                    url: "/Balancesheet/list",
-                    contentType: "application/json;charset=utf-8;",
-                    success: function (data) {
-                        data = data['data'];
-                        // $("#period").text(data[0].period);
-                        $("#ceo-cz-d1").val(data[0].shortTermLoan);
-                        console.log(data);
-                        console.log('@@@@@@@@@@@@@@@@chang');
-                        // $('#year').text(Math.floor(data.period / 4))
-                        // $('#money_flow').text(data.money_flow)
-                    }
-                });
+                $("#ceo-cz-d1").val($('#load-d').val());
             });
             $("#pop-ok2").click(function () {
                 // $('#load-c').value;
@@ -330,199 +311,240 @@
 
             });
         });
+        //投资按钮点击事件
+        $(function () {
+            $("#ok-qy").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//区域扣20
+                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+            });
+
+            $("#ok-gn").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("40"));//国内扣40
+                touzi = parseInt(touzi) + parseInt("40");//记录扣款数
+            })
+            $("#ok-yz").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("60"));//亚洲扣60
+                touzi = parseInt(touzi) + parseInt("60");//记录扣款数
+            })
+            $("#ok-gj").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("80"));//国际扣80
+                touzi = parseInt(touzi) + parseInt("80");//记录扣款数
+            })
+            $("#ok-p2").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P2扣20
+                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+            })
+            $("#ok-p3").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P3扣20
+                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+            })
+            $("#ok-p4").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P4扣20
+                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+            })
+            $("#ok-9k").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//ISO1扣20
+                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+            })
+            $("#ok-14k").click(function () {
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("40"));//ISO2扣20
+                touzi = parseInt(touzi) + parseInt("40");//记录扣款数
+            })
+        })
         //结转本季，刷新页面
         $(function () {
             $("#button").click(function () {
-
-                var shunxu = 1;
-                if (shunxu == 1) {
-                    //资产负债表重置
-                    var bsn_moneyNow = parseInt($('#cash').text()) + parseInt($('#mag-p1').val()) + parseInt($('#mag-p2').val()) + parseInt($('#mag-p3').val()) + parseInt($('#mag-p4').val());
-                    var BalancesheetNew = {
-                        id: "1",
-                        moneyNow: bsn_moneyNow,
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/Balancesheet/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(BalancesheetNew),
-                        success: function (data) {
-                        }
-                    })
-                    shunxu++;
+                //资产负债表重置
+                var Balancesheet = {
+                    id: "1",
+                    // longTermLoan: $('#load-c').val(),//长期贷款
+                    moneyNow: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)).toString(),//现金
+                    moneyFlow: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)).toString(),//流动资金
+                    moneyAll: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi) + parseInt("12")).toString(),//资产总计
+                    moneyAlls: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi) + parseInt("12")).toString(),//所有人权益总计
+                    moneyLoan: daikuan.toString(),//负债总计
+                    longTermLoanYear:daikuan.toString()//一年内到期贷款
+                    // moneyNow: decimal.parse($('#cash').val())+decimal.parse($('#load-c').val())
+                    // moneyFlow: parseInt($('#load-c').val()) + parseInt($('#cash').val()),
+                    // moneyAll: parseInt($('#load-c').val()) + parseInt($('#cash').val())+parseInt("12"),
+                    // moneyAlls: parseInt($('#load-c').val()) + parseInt($('#cash').val())+parseInt("12"),
+                    // moneyLoan: parseInt($('#load-c').val()) + parseInt($('#load-d').val())
                 }
-                if (shunxu == 2) {
-
-
-                    //利润表重置
-                    //贷款重置
-                    // $("#load-c").val("0");
-                    // $("#ceo-cz-c1").val("0");
-                    //长期贷款重置
-                    var Balancesheet = {
-                        id: "1",
-                        longTermLoan: "0",
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Balancesheet/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(Balancesheet),
+                    success: function (data) {
+                        alert("资产负债表重置成功");
                     }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/Balancesheet/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(Balancesheet),
-                        success: function (data) {
-                            console.log("长期贷款重置成功")
-                        }
-                    })
-                    //短期贷款重置
-                    var Balancesheet1 = {
-                        id: "1",
-                        shortTermLoan: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/Balancesheet/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(Balancesheet1),
-                        success: function (data) {
-
-                        }
-                    })
-                    //高利贷重置
-                    var Balancesheet2 = {
-                        id: "1",
-                        moneyTotal: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/Usury/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(Balancesheet2),
-                        success: function (data) {
-                        }
-                    })
-
-                    //订单重置
-                    var OrderManagement = {
-                        id: "1",
-                        amount: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/OrderManagement/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(OrderManagement),
-                        success: function (data) {
-                            console.log("订单1重置成功");
-                        }
-                    })
-                    var OrderManagement1 = {
-                        id: "2",
-                        amount: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/OrderManagement/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(OrderManagement1),
-                        success: function (data) {
-                            console.log("订单2重置成功");
-                        }
-                    })
-                    var OrderManagement2 = {
-                        id: "3",
-                        amount: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/OrderManagement/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(OrderManagement2),
-                        success: function (data) {
-                            console.log("订单3重置成功");
-                        }
-                    })
-                    var OrderManagement3 = {
-                        id: "4",
-                        amount: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/OrderManagement/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(OrderManagement3),
-                        success: function (data) {
-                            console.log("订单4重置成功");
-                        }
-                    })
-                    //原材料重置
-                    var MaterialOrder1 = {
-                        id: "1",
-                        amount: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/MaterialOrder/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(MaterialOrder1),
-                        success: function (data) {
-
-                        }
-                    })
-                    var MaterialOrder2 = {
-                        id: "2",
-                        amount: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/MaterialOrder/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(MaterialOrder2),
-                        success: function (data) {
-
-                        }
-                    })
-                    var MaterialOrder3 = {
-                        id: "3",
-                        amount: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/MaterialOrder/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(MaterialOrder3),
-                        success: function (data) {
-
-                        }
-                    })
-                    var MaterialOrder4 = {
-                        id: "4",
-                        amount: "0",
-                    }
-                    $.ajax({
-                        type: "post",
-                        dataType: "json",
-                        url: "/MaterialOrder/update",
-                        contentType: "application/json;charset=utf-8;",
-                        data: JSON.stringify(MaterialOrder4),
-                        success: function (data) {
-                        }
-                    })
-                    //投资重置
-                    //厂房重置
-                    window.location.reload();
+                })
+                //利润表重置
+                //贷款重置
+                // $("#load-c").val("0");
+                // $("#ceo-cz-c1").val("0");
+                //长期贷款重置
+                var Balancesheet = {
+                    id: "1",
+                    longTermLoan: "0",
                 }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Balancesheet/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(Balancesheet),
+                    success: function (data) {
+                        console.log("长期贷款重置成功")
+                    }
+                })
+                //短期贷款重置
+                var Balancesheet1 = {
+                    id: "1",
+                    shortTermLoan: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Balancesheet/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(Balancesheet1),
+                    success: function (data) {
 
+                    }
+                })
+                //高利贷重置
+                var Balancesheet2 = {
+                    id: "1",
+                    moneyTotal: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Usury/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(Balancesheet2),
+                    success: function (data) {
+                    }
+                })
+
+                //订单重置
+                var OrderManagement = {
+                    id: "1",
+                    amount: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(OrderManagement),
+                    success: function (data) {
+                        console.log("订单1重置成功");
+                    }
+                })
+                var OrderManagement1 = {
+                    id: "2",
+                    amount: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(OrderManagement1),
+                    success: function (data) {
+                        console.log("订单2重置成功");
+                    }
+                })
+                var OrderManagement2 = {
+                    id: "3",
+                    amount: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(OrderManagement2),
+                    success: function (data) {
+                        console.log("订单3重置成功");
+                    }
+                })
+                var OrderManagement3 = {
+                    id: "4",
+                    amount: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(OrderManagement3),
+                    success: function (data) {
+                        console.log("订单4重置成功");
+                    }
+                })
+                //原材料重置
+                var MaterialOrder1 = {
+                    id: "1",
+                    amount: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder1),
+                    success: function (data) {
+
+                    }
+                })
+                var MaterialOrder2 = {
+                    id: "2",
+                    amount: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder2),
+                    success: function (data) {
+
+                    }
+                })
+                var MaterialOrder3 = {
+                    id: "3",
+                    amount: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder3),
+                    success: function (data) {
+
+                    }
+                })
+                var MaterialOrder4 = {
+                    id: "4",
+                    amount: "0",
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/update",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder4),
+                    success: function (data) {
+                    }
+                })
+                //投资重置
+                //厂房重置
+                window.location.reload();//页面刷新
             });
         });
     </script>
