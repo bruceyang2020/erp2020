@@ -37,7 +37,7 @@ public class LongTermLoans extends BaseBean {
     /**
      * 产生年度1.5.9.13.17.21
      */
-    @Column(name = "period-loan")
+    @Column(name = "period_loan")
     private Integer periodLoan;
 
     /**

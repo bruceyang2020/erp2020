@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.LongTermLoans;
 import cn.edu.hdu.clan.service.sys.LongTermLoansService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +46,12 @@ public class LongTermLoansController extends BaseController {
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(LongTermLoansService.getById(param.get("id")));
+    }
+
+    @RequestMapping("listbyuserandperiod")
+    public String getByUserIdAndPeriod() {
+        String create_user = Jurisdiction.getUserId();
+        int period =  1;
+        return success(LongTermLoansService.getByUserIdAndPeriod(create_user));
     }
 }

@@ -18,14 +18,21 @@
             type: "post",
             dataType: "json",
             data: {pageSize: 100, pageNum: 0},
-            url: "/Balancesheet/list",
+            url: "/LongTermLoans/listbyuserandperiod",
             contentType: "application/json;charset=utf-8;",
             success: function (data) {
                 data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#ceo-cz-c1").val(data[0].longTermLoan);
+                $.each(data,function(n,value){
+                    var i = 6-((value.returnTime-1)/4);
+                    console.log(i);
+                    $("#ceo-cz-c"+i).val(value.moneyTotal);
+                });
+
+
+
+             /*   $("#ceo-cz-c1").val(data.longTermLoan);*/
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@chang');
+                console.log('*****长期贷款数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -41,7 +48,7 @@
                 // $("#period").text(data[0].period);
                 $("#ceo-cz-g").val(data[0].moneyTotal);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@gao');
+                console.log('******高利贷数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -50,14 +57,19 @@
             type: "post",
             dataType: "json",
             data: {pageSize: 100, pageNum: 0},
-            url: "/Balancesheet/list",
+            url: "/ShortTermLoan/listbyuserandperiod",
             contentType: "application/json;charset=utf-8;",
             success: function (data) {
                 data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#ceo-cz-d1").val(data[0].shortTermLoan);
+                $.each(data,function(n,value){
+                    var i = 5-value.surplusPeriod;
+                    console.log(i);
+                    $("#ceo-cz-d"+i).val(value.moneyTotal);
+                });
+
+
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@duan');
+                console.log('*******短期贷款数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -75,7 +87,7 @@
                 $("#mag-p1").text(data[0].amount);
                 dindan=parseInt(dindan)+parseInt(data[0].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@order1');
+                console.log('**********类型1订单数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -92,7 +104,7 @@
                 $("#mag-p2").text(data[1].amount);
                 dindan=parseInt(dindan)+parseInt(data[1].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@order2');
+                console.log('***********类型2订单数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -109,7 +121,7 @@
                 $("#mag-p3").text(data[2].amount);
                 dindan=parseInt(dindan)+parseInt(data[2].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@order3');
+                console.log('类型3订单数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -126,7 +138,7 @@
                 $("#mag-p4").text(data[3].amount);
                 dindan=parseInt(dindan)+parseInt(data[3].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@order4');
+                console.log('**********类型4订单数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -143,7 +155,7 @@
                 // $("#period").text(data[0].period);
                 $("#mag-r4").text(data[0].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@material');
+                console.log('************类型1原材料数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -159,7 +171,7 @@
                 // $("#period").text(data[0].period);
                 $("#mag-r3").text(data[1].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@materia2');
+                console.log('************类型2原材料数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -175,7 +187,7 @@
                 // $("#period").text(data[0].period);
                 $("#mag-r2").text(data[2].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@materia3');
+                console.log('************类型3原材料数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -191,7 +203,7 @@
                 // $("#period").text(data[0].period);
                 $("#mag-r1").text(data[3].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@materia4');
+                console.log('************类型4原材料数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -227,7 +239,7 @@
                 // $("#period").text(data[0].period);
                 $('#cash').text(parseInt(data[0].moneyNow));
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@财务部现金');
+                console.log('财务部资金数据');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -386,7 +398,7 @@
                     contentType: "application/json;charset=utf-8;",
                     data: JSON.stringify(Balancesheet),
                     success: function (data) {
-                        // alert("上季度财务报表已生成，请查看");
+                       alert("上季度财务报表已生成，请查看");
                     }
                 })
                 //利润表重置

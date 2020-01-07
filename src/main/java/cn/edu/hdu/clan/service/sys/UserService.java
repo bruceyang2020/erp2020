@@ -18,4 +18,7 @@ public interface UserService {
     void addUser(SysUser record);
 
     SysUser findByUsernameAndPassword(String username, char[] password);
+
+    SysUser  findByUsername(String username);
+
 }

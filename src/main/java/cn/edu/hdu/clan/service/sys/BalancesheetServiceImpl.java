@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.*;
 
 import java.util.List;
 
@@ -54,5 +55,15 @@ public class BalancesheetServiceImpl implements BalancesheetService {
         Example example = new Example(Balancesheet.class);
         example.createCriteria().andEqualTo("id", id);
         return BalancesheetMapper.selectOneByExample(example);
+    }
+
+
+    @Override
+    public List<Balancesheet> getByUserIdAndPeriod(String create_user,int period) {
+        Example example = new Example(Balancesheet.class);
+        Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("createUser", create_user);
+        criteria.andEqualTo("period", period);
+        return BalancesheetMapper.selectByExample(example);
     }
 }

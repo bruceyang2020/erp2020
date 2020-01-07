@@ -21,7 +21,7 @@
                 // $("#period").text(data[0].period);
                 $("#ceo-cz-c1").val(data[0].longTermLoan);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@chang');
+
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -36,7 +36,7 @@
                 // $("#period").text(data[0].period);
                 $("#order1").val(data[0].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@order1查询');
+                console.log('订单界面订单1查询');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -51,7 +51,7 @@
                 // $("#period").text(data[0].period);
                 $("#order2").val(data[1].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@order2查询');
+                console.log('订单界面订单2查询');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -66,7 +66,7 @@
                 // $("#period").text(data[0].period);
                 $("#order3").val(data[2].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@order3查询');
+                console.log('订单界面订单3查询');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -81,7 +81,7 @@
                 // $("#period").text(data[0].period);
                 $("#order4").val(data[3].amount);
                 console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@order4查询');
+                console.log('订单界面订单4查询');
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
@@ -101,21 +101,7 @@
             "age|20-30": 1      // 20~30随机数，1用来确定类型
         });
 
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "http://test.com",
-            data: {
-                name: '',
-                marketID: ''
-            },
-            success: function (data) {
-                data.data;
-                data.code;
-                data.msg;
-                console.log(data.user[1].name)
-            }
-        });
+
         //市场订单下单，跟新订单数和材料数
         $(function () {
             $("#btn1").click(function () {
@@ -222,7 +208,7 @@
                     contentType: "application/json;charset=utf-8;",
                     data:JSON.stringify(MaterialOrder),
                     success: function (data) {
-
+                        alert("订单3下单成功");
                     }
                 })
             });
@@ -275,8 +261,8 @@
                         data = data['data'];
                         // $("#period").text(data[0].period);
                         $("#order5").val(parseInt(0)+parseInt(document.getElementById("order5").value));
-                        console.log($);
-                        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@btn1');
+                        // console.log($);
+                        // console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@btn1');
                         // $('#year').text(Math.floor(data.period / 4))
                         // $('#money_flow').text(data.money_flow)
                         alert("订单5下单成功");

@@ -12,4 +12,6 @@
     <result column="telephome" property="telephome" jdbcType="INTEGER" />
     <result column="registration_time" property="registrationTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
+
 </mapper>

@@ -31,6 +31,22 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectByPrimaryKey(userId);
     }
 
+    public SysUser findByUsername(String username) {
+        SysUser user = new SysUser();
+        user.setUsername(username);
+        Example example = new Example(SysUser.class);
+        example.createCriteria().andEqualTo(user);
+        List<SysUser> users = userMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(users)) {
+            return null;
+        }
+        if (users.size() > 1) {
+            return null;
+        }
+        return users.get(0);
+
+    }
+
     public void addUser(SysUser record) {
 
         SysUser user = new SysUser();

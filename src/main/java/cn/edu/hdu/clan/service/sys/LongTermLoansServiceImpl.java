@@ -56,4 +56,14 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
         return LongTermLoansMapper.selectAll();
     }
 
+
+    @Override
+    public List<LongTermLoans> getByUserIdAndPeriod(String create_user) {
+        Example example = new Example(LongTermLoans.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", create_user);
+
+        return LongTermLoansMapper.selectByExample(example);
+    }
+
 }

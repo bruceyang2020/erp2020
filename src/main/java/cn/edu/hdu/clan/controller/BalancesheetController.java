@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import cn.edu.hdu.clan.util.Jurisdiction;
 
 @RestController
 @RequestMapping("Balancesheet")
@@ -41,8 +42,16 @@ public class BalancesheetController extends BaseController {
     public String list() {
         return success(BalancesheetService.list());
     }
+
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(BalancesheetService.getById(param.get("id")));
+    }
+
+    @RequestMapping("listbyuserandperiod")
+    public String getByUserIdAndPeriod() {
+        String create_user = Jurisdiction.getUserId();
+        int period =  1;
+        return success(BalancesheetService.getByUserIdAndPeriod(create_user, period));
     }
 }

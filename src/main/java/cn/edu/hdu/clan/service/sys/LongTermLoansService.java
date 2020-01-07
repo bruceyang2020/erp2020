@@ -18,4 +18,6 @@ public interface LongTermLoansService {
     LongTermLoans getById(String id);
 
     List<LongTermLoans> list();
+
+    List<LongTermLoans> getByUserIdAndPeriod(String create_user);
 }

@@ -18,4 +18,6 @@ public interface BalancesheetService {
     List<Balancesheet> list();
 
     Balancesheet getById(String id);
+
+    List<Balancesheet>  getByUserIdAndPeriod(String create_user,int period);
 }

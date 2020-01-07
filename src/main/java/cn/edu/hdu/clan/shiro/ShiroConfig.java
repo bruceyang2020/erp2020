@@ -22,7 +22,7 @@ public class ShiroConfig {
     @Bean
     public USerRealm uSerRealm() {
         USerRealm uSerRealm = new USerRealm();
-        uSerRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+      //  uSerRealm.setCredentialsMatcher(hashedCredentialsMatcher());
         return uSerRealm;
     }
 
