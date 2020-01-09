@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.MarketFeeMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.MarketFee" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="team_count" property="teamCount" jdbcType="INTEGER" />
+    <result column="market_id" property="marketId" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="period_left" property="periodLeft" jdbcType="INTEGER" />
+    <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+    <update id="save">
+      update market_fee set market_id=#{market_id} where create_user=#{user_id} and period=#{period};
+    </update>
+  <select id="query" resultType="cn.edu.hdu.clan.entity.sys.MarketFee">
+    select * from market_fee where  create_user=#{user_id} and period=#{period};
+  </select>
+</mapper>

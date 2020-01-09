@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BalanceSheet</title>
+    <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: {pageSize: 100, pageNum: 0},
+            url: "/Balancesheet/list",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                $("#period").text(data[0].period);
+                $("#money_now").text(data[0].moneyNow);
+                $("#money_get").text(data[0].moneyGet);
+                $("#money_making").text(data[0].moneyMaking);
+                $("#money_sale").text(data[0].moneySale);
+                $("#money_buy").text(data[0].moneyBuy);
+                $("#money_flow").text(data[0].moneyFlow);
+                $("#long_term_loan").text(data[0].longTermLoan);
+                $("#short_term_loan").text(data[0].shortTermLoan);
+                $("#long_term_loan_year").text(data[0].longTermLoanYear);
+                $("#money_loan").text(data[0].moneyLoan);
+                $("#money_j").text(data[0].money_J);
+                $("#money_income1").text(data[0].moneyIncomel);
+                $("#money_p").text(data[0].moneyP);
+                $("#money_m").text(data[0].moneyM);
+                $("#money_static").text(data[0].moneyStatic);
+                $("#money_g").text(data[0].moneyG);
+                $("#money_stay").text(data[0].moneyStay);
+                $("#money_year").text(data[0].moneyYear);
+                $("#money_user").text(data[0].moneyUser);
+                $("#money_all").text(data[0].moneyAll);
+                $("#money_alls").text(data[0].moneyAlls);
+                $("#money_order_get").text(data[0].moneyOrderGet);
+                $("#money_tax").text(data[0].moneyTax);
+                console.log(data);
+                console.log('***********资产负债表查询数据');
+                // $('#year').text(Math.floor(data.period / 4))
+                // $('#money_flow').text(data.money_flow)
+            }
+        });
+    </script>
+</head>
+<body>
+<h4><span id="year"></span>上季度资产负债表</h4>
+<table id="balance">
+    <tr>
+        <th>资产</th>
+        <th>期初数</th>
+        <th>期末数</th>
+        <th>负债所有者权益</th>
+        <th>期初数</th>
+        <th>期末数</th>
+    </tr>
+    <tr class="light">
+        <td>流动资产：</td>
+        <td><span id=""></span></td>
+        <td></td>
+        <td>负债：</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>现金</td>
+        <td><span id="money_now"></span></td>
+        <td><span id="money_now1"></span></td>
+        <td>长期负债</td>
+        <td><span id="long_term_loan"></span></td>
+        <td><span id="long_term_loan1"></span></td>
+    </tr>
+    <tr>
+        <td>应收款</td>
+        <td><span id="money_get"></span></td>
+        <td><span id="money_get1"></span></td>
+        <td>短期负债</td>
+        <td><span id="short_term_loan"></span></td>
+        <td><span id="short_term_loan1"></span></td>
+    </tr>
+    <tr>
+        <td>在制品</td>
+        <td><span id="money_making"></span></td>
+        <td><span id="money_making1"></span></td>
+        <td>应收账款</td>
+        <td><span id="money_order_get"></span></td>
+        <td><span id="money_order_get1"></span></td>
+    </tr>
+    <tr>
+        <td>成品</td>
+        <td><span id="money_sale"></span></td>
+        <td><span id="money_sale1"></span></td>
+        <td>应交税金</td>
+        <td><span id="money_tax"></span></td>
+        <td><span id="money_tax1"></span></td>
+    </tr>
+    <tr>
+        <td>原料</td>
+        <td><span id="money_buy"></span></td>
+        <td><span id="money_buy1"></span></td>
+        <td>一年内到期长期负债</td>
+        <td><span id="long_term_loan_year"></span></td>
+        <td><span id="long_term_loan_year1"></span></td>
+    </tr>
+    <tr>
+        <td>流动资产合计:</td>
+        <td><span id="money_flow"></span></td>
+        <td><span id="money_flow1"></span></td>
+        <td>负债合计:</td>
+        <td><span id="money_loan"></span></td>
+        <td><span id="money_loan1"></span></td>
+    </tr>
+    <tr class="light">
+        <td>固定资产：</td>
+        <td></td>
+        <td></td>
+        <td>所有者权益：</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>土地与建筑</td>
+        <td><span id="money_j"></span></td>
+        <td><span id="money_j1"></span></td>
+        <td>股东资本</td>
+        <td><span id="money_g"></span></td>
+        <td><span id="money_g1"></span></td>
+    </tr>
+    <tr>
+        <td>机器与设备</td>
+        <td><span id="money_p"></span></td>
+        <td><span id="money_p1"></span></td>
+        <td>利润存留</td>
+        <td><span id="money_stay"></span></td>
+        <td><span id="money_stay1"></span></td>
+    </tr>
+    <tr>
+        <td>在建工程</td>
+        <td><span id="money_m"></span></td>
+        <td><span id="money_m1"></span></td>
+        <td>年度净利</td>
+        <td><span id="money_year"></span></td>
+        <td><span id="money_year1"></span></td>
+    </tr>
+    <tr>
+        <td>固定资产合计</td>
+        <td><span id="money_static"></span></td>
+        <td><span id="money_static1"></span></td>
+        <td>所有者权益合计</td>
+        <td><span id="money_user"></span></td>
+        <td><span id="money_user1"></span></td>
+    </tr>
+    <tr>
+        <td>资产总计:</td>
+        <td><span id="money_all"></span></td>
+        <td><span id="money_all1"></span></td>
+        <td>负债和所有者权益总计:</td>
+        <td><span id="money_alls"></span></td>
+        <td><span id="money_alls1"></span></td>
+    </tr>
+</table>
+
+</body>
+</html>

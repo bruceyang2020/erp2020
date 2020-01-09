@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.edu.hdu.clan.mapper.sys.ModuleOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.edu.hdu.clan.entity.sys.ModuleOrder" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="team_count" property="teamCount" jdbcType="INTEGER" />
+    <result column="advertises" property="advertises" jdbcType="INTEGER" />
+    <result column="group_order" property="groupOrder" jdbcType="INTEGER" />
+    <result column="sale_order" property="saleOrder" jdbcType="INTEGER" />
+    <result column="short_term" property="shortTerm" jdbcType="INTEGER" />
+    <result column="usury" property="usury" jdbcType="INTEGER" />
+    <result column="raw_materials_order" property="rawMaterialsOrder" jdbcType="INTEGER" />
+    <result column="produtline" property="produtline" jdbcType="INTEGER" />
+    <result column="account_pay" property="accountPay" jdbcType="INTEGER" />
+    <result column="account_receive" property="accountReceive" jdbcType="INTEGER" />
+    <result column="product_order" property="productOrder" jdbcType="INTEGER" />
+    <result column="product_development" property="productDevelopment" jdbcType="INTEGER" />
+    <result column="other_fees" property="otherFees" jdbcType="INTEGER" />
+    <result column="iso_certification" property="isoCertification" jdbcType="INTEGER" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>
