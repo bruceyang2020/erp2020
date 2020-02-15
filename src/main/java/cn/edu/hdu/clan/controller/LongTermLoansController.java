@@ -18,6 +18,7 @@ public class LongTermLoansController extends BaseController {
     private LongTermLoansService LongTermLoansService;
     @RequestMapping("add")
     public String add(@RequestBody LongTermLoans LongTermLoans) {
+
         LongTermLoansService.add(LongTermLoans);
         return success();
     }
@@ -30,6 +31,7 @@ public class LongTermLoansController extends BaseController {
 
     @RequestMapping("update")
     public String update(@RequestBody LongTermLoans LongTermLoans){
+
         LongTermLoansService.update(LongTermLoans);
         return success();
     }
@@ -50,8 +52,9 @@ public class LongTermLoansController extends BaseController {
 
     @RequestMapping("listbyuserandperiod")
     public String getByUserIdAndPeriod() {
-        String create_user = Jurisdiction.getUserId();
-        int period =  1;
-        return success(LongTermLoansService.getByUserIdAndPeriod(create_user));
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+
+        return success(LongTermLoansService.getByUserTeamIdAndPeriod(userTeam));
     }
 }

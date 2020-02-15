@@ -19,6 +19,8 @@ public class IsoServiceImpl implements IsoService {
     @Transactional
     @Override
     public void add(Iso Iso) {
+
+
         BaseBeanHelper.insert(Iso);
         IsoMapper.insert(Iso);
     }

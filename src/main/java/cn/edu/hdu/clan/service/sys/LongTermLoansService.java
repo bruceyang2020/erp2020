@@ -19,5 +19,5 @@ public interface LongTermLoansService {
 
     List<LongTermLoans> list();
 
-    List<LongTermLoans> getByUserIdAndPeriod(String create_user);
+    List<LongTermLoans> getByUserTeamIdAndPeriod(String userTeam);
 }

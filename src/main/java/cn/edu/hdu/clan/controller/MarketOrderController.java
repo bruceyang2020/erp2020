@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.MarketOrder;
 import cn.edu.hdu.clan.service.sys.MarketOrderService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +38,7 @@ public class MarketOrderController extends BaseController {
     public String list(@RequestBody Map<String, Integer> param) {
         return success(MarketOrderService.list(param.get("pageNum"), param.get("pageSize")));
     }
+
 
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {

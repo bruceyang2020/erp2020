@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.Inv;
 import cn.edu.hdu.clan.service.sys.InvService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,4 +43,14 @@ public class InvController extends BaseController {
     public String getById(@RequestBody Map<String,String> param) {
         return success(InvService.getById(param.get("id")));
     }
+
+    @RequestMapping("listInv")
+    public String listInv() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(InvService.listInv(userTeam,period));
+    }
+
+
+
 }

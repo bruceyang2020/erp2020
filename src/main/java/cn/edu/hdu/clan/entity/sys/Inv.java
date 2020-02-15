@@ -7,17 +7,13 @@ import javax.persistence.*;
 
 @Table(name = "inv")
 public class Inv extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "team_count")
-    private Integer teamCount;
+    private String teamCount;
 
     /**
      * 当前会计期间
@@ -27,7 +23,7 @@ public class Inv extends BaseBean {
     /**
      * 物料编码
      */
-    private Integer number;
+    private String number;
 
     /**
      * 期初数量
@@ -89,49 +85,33 @@ public class Inv extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group_id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public Integer getTeamCount() {
+    public String getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(Integer teamCount) {
+    public void setTeamCount(String teamCount) {
         this.teamCount = teamCount;
     }
 
@@ -158,7 +138,7 @@ public class Inv extends BaseBean {
      *
      * @return number - 物料编码
      */
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
@@ -167,7 +147,7 @@ public class Inv extends BaseBean {
      *
      * @param number 物料编码
      */
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 

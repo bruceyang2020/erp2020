@@ -17,4 +17,6 @@ public interface MaterialOrderService {
 
     MaterialOrder getById(String id);
     List<MaterialOrder> list();
+
+    void payment(String userTeam ,int period);
 }

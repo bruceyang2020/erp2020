@@ -9,6 +9,8 @@ public class BaseBeanHelper {
         baseBean.setId(UUIDHelper.getUUID());
         baseBean.setCreateTime(new Date());
         baseBean.setCreateUser(SessionHelper.getUserId());
+        baseBean.setEditTime(new Date());
+        baseBean.setEditUser(SessionHelper.getUserId());
     }
 
     public static void edit(BaseBean baseBean) {

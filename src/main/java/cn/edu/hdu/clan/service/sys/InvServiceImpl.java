@@ -1,6 +1,7 @@
 package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.Inv;
+import cn.edu.hdu.clan.entity.sys.LongTermLoans;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.InvMapper;
 import com.github.pagehelper.PageHelper;
@@ -10,11 +11,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.List;
+
 @Service
 public class InvServiceImpl implements InvService {
 
     @Autowired
     private InvMapper InvMapper;
+
+    @Resource
+    private AccountingVoucherService accountingVoucherService;
 
     @Transactional
     @Override
@@ -41,6 +49,62 @@ public class InvServiceImpl implements InvService {
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(InvMapper.selectAll());
     }
+
+    public void stockOutToProduce(String userTeam,int period,String product ,int amount,String content)
+    {
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("number", product);
+        Inv  inv =    InvMapper.selectOneByExample(example);
+        BigDecimal amountOut = inv.getAmountO();
+        BigDecimal moneyOut = inv.getMoneyO();
+        inv.setAmountO(amountOut.subtract(new BigDecimal(amount)));
+        inv.setMoneyO(moneyOut.subtract(new BigDecimal(amount)));
+        BaseBeanHelper.edit(inv);
+        InvMapper.updateByPrimaryKey(inv);
+
+
+        //自动生成出库对应应的会计凭证:借在制品 贷原材料
+        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal(amount), "”SCCK", content);
+
+
+    }
+
+
+    public void stockOutToSale(String userTeam,int period,String product ,int amount,String content)
+    {
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("number", product);
+        Inv  inv =    InvMapper.selectOneByExample(example);
+        BigDecimal amountOut = inv.getAmountO();
+        BigDecimal moneyOut = inv.getMoneyO();
+        inv.setAmountO(amountOut.subtract(new BigDecimal(amount)));
+        inv.setMoneyO(moneyOut.subtract(new BigDecimal(amount)));
+        BaseBeanHelper.edit(inv);
+        InvMapper.updateByPrimaryKey(inv);
+
+
+        //自动生成出库对应应的会计凭证:借直接成本 贷成品
+        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal(amount), "”XSCK", content);
+
+
+    }
+
+    @Override
+    public List<Inv> listInv(String userTeam,int period) {
+
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        return  InvMapper.selectByExample(example);
+    }
+
 
     @Override
     public Inv getById(String id) {

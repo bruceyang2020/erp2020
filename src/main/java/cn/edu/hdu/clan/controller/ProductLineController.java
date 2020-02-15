@@ -33,9 +33,43 @@ public class ProductLineController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
-    public String list(@RequestBody Map<String, Integer> param) {
-        return success(ProductLineService.list(param.get("pageNum"), param.get("pageSize")));
+    @RequestMapping("build")
+    public String build(@RequestBody ProductLine ProductLine){
+        ProductLineService.build(ProductLine);
+        return success();
+    }
+
+    @RequestMapping("inputToProduce")
+    public String inputToProduce(@RequestBody ProductLine ProductLine){
+        ProductLineService.inputToProduce(ProductLine);
+        return success();
+    }
+
+    @RequestMapping("switching")
+    public String switching(@RequestBody ProductLine ProductLine){
+        ProductLineService.switching(ProductLine);
+        return success();
+    }
+
+
+
+    @RequestMapping("sale")
+    public String sale(@RequestBody ProductLine ProductLine){
+        ProductLineService.sale(ProductLine);
+        return success();
+    }
+
+
+    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    public String list() {
+        return success(ProductLineService.list());
+    }
+
+
+
+    @RequestMapping(value = "listDetail",produces = "application/json;charset=utf-8")
+    public String listDetail(@RequestBody ProductLine ProductLine) {
+        return success(ProductLineService.listDetail(ProductLine));
     }
 
     @RequestMapping("getById")

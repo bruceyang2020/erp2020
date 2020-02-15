@@ -7,14 +7,10 @@ import javax.persistence.*;
 
 @Table(name = "account_balance")
 public class AccountBalance extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "team_count")
     private String teamCount;
@@ -27,7 +23,7 @@ public class AccountBalance extends BaseBean {
     /**
      * 科目编号
      */
-    private Integer acode;
+    private String acode;
 
     /**
      * 科目名称
@@ -87,35 +83,19 @@ public class AccountBalance extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group_id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
@@ -156,7 +136,7 @@ public class AccountBalance extends BaseBean {
      *
      * @return acode - 科目编号
      */
-    public Integer getAcode() {
+    public String getAcode() {
         return acode;
     }
 
@@ -165,7 +145,7 @@ public class AccountBalance extends BaseBean {
      *
      * @param acode 科目编号
      */
-    public void setAcode(Integer acode) {
+    public void setAcode(String acode) {
         this.acode = acode;
     }
 

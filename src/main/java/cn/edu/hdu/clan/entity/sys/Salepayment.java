@@ -7,22 +7,18 @@ import javax.persistence.*;
 
 @Table(name = "salepayment")
 public class Salepayment extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
 
-    @Column(name = "group-id")
-    private Integer groupId;
+
+    @Column(name = "group_id")
+    private String groupId;
 
     @Column(name = "team_count")
-    private Integer teamCount;
+    private String teamCount;
 
     /**
      * 应收账款编码
      */
-    private Integer number;
+    private String number;
 
     /**
      * 应收账款生成的会计期间
@@ -39,7 +35,7 @@ public class Salepayment extends BaseBean {
      * 订单编码
      */
     @Column(name = "sale_order_id")
-    private Integer saleOrderId;
+    private String saleOrderId;
 
     /**
      * 金额
@@ -52,73 +48,52 @@ public class Salepayment extends BaseBean {
     @Column(name = "pay_period")
     private Integer payPeriod;
 
+
     /**
-     * 创建人外键用户表
+     * 状态:0未结算  1已收款结算
      */
+    @Column(name = "state")
+    private Integer state;
+
     @Column(name = "create_user")
     private String createUser;
 
-    /**
-     * 创建时间
-     */
     @Column(name = "create_time")
     private Date createTime;
 
-    /**
-     * 编辑人
-     */
     @Column(name = "edit_user")
     private String editUser;
 
-    /**
-     * 编辑时间
-     */
-    @Column(name = "eidt_time")
-    private Date eidtTime;
+    @Column(name = "edit_time")
+    private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group-id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public Integer getTeamCount() {
+    public String getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(Integer teamCount) {
+    public void setTeamCount(String teamCount) {
         this.teamCount = teamCount;
     }
 
@@ -127,7 +102,7 @@ public class Salepayment extends BaseBean {
      *
      * @return number - 应收账款编码
      */
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
@@ -136,7 +111,7 @@ public class Salepayment extends BaseBean {
      *
      * @param number 应收账款编码
      */
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -181,7 +156,7 @@ public class Salepayment extends BaseBean {
      *
      * @return sale_order_id - 订单编码
      */
-    public Integer getSaleOrderId() {
+    public String getSaleOrderId() {
         return saleOrderId;
     }
 
@@ -190,7 +165,7 @@ public class Salepayment extends BaseBean {
      *
      * @param saleOrderId 订单编码
      */
-    public void setSaleOrderId(Integer saleOrderId) {
+    public void setSaleOrderId(String saleOrderId) {
         this.saleOrderId = saleOrderId;
     }
 
@@ -228,6 +203,25 @@ public class Salepayment extends BaseBean {
      */
     public void setPayPeriod(Integer payPeriod) {
         this.payPeriod = payPeriod;
+    }
+
+
+    /**
+     * 获取状态 1入库0未入库
+     *
+     * @return state - 状态 1入库0未入库
+     */
+    public Integer getState() {
+        return state;
+    }
+
+    /**
+     * 设置状态 1入库0未入库
+     *
+     * @param state 状态 1入库0未入库
+     */
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     /**
@@ -285,20 +279,16 @@ public class Salepayment extends BaseBean {
     }
 
     /**
-     * 获取编辑时间
-     *
-     * @return eidt_time - 编辑时间
+     * @return edit_time
      */
-    public Date getEidtTime() {
-        return eidtTime;
+    public Date getEditTime() {
+        return editTime;
     }
 
     /**
-     * 设置编辑时间
-     *
-     * @param eidtTime 编辑时间
+     * @param editTime
      */
-    public void setEidtTime(Date eidtTime) {
-        this.eidtTime = eidtTime;
+    public void setEditTime(Date editTime) {
+        this.editTime = editTime;
     }
 }

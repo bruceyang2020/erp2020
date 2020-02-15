@@ -7,16 +7,18 @@ import javax.persistence.*;
 
 @Table(name = "incomesheet")
 public class Incomesheet extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
+    @Column(name = "group_id")
+    private String groupId;
+
+    @Column(name = "team_count")
+    private String teamCount;
 
     /**
      * 当前期数
      */
     private Integer period;
+
 
     /**
      * 销售收入
@@ -25,34 +27,34 @@ public class Incomesheet extends BaseBean {
     private BigDecimal incomeSale;
 
     /**
-     * 毛利
+     * 销售成本
      */
-    @Column(name = "income_l")
-    private BigDecimal incomeL;
+    @Column(name = "money_cost")
+    private BigDecimal moneyCost;
 
     /**
-     * 折旧前利润
+     * 折旧
      */
-    @Column(name = "money_new")
-    private BigDecimal moneyNew;
+    @Column(name = "money_depr")
+    private BigDecimal moneyDepr;
 
     /**
-     * 支付利息前利润
+     * 综合费用
      */
-    @Column(name = "money_norate")
-    private BigDecimal moneyNorate;
+    @Column(name = "money_fee")
+    private BigDecimal moneyFee;
 
     /**
      * 税前利润
      */
-    @Column(name = "money_notax")
-    private BigDecimal moneyNotax;
+    @Column(name = "money_other")
+    private BigDecimal moneyOther;
 
     /**
-     * 净利润
+     * 所得税
      */
-    @Column(name = "money_income")
-    private BigDecimal moneyIncome;
+    @Column(name = "money_tax")
+    private BigDecimal moneyTax;
 
     /**
      * 创建人外键用户表
@@ -78,22 +80,33 @@ public class Incomesheet extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
+
     /**
-     * 获取主键
-     *
-     * @return id - 主键
+     * @return group_id
      */
-    public String getId() {
-        return id;
+    public String getGroupId() {
+        return groupId;
     }
 
     /**
-     * 设置主键
-     *
-     * @param id 主键
+     * @param groupId
      */
-    public void setId(String id) {
-        this.id = id;
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
+    /**
+     * @return team_count
+     */
+    public String getTeamCount() {
+        return teamCount;
+    }
+
+    /**
+     * @param teamCount
+     */
+    public void setTeamCount(String teamCount) {
+        this.teamCount = teamCount;
     }
 
     /**
@@ -137,89 +150,87 @@ public class Incomesheet extends BaseBean {
      *
      * @return income_l - 毛利
      */
-    public BigDecimal getIncomeL() {
-        return incomeL;
+    public BigDecimal getMoneyCost() {
+        return moneyCost;
     }
 
     /**
      * 设置毛利
      *
-     * @param incomeL 毛利
+     * @param moneyCost 主营业务成本销售成本
      */
-    public void setIncomeL(BigDecimal incomeL) {
-        this.incomeL = incomeL;
-    }
+    public void setMoneyCost(BigDecimal moneyCost) { this.moneyCost = moneyCost;    }
 
     /**
      * 获取折旧前利润
      *
-     * @return money_new - 折旧前利润
+     * @return money_new - 折旧
      */
-    public BigDecimal getMoneyNew() {
-        return moneyNew;
+    public BigDecimal getMoneyDepr() {
+        return moneyDepr;
     }
 
     /**
      * 设置折旧前利润
      *
-     * @param moneyNew 折旧前利润
+     * @param moneyDepr 折旧
      */
-    public void setMoneyNew(BigDecimal moneyNew) {
-        this.moneyNew = moneyNew;
+    public void setMoneyDepr(BigDecimal moneyDepr) {
+        this.moneyDepr = moneyDepr;
     }
 
     /**
-     * 获取支付利息前利润
+     * 获取综合费用
      *
-     * @return money_norate - 支付利息前利润
+     * @return money_fee - 综合费用
      */
-    public BigDecimal getMoneyNorate() {
-        return moneyNorate;
+    public BigDecimal getMoneyFee() {
+        return moneyFee;
     }
 
     /**
-     * 设置支付利息前利润
+     * 设置综合费用
      *
-     * @param moneyNorate 支付利息前利润
+     * @param moneyFee 综合费用
      */
-    public void setMoneyNorate(BigDecimal moneyNorate) {
-        this.moneyNorate = moneyNorate;
+    public void setMoneyFee(BigDecimal moneyFee) {
+        this.moneyFee= moneyFee;
     }
 
     /**
-     * 获取税前利润
+     * 获取其他费用支出
      *
-     * @return money_notax - 税前利润
+     * @return money_Other - 其他费用支出
      */
-    public BigDecimal getMoneyNotax() {
-        return moneyNotax;
+    public BigDecimal getMoneyOther() {
+        return moneyOther;
     }
 
     /**
-     * 设置税前利润
+     * 设置其他费用支出
      *
-     * @param moneyNotax 税前利润
+     * @param moneyOther 其他费用支出
      */
-    public void setMoneyNotax(BigDecimal moneyNotax) {
-        this.moneyNotax = moneyNotax;
+    public void setMoneyOther(BigDecimal moneyOther) {
+        this.moneyOther = moneyOther;
     }
 
     /**
-     * 获取净利润
+     * 获取所得税
      *
-     * @return money_income - 净利润
+     * @return money_Tax - 净利润
      */
-    public BigDecimal getMoneyIncome() {
-        return moneyIncome;
+    public BigDecimal getMoneyTax() {
+        return moneyTax;
     }
 
     /**
-     * 设置净利润
+     * 设置所得税
      *
-     * @param moneyIncome 净利润
+     * @param moneyTax 净利润
      */
-    public void setMoneyIncome(BigDecimal moneyIncome) {
-        this.moneyIncome = moneyIncome;
+    public void setMoneyTax(BigDecimal moneyTax) {
+        this.moneyTax = moneyTax;
     }
 
     /**

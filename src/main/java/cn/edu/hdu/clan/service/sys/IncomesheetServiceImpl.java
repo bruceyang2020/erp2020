@@ -1,6 +1,7 @@
 package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.Incomesheet;
+import cn.edu.hdu.clan.entity.sys.AccountBalance;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.IncomesheetMapper;
 import com.github.pagehelper.PageHelper;
@@ -9,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
-
 import java.util.List;
 
 @Service
@@ -38,7 +38,7 @@ public class IncomesheetServiceImpl implements IncomesheetService {
         IncomesheetMapper.updateByExampleSelective(Incomesheet, example);
     }
 
-       @Override
+    @Override
     public PageInfo<Incomesheet> list(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(IncomesheetMapper.selectAll());
@@ -54,8 +54,39 @@ public class IncomesheetServiceImpl implements IncomesheetService {
         example.createCriteria().andEqualTo("id", id);
         return IncomesheetMapper.selectOneByExample(example);
     }
+
     @Override
     public Incomesheet getincomesheet(Incomesheet incomesheet){
         return IncomesheetMapper.query();
     }
+
+    @Override
+    public void createIncomeSheet(List<AccountBalance> accountBalances,String userTeam ,int period) {
+        Example example = new Example(Incomesheet.class);
+        example.createCriteria().andEqualTo("teamCount", userTeam);
+        example.createCriteria().andEqualTo("period", period);
+        IncomesheetMapper.deleteByExample(example);
+
+        Incomesheet incomesheet = new Incomesheet();
+        String acode ="";
+
+        if(accountBalances.size() > 0) {
+
+
+            for (int i = 1; i < accountBalances.size(); i++) {
+                acode = accountBalances.get(i).getAcode();
+                if("销售收入".equals(acode)){incomesheet.setIncomeSale(accountBalances.get(i).getMoneyE());}
+                if("直接成本".equals(acode)){incomesheet.setIncomeSale(accountBalances.get(i).getMoneyE());}
+                if("折旧".equals(acode)){incomesheet.setMoneyDepr(accountBalances.get(i).getMoneyE());}
+                if("综合费用".equals(acode)){incomesheet.setMoneyFee(accountBalances.get(i).getMoneyE());}
+                if("其它支出".equals(acode)){incomesheet.setMoneyOther(accountBalances.get(i).getMoneyE());}
+                if("所得税".equals(acode)){incomesheet.setMoneyTax(accountBalances.get(i).getMoneyE());}
+            }
+        }
+
+        BaseBeanHelper.insert(incomesheet);
+        IncomesheetMapper.insert(incomesheet);
+
+    }
+
 }

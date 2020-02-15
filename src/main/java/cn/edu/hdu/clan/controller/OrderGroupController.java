@@ -33,13 +33,15 @@ public class OrderGroupController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
-    public String list(@RequestBody Map<String, Integer> param) {
-        return success(OrderGroupService.list(param.get("pageNum"), param.get("pageSize")));
+    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    public String list(@RequestBody Map<String,String> param) {
+        return success(OrderGroupService.list(param.get("productId")));
     }
 
-    @RequestMapping("getById")
+    @RequestMapping(value = "getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(OrderGroupService.getById(param.get("id")));
     }
+
+
 }

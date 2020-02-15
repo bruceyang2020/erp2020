@@ -46,8 +46,8 @@ public class ShortTermLoanController extends BaseController {
 
     @RequestMapping("listbyuserandperiod")
     public String getByUserIdAndPeriod() {
-        String create_user = Jurisdiction.getUserId();
-        int period =  1;
-        return success(ShortTermLoanService.getByUserIdAndPeriod(create_user));
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(ShortTermLoanService.getByUserIdAndPeriod(userTeam));
     }
 }

@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.sys.AccountBalance;
 import cn.edu.hdu.clan.entity.sys.Incomesheet;
 import com.github.pagehelper.PageInfo;
 
@@ -16,5 +17,9 @@ public interface IncomesheetService {
     List<Incomesheet> list();
 
     Incomesheet getById(String id);
+
     Incomesheet getincomesheet(Incomesheet incomesheet);
+
+    void createIncomeSheet(List<AccountBalance> accountBalances, String userTeam , int period);
+
 }

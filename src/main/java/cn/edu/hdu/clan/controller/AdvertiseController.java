@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.List;
+
+
 
 @RestController
 @RequestMapping("Advertise")
@@ -18,6 +21,12 @@ public class AdvertiseController extends BaseController {
     @RequestMapping("add")
     public String add(@RequestBody Advertise Advertise) {
         AdvertiseService.add(Advertise);
+        return success();
+    }
+
+    @RequestMapping("addList")
+    public String addList(@RequestBody List<Advertise> Advertises) {
+        AdvertiseService.addList(Advertises);
         return success();
     }
 

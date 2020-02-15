@@ -6,10 +6,36 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="http://mockjs.com/dist/mock.js"></script>
     <script src="js/index.js"></script>
+    <script src="js/select2.js"></script>
+    <script src="js/product.js"></script>
+    <script src="js/factory.js"></script>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style/index.css">
+    <link rel="stylesheet" type="text/css" href="style/select2.css">
     <title>ERP沙盘系统</title>
     <script>
+        //获取当前用户、当前会计期间、公司ID
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "/SysUser/getCurrentInfo",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                console.log(data);
+                $("#currentAp").val(data.currentAp);  //获取当前会计期间
+                $("#currentUser").val(data.currentUser);  //获取当前会计期间
+                $("#currentTeam").val(data.currentTeam);  //获取当前会计期间
+                console.log(data.currentAp);
+                console.log($("#currentAp").val()+"全局会计期间");
+
+            }
+        });
+
+        var currentAp =$("#currentAp").val();
+        var currentTeam = $("#currentTeam").val();
+
+
         var daikuan = 0;//贷款数
         var touzi = 0;//投资额
         var dindan=0;//订单数
@@ -28,15 +54,32 @@
                     $("#ceo-cz-c"+i).val(value.moneyTotal);
                 });
 
-
-
-             /*   $("#ceo-cz-c1").val(data.longTermLoan);*/
                 console.log(data);
                 console.log('*****长期贷款数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
             }
         });
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: {pageSize: 100, pageNum: 0},
+            url: "/ShortTermLoan/listbyuserandperiod",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+                $.each(data,function(n,value){
+                    var currentAp =$("#currentAp").val();
+                    var i = 1+currentAp*1-value.period;
+                    console.log(i);
+                    $("#ceo-cz-d"+i).val(value.moneyTotal);
+                });
+
+
+                console.log(data);
+                console.log('*******短期贷款数据');
+            }
+        });
+
         $.ajax({
             type: "post",
             dataType: "json",
@@ -53,161 +96,72 @@
                 // $('#money_flow').text(data.money_flow)
             }
         });
+
+
+        //原材料及成品库存显示
         $.ajax({
-            type: "post",
+            type: "get",
             dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/ShortTermLoan/listbyuserandperiod",
+            url: "/Inv/listInv",
             contentType: "application/json;charset=utf-8;",
             success: function (data) {
                 data = data['data'];
+                console.log(data);
                 $.each(data,function(n,value){
-                    var i = 5-value.surplusPeriod;
-                    console.log(i);
-                    $("#ceo-cz-d"+i).val(value.moneyTotal);
+                    if(value.number == "R1")
+                    {  $("#mag-r4").text(value.amountB);}
+                    if(value.number == "R2")
+                    {  $("#mag-r3").text(value.amountB);}
+                    if(value.number == "R3")
+                    {  $("#mag-r2").text(value.amountB);}
+                    if(value.number == "R4")
+                    {  $("#mag-r1").text(value.amountB);}
+                    if(value.number == "P1")
+                    {  $("#mag-p1").text(value.amountB);}
+                    if(value.number == "P2")
+                    {  $("#mag-p2").text(value.amountB);}
+                    if(value.number == "P3")
+                    {  $("#mag-p3").text(value.amountB);}
+                    if(value.number == "P4")
+                    {  $("#mag-p4").text(value.amountB);}
+
                 });
-
-
-                console.log(data);
-                console.log('*******短期贷款数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
-        //订单显示
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/OrderManagement/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#mag-p1").text(data[0].amount);
-                dindan=parseInt(dindan)+parseInt(data[0].amount);
-                console.log(data);
-                console.log('**********类型1订单数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/OrderManagement/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#mag-p2").text(data[1].amount);
-                dindan=parseInt(dindan)+parseInt(data[1].amount);
-                console.log(data);
-                console.log('***********类型2订单数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/OrderManagement/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#mag-p3").text(data[2].amount);
-                dindan=parseInt(dindan)+parseInt(data[2].amount);
-                console.log(data);
-                console.log('类型3订单数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/OrderManagement/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#mag-p4").text(data[3].amount);
-                dindan=parseInt(dindan)+parseInt(data[3].amount);
-                console.log(data);
-                console.log('**********类型4订单数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
-        //原材料显示
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/MaterialOrder/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#mag-r4").text(data[0].amount);
-                console.log(data);
                 console.log('************类型1原材料数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
             }
         });
+
+        //采购订单的显示
         $.ajax({
-            type: "post",
+            type: "get",
             dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
             url: "/MaterialOrder/list",
             contentType: "application/json;charset=utf-8;",
             success: function (data) {
                 data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#mag-r3").text(data[1].amount);
                 console.log(data);
-                console.log('************类型2原材料数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
+                $.each(data,function(n,value){
+                    var currentAp =$("#currentAp").val();
+                    var leadTime = 1+currentAp*1-value.period;
+                    if(value.materialId == "R1" )
+                    {  $("#r1-1").val(value.amount);}
+                    if(value.materialId == "R2")
+                    {  $("#r2-1").val(value.amount);}
+                    if(value.materialId == "R3"  && leadTime == 1)
+                    {  $("#r3-2").val(value.amount);}
+                    if(value.materialId == "R3"  && leadTime == 2)
+                    {  $("#r3-1").val(value.amount);}
+                    if(value.materialId == "R4" && leadTime == 1)
+                    {  $("#r4-2").val(value.amount);}
+                    if(value.materialId == "R4" && leadTime == 2)
+                    {  $("#r4-1").val(value.amount);}
+
+                });
+                console.log('采购订单提取数据成功');
             }
         });
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/MaterialOrder/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#mag-r2").text(data[2].amount);
-                console.log(data);
-                console.log('************类型3原材料数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/MaterialOrder/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#mag-r1").text(data[3].amount);
-                console.log(data);
-                console.log('************类型4原材料数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
+
+
+
         //生产线值
         $.ajax({
             type: "post",
@@ -244,6 +198,9 @@
                 // $('#money_flow').text(data.money_flow)
             }
         });
+
+
+
         Mock.mock('http://test.com', {
             "user|2-5": [{                              //2-5组数据
                 'name': '@cname',                       //中文名称
@@ -260,47 +217,40 @@
         //贷款按钮点击事件
         $(function () {
             $("#pop-ok").click(function () {
-                // $('#load-c').value;
-                var Balancesheet = {
-                    id: "1",
-                    longTermLoan: $('#load-c').val()//长期贷款
-                    // moneyNow: (parseInt($('#load-c').val()) + parseInt($('#cash').text())).toString(),//现金
-                    // moneyFlow: (parseInt($('#cash').text()) - parseInt($('#load-c').val())).toString(),//流动资金
-                    // moneyAll: (parseInt($('#cash').text()) + parseInt("12") - parseInt($('#load-c').val())).toString(),//资产总计
-                    // moneyAlls: (parseInt($('#cash').text()) + parseInt("12") - parseInt($('#load-c').val())).toString(),//所有人权益总计
-                    // moneyLoan: $('#load-c').val()//负债总计
-                }
+
+
+                var LongTermLoans = {
+                    moneyTotal:$('#load-c').val(),
+                    period: $('#currentAp').val()
+
+                };
                 $.ajax({
                     type: "post",
                     dataType: "json",
-                    url: "/Balancesheet/update",
+                    url: "/LongTermLoans/add",
                     contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(Balancesheet),
+                    data: JSON.stringify(LongTermLoans),
                     success: function (data) {
                         alert("长期贷款成功");
-                        daikuan = parseInt(daikuan) + parseInt($('#load-c').val());//记录贷款数
                         $('#cash').text(parseInt($('#load-c').val()) + parseInt($('#cash').text()));//财务显示更新
                     }
                 })
                 $("#ceo-cz-c1").val($('#load-c').val());
             });
+
+
             $("#pop-ok1").click(function () {
                 // $('#load-c').value;
-                var Balancesheet = {
-                    id: "1",
-                    shortTermLoan: $('#load-d').val()
-                    // moneyNow: (parseInt($('#load-c').val()) + parseInt($('#cash').text())).toString(),//现金
-                    // moneyFlow: (parseInt($('#cash').text()) - parseInt($('#load-c').val())).toString(),//流动资金
-                    // moneyAll: (parseInt($('#cash').text()) + parseInt("12") - parseInt($('#load-c').val())).toString(),//资产总计
-                    // moneyAlls: (parseInt($('#cash').text()) + parseInt("12") - parseInt($('#load-c').val())).toString(),//所有人权益总计
-                    // moneyLoan: $('#load-c').val()//负债总计
+                var ShortTermLoan = {
+                    moneyTotal:$('#load-d').val(),
+                    period: $('#currentAp').val()
                 }
                 $.ajax({
                     type: "post",
                     dataType: "json",
-                    url: "/Balancesheet/update",
+                    url: "/ShortTermLoan/add",
                     contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(Balancesheet),
+                    data: JSON.stringify(ShortTermLoan),
                     success: function (data) {
                         alert("短期贷款成功");
                         daikuan = parseInt(daikuan) + parseInt($('#load-d').val());//记录贷款数
@@ -309,16 +259,18 @@
                 })
                 $("#ceo-cz-d1").val($('#load-d').val());
             });
+
+
             $("#pop-ok2").click(function () {
                 // $('#load-c').value;
-                var Balancesheet = {
+                var Usury = {
                     id: "1",
-                    longTermLoan: $('#load-c').val(),
+                    longTermLoan: $('#load-g').val(),
                 }
                 $.ajax({
                     type: "post",
                     dataType: "json",
-                    url: "/Balancesheet/update",
+                    url: "/Usury/update",
                     contentType: "application/json;charset=utf-8;",
                     data: JSON.stringify(Balancesheet),
                     success: function (data) {
@@ -331,46 +283,281 @@
         //投资按钮点击事件
         $(function () {
             $("#ok-qy").click(function () {
+                var MarketFee = {
+                    period: $('#currentAp').val(),
+                    marketId:"区域"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MarketFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MarketFee),
+                    success: function (data) {
+                        alert("区域市场开拓成功");
+                    }
+                })
+
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//区域扣20
                 touzi = parseInt(touzi) + parseInt("20");//记录扣款数
             });
 
             $("#ok-gn").click(function () {
+
+                var MarketFee = {
+                    period: $('#currentAp').val(),
+                    marketId:"国内"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MarketFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MarketFee),
+                    success: function (data) {
+                        alert("国内市场开拓成功");
+                    }
+                })
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("40"));//国内扣40
                 touzi = parseInt(touzi) + parseInt("40");//记录扣款数
             })
             $("#ok-yz").click(function () {
+
+                var MarketFee = {
+                    period: $('#currentAp').val(),
+                    marketId:"亚洲"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MarketFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MarketFee),
+                    success: function (data) {
+                        alert("亚洲市场开拓成功");
+                    }
+                })
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("60"));//亚洲扣60
                 touzi = parseInt(touzi) + parseInt("60");//记录扣款数
             })
             $("#ok-gj").click(function () {
+                var MarketFee = {
+                    period: $('#currentAp').val(),
+                    marketId:"国际"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MarketFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MarketFee),
+                    success: function (data) {
+                        alert("国际市场开拓成功");
+                    }
+                })
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("80"));//国际扣80
                 touzi = parseInt(touzi) + parseInt("80");//记录扣款数
             })
             $("#ok-p2").click(function () {
+                var ResearchFee = {
+                    period: $('#currentAp').val(),
+                    productId:"P2"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/ResearchFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(ResearchFee),
+                    success: function (data) {
+                        alert("P2研发成功");
+                    }
+                })
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P2扣20
                 touzi = parseInt(touzi) + parseInt("20");//记录扣款数
             })
             $("#ok-p3").click(function () {
+                var ResearchFee = {
+                    period: $('#currentAp').val(),
+                    productId:"P3"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/ResearchFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(ResearchFee),
+                    success: function (data) {
+                        alert("P3研发成功");
+                    }
+                })
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P3扣20
                 touzi = parseInt(touzi) + parseInt("20");//记录扣款数
             })
             $("#ok-p4").click(function () {
+                var ResearchFee = {
+                    period: $('#currentAp').val(),
+                    productId:"P4"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/ResearchFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(ResearchFee),
+                    success: function (data) {
+                        alert("P4研发成功");
+                    }
+                })
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P4扣20
                 touzi = parseInt(touzi) + parseInt("20");//记录扣款数
             })
             $("#ok-9k").click(function () {
+                var IsoFee = {
+                    period: $('#currentAp').val(),
+                    number:"ISO9K"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/IsoFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(ResearchFee),
+                    success: function (data) {
+                        alert("ISO9K研发成功");
+                    }
+                })
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("200"));//ISO1扣200
                 touzi = parseInt(touzi) + parseInt("200");//记录扣款数
             })
             $("#ok-14k").click(function () {
+                var IsoFee = {
+                    period: $('#currentAp').val(),
+                    number:"ISO14K"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/IsoFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(ResearchFee),
+                    success: function (data) {
+                        alert("ISO14K研发成功");
+                    }
+                })
                 $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
                 touzi = parseInt(touzi) + parseInt("400");//记录扣款数
             })
+            //原材料采购的点击事件
+            $("#ok-r1-1").click(function () {
+                var MaterialOrder = {
+                    period: $('#currentAp').val(),
+                    amount:$('#buy-r1-1').val(),
+                    moneyTotal:$('#buy-r1-1').val(),
+                    materialId:"R1"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder),
+                    success: function (data) {
+                        alert("RI订单成功");
+                    }
+                })
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
+                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
+            })
+
+            $("#ok-r2-1").click(function () {
+                var MaterialOrder = {
+                    period: $('#currentAp').val(),
+                    amount:$('#buy-r2-1').val(),
+                    moneyTotal:$('#buy-r2-1').val(),
+                    materialId:"R2"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder),
+                    success: function (data) {
+                        alert("R2订单成功");
+                    }
+                })
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
+                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
+            })
+
+            $("#ok-r3-2").click(function () {
+                var MaterialOrder = {
+                    period: $('#currentAp').val(),
+                    amount:$('#buy-r3-2').val(),
+                    moneyTotal:$('#buy-r3-1').val(),
+                    materialId:"R3"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder),
+                    success: function (data) {
+                        alert("R3订单成功");
+                    }
+                })
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
+                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
+            })
+
+            $("#ok-r4-2").click(function () {
+                var MaterialOrder = {
+                    period: $('#currentAp').val(),
+                    amount:$('#buy-r4-2').val(),
+                    moneyTotal:$('#buy-r4-1').val(),
+                    materialId:"R4"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/MaterialOrder/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder),
+                    success: function (data) {
+                        alert("R4订单成功");
+                    }
+                })
+                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
+                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
+            })
+
+            //广告费的提交按钮事件
+            $("#ok-advertise").click(function () {
+
+                $("#market-page-manager").val("1"); //将广告费提交标识设置为1.
+            })
+
+
         })
         //结转本季，刷新页面
         $(function () {
             $("#button").click(function () {
+
+                //会计结账处理
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Index/closing",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder),
+                    success: function (data) {
+                        alert("R4订单成功");
+                    }
+                })
+
+
                 //资产负债表重置
                 var Balancesheet = {
                     id: "1",
@@ -421,169 +608,7 @@
                         alert("利润表重置成功");
                     }
                 })
-                //贷款重置
-                // $("#load-c").val("0");
-                // $("#ceo-cz-c1").val("0");
-                //长期贷款重置
-                // var Balancesheet = {
-                //     id: "1",
-                //     longTermLoan: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/Balancesheet/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(Balancesheet),
-                //     success: function (data) {
-                //         console.log("长期贷款重置成功")
-                //     }
-                // })
-                //短期贷款重置
-                // var Balancesheet1 = {
-                //     id: "1",
-                //     shortTermLoan: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/Balancesheet/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(Balancesheet1),
-                //     success: function (data) {
-                //
-                //     }
-                // })
-                // //高利贷重置
-                // var Balancesheet2 = {
-                //     id: "1",
-                //     moneyTotal: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/Usury/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(Balancesheet2),
-                //     success: function (data) {
-                //     }
-                // })
 
-                //订单重置
-                // var OrderManagement = {
-                //     id: "1",
-                //     amount: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/OrderManagement/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(OrderManagement),
-                //     success: function (data) {
-                //         console.log("订单1重置成功");
-                //     }
-                // })
-                // var OrderManagement1 = {
-                //     id: "2",
-                //     amount: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/OrderManagement/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(OrderManagement1),
-                //     success: function (data) {
-                //         console.log("订单2重置成功");
-                //     }
-                // })
-                // var OrderManagement2 = {
-                //     id: "3",
-                //     amount: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/OrderManagement/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(OrderManagement2),
-                //     success: function (data) {
-                //         console.log("订单3重置成功");
-                //     }
-                // })
-                // var OrderManagement3 = {
-                //     id: "4",
-                //     amount: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/OrderManagement/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(OrderManagement3),
-                //     success: function (data) {
-                //         console.log("订单4重置成功");
-                //     }
-                // })
-                // //原材料重置
-                // var MaterialOrder1 = {
-                //     id: "1",
-                //     amount: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/MaterialOrder/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(MaterialOrder1),
-                //     success: function (data) {
-                //
-                //     }
-                // })
-                // var MaterialOrder2 = {
-                //     id: "2",
-                //     amount: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/MaterialOrder/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(MaterialOrder2),
-                //     success: function (data) {
-                //
-                //     }
-                // })
-                // var MaterialOrder3 = {
-                //     id: "3",
-                //     amount: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/MaterialOrder/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(MaterialOrder3),
-                //     success: function (data) {
-                //
-                //     }
-                // })
-                // var MaterialOrder4 = {
-                //     id: "4",
-                //     amount: "0",
-                // }
-                // $.ajax({
-                //     type: "post",
-                //     dataType: "json",
-                //     url: "/MaterialOrder/update",
-                //     contentType: "application/json;charset=utf-8;",
-                //     data: JSON.stringify(MaterialOrder4),
-                //     success: function (data) {
-                //     }
-                // })
-                //投资重置
-                //厂房重置
                 window.location.reload();//页面刷新
             });
         });
@@ -593,6 +618,9 @@
 <div id="wrap">
     <div id="wrapper">
         <div class="erp">
+            <input type="hidden" id = "currentAp" name ="currentAp" value="">
+            <input type="hidden" id = "currentUser" name ="currentUser" value="">
+            <input type="hidden" id = "currentTeam" name ="currentTeam" value="">
             <div class="content">
                 <div id="jz">
 
@@ -781,14 +809,54 @@
                     <h5 id="fin-sds" class="text">sds</h5>
                 </div>
                 <div id="marketing">
-                    <input name="order" id="order" type="button"/>
-                    <div class="pop3">
-                        <iframe src="ordersheet.html" id="order-wrap" frameborder="0"></iframe>
+                    <input name="order" id="order" type="button" />
+
+                    <div id="orderlist1" class="orderlist"><h5 id="p1-list">查看详情</h5></div>
+                    <div class="pop-p1">
+                        <div>PI列表</div>
+                        <div  id="ordermanagement1"></div>
                         <div class="pop-foot">
                             <input type="button" value="关闭" class="pop-cancel pop-close">
                         </div>
                     </div>
+                    <div id="orderlist2" class="orderlist"><h5 id="p2-list">查看详情</h5></div>
+                    <div class="pop-p2">
+                        <div  id="ordermanagement2"></div>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                    <div id="orderlist3" class="orderlist"><h5 id="p3-list">查看详情</h5></div>
+                    <div class="pop-p3">
+                        <div  id="ordermanagement3"></div>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                    <div id="orderlist4" class="orderlist"><h5 id="p4-list">查看详情</h5></div>
+                    <div class="pop-p4">
+                        <div  id="ordermanagement4"></div>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+
+                    <input type="hidden" name ="market-page-manager" id="market-page-manager" value="0">
+                    <div class="pop-marketing">
+                        <iframe src="ordersheet.html" id="order-wrap" frameborder="0"  onload="reinitIframe()"></iframe>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                    <div class="pop-advertise">
+                        <iframe src="advertise.html" id="advertise-wrap" frameborder="0"  onload="reinitIframe()"></iframe>
+                        <div class="pop-foot-advertise">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-advertise" class="pop-ok">
+                        </div>
+                    </div>
                 </div>
+
                 <div id="management">
                     <h4 id="mag-p1" class="text">p1</h4>
                     <h4 id="mag-p2" class="text">p2</h4>
@@ -800,75 +868,238 @@
                     <h4 id="mag-r3" class="text">r3</h4>
                     <h4 id="mag-r4" class="text">r4</h4>
 
+                    <input name="r1_1" id="r1-1" class= "van" type="button" value=""/>
+                    <div class="pop-r1-1">
+                        <h3>请输入R1购买数量</h3>
+                        <input name="" id="buy-r1-1"/>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确定" class="pop-ok" id="ok-r1-1">
+                        </div>
+                    </div>
+                    <input name="r2_1" id="r2-1" class= "van" type="button" value=""/>
+                    <div class="pop-r2-1">
+                        <h3>请输入R2购买数量</h3>
+                        <input name="" id="buy-r2-1"/>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确定" class="pop-ok" id="ok-r2-1">
+                        </div>
+                    </div>
+                    <input name="r3_1" id="r3-1" class= "van" type="button" value=""/>
+                    <div class="pop-r3-1">
+                        <h3>请输入R3购买数量</h3>
+                        <input name="" id="buy-r3-1"/>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确定" class="pop-ok" id="ok-r3-1">
+                        </div>
+                    </div>
+                    <input name="r3_2" id="r3-2" class= "van" type="button" value=""/>
+                    <div class="pop-r3-2">
+                        <h3>请输入R3购买数量</h3>
+                        <input name="" id="buy-r3-2"/>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确定" class="pop-ok" id="ok-r3-2">
+                        </div>
+                    </div>
+                    <input name="r4_1" id="r4-1" class= "van" type="button" value=""/>
+                    <div class="pop-r4-1">
+                        <h3>请输入购买数量</h3>
+                        <input name="" id="buy-r4-1"/>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确定" class="pop-ok" id="ok-r4-1">
+                        </div>
+                    </div>
+                    <input name="r4_2" id="r4-2" class= "van" type="button" value=""/>
+                    <div class="pop-r4-2">
+                        <h3>请输入购买数量</h3>
+                        <input name="" id="buy-r4-2"/>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="确定" class="pop-ok" id="ok-r4-2">
+                        </div>
+                    </div>
+
                 </div>
                 <div id="production">
                     <input name="pro" id="pro-btn" type="button"/>
-                    <div class="pop4">
-                        <iframe src="productionsheet.html" id="pro-wrap" frameborder="0"></iframe>
+                    <div class="pop-factory">
+                        <table>
+                            <tr>
+                                <td>类型</td><td>状态</td>
+                                <td>操作</td>
+                            </tr>
+                            <tr>
+                                <td>大厂房</td><td><div id="factory-1-state"></div></td>
+                                <td> <input type="button" value="购买" class="pop-ok" id="ok-factory1-buy">
+                                 <input type="button" value="出售" class="pop-ok" id="ok-factory1-sale">
+                              <input type="button" value="租赁" class="pop-ok" id="ok-factory1-rent"> </td>
+                            </tr>
+                            <tr>
+                                <td>小厂房</td><td><div id="factory-2-state"></div></td>
+                                <td> <input type="button" value="购买" class="pop-ok" id="ok-factory2-buy">
+                                <input type="button" value="出售" class="pop-ok" id="ok-factory2-sale">
+                                 <input type="button" value="租赁" class="pop-ok" id="ok-factory2-rent"> </td>
+                            </tr>
+
+                        </table>
+
+
                         <div class="pop-foot">
-                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                            <input type="button" value="取消" class="pop-cancel pop-close">
                         </div>
+
                     </div>
+
+                    <input type="hidden" name="productLineNumber" id="productLineNumber" value="0">
                     <div id="pro-l-1" class="pro-line"></div>
-                    <!--<div id="pro-l-2" class="pro-line"></div>
+                    <div id="pro-l-2" class="pro-line"></div>
                     <div id="pro-l-3" class="pro-line"></div>
                     <div id="pro-l-4" class="pro-line"></div>
                     <div id="pro-l-5" class="pro-line"></div>
-                    <div id="pro-l-6" class="pro-line"></div>-->
+                    <div id="pro-l-6" class="pro-line"></div>
 
                     <div id="pro-r-1" class="pro-line"></div>
-                    <!--<div id="pro-r-2" class="pro-line"></div>
+                    <div id="pro-r-2" class="pro-line"></div>
                     <div id="pro-r-3" class="pro-line"></div>
-                    <div id="pro-r-4" class="pro-line"></div>-->
+                    <div id="pro-r-4" class="pro-line"></div>
 
-                    <div id="pro-l-1-sg" class="pro-sg-l"></div><!--
+                    <!--点击每条生产线的弹窗部分BEGIN-->
+                    <div class="pop-pro">
+                        <input type="hidden" name="plnValue" id="plnValue" value="0">
+                        <div class ="pro-status">
+                            <table>
+                                <tr><td>  <div>生产线类型：</div></td>
+                                <td><div name ="productLineTypeId" id="productLineTypeId" ></div></td>
+                                <td>    <div>在产产品类型：</div></td>
+                                <td>   <div name ="productC" id="productC" ></div></td></tr>
+                                <tr>
+                                    <td>     <div>生产总周期：</div></td>
+                                    <td> <div name ="processingCycle" id="processingCycle" ></div></td>
+                                    <td>   <div>当前周期：</div></td>
+                                    <td>       <div name ="processingCycelB" id="processingCycelB" ></div></td>
+                                </tr>
+                            </table>
+                            <div class="pop-foot">
+                                <input type="button" value="取消" class="pop-cancel pop-close">
+                                <input type="button" value="确定" class="pop-ok" id="ok-pop-pro">
+                            </div>
+                        </div>
+
+                        <div class ="newBuild">
+                            <table>
+                                <tr>
+                                    <td>生产线类型：</td>
+                                    <td>  <select id="productLineTypeIdList" name="productLineTypeIdList" class="select2">
+                                        <option value="手工线">手工线</option>
+                                        <option value="半自动">半自动</option>
+                                        <option value="全自动">全自动</option>
+                                        <option value="柔性线">柔性线</option>
+                                    </select></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+
+                            </table>
+
+
+                            <div class="pop-foot">
+                                <input type="button" value="取消" class="pop-cancel pop-close">
+                                <input type="button" value="投资" class="pop-ok" id="ok-pro-newBuild">
+                            </div>
+
+                        </div>
+                        <div class ="pro-build">
+                            <table>
+                                <tr>
+                                    <td>     <div> 生产线类型：</div></td>
+                                    <td>        <div name ="productLineTypeId-build" id="productLineTypeId-build" ></div></td>
+                                    <td>   <div>总价值：</div></td>
+                                    <td>    <div name ="deviceValue" id="deviceValue" ></div></td>
+                                </tr>
+                                <tr>
+                                    <td> <div>已投金额：</div></td>
+                                    <td colspan="3">   <div name ="investmentAmountA" id="investmentAmountA" ></div></td>
+                                </tr>
+                            </table>
+                            <div class="pop-foot">
+                                <input type="button" value="取消" class="pop-cancel pop-close">
+                            <input type="button" value="投资" class="pop-ok" id="ok-pro-build">
+                            </div>
+                        </div>
+
+                        <div class ="pro-produce">
+                                <select id="productCList" name="productCList" class="select2">
+                                    <option value="P1">P1</option>
+                                    <option value="P2">P2</option>
+                                    <option value="P3">P3</option>
+                                    <option value="P4">P4</option>
+                                </select>
+                            <div class="pop-foot">
+                                <input type="button" value="取消" class="pop-cancel pop-close">
+                                <input type="button" value="转产" class="pop-ok" id="ok-pro-switching">
+                                <input type="button" value="投产" class="pop-ok" id="ok-pro-produce">
+                                <input type="button" value="投产" class="pop-ok" id="ok-pro-sale">
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--点击每条生产线的弹窗部分END-->
+
+
+                    <div id="pro-l-1-sg" class="pro-sg-l"></div>
                     <div id="pro-l-2-sg" class="pro-sg-l"></div>
                     <div id="pro-l-3-sg" class="pro-sg-l"></div>
                     <div id="pro-l-4-sg" class="pro-sg-l"></div>
                     <div id="pro-l-5-sg" class="pro-sg-l"></div>
-                    <div id="pro-l-6-sg" class="pro-sg-l"></div>-->
+                    <div id="pro-l-6-sg" class="pro-sg-l"></div>
 
                     <div id="pro-r-1-sg" class="pro-sg-r"></div>
-                    <!--div id="pro-r-2-sg" class="pro-sg-r"></div>
+                    <div id="pro-r-2-sg" class="pro-sg-r"></div>
                     <div id="pro-r-3-sg" class="pro-sg-r"></div>
-                    <div id="pro-r-4-sg" class="pro-sg-r"></div-->
+                    <div id="pro-r-4-sg" class="pro-sg-r"></div>
 
                     <div id="pro-l-1-bzd" class="pro-bzd-l"></div>
-                    <!--<div id="pro-l-2-bzd" class="pro-bzd-l"></div>
+                    <div id="pro-l-2-bzd" class="pro-bzd-l"></div>
                     <div id="pro-l-3-bzd" class="pro-bzd-l"></div>
                     <div id="pro-l-4-bzd" class="pro-bzd-l"></div>
                     <div id="pro-l-5-bzd" class="pro-bzd-l"></div>
-                    <div id="pro-l-6-bzd" class="pro-bzd-l"></div>-->
+                    <div id="pro-l-6-bzd" class="pro-bzd-l"></div>
 
 
                     <div id="pro-r-1-bzd" class="pro-bzd-r"></div>
-                    <!--<div id="pro-r-2-bzd" class="pro-bzd-r"></div>
+                    <div id="pro-r-2-bzd" class="pro-bzd-r"></div>
                     <div id="pro-r-3-bzd" class="pro-bzd-r"></div>
-                    <div id="pro-r-4-bzd" class="pro-bzd-r"></div>-->
+                    <div id="pro-r-4-bzd" class="pro-bzd-r"></div>
 
                     <div id="pro-l-1-zd" class="pro-zd-l"></div>
-                    <!--<div id="pro-l-2-zd" class="pro-zd-l"></div>
+                    <div id="pro-l-2-zd" class="pro-zd-l"></div>
                     <div id="pro-l-3-zd" class="pro-zd-l"></div>
                     <div id="pro-l-4-zd" class="pro-zd-l"></div>
                     <div id="pro-l-5-zd" class="pro-zd-l"></div>
-                    <div id="pro-l-6-zd" class="pro-zd-l"></div>-->
+                    <div id="pro-l-6-zd" class="pro-zd-l"></div>
 
                     <div id="pro-r-1-zd" class="pro-zd-r"></div>
-                    <!--<div id="pro-r-2-zd" class="pro-zd-r"></div>
+                    <div id="pro-r-2-zd" class="pro-zd-r"></div>
                     <div id="pro-r-3-zd" class="pro-zd-r"></div>
-                    <div id="pro-r-4-zd" class="pro-zd-r"></div>-->
+                    <div id="pro-r-4-zd" class="pro-zd-r"></div>
 
                     <div id="pro-l-1-rx" class="pro-rx-l"></div>
-                    <!--<div id="pro-l-2-rx" class="pro-rx-l"></div>
+                    <div id="pro-l-2-rx" class="pro-rx-l"></div>
                     <div id="pro-l-3-rx" class="pro-rx-l"></div>
                     <div id="pro-l-4-rx" class="pro-rx-l"></div>
                     <div id="pro-l-5-rx" class="pro-rx-l"></div>
-                    <div id="pro-l-6-rx" class="pro-rx-l"></div>-->
+                    <div id="pro-l-6-rx" class="pro-rx-l"></div>
 
                     <div id="pro-r-1-rx" class="pro-rx-r"></div>
-                    <!--<div id="pro-r-2-rx" class="pro-rx-r"></div>
+                    <div id="pro-r-2-rx" class="pro-rx-r"></div>
                     <div id="pro-r-3-rx" class="pro-rx-r"></div>
-                    <div id="pro-r-4-rx" class="pro-rx-r"></div>-->
+                    <div id="pro-r-4-rx" class="pro-rx-r"></div>
 
                 </div>
             </div>

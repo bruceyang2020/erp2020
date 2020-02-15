@@ -3,12 +3,14 @@ package cn.edu.hdu.clan.service.sys;
 import cn.edu.hdu.clan.entity.sys.OrderGroup;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.OrderGroupMapper;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import java.util.List;
 
 @Service
 public class OrderGroupServiceImpl implements OrderGroupService {
@@ -37,15 +39,29 @@ public class OrderGroupServiceImpl implements OrderGroupService {
     }
 
     @Override
-    public PageInfo<OrderGroup> list(int pageNum, int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        return new PageInfo<>(OrderGroupMapper.selectAll());
+    public List<OrderGroup> list(String productId) {
+
+        //全局变量 写入当前公司或小组ID
+        int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        Example example = new Example(OrderGroup.class);
+        example.createCriteria().andEqualTo("productId", productId);
+        example.createCriteria().andEqualTo("period", period);
+
+        return OrderGroupMapper.selectByExample(example);
     }
 
     @Override
     public OrderGroup getById(String id) {
         Example example = new Example(OrderGroup.class);
         example.createCriteria().andEqualTo("id", id);
+        return OrderGroupMapper.selectOneByExample(example);
+    }
+
+
+    @Override
+    public OrderGroup getByOrderId(String orderId) {
+        Example example = new Example(OrderGroup.class);
+        example.createCriteria().andEqualTo("orderId", orderId);
         return OrderGroupMapper.selectOneByExample(example);
     }
 }

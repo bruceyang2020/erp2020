@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.Factory;
 import com.github.pagehelper.PageInfo;
+import java.util.List;
 
 public interface FactoryService {
     void add(Factory Factory);
@@ -10,7 +11,11 @@ public interface FactoryService {
 
     void update(Factory Factory);
 
-    PageInfo<Factory> list(int pageNum, int pageSize);
+    void sale(String userTeam ,int period,String number);
+
+    List<Factory> list(String userTeam ,int period);
 
     Factory getById(String id);
+
+    void  copyDataToNextPeriod(String userTeam ,int period ,int nextPeriod);
 }

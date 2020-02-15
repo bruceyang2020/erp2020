@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public class UUIDHelper {
     public static String getUUID() {
-        return UUID.randomUUID().toString();
+        String s = UUID.randomUUID().toString();
+        return s.replace("-", "");
     }
 }

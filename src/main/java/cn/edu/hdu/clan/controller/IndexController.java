@@ -1,9 +1,11 @@
 package cn.edu.hdu.clan.controller;
 
 
+import cn.edu.hdu.clan.entity.sys.AccountBalance;
+import cn.edu.hdu.clan.entity.sys.SysTeam;
 import cn.edu.hdu.clan.entity.sys.SysUser;
+import cn.edu.hdu.clan.service.sys.*;
 import cn.edu.hdu.clan.entity.PageData;
-import cn.edu.hdu.clan.service.sys.UserService;
 import cn.edu.hdu.clan.shiro.USerRealm;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,6 +38,26 @@ import cn.edu.hdu.clan.util.Jurisdiction;
 public class IndexController extends BaseController {
     @Resource
     private UserService userService;
+    @Resource
+    private SysTeamService sysTeamService;
+    @Resource
+    private MaterialOrderService materialOrderService;
+    @Resource
+    private SalepaymentService salepaymentService;
+
+    @Resource
+    private AccountBalanceService accountBalanceService;
+
+    @Resource
+    private BalancesheetService balancesheetService;
+
+    @Resource
+    private  IncomesheetService incomesheetService;
+    @Resource
+    private  FactoryService  factoryService;
+    @Resource
+    private ProductLineService productLineService;
+
 
     @RequestMapping("/")
      public String login_tologin() {
@@ -66,6 +88,10 @@ public class IndexController extends BaseController {
     public String ordersheet() {
         return "ordersheet";
     }
+    @RequestMapping("/advertise")
+    public String advertise() {
+        return "advertise";
+    }
     @RequestMapping("/productionsheet")
     public String productionsheet() {
         return "productionsheet";
@@ -81,9 +107,12 @@ public class IndexController extends BaseController {
             Session session = Jurisdiction.getSession();
 
             SysUser sysUser  = userService.findByUsername(params.get("username"));
+            SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
 
             session.setAttribute(Const.SESSION_USER,sysUser);
             session.setAttribute(Const.SESSION_USERID,sysUser.getId());
+            session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
+            session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
 
             return success("登陆成功");
         } catch (AuthenticationException ex) {
@@ -92,6 +121,10 @@ public class IndexController extends BaseController {
         }
 
     }
+
+
+
+
 
 
     @ResponseBody
@@ -110,5 +143,54 @@ public class IndexController extends BaseController {
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
         return success("退出成功");
+    }
+
+
+
+
+    @RequestMapping("closing")
+    public String closing(){
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+
+
+        //期末损益结转
+
+        //清除本期的科目余额表
+        accountBalanceService.deleteByPeriod(userTeam,period);
+        //从会计凭证表汇总本期的发生额到科目余额表
+        accountBalanceService.sumFromVoucher(userTeam,period);
+        //获取当前会计期间的科目余额表
+        List<AccountBalance> accountBalances = accountBalanceService.getByTeamcountAndPeriod(userTeam,period);
+        //根据科目余额表，生成本期的资产负债表。
+        balancesheetService.createBalanceSheet(accountBalances,userTeam,period);
+        //根据科目余额表，生成本期的利润表。
+        incomesheetService.createIncomeSheet(accountBalances,userTeam,period);
+
+
+
+
+
+        int nextPeriod = Integer.parseInt(Jurisdiction.getUserTeamintPeriod())+1;  //注意：结账的时候，会计期间要跳转到下一期。+1
+
+        //原材料订单到期，会计账务处理：现金减少
+        materialOrderService.payment(userTeam,nextPeriod);
+
+        //应收账款到期，会计账务处理：现金增加
+        salepaymentService.receivePayment(userTeam,nextPeriod);
+
+
+        //复制厂房信息到下一会计期间。
+        factoryService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+
+        //复制生产线信息到下一会计期间。
+        productLineService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+
+
+
+
+        return success();
     }
 }

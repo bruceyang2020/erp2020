@@ -6,23 +6,19 @@ import javax.persistence.*;
 
 @Table(name = "market_fee")
 public class MarketFee extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "team_count")
-    private Integer teamCount;
+    private String teamCount;
 
     /**
      * 市场编号
      */
     @Column(name = "market_id")
-    private Integer marketId;
+    private String marketId;
 
     /**
      * 状态
@@ -64,49 +60,32 @@ public class MarketFee extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group_id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public Integer getTeamCount() {
+    public String getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(Integer teamCount) {
+    public void setTeamCount(String teamCount) {
         this.teamCount = teamCount;
     }
 
@@ -115,7 +94,7 @@ public class MarketFee extends BaseBean {
      *
      * @return market_id - 市场编号
      */
-    public Integer getMarketId() {
+    public String getMarketId() {
         return marketId;
     }
 
@@ -124,7 +103,7 @@ public class MarketFee extends BaseBean {
      *
      * @param marketId 市场编号
      */
-    public void setMarketId(Integer marketId) {
+    public void setMarketId(String marketId) {
         this.marketId = marketId;
     }
 

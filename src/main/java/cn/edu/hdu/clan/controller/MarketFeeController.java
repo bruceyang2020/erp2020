@@ -1,12 +1,16 @@
 package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.MarketFee;
+import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.service.sys.MarketFeeService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import tk.mybatis.mapper.entity.Example;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -17,6 +21,8 @@ public class MarketFeeController extends BaseController {
     private MarketFeeService MarketFeeService;
     @RequestMapping("add")
     public String add(@RequestBody MarketFee MarketFee) {
+
+
         MarketFeeService.add(MarketFee);
         return success();
     }

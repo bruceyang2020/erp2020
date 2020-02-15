@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.OrderGroup;
 import com.github.pagehelper.PageInfo;
+import java.util.List;
 
 public interface OrderGroupService {
     void add(OrderGroup OrderGroup);
@@ -10,7 +11,9 @@ public interface OrderGroupService {
 
     void update(OrderGroup OrderGroup);
 
-    PageInfo<OrderGroup> list(int pageNum, int pageSize);
+    List<OrderGroup> list(String productId);
 
     OrderGroup getById(String id);
+
+    OrderGroup getByOrderId(String orderId);
 }

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>advertise</title>
+    <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
+    <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="http://mockjs.com/dist/mock.js"></script>
+    <script src="js/index.js"></script>
+   <style>
+       input {width:80px;border: 0px;}
+
+   </style>
+    <script>
+
+        //市场订单下单，跟新订单数和材料数
+        $(function () {
+
+            $("#btn-advertise").click(function () {
+                var adList = new Array();
+                var var1= $("#bd-p1").val();
+                console.log(var1);
+                if(var1 != "")
+                {   adList.push({ productId:"P1",marketId:"本地",moneyI: var1});}
+                var var2= $("#qy-p1").val();
+                console.log(var2);
+                if(var2 != "")
+                {   adList.push({ productId:"P1",marketId:"区域",moneyI: var2});}
+                var var3= $("#gl-p1").val();
+                if(var3 != "")
+                {   adList.push({ productId:"P1",marketId:"国内",moneyI: var3});}
+                var var4= $("#yz-p1").val();
+                if(var4 != "")
+                {   adList.push({ productId:"P1",marketId:"亚洲",moneyI: var4});}
+                var var5= $("#gj-p1").val();
+                if(var5 != "")
+                {   adList.push({ productId:"P1",marketId:"国际",moneyI: var5});}
+                var var6= $("#bd-p1").val();
+                if(var6 != "")
+                {   adList.push({ productId:"P2",marketId:"本地",moneyI: var6});}
+                var var7= $("#qy-p1").val();
+                if(var7 != "")
+                {   adList.push({ productId:"P2",marketId:"区域",moneyI: var7});}
+                var var8= $("#gl-p1").val();
+                if(var8 != "")
+                {   adList.push({ productId:"P2",marketId:"国内",moneyI: var8});}
+                var var9= $("#yz-p1").val();
+                if(var9 != "")
+                {   adList.push({ productId:"P2",marketId:"亚洲",moneyI: var9});}
+                var var10= $("#gj-p1").val();
+                if(var10 != "")
+                {   adList.push({ productId:"P2",marketId:"国际",moneyI: var10});}
+                var var11= $("#bd-p1").val();
+                if(var11 != "")
+                {   adList.push({ productId:"P3",marketId:"本地",moneyI: var11});}
+                var var12= $("#qy-p1").val();
+                if(var12 != "")
+                {   adList.push({ productId:"P3",marketId:"区域",moneyI: var12});}
+                var var13= $("#gl-p1").val();
+                if(var13 != "")
+                {   adList.push({ productId:"P3",marketId:"国内",moneyI: var13});}
+                var var14= $("#yz-p1").val();
+                if(var14 != "")
+                {   adList.push({ productId:"P3",marketId:"亚洲",moneyI: var14});}
+                var var15= $("#gj-p1").val();
+                if(var15 != "")
+                {   adList.push({ productId:"P3",marketId:"国际",moneyI: var15});}
+                var var16= $("#bd-p1").val();
+                if(var16 != "")
+                {   adList.push({ productId:"P4",marketId:"本地",moneyI: var16});}
+                var var17= $("#qy-p1").val();
+                if(var17 != "")
+                {   adList.push({ productId:"P4",marketId:"区域",moneyI: var17});}
+                var var18= $("#gl-p1").val();
+                if(var18 != "")
+                {   adList.push({ productId:"P4",marketId:"国内",moneyI: var18});}
+                var var19= $("#yz-p1").val();
+                if(var19!= "")
+                {   adList.push({ productId:"P4",marketId:"亚洲",moneyI: var19});}
+                var var20= $("#gj-p1").val();
+                if(var20 != "")
+                {   adList.push({ productId:"P4",marketId:"国际",moneyI: var20});}
+
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Advertise/addList",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(adList),
+                    success: function (data) {
+                        alert("成功");
+
+                    }
+                })
+            })
+
+
+
+
+
+
+
+        })
+    </script>
+
+</head>
+<body style="overflow-x:hidden;overflow-y:auto">
+<h4>广告信息单</h4>
+  <table style="text-align: center">
+      <thead>
+      <td style="width: 50px;">市场</td>
+      <td style="width: 50px;">产品</td>
+      <td style="width: 100px;">广告费</td>
+      <td style="width: 50px;">市场</td>
+      <td style="width: 50px;">产品</td>
+      <td style="width: 100px;">广告费</td>
+      </thead>
+      <tbody>
+      <tr>
+          <td>本地</td><td>P1</td><td><input  name ="bd-p1"  id="bd-p1" value=""></td>  <td>本地</td><td>P3</td><td><input  name ="bd-p3"  id="bd-p3" value="">  </td>
+      </tr>
+      <tr>
+          <td>区域</td><td>P1</td><td><input  name ="qy-p1"  id="qy-p1" value=""></td> <td>区域</td><td>P3</td><td><input  name ="qy-p3"  id="qy-p3" value=""></td>
+      </tr>
+      <tr>
+          <td>国内</td><td>P1</td><td><input  name ="gl-p1"  id="gl-p1" value=""></td>  <td>国内</td><td>P3</td><td><input  name ="gl-p3"  id="gl-p3" value=""></td>
+      </tr>
+      <tr>
+          <td>亚洲</td><td>P1</td><td><input  name ="yz-p1"  id="yz-p1" value=""></td>   <td>亚洲</td><td>P3</td><td><input  name ="yz-p3"  id="yz-p3" value=""></td>
+
+      </tr>
+      <tr>
+          <td>国际</td><td>P1</td><td><input  name ="gj-p4"  id="gj-p1" value=""></td>   <td>国际</td><td>P3</td><td><input  name ="gj-p3"  id="gj-p3" value=""></td>
+      </tr>
+      <tr>
+          <td>本地</td><td>P2</td><td><input  name ="bd-p2"  id="bd-p2" value=""></td>    <td>本地</td><td>P4</td><td><input  name ="bd-p4"  id="bd-p4" value=""></td>
+      </tr>
+      <tr>
+          <td>区域</td><td>P2</td><td><input  name ="qy-p2"  id="qy-p2" value=""></td>    <td>区域</td><td>P4</td><td><input  name ="qy-p4"  id="qy-p4" value=""></td>
+      </tr>
+      <tr>
+          <td>国内</td><td>P2</td><td><input  name ="gl-p2"  id="gl-p2" value=""></td>     <td>国内</td><td>P4</td><td><input  name ="gl-p4"  id="gl-p4" value=""></td>
+
+      </tr>
+      <tr>
+          <td>亚洲</td><td>P2</td><td><input  name ="yz-p2"  id="yz-p2" value=""></td>   <td>亚洲</td><td>P4</td><td><input  name ="yz-p4"  id="yz-p4" value=""></td>
+
+      </tr>
+      <tr>
+          <td>国际</td><td>P2</td><td><input  name ="gj-p2"  id="gj-p2" value=""></td>      <td>国际</td><td>P4</td><td><input  name ="gj-p4"  id="gj-p4" value=""></td>
+      </tr>
+      <tr >
+          <td colspan="6">
+              <div class="card-bottom"><a href="#" class="btn btn-default" id="btn-advertise">提交广告费</a></div>
+          </td>
+      </tr>
+
+      </tbody>
+  </table>
+
+
+</body>
+</html>

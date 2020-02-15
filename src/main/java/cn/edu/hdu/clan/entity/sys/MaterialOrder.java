@@ -7,17 +7,13 @@ import javax.persistence.*;
 
 @Table(name = "material_order")
 public class MaterialOrder extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "team_count")
-    private Integer teamCount;
+    private String teamCount;
 
     /**
      * 下订单期间
@@ -28,7 +24,7 @@ public class MaterialOrder extends BaseBean {
      * 原材料编码
      */
     @Column(name = "material_id")
-    private Integer materialId;
+    private String materialId;
 
     /**
      * 数量
@@ -70,49 +66,33 @@ public class MaterialOrder extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group_id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public Integer getTeamCount() {
+    public String getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(Integer teamCount) {
+    public void setTeamCount(String teamCount) {
         this.teamCount = teamCount;
     }
 
@@ -139,7 +119,7 @@ public class MaterialOrder extends BaseBean {
      *
      * @return material_id - 原材料编码
      */
-    public Integer getMaterialId() {
+    public String getMaterialId() {
         return materialId;
     }
 
@@ -148,7 +128,7 @@ public class MaterialOrder extends BaseBean {
      *
      * @param materialId 原材料编码
      */
-    public void setMaterialId(Integer materialId) {
+    public void setMaterialId(String materialId) {
         this.materialId = materialId;
     }
 

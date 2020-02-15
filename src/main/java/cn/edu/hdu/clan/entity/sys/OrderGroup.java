@@ -7,42 +7,41 @@ import javax.persistence.*;
 
 @Table(name = "order_group")
 public class OrderGroup extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
 
     /**
      * 群组编码
      */
-    @Column(name = "group-id")
-    private Integer groupId;
+    @Column(name = "group_id")
+    private String groupId;
 
     /**
      * 订单编号
      */
-    @Column(name = "order-id")
-    private Integer orderId;
+    @Column(name = "order_id")
+    private String orderId;
 
     /**
      * 订单名称
      */
     @Column(name = "order_name")
-    private Integer orderName;
+    private String orderName;
 
     /**
      * 市场编码
      */
-    @Column(name = "market-id")
-    private Integer marketId;
+    @Column(name = "market_id")
+    private String marketId;
 
     /**
      * 产品编码
      */
     @Column(name = "product_id")
-    private Integer productId;
+    private String productId;
 
+    /**
+     * 会计期间
+     */
+    @Column(name = "period")
     private Integer period;
 
     @Column(name = "price_total")
@@ -74,30 +73,14 @@ public class OrderGroup extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * 获取群组编码
      *
      * @return group-id - 群组编码
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
@@ -106,7 +89,7 @@ public class OrderGroup extends BaseBean {
      *
      * @param groupId 群组编码
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
@@ -115,7 +98,7 @@ public class OrderGroup extends BaseBean {
      *
      * @return order-id - 订单编号
      */
-    public Integer getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
@@ -124,7 +107,7 @@ public class OrderGroup extends BaseBean {
      *
      * @param orderId 订单编号
      */
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -133,7 +116,7 @@ public class OrderGroup extends BaseBean {
      *
      * @return order_name - 订单名称
      */
-    public Integer getOrderName() {
+    public String getOrderName() {
         return orderName;
     }
 
@@ -142,7 +125,7 @@ public class OrderGroup extends BaseBean {
      *
      * @param orderName 订单名称
      */
-    public void setOrderName(Integer orderName) {
+    public void setOrderName(String orderName) {
         this.orderName = orderName;
     }
 
@@ -151,7 +134,7 @@ public class OrderGroup extends BaseBean {
      *
      * @return market-id - 市场编码
      */
-    public Integer getMarketId() {
+    public String getMarketId() {
         return marketId;
     }
 
@@ -160,7 +143,7 @@ public class OrderGroup extends BaseBean {
      *
      * @param marketId 市场编码
      */
-    public void setMarketId(Integer marketId) {
+    public void setMarketId(String marketId) {
         this.marketId = marketId;
     }
 
@@ -169,7 +152,7 @@ public class OrderGroup extends BaseBean {
      *
      * @return product_id - 产品编码
      */
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
@@ -178,7 +161,7 @@ public class OrderGroup extends BaseBean {
      *
      * @param productId 产品编码
      */
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 

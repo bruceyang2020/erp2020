@@ -7,28 +7,25 @@ import javax.persistence.*;
 
 @Table(name = "product_line")
 public class ProductLine extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "team_count")
-    private Integer teamCount;
+    private String teamCount;
 
     /**
      * 厂房编号
      */
-    private Integer number;
+    @Column(name = "factory_number")
+    private String factoryNumber;
 
     /**
      * 生产线编号
      */
     @Column(name = "product_line_number")
-    private Integer productLineNumber;
+    private String productLineNumber;
 
     /**
      * 当前会计期间
@@ -39,7 +36,7 @@ public class ProductLine extends BaseBean {
      * 产线类型编码
      */
     @Column(name = "product_line_type_id")
-    private Integer productLineTypeId;
+    private String productLineTypeId;
 
     /**
      * 状态
@@ -86,19 +83,19 @@ public class ProductLine extends BaseBean {
      * 已投入转产费
      */
     @Column(name = "transfer_fee_a")
-    private Long transferFeeA;
+    private BigDecimal transferFeeA;
 
     /**
      * 已投资金额
      */
     @Column(name = "investment_amount_a")
-    private Long investmentAmountA;
+    private BigDecimal investmentAmountA;
 
     /**
      * 累计维修费
      */
     @Column(name = "maintenance_fee_a")
-    private Long maintenanceFeeA;
+    private BigDecimal maintenanceFeeA;
 
     /**
      * 当前产品编号
@@ -117,6 +114,14 @@ public class ProductLine extends BaseBean {
      */
     @Column(name = "processing_cycle_b")
     private Integer processingCycleB;
+
+
+    /**
+     * 当期的操作是否完成。0未完成 1完成
+     */
+    @Column(name = "edit_flag")
+    private Integer editFlag;
+
 
     /**
      * 创建人外键用户表
@@ -142,49 +147,35 @@ public class ProductLine extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+
+
 
     /**
      * @return group_id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public Integer getTeamCount() {
+    public String getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(Integer teamCount) {
+    public void setTeamCount(String teamCount) {
         this.teamCount = teamCount;
     }
 
@@ -193,17 +184,17 @@ public class ProductLine extends BaseBean {
      *
      * @return number - 厂房编号
      */
-    public Integer getNumber() {
-        return number;
+    public String getFactoryNumber() {
+        return factoryNumber;
     }
 
     /**
      * 设置厂房编号
      *
-     * @param number 厂房编号
+     * @param factoryNumber 厂房编号
      */
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setFactoryNumber(String factoryNumber) {
+        this.factoryNumber = factoryNumber;
     }
 
     /**
@@ -211,7 +202,7 @@ public class ProductLine extends BaseBean {
      *
      * @return product_line_number - 生产线编号
      */
-    public Integer getProductLineNumber() {
+    public String getProductLineNumber() {
         return productLineNumber;
     }
 
@@ -220,7 +211,7 @@ public class ProductLine extends BaseBean {
      *
      * @param productLineNumber 生产线编号
      */
-    public void setProductLineNumber(Integer productLineNumber) {
+    public void setProductLineNumber(String productLineNumber) {
         this.productLineNumber = productLineNumber;
     }
 
@@ -247,7 +238,7 @@ public class ProductLine extends BaseBean {
      *
      * @return product_line_type_id - 产线类型编码
      */
-    public Integer getProductLineTypeId() {
+    public String getProductLineTypeId() {
         return productLineTypeId;
     }
 
@@ -256,7 +247,7 @@ public class ProductLine extends BaseBean {
      *
      * @param productLineTypeId 产线类型编码
      */
-    public void setProductLineTypeId(Integer productLineTypeId) {
+    public void setProductLineTypeId(String productLineTypeId) {
         this.productLineTypeId = productLineTypeId;
     }
 
@@ -391,7 +382,7 @@ public class ProductLine extends BaseBean {
      *
      * @return transfer_fee_a - 已投入转产费
      */
-    public Long getTransferFeeA() {
+    public BigDecimal getTransferFeeA() {
         return transferFeeA;
     }
 
@@ -400,7 +391,7 @@ public class ProductLine extends BaseBean {
      *
      * @param transferFeeA 已投入转产费
      */
-    public void setTransferFeeA(Long transferFeeA) {
+    public void setTransferFeeA(BigDecimal transferFeeA) {
         this.transferFeeA = transferFeeA;
     }
 
@@ -409,7 +400,7 @@ public class ProductLine extends BaseBean {
      *
      * @return investment_amount_a - 已投资金额
      */
-    public Long getInvestmentAmountA() {
+    public BigDecimal getInvestmentAmountA() {
         return investmentAmountA;
     }
 
@@ -418,7 +409,7 @@ public class ProductLine extends BaseBean {
      *
      * @param investmentAmountA 已投资金额
      */
-    public void setInvestmentAmountA(Long investmentAmountA) {
+    public void setInvestmentAmountA(BigDecimal investmentAmountA) {
         this.investmentAmountA = investmentAmountA;
     }
 
@@ -427,7 +418,7 @@ public class ProductLine extends BaseBean {
      *
      * @return maintenance_fee_a - 累计维修费
      */
-    public Long getMaintenanceFeeA() {
+    public BigDecimal getMaintenanceFeeA() {
         return maintenanceFeeA;
     }
 
@@ -436,7 +427,7 @@ public class ProductLine extends BaseBean {
      *
      * @param maintenanceFeeA 累计维修费
      */
-    public void setMaintenanceFeeA(Long maintenanceFeeA) {
+    public void setMaintenanceFeeA(BigDecimal maintenanceFeeA) {
         this.maintenanceFeeA = maintenanceFeeA;
     }
 
@@ -494,6 +485,27 @@ public class ProductLine extends BaseBean {
         this.processingCycleB = processingCycleB;
     }
 
+
+    /**
+     * 获取当前操作状态
+     *
+     * @return  - 状态
+     */
+    public Integer getEditFlag() {
+        return editFlag;
+    }
+
+    /**
+     * 设置状态当前操作状态
+     *
+     * @param editFlag 状态
+     */
+    public void setEditFlag(Integer editFlag) {
+        this.editFlag = editFlag;
+    }
+
+
+
     /**
      * 获取创建人外键用户表
      *
@@ -502,6 +514,7 @@ public class ProductLine extends BaseBean {
     public String getCreateUser() {
         return createUser;
     }
+
 
     /**
      * 设置创建人外键用户表

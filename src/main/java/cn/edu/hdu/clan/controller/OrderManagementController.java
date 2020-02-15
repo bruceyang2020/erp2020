@@ -1,12 +1,15 @@
 package cn.edu.hdu.clan.controller;
 
+import cn.edu.hdu.clan.entity.sys.OrderGroup;
 import cn.edu.hdu.clan.entity.sys.OrderManagement;
 import cn.edu.hdu.clan.service.sys.OrderManagementService;
+import cn.edu.hdu.clan.service.sys.OrderGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 @RestController
@@ -14,10 +17,17 @@ import java.util.Map;
 public class OrderManagementController extends BaseController {
 
     @Autowired
+    @Resource
     private OrderManagementService OrderManagementService;
+
+    @Resource
+    private OrderGroupService OrderGroupService;
+
     @RequestMapping("add")
-    public String add(@RequestBody OrderManagement OrderManagement) {
-        OrderManagementService.add(OrderManagement);
+    public String add(@RequestBody Map<String,String> param) {
+
+       OrderGroup orderGroup =  OrderGroupService.getByOrderId(param.get("orderId"));
+        OrderManagementService.add(orderGroup);
         return success();
     }
 
@@ -33,13 +43,18 @@ public class OrderManagementController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list_de")
-    public String list(@RequestBody Map<String, Integer> param) {
-        return success(OrderManagementService.list(param.get("pageNum"), param.get("pageSize")));
+
+    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    public String list(@RequestBody Map<String,String> param) {
+        return success(OrderManagementService.list(param.get("productId")));
     }
-    @RequestMapping("list")
-    public String list() {
-        return success(OrderManagementService.list());
+
+    //
+    @RequestMapping(value = "stockout",produces = "application/json;charset=utf-8")
+    public String stockout(@RequestBody Map<String,String> param) {
+        OrderManagementService.stockOut(param.get("orderId"));
+
+        return success();
     }
 
     @RequestMapping("getById")

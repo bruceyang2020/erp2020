@@ -45,5 +45,19 @@ public class Jurisdiction {
 		return getSession().getAttribute(Const.SESSION_USERID).toString();
 	}
 
+	/**获取当前登录的用户所在的分组或公司
+	 * @return
+	 */
+	public static String getUserTeam(){
+		return getSession().getAttribute(Const.SESSION_USERTEAM).toString();
+	}
+
+	/**获取当前登录的用户所在的分组或公司对应的会计期间
+	 * @return
+	 */
+	public static String  getUserTeamintPeriod(){
+		return getSession().getAttribute(Const.SESSION_USERPERIOD).toString();
+	}
+
 
 }

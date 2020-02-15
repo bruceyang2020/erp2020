@@ -1,26 +1,25 @@
 package cn.edu.hdu.clan.entity.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.*;
 
 @Table(name = "factory")
 public class Factory extends BaseBean {
-    /**
-     * 主键
-     */
-    private String id;
+
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "team_count")
-    private Integer teamCount;
+    private String teamCount;
 
     /**
      * 厂房编号
      */
-    private Integer number;
+    private String number;
 
     /**
      * 厂房名称
@@ -37,6 +36,13 @@ public class Factory extends BaseBean {
      */
     @Column(name = "left_capacity")
     private Integer leftCapacity;
+
+
+    /**
+     * 总金额
+     */
+    @Column(name = "money_total")
+    private BigDecimal moneyTotal;
 
     /**
      * 状态
@@ -67,49 +73,33 @@ public class Factory extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group_id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public Integer getTeamCount() {
+    public String getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(Integer teamCount) {
+    public void setTeamCount(String teamCount) {
         this.teamCount = teamCount;
     }
 
@@ -118,7 +108,7 @@ public class Factory extends BaseBean {
      *
      * @return number - 厂房编号
      */
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
@@ -127,7 +117,7 @@ public class Factory extends BaseBean {
      *
      * @param number 厂房编号
      */
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -184,6 +174,25 @@ public class Factory extends BaseBean {
     public void setLeftCapacity(Integer leftCapacity) {
         this.leftCapacity = leftCapacity;
     }
+
+    /**
+     * 获取总金额
+     *
+     * @return money_total - 总金额
+     */
+    public BigDecimal getMoneyTotal() {
+        return moneyTotal;
+    }
+
+    /**
+     * 设置总金额
+     *
+     * @param moneyTotal 总金额
+     */
+    public void setMoneyTotal(BigDecimal moneyTotal) {
+        this.moneyTotal = moneyTotal;
+    }
+
 
     /**
      * 获取状态

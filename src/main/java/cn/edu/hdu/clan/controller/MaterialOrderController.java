@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.MaterialOrder;
 import cn.edu.hdu.clan.service.sys.MaterialOrderService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,8 @@ public class MaterialOrderController extends BaseController {
     public String list() {
         return success(MaterialOrderService.list());
     }
+
+
 
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {

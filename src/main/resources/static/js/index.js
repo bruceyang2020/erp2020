@@ -17,9 +17,7 @@ $(document).ready(function () {
     $('.pop-close').click(function () {
         $('.pop3').hide();
     });
-    $('#pro-btn').click(function () {
-        $('.pop4').show();
-    });
+
     $('.pop-close').click(function () {
         $('.pop4').hide();
     });
@@ -189,6 +187,151 @@ $(document).ready(function () {
     $('.pop-cancel').click(function () {
         $('.pop-s13').hide();
     });
+
+    //订货会弹窗-广告费
+    $('#order').click(function () {
+        var isAd = $("#market-page-manager").val();
+        if(isAd == "0")
+        {$('.pop-advertise').show()};
+        if(isAd == "1")
+        {$('.pop-marketing').show()};
+
+
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-advertise').hide();
+    });
+    $('.pop-ok').click(function () {
+        $('.pop-advertise').hide();
+    });
+
+    $('.pop-cancel').click(function () {
+        $('.pop-marketing').hide();
+    });
+
+    //已获取的订单弹窗-P1
+    $('#p1-list').click(function () {
+        $('.pop-p1').show();
+        var myquery1 = { productId : "P1"} ;
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(myquery1),
+            url: "/OrderManagement/list",
+            contentType: "application/json;charset=utf-8;",
+            success:function(data){
+                data = data['data'];
+                console.log(data);
+                var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
+                tableStr = tableStr
+                    + "<tr>"
+                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"
+                    +"<td >操作</td>"+"</tr>";
+                var len = data.length;
+                for ( var i = 0; i < len; i++) {
+                    tableStr = tableStr + "<tr>"
+                        +"<td>"+ data[i].orderId + "</td>"
+                        + "<td>"+ data[i].productId + "</td>"
+                        + "<td>"+ data[i].amount + "</td>"
+                        +"<td>"+data[i].money+"</td>"
+                        +"<td ><button type='button' class='btn  btn-mini btn-stockout''  onclick=''>交货</button></td>"
+                        +"</tr>";
+                }
+                if(len==0){
+                    tableStr = tableStr + "<tr style='text-align: center'>"
+                        +"<td colspan='6'><font color='#cd0a0a'>"+ '无订单' + "</font></td>"
+                        +"</tr>";
+                }
+                tableStr = tableStr + "</table>";
+                //添加到div中
+                $("#ordermanagement1").html(tableStr);
+                $("#ordermanagement1").delegate("button.btn-stockout", "click",
+                    function(e) {
+                        var myOrderName = "xxx";
+                        myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
+                        console.log(myOrderName);
+                        var myJson = { orderId : myOrderId} ;
+
+                        $.ajax({
+                            type: "post",
+                            dataType: "json",
+                            data: JSON.stringify(myJson),
+                            url: "/OrderManagement/stockout",
+                            contentType: "application/json;charset=utf-8;",
+                            success: function (data) {
+                                alert("交货成功");
+                            }
+                        });
+
+                    });
+            }
+        })
+
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-p1').hide()
+    });
+    $('#p2-list').click(function () {
+        $('.pop-p2').show()
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-p2').hide()
+    });
+    $('#p3-list').click(function () {
+        $('.pop-p3').show()
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-p3').hide()
+    });
+    $('#p4-list').click(function () {
+        $('.pop-p4').show()
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-p4').hide()
+    });
+
+
+
+    //原材料订单的弹出页面
+    $('#r1-1').click(function () {
+        $('.pop-r1-1').show()
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-r1-1').hide();
+    });
+    $('.pop-ok').click(function () {
+        $('.pop-r1-1').hide();
+    });
+    $('#r2-1').click(function () {
+        $('.pop-r2-1').show()
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-r2-1').hide();
+    });
+    $('.pop-ok').click(function () {
+        $('.pop-r2-1').hide();
+    });
+
+    $('#r3-2').click(function () {
+        $('.pop-r3-2').show()
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-r3-2').hide();
+    });
+    $('.pop-ok').click(function () {
+        $('.pop-r3-2').hide();
+    });
+
+    $('#r4-2').click(function () {
+        $('.pop-r4-2').show()
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-r4-2').hide();
+    });
+    $('.pop-ok').click(function () {
+        $('.pop-r4-2').hide();
+    });
+
     $('#ok-14k').click(function () {
         $('.pop-s13').hide()
         if($("#ceo-tz-iso2").hasClass("tz1")){
@@ -199,7 +342,16 @@ $(document).ready(function () {
             $('#ceo-tz-iso2').addClass('tz5')
         }
     })
+
+
+
+
+
 })
+
+
+
+
 
 $(function(){
     $('#tabs a').click(function(e) {
@@ -227,12 +379,17 @@ function reinitIframe() {
     var iframe = document.getElementById("marketingpre-wrap");
     try {
         var bHeight = iframe.contentWindow.document.body.scrollHeight;
-        /*
-        var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
-        var height = Math.max(bHeight, dHeight);
-        iframe.height = height;                */
+
         iframe.height = bHeight;
+    } catch (ex) { };
+
+    var iframe = document.getElementById("advertise-wrap");
+    try {
+        var bHeight = iframe.contentWindow.document.body.scrollHeight;
+           iframe.height = bHeight;
     } catch (ex) { }
+
+
 }
 
 

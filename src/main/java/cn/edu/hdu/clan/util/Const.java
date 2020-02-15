@@ -13,6 +13,8 @@ public class Const {
 	public static final String SHIROSET = "SHIROSET";								//菜单权限标识
 	public static final String SESSION_USERID = "USERID";								//用户ID
 	public static final String SESSION_USERNAME = "USERNAME";						//用户名
+	public static final String SESSION_USERTEAM = "USERTEAM";						//用户所在的组或公司ID
+	public static final String SESSION_USERPERIOD = "0";						//用户当前所在的会计期间
 	public static final String SESSION_U_NAME = "SESSION_U_NAME";					//用户姓名
 	public static final String SESSION_ROLE = "SESSION_ROLE";						//主职角色信息
 	public static final String SESSION_RNUMBERS = "RNUMBERS";						//角色编码数组

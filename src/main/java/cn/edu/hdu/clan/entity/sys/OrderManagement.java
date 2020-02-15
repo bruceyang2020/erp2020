@@ -7,20 +7,16 @@ import javax.persistence.*;
 
 @Table(name = "order_management")
 public class OrderManagement extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "team_id")
-    private Integer teamId;
+    private String teamId;
 
     @Column(name = "order_id")
-    private Integer orderId;
+    private String orderId;
 
     /**
      * 当前会计期间
@@ -31,7 +27,7 @@ public class OrderManagement extends BaseBean {
      * 所需产品编号
      */
     @Column(name = "product_id")
-    private Integer productId;
+    private String productId;
 
     /**
      * 数据
@@ -52,6 +48,7 @@ public class OrderManagement extends BaseBean {
     /**
      * 订单状态
      */
+    @Column(name = "state")
     private Integer state;
 
     /**
@@ -84,63 +81,46 @@ public class OrderManagement extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group_id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_id
      */
-    public Integer getTeamId() {
+    public String getTeamId() {
         return teamId;
     }
 
     /**
      * @param teamId
      */
-    public void setTeamId(Integer teamId) {
+    public void setTeamId(String teamId) {
         this.teamId = teamId;
     }
 
     /**
      * @return order_id
      */
-    public Integer getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
     /**
      * @param orderId
      */
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
@@ -167,7 +147,7 @@ public class OrderManagement extends BaseBean {
      *
      * @return product_id - 所需产品编号
      */
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
@@ -176,7 +156,7 @@ public class OrderManagement extends BaseBean {
      *
      * @param productId 所需产品编号
      */
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
