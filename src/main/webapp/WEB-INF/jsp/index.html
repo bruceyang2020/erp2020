@@ -570,32 +570,9 @@
 <div id="wrap">
     <div id="wrapper">
         <div class="erp">
-            //这一部分代码是接口专用BEGIN
-            <input type="hidden" name="eId" id="eId"  value = "0" />
-            <input type="hidden" name="expScore" id="expScore"  value = "0" />
-            <input type="hidden" name="startPointH" id="startPointH"  value = "0" />
-            <input type="hidden" name="startPointM" id="startPointM"  value = "0" />
-            //这一部分代码是接口专用END
-
-
-            <input type="hidden" id = "currentAp" name ="currentAp" value="">
-            <input type="hidden" id = "currentUser" name ="currentUser" value="">
-            <input type="hidden" id = "currentTeam" name ="currentTeam" value="">
             <div class="content">
                 <input name="jz" id="jz"  type="button"/>
-                <div class="pop-jz">
-                    <h3>结转本季内容包括：</h3>
-                    1.生产线的生产进度刷新，产品入库。</br>
-                    2.物料管理部库存刷新，订单交付。</br>
-                    3.财务部“现金池”刷新，扣减当期费用，自动计算现金余额。 </br>
-                    <h3>是否结转本季?</h3>
-                    <div class="pop-foot">
-                        <input name="final" id="reloaddata"  type="button" value="初始化" class="pop-cancel pop-close">
-                        <input name="final" id="final"  type="button" value="结束推演" class="pop-cancel pop-close">
-                        <input type="button" value="取消" class="pop-cancel pop-close">
-                        <input type="button" value="确定" class="pop-cancel pop-close" id="Accountingclosing">
-                    </div>
-                </div>
+
                 <div id="ceo">
                     <input name="financial-report" id="ceo-cw" type="button"/>
                     <!--财务弹出框-->
@@ -893,33 +870,7 @@
                 </div>
                 <div id="production">
                     <input name="pro" id="pro-btn" type="button"/>
-                    <div class="pop-factory">
-                        <table>
-                            <tr>
-                                <td>类型</td><td>状态</td>
-                                <td>操作</td>
-                            </tr>
-                            <tr>
-                                <td>大厂房</td><td><div id="factory-1-state"></div></td>
-                                <td> <input type="button" value="购买" class="pop-ok" id="ok-factory1-buy">
-                                 <input type="button" value="出售" class="pop-ok" id="ok-factory1-sale">
-                              <input type="button" value="租赁" class="pop-ok" id="ok-factory1-rent"> </td>
-                            </tr>
-                            <tr>
-                                <td>小厂房</td><td><div id="factory-2-state"></div></td>
-                                <td> <input type="button" value="购买" class="pop-ok" id="ok-factory2-buy">
-                                <input type="button" value="出售" class="pop-ok" id="ok-factory2-sale">
-                                 <input type="button" value="租赁" class="pop-ok" id="ok-factory2-rent"> </td>
-                            </tr>
 
-                        </table>
-
-
-                        <div class="pop-foot">
-                            <input type="button" value="取消" class="pop-cancel pop-close">
-                        </div>
-
-                    </div>
 
                     <input type="hidden" name="productLineNumber" id="productLineNumber" value="0">
                     <div id="pro-l-1" class="pro-line"></div>
@@ -934,89 +885,7 @@
                     <div id="pro-r-3" class="pro-line"></div>
                     <div id="pro-r-4" class="pro-line"></div>
 
-                    <!--点击每条生产线的弹窗部分BEGIN-->
-                    <div class="pop-pro">
-                        <input type="hidden" name="plnValue" id="plnValue" value="0">
-                        <div class ="pro-status">
-                            <table>
-                                <tr><td>  <div>生产线类型：</div></td>
-                                <td><div name ="productLineTypeId" id="productLineTypeId" ></div></td>
-                                <td>    <div>在产产品类型：</div></td>
-                                <td>   <div name ="productC" id="productC" ></div></td></tr>
-                                <tr>
-                                    <td>     <div>生产总周期：</div></td>
-                                    <td> <div name ="processingCycle" id="processingCycle" ></div></td>
-                                    <td>   <div>当前周期：</div></td>
-                                    <td>       <div name ="processingCycelB" id="processingCycelB" ></div></td>
-                                </tr>
-                            </table>
-                            <div class="pop-foot">
-                                <input type="button" value="取消" class="pop-cancel pop-close">
-                                <input type="button" value="确定" class="pop-ok" id="ok-pop-pro">
-                            </div>
-                        </div>
 
-                        <div class ="newBuild">
-                            <table>
-                                <tr>
-                                    <td>生产线类型：</td>
-                                    <td>  <select id="productLineTypeIdList" name="productLineTypeIdList" class="select2">
-                                        <option value="手工线">手工线</option>
-                                        <option value="半自动">半自动</option>
-                                        <option value="全自动">全自动</option>
-                                        <option value="柔性线">柔性线</option>
-                                    </select></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-
-                            </table>
-
-
-                            <div class="pop-foot">
-                                <input type="button" value="取消" class="pop-cancel pop-close">
-                                <input type="button" value="投资" class="pop-ok" id="ok-pro-newBuild">
-                            </div>
-
-                        </div>
-                        <div class ="pro-build">
-                            <table>
-                                <tr>
-                                    <td>     <div> 生产线类型：</div></td>
-                                    <td>        <div name ="productLineTypeId-build" id="productLineTypeId-build" ></div></td>
-                                    <td>   <div>总价值：</div></td>
-                                    <td>    <div name ="deviceValue" id="deviceValue" ></div></td>
-                                </tr>
-                                <tr>
-                                    <td> <div>已投金额：</div></td>
-                                    <td colspan="3">   <div name ="investmentAmountA" id="investmentAmountA" ></div></td>
-                                </tr>
-                            </table>
-                            <div class="pop-foot">
-                                <input type="button" value="取消" class="pop-cancel pop-close">
-                            <input type="button" value="投资" class="pop-ok" id="ok-pro-build">
-                            </div>
-                        </div>
-
-                        <div class ="pro-produce">
-                                <select id="productCList" name="productCList" class="select2">
-                                    <option value="P1">P1</option>
-                                    <option value="P2">P2</option>
-                                    <option value="P3">P3</option>
-                                    <option value="P4">P4</option>
-                                </select>
-                            <div class="pop-foot">
-                                <input type="button" value="取消" class="pop-cancel pop-close">
-                                <input type="button" value="转产" class="pop-ok" id="ok-pro-switching">
-                                <input type="button" value="投产" class="pop-ok" id="ok-pro-produce">
-                                <input type="button" value="投产" class="pop-ok" id="ok-pro-sale">
-                            </div>
-                        </div>
-
-                    </div>
-                    <!--点击每条生产线的弹窗部分END-->
 
 
                     <div id="pro-l-1-sg" class="pro-sg-l"></div>
@@ -1078,6 +947,143 @@
             <h1>{{details()}}</h1>
         </div>-->
 </div>
+
+
+//弹窗-结算本季
+<div class="pop-jz">
+    <h3>结转本季内容包括：</h3>
+    1.生产线的生产进度刷新，产品入库。</br>
+    2.物料管理部库存刷新，订单交付。</br>
+    3.财务部“现金池”刷新，扣减当期费用，自动计算现金余额。 </br>
+    <h3>是否结转本季?</h3>
+    <div class="pop-foot">
+        <input name="final" id="reloaddata"  type="button" value="初始化" class="pop-cancel pop-close">
+        <input name="final" id="final"  type="button" value="结束推演" class="pop-cancel pop-close">
+        <input type="button" value="取消" class="pop-cancel pop-close">
+        <input type="button" value="确定" class="pop-cancel pop-close" id="Accountingclosing">
+    </div>
+</div>
+
+//弹窗-厂房的操作
+<div class="pop-factory">
+    <table>
+        <tr>
+            <td>类型</td><td>状态</td>
+            <td>操作</td>
+        </tr>
+        <tr>
+            <td>大厂房</td><td><div id="factory-1-state"></div></td>
+            <td> <input type="button" value="购买" class="pop-ok" id="ok-factory1-buy">
+                <input type="button" value="出售" class="pop-ok" id="ok-factory1-sale">
+                <input type="button" value="租赁" class="pop-ok" id="ok-factory1-rent"> </td>
+        </tr>
+        <tr>
+            <td>小厂房</td><td><div id="factory-2-state"></div></td>
+            <td> <input type="button" value="购买" class="pop-ok" id="ok-factory2-buy">
+                <input type="button" value="出售" class="pop-ok" id="ok-factory2-sale">
+                <input type="button" value="租赁" class="pop-ok" id="ok-factory2-rent"> </td>
+        </tr>
+    </table>
+    <div class="pop-foot">
+        <input type="button" value="取消" class="pop-cancel pop-close">
+    </div>
+
+</div>
+
+<!--点击每条生产线的弹窗部分BEGIN-->
+<div class="pop-pro">
+    <input type="hidden" name="plnValue" id="plnValue" value="0">
+    <div class ="pro-status">
+        <table>
+            <tr><td>  <div>生产线类型：</div></td>
+                <td><div name ="productLineTypeId" id="productLineTypeId" ></div></td>
+                <td>    <div>在产产品类型：</div></td>
+                <td>   <div name ="productC" id="productC" ></div></td></tr>
+            <tr>
+                <td>     <div>生产总周期：</div></td>
+                <td> <div name ="processingCycle" id="processingCycle" ></div></td>
+                <td>   <div>当前周期：</div></td>
+                <td>       <div name ="processingCycelB" id="processingCycelB" ></div></td>
+            </tr>
+        </table>
+        <div class="pop-foot">
+            <input type="button" value="取消" class="pop-cancel pop-close">
+            <input type="button" value="确定" class="pop-ok" id="ok-pop-pro">
+        </div>
+    </div>
+
+    <div class ="newBuild">
+        <table>
+            <tr>
+                <td>生产线类型：</td>
+                <td>  <select id="productLineTypeIdList" name="productLineTypeIdList" class="select2">
+                    <option value="手工线">手工线</option>
+                    <option value="半自动">半自动</option>
+                    <option value="全自动">全自动</option>
+                    <option value="柔性线">柔性线</option>
+                </select></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+
+        </table>
+
+
+        <div class="pop-foot">
+            <input type="button" value="取消" class="pop-cancel pop-close">
+            <input type="button" value="投资" class="pop-ok" id="ok-pro-newBuild">
+        </div>
+
+    </div>
+    <div class ="pro-build">
+        <table>
+            <tr>
+                <td>     <div> 生产线类型：</div></td>
+                <td>        <div name ="productLineTypeId-build" id="productLineTypeId-build" ></div></td>
+                <td>   <div>总价值：</div></td>
+                <td>    <div name ="deviceValue" id="deviceValue" ></div></td>
+            </tr>
+            <tr>
+                <td> <div>已投金额：</div></td>
+                <td colspan="3">   <div name ="investmentAmountA" id="investmentAmountA" ></div></td>
+            </tr>
+        </table>
+        <div class="pop-foot">
+            <input type="button" value="取消" class="pop-cancel pop-close">
+            <input type="button" value="投资" class="pop-ok" id="ok-pro-build">
+        </div>
+    </div>
+
+    <div class ="pro-produce">
+        <select id="productCList" name="productCList" class="select2">
+            <option value="P1">P1</option>
+            <option value="P2">P2</option>
+            <option value="P3">P3</option>
+            <option value="P4">P4</option>
+        </select>
+        <div class="pop-foot">
+            <input type="button" value="取消" class="pop-cancel pop-close">
+            <input type="button" value="转产" class="pop-ok" id="ok-pro-switching">
+            <input type="button" value="投产" class="pop-ok" id="ok-pro-produce">
+            <input type="button" value="投产" class="pop-ok" id="ok-pro-sale">
+        </div>
+    </div>
+
+</div>
+<!--点击每条生产线的弹窗部分END-->
+
+//这一部分代码是接口专用BEGIN
+<input type="hidden" name="eId" id="eId"  value = "0" />
+<input type="hidden" name="expScore" id="expScore"  value = "0" />
+<input type="hidden" name="startPointH" id="startPointH"  value = "0" />
+<input type="hidden" name="startPointM" id="startPointM"  value = "0" />
+//这一部分代码是接口专用END
+
+<input type="hidden" id = "currentAp" name ="currentAp" value="">
+<input type="hidden" id = "currentUser" name ="currentUser" value="">
+<input type="hidden" id = "currentTeam" name ="currentTeam" value="">
 
 <script>
 
