@@ -45,9 +45,35 @@ public class FactoryServiceImpl implements FactoryService {
         accountingVoucherService.voucherMaker(userTeam,period, myMoney,"GMCF",number+"购买");
     }
 
+
+    //购买厂房
+    @Transactional
+    @Override
+    public void adds(List<Factory>  factories) {
+        if(factories.size() > 0) {
+            for (int i = 0; i < factories.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                factories.get(i).setPeriod(period);
+                factories.get(i).setTeamCount(userTeam);
+                factories.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(factories.get(i));
+                FactoryMapper.insert(factories.get(i));
+            }
+        }
+    }
+
     @Override
     public void delete(String id) {
     FactoryMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(Factory.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        FactoryMapper.deleteByExample(example);
     }
 
     //出售厂房。

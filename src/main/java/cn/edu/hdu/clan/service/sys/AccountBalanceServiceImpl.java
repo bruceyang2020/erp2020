@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
 import cn.edu.hdu.clan.entity.sys.MaterialOrder;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.AccountBalanceMapper;
 import com.github.pagehelper.PageHelper;
@@ -32,10 +33,34 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         AccountBalanceMapper.insert(AccountBalance);
     }
 
+    public void adds(List<AccountBalance>  accountBalanceList) {
+        if(accountBalanceList.size() > 0) {
+            for (int i = 0; i < accountBalanceList.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                accountBalanceList.get(i).setPeriod(period);
+                accountBalanceList.get(i).setTeamCount(userTeam);
+                accountBalanceList.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(accountBalanceList.get(i));
+                AccountBalanceMapper.insert(accountBalanceList.get(i));
+            }
+        }
+    }
+
+
     @Override
     public void delete(String id) {
     AccountBalanceMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(AccountBalance.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        AccountBalanceMapper.deleteByExample(example);
+    }
+
 
 
     @Override

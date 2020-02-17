@@ -2,6 +2,8 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.Incomesheet;
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
+
+import cn.edu.hdu.clan.util.Jurisdiction;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.IncomesheetMapper;
 import com.github.pagehelper.PageHelper;
@@ -24,6 +26,29 @@ public class IncomesheetServiceImpl implements IncomesheetService {
         BaseBeanHelper.insert(Incomesheet);
         IncomesheetMapper.insert(Incomesheet);
     }
+
+
+    public void adds(List<Incomesheet>  incomesheets) {
+        if(incomesheets.size() > 0) {
+            for (int i = 0; i < incomesheets.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                incomesheets.get(i).setPeriod(period);
+                incomesheets.get(i).setTeamCount(userTeam);
+                incomesheets.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(incomesheets.get(i));
+                IncomesheetMapper.insert(incomesheets.get(i));
+            }
+        }
+    }
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(Incomesheet.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        IncomesheetMapper.deleteByExample(example);
+    }
+
 
     @Override
     public void delete(String id) {

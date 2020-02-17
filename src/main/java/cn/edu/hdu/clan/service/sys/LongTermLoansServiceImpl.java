@@ -58,10 +58,34 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
 
     }
 
+    public void adds(List<LongTermLoans>  longTermLoansList) {
+        if(longTermLoansList.size() > 0) {
+            for (int i = 0; i < longTermLoansList.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                longTermLoansList.get(i).setPeriod(period);
+                longTermLoansList.get(i).setTeamCount(userTeam);
+                longTermLoansList.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(longTermLoansList.get(i));
+                LongTermLoansMapper.insert(longTermLoansList.get(i));
+            }
+        }
+    }
+
+
     @Override
     public void delete(String id) {
     LongTermLoansMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(LongTermLoans.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        LongTermLoansMapper.deleteByExample(example);
+    }
+
 
     @Override
     public void update(LongTermLoans LongTermLoans) {

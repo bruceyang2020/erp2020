@@ -9,7 +9,10 @@ import java.util.List;
 public interface MaterialOrderService {
     void add(MaterialOrder MaterialOrder);
 
+    void adds(List<MaterialOrder> materialOrders);
+
     void delete(String id);
+    void deleteByTeamCount(String userTeam);
 
     void update(MaterialOrder MaterialOrder);
 

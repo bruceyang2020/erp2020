@@ -9,7 +9,11 @@ import java.util.List;
 public interface IncomesheetService {
     void add(Incomesheet Incomesheet);
 
+    void adds(List<Incomesheet>  incomesheets);
+
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(Incomesheet Incomesheet);
 

@@ -4,15 +4,20 @@ import cn.edu.hdu.clan.entity.sys.Factory;
 import cn.edu.hdu.clan.entity.sys.OrderManagement;
 import cn.edu.hdu.clan.entity.sys.Salepayment;
 import com.github.pagehelper.PageInfo;
+import java.util.List;
 
 public interface SalepaymentService {
     void add(Salepayment Salepayment);
+
+    void adds(List<Salepayment>  salepayments);
 
     void addByOrderManagement(OrderManagement OrderManagement);
 
     void addBySaleFactory(Factory factory);
 
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(Salepayment Salepayment);
 

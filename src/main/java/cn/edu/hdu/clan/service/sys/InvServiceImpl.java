@@ -1,7 +1,7 @@
 package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.Inv;
-import cn.edu.hdu.clan.entity.sys.LongTermLoans;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.InvMapper;
 import com.github.pagehelper.PageHelper;
@@ -14,6 +14,7 @@ import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
+
 
 @Service
 public class InvServiceImpl implements InvService {
@@ -31,10 +32,34 @@ public class InvServiceImpl implements InvService {
         InvMapper.insert(Inv);
     }
 
+    public void adds(List<Inv>  invs) {
+        if(invs.size() > 0) {
+            for (int i = 0; i < invs.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                invs.get(i).setPeriod(period);
+                invs.get(i).setTeamCount(userTeam);
+                invs.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(invs.get(i));
+                InvMapper.insert(invs.get(i));
+            }
+        }
+    }
+
+
     @Override
     public void delete(String id) {
     InvMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        InvMapper.deleteByExample(example);
+    }
+
 
     @Override
     public void update(Inv Inv) {

@@ -40,10 +40,34 @@ public class ProductLineServiceImpl implements ProductLineService {
         ProductLineMapper.insert(productLine);
     }
 
+    public void adds(List<ProductLine>  productLines) {
+        if(productLines.size() > 0) {
+            for (int i = 0; i < productLines.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                productLines.get(i).setPeriod(period);
+                productLines.get(i).setTeamCount(userTeam);
+                productLines.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(productLines.get(i));
+                ProductLineMapper.insert(productLines.get(i));
+            }
+        }
+    }
+
+
     @Override
     public void delete(String id) {
     ProductLineMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(Factory.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        ProductLineMapper.deleteByExample(example);
+    }
+
 
 
     //将生产线信息整体复制到下一个会计期间

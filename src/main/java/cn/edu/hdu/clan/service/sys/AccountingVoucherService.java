@@ -20,4 +20,6 @@ public interface AccountingVoucherService {
 
     BigDecimal sumMoney(String teamCount, int period,String acode,String aType);
 
+    void transferProfitAndLoss(String teamCount, int period);
+
 }

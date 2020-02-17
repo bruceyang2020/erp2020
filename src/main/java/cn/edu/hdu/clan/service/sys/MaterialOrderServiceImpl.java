@@ -57,10 +57,34 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
 
     }
 
+    public void adds(List<MaterialOrder>  materialOrders) {
+        if(materialOrders.size() > 0) {
+            for (int i = 0; i < materialOrders.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                materialOrders.get(i).setPeriod(period);
+                materialOrders.get(i).setTeamCount(userTeam);
+                materialOrders.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(materialOrders.get(i));
+                MaterialOrderMapper.insert(materialOrders.get(i));
+            }
+        }
+    }
+
+
     @Override
     public void delete(String id) {
     MaterialOrderMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(MaterialOrder.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        MaterialOrderMapper.deleteByExample(example);
+    }
+
 
     @Override
     public void payment(String userTeam ,int period) {

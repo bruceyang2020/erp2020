@@ -7,7 +7,11 @@ import java.util.List;
 public interface AccountBalanceService {
     void add(AccountBalance AccountBalance);
 
+    void adds(List<AccountBalance>  accountBalanceList);
+
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(AccountBalance AccountBalance);
 

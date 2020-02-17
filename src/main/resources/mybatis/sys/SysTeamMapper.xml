@@ -14,4 +14,5 @@
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
     <result column="edit_time" property="editTime" jdbcType="TIMESTAMP" />
   </resultMap>
+
 </mapper>

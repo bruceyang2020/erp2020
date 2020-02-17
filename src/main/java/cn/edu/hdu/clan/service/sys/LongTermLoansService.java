@@ -9,7 +9,11 @@ import java.util.List;
 public interface LongTermLoansService {
     void add(LongTermLoans LongTermLoans);
 
+    void adds(List<LongTermLoans>  longTermLoans);
+
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(LongTermLoans LongTermLoans);
 

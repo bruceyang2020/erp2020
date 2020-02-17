@@ -27,9 +27,32 @@ html,body,#wrapper{
 #jz{
     width: 100px;
     height: 100px;
+    border:0;
     background: url(erp-jz.svg) no-repeat;
     top:30px;
     left: 570px;
+}
+#jz:active{
+    top:35px;
+}
+
+
+.pop-jz{
+    display: none;
+    width: 400px;
+    height:300px;
+    position: absolute;
+    top: 700px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 25px;
+    z-index: 130;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+
 }
 /*CEO 办公室*/
 #ceo-cw,#ceo-sc,.cz,.tz,.cz-btn,#jz {
@@ -183,20 +206,20 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 .cz-btn:hover{
     background-color: #b942dd;
 }
-#ceo-cz-c{left: 895px;top: 95px;}
+#ceo-cz-c{left: 895px;top: 80px;}
 #ceo-cz-c1{left: 980px;top: 100px;}
 #ceo-cz-c2{left: 1030px;top: 100px;}
 #ceo-cz-c3{left: 1080px;top: 100px;}
 #ceo-cz-c4{left: 1130px;top: 100px;}
 #ceo-cz-c5{left: 1180px;top: 100px;}
 
-#ceo-cz-d{left: 895px;top: 165px;}
+#ceo-cz-d{left: 895px;top: 150px;}
 #ceo-cz-d1{left: 980px;top:170px;}
 #ceo-cz-d2{left: 1030px;top:170px;}
 #ceo-cz-d3{left: 1080px;top:170px;}
 #ceo-cz-d4{left: 1130px;top:170px;}
 
-#ceo-cz-gl{left: 895px;top:240px;}
+#ceo-cz-gl{left: 895px;top:220px;}
 #ceo-cz-g{left: 980px;top:240px;}
 /*投资*/
 .tz1,.tz1_5,.tz2,.tz3,.tz3_5,.tz4,.tz5{

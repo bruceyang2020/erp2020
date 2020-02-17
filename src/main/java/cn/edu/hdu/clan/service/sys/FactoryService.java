@@ -7,7 +7,11 @@ import java.util.List;
 public interface FactoryService {
     void add(Factory Factory);
 
+    void adds(List<Factory>  factories);
+
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(Factory Factory);
 

@@ -41,13 +41,13 @@ public class Inv extends BaseBean {
      * 本期入库数量
      */
     @Column(name = "amount_l")
-    private BigDecimal amountL;
+    private BigDecimal amountI;
 
     /**
      * 本期入库金额
      */
     @Column(name = "money_l")
-    private BigDecimal moneyL;
+    private BigDecimal moneyI;
 
     /**
      * 本期出库数量
@@ -192,8 +192,8 @@ public class Inv extends BaseBean {
      *
      * @return amount_l - 本期入库数量
      */
-    public BigDecimal getAmountL() {
-        return amountL;
+    public BigDecimal getAmountI() {
+        return amountI;
     }
 
     /**
@@ -201,8 +201,8 @@ public class Inv extends BaseBean {
      *
      * @param amountL 本期入库数量
      */
-    public void setAmountL(BigDecimal amountL) {
-        this.amountL = amountL;
+    public void setAmountI(BigDecimal amountL) {
+        this.amountI = amountI;
     }
 
     /**
@@ -210,8 +210,8 @@ public class Inv extends BaseBean {
      *
      * @return money_l - 本期入库金额
      */
-    public BigDecimal getMoneyL() {
-        return moneyL;
+    public BigDecimal getMoneyI() {
+        return moneyI;
     }
 
     /**
@@ -219,8 +219,8 @@ public class Inv extends BaseBean {
      *
      * @param moneyL 本期入库金额
      */
-    public void setMoneyL(BigDecimal moneyL) {
-        this.moneyL = moneyL;
+    public void setMoneyI(BigDecimal moneyL) {
+        this.moneyI = moneyI;
     }
 
     /**

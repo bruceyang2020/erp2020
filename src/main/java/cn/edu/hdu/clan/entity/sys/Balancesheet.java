@@ -10,6 +10,12 @@ public class Balancesheet extends BaseBean {
 
 
     /**
+     * 群组
+     */
+    @Column(name = "team_count")
+    private String teamCount;
+
+    /**
      * 当前会计期数1.5.9.13.17.21
      */
     private Integer period;
@@ -170,6 +176,24 @@ public class Balancesheet extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
+
+    /**
+     * 获取群组
+     *
+     * @return teamCount
+     */
+    public String getTeamCount() {
+        return teamCount;
+    }
+
+    /**
+     * 设置当前群组
+     *
+     * @param teamCount 当前会计期数1.5.9.13.17.21
+     */
+    public void setTeamCount(String teamCount) {
+        this.teamCount = teamCount;
+    }
 
     /**
      * 获取当前会计期数1.5.9.13.17.21

@@ -7,7 +7,11 @@ import java.util.List;
 public interface ProductLineService {
     void add(ProductLine ProductLine);
 
+    void adds(List<ProductLine>  productLines);
+
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(ProductLine productLine);
 

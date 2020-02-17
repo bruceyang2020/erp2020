@@ -80,10 +80,36 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
 
     }
 
+    public void adds(List<ResearchFee>  researchFees) {
+        if(researchFees.size() > 0) {
+            for (int i = 0; i < researchFees.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                researchFees.get(i).setPeriod(period);
+                researchFees.get(i).setTeamCount(userTeam);
+                researchFees.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(researchFees.get(i));
+                ResearchFeeMapper.insert(researchFees.get(i));
+            }
+        }
+    }
+
+
     @Override
     public void delete(String id) {
     ResearchFeeMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(ResearchFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        ResearchFeeMapper.deleteByExample(example);
+    }
+
+
+
 
     @Override
     public void update(ResearchFee ResearchFee) {

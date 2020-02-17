@@ -2,6 +2,42 @@ $(document).ready(function () {
     $('#ceo-cw').click(function () {
     $('.pop').show();
     });
+
+    //结转按钮点击事件
+    $('#jz').click(function () {
+        $('.pop-jz').show()
+    });
+
+    $('#final').click(function () {
+       //提交成绩到教育部平台上。暂不处理
+
+
+    });
+
+    $('.pop-close').click(function () {
+        $('.pop-jz').hide();
+    });
+
+    $("#reloaddata").click(function () {
+        var currentAp = $("#currentAp").val();
+        var currentTeam = $("#currentTeam").val();
+        var mydata ={userTeam:currentTeam,period:currentAp};
+        //初始化数据到指定的小组或是公司
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/reloaddata",
+            contentType: "application/json;charset=utf-8;",
+            data: JSON.stringify(mydata),
+            success: function (data) {
+                var myMsg = data['msg'];
+                console.log(myMsg);
+                alert(data['msg']);
+            }
+        })
+    });
+
+
     $('.pop-close').click(function () {
         $('.pop').hide();
     });

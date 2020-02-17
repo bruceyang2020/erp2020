@@ -13,4 +13,6 @@ public interface SysTeamService {
     PageInfo<SysTeam> list(int pageNum, int pageSize);
 
     SysTeam getById(String id);
+
+    void reloadData(String userTeam,int period);
 }

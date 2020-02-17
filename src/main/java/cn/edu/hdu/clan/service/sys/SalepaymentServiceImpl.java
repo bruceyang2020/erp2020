@@ -35,10 +35,34 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         SalepaymentMapper.insert(Salepayment);
     }
 
+    public void adds(List<Salepayment>  salepayments) {
+        if(salepayments.size() > 0) {
+            for (int i = 0; i < salepayments.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                salepayments.get(i).setPeriod(period);
+                salepayments.get(i).setTeamCount(userTeam);
+                salepayments.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(salepayments.get(i));
+                SalepaymentMapper.insert(salepayments.get(i));
+            }
+        }
+    }
+
+
     @Override
     public void delete(String id) {
     SalepaymentMapper.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(Salepayment.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        SalepaymentMapper.deleteByExample(example);
+    }
+
 
 
     @Override

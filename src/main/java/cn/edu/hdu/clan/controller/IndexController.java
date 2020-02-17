@@ -2,13 +2,10 @@ package cn.edu.hdu.clan.controller;
 
 
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
+import cn.edu.hdu.clan.entity.sys.Factory;
 import cn.edu.hdu.clan.entity.sys.SysTeam;
 import cn.edu.hdu.clan.entity.sys.SysUser;
 import cn.edu.hdu.clan.service.sys.*;
-import cn.edu.hdu.clan.entity.PageData;
-import cn.edu.hdu.clan.shiro.USerRealm;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -18,21 +15,22 @@ import cn.edu.hdu.clan.util.Const;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import cn.edu.hdu.clan.util.Jurisdiction;
+import cn.edu.hdu.clan.util.PropertiesUtils;
 
 
 /**
- * @author clan
+ * @author yangying
  * @function
- * @date 2018/5/27.
+ * @date 20120/1/31.
  */
 @Controller
 public class IndexController extends BaseController {
@@ -57,6 +55,9 @@ public class IndexController extends BaseController {
     private  FactoryService  factoryService;
     @Resource
     private ProductLineService productLineService;
+
+    @Resource
+    private AccountingVoucherService accountingVoucherService;
 
 
     @RequestMapping("/")
@@ -114,6 +115,9 @@ public class IndexController extends BaseController {
             session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
             session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
 
+
+
+
             return success("登陆成功");
         } catch (AuthenticationException ex) {
             System.out.println("登陆失败: " + ex.getMessage());
@@ -121,9 +125,6 @@ public class IndexController extends BaseController {
         }
 
     }
-
-
-
 
 
 
@@ -145,6 +146,19 @@ public class IndexController extends BaseController {
         return success("退出成功");
     }
 
+     //初始化公司的数据
+    @ResponseBody
+    @RequestMapping(value = "reloaddata",produces = "application/json;charset=utf-8")
+    public String reloaddata(@RequestBody Map<String, String> params) {
+        String userTeam = params.get("userTeam");
+        int period = Integer.parseInt(params.get("period"));
+
+        //初始化到第一个会计期间。
+        sysTeamService.reloadData(userTeam,period);
+
+        return success("初始化成功");
+    }
+
 
 
 
@@ -155,6 +169,7 @@ public class IndexController extends BaseController {
 
 
         //期末损益结转
+        accountingVoucherService.transferProfitAndLoss(userTeam,period);
 
         //清除本期的科目余额表
         accountBalanceService.deleteByPeriod(userTeam,period);
@@ -192,5 +207,38 @@ public class IndexController extends BaseController {
 
 
         return success();
+    }
+
+
+
+    @ResponseBody
+    @RequestMapping("/loginlab")
+    public String loginlab() {
+        return "loginlab";
+
+    }
+
+    @ResponseBody
+    @RequestMapping("/loginlabTo")
+    public String loginlabTo(@RequestBody Map<String, String> params) {
+        try{
+            Session session = Jurisdiction.getSession();
+
+            SysUser sysUser  = userService.findByUsername(params.get("username"));
+            SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
+
+            session.setAttribute(Const.SESSION_USER,sysUser);
+            session.setAttribute(Const.SESSION_USERID,sysUser.getId());
+            session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
+            session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
+
+
+
+            return success("登陆成功");
+        } catch (AuthenticationException ex) {
+            System.out.println("登陆失败: " + ex.getMessage());
+            return success("登陆失败");
+        }
+
     }
 }

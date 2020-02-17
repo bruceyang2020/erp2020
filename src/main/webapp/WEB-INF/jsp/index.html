@@ -4,7 +4,6 @@
 <head>
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="http://mockjs.com/dist/mock.js"></script>
     <script src="js/index.js"></script>
     <script src="js/select2.js"></script>
     <script src="js/product.js"></script>
@@ -200,20 +199,6 @@
         });
 
 
-
-        Mock.mock('http://test.com', {
-            "user|2-5": [{                              //2-5组数据
-                'name': '@cname',                       //中文名称
-                'age|1-100': 100,                       //100以内随机整数
-                'birthday': '@date("yyyy-MM-dd")',      //日期
-                'city': '@city(true)'                   //中国城市
-            }]
-        });
-
-        Mock.mock('http://api.com', {
-            "name|3": "ABC",    // 属性值重复3次
-            "age|20-30": 1      // 20~30随机数，1用来确定类型
-        });
         //贷款按钮点击事件
         $(function () {
             $("#pop-ok").click(function () {
@@ -541,9 +526,9 @@
 
 
         })
-        //结转本季，刷新页面
+        //结转按钮对应的功能
         $(function () {
-            $("#button").click(function () {
+            $("#Accountingclosing").click(function () {
 
                 //会计结账处理
                 $.ajax({
@@ -556,61 +541,28 @@
                         alert("R4订单成功");
                     }
                 })
-
-
-                //资产负债表重置
-                var Balancesheet = {
-                    id: "1",
-                    longTermLoan: $('#load-c').val(),//长期贷款
-                    shortTermLoan:$('#load-d').val(),//短期贷款
-                    moneyNow: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)+parseInt(dindan*30)).toString(),//现金
-                    moneyFlow: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)+parseInt(dindan*30)).toString(),//流动资金
-                    moneyAll: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi) + parseInt("12")+parseInt(dindan*30)).toString(),//资产总计
-                    moneyAlls: (parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi) + parseInt("12")+parseInt(dindan*30)).toString(),//所有人权益总计
-                    moneyLoan: daikuan.toString(),//负债总计
-                    longTermLoanYear:daikuan.toString(),//一年内到期贷款
-                    moneyStay:(parseInt($('#cash').text()) - parseInt(daikuan) - parseInt(touzi)+parseInt(dindan*30)).toString(),//利润留存
-                    moneyYear:parseInt(dindan*30).toString(),//年度利润
-                    moneyG:"12"
-                    // moneyNow: decimal.parse($('#cash').val())+decimal.parse($('#load-c').val())
-                    // moneyFlow: parseInt($('#load-c').val()) + parseInt($('#cash').val()),
-                    // moneyAll: parseInt($('#load-c').val()) + parseInt($('#cash').val())+parseInt("12"),
-                    // moneyAlls: parseInt($('#load-c').val()) + parseInt($('#cash').val())+parseInt("12"),
-                    // moneyLoan: parseInt($('#load-c').val()) + parseInt($('#load-d').val())
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Balancesheet/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(Balancesheet),
-                    success: function (data) {
-                       alert("上季度财务报表已生成，请查看");
-                    }
-                })
-                //利润表重置
-                var Incomesheet={
-                    id:"1",
-                    incomeSale:"0",//销售收入
-                    incomeL:"0",//毛利
-                    moneyNew: (parseInt(dindan*30)-parseInt(daikuan) - parseInt(touzi)).toString(),//折旧前利润
-                    moneyNorate:(parseInt(dindan*30) - parseInt(touzi)).toString(),//支付利息前利润
-                    moneyNotax:(parseInt(dindan*30)-parseInt(daikuan) - parseInt(touzi)).toString(),//税前利润
-                    moneyIncome:(parseInt(dindan*30)-parseInt(daikuan) - parseInt(touzi)).toString()//净利润
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Incomesheet/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(Incomesheet),
-                    success: function (data) {
-                        alert("利润表重置成功");
-                    }
-                })
-
                 window.location.reload();//页面刷新
             });
+
+
+
+            $("#final").click(function () {
+
+                //会计结账处理
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Index/closing",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(MaterialOrder),
+                    success: function (data) {
+                        alert("R4订单成功");
+                    }
+                })
+                window.location.reload();//页面刷新
+            });
+
+
         });
     </script>
 </head>
@@ -618,16 +570,31 @@
 <div id="wrap">
     <div id="wrapper">
         <div class="erp">
+            //这一部分代码是接口专用BEGIN
+            <input type="hidden" name="eId" id="eId"  value = "0" />
+            <input type="hidden" name="expScore" id="expScore"  value = "0" />
+            <input type="hidden" name="startPointH" id="startPointH"  value = "0" />
+            <input type="hidden" name="startPointM" id="startPointM"  value = "0" />
+            //这一部分代码是接口专用END
+
+
             <input type="hidden" id = "currentAp" name ="currentAp" value="">
             <input type="hidden" id = "currentUser" name ="currentUser" value="">
             <input type="hidden" id = "currentTeam" name ="currentTeam" value="">
             <div class="content">
-                <div id="jz">
-
-                    <input type="button" value=""
-                           style="background-color: transparent; border: 0;margin-top: 25px;width: 70px;height: 70px"
-                           id="button"/>
-                    <!--<button type="button" onclick="javascript:window.location.reload()">刷新</button>-->
+                <input name="jz" id="jz"  type="button"/>
+                <div class="pop-jz">
+                    <h3>结转本季内容包括：</h3>
+                    1.生产线的生产进度刷新，产品入库。</br>
+                    2.物料管理部库存刷新，订单交付。</br>
+                    3.财务部“现金池”刷新，扣减当期费用，自动计算现金余额。 </br>
+                    <h3>是否结转本季?</h3>
+                    <div class="pop-foot">
+                        <input name="final" id="reloaddata"  type="button" value="初始化" class="pop-cancel pop-close">
+                        <input name="final" id="final"  type="button" value="结束推演" class="pop-cancel pop-close">
+                        <input type="button" value="取消" class="pop-cancel pop-close">
+                        <input type="button" value="确定" class="pop-cancel pop-close" id="Accountingclosing">
+                    </div>
                 </div>
                 <div id="ceo">
                     <input name="financial-report" id="ceo-cw" type="button"/>
@@ -1112,7 +1079,15 @@
         </div>-->
 </div>
 
+<script>
 
+    var myStartPoint = new Date();//获取当前时间
+    $("#startPointH").val(myStartPoint.getHours());
+    $("#startPointM").val(myStartPoint.getMinutes());
+
+    console.log(myStartPoint.getHours()+'时-'+myStartPoint.getMinutes()+'分');
+
+</script>
 </body>
 
 </html>

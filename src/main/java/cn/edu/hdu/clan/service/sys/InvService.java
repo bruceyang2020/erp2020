@@ -7,7 +7,11 @@ import java.util.List;
 public interface InvService {
     void add(Inv Inv);
 
+    void adds(List<Inv> invs);
+
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(Inv Inv);
 

@@ -1,6 +1,7 @@
 package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import cn.edu.hdu.clan.entity.sys.Balancesheet;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.BalancesheetMapper;
@@ -25,12 +26,39 @@ public class BalancesheetServiceImpl implements BalancesheetService {
     public void add(Balancesheet Balancesheet) {
         BaseBeanHelper.insert(Balancesheet);
         BalancesheetMapper.insert(Balancesheet);
+
     }
+
+    public void adds(List<Balancesheet>  balancesheets) {
+        if(balancesheets.size() > 0) {
+            for (int i = 0; i < balancesheets.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                balancesheets.get(i).setPeriod(period);
+                balancesheets.get(i).setTeamCount(userTeam);
+                BaseBeanHelper.insert(balancesheets.get(i));
+                BalancesheetMapper.insert(balancesheets.get(i));
+            }
+        }
+    }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(Balancesheet.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        BalancesheetMapper.deleteByExample(example);
+    }
+
+
 
     @Override
     public void delete(String id) {
     BalancesheetMapper.deleteByPrimaryKey(id);
     }
+
+
+
 
     @Override
     public void update(Balancesheet Balancesheet) {

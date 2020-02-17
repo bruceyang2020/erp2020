@@ -1,0 +1,137 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>登录集成ilab-x</title>
+    <link rel="stylesheet" type="text/css" href="style/login.css" />
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var GetLabInfo={
+                GetQueryString: function(){
+                    var reg = new RegExp("(^|&)token=([^&]*)(&|$)");
+                    var r = window.location.search.substr(1).match(reg);
+                    if(r != null) return unescape(r[2]); return null;
+                },
+
+                /**
+                 * 函数功能：获取实验用户信息及实验或预约实验唯一标识符
+                 *
+                 */
+                _GetUserInfo : function() {
+                    var host = "http://139.224.197.21:8081/openlab/";
+
+                    var token= this.GetQueryString();
+                    if(token==null){
+                        console.log('token值为空')
+                    }else{
+                        this.Ajax({
+                            url: host + "outer/getMessageByToken",
+                            type: "GET",
+                            data: {"token":token},
+                            dataType: "json",
+                            success: function (response) {
+                                // 此处放成功后执行的代码
+                                // 解析返回的字符串 转为json对象
+                                var jsonStr = response;
+                                //jsonStr = JSON.stringify(window.atob(jsonStr));
+
+                                var JsonData = JSON.parse(window.atob(jsonStr));
+                                console.log(JsonData.eId);
+
+                                $("#username").attr("value",JsonData.eId);
+                                console.log("解析成功："+JsonData);
+                                console.log("解析eid成功："+JsonData.eId);
+
+
+                                window.postMessage(jsonStr,'*');
+                            },
+                            fail: function (status) {
+                                // 此处放失败后执行的代码
+                                console.log(status)
+                            }
+                        });
+
+                    }
+
+
+                },
+                Ajax:function(options) {
+                    options = options || {};
+                    options.type = (options.type || "GET").toUpperCase();
+                    options.dataType = options.dataType || "json";
+                    var params = window.btoa(JSON.stringify(options.data))
+
+                    //创建xhr对象 - 非IE6
+                    if (window.XMLHttpRequest) {
+                        var xhr = new XMLHttpRequest();
+                    } else { //IE6及其以下版本浏览器
+                        var xhr = new ActiveXObject('Microsoft.XMLHTTP');
+                    }
+                    xhr.withCredentials = true;
+                    //GET POST 两种请求方式
+                    if (options.type == "GET") {
+                        xhr.open("GET", options.url + "?" + 'param=' + params, true);
+                        xhr.send(null);
+                    } else if (options.type == "POST") {
+                        xhr.open("POST", options.url, true);
+                        //设置表单提交时的内容类型
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.send(params);
+                    }
+                    //接收
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4) {
+                            var status = xhr.status;
+                            if (status >= 200 && status < 300) {
+                                options.success && options.success(xhr.responseText);
+                            } else {
+                                options.fail && options.fail(status);
+                            }
+                        }
+                    }
+                }
+
+            };
+            GetLabInfo._GetUserInfo();
+
+
+
+
+
+
+
+
+            var str = {
+                "username":$('#username').val(),
+                "password":$('#password').val()
+            };
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/loginlabTo",
+                contentType: "application/json;charset=utf-8;",
+                data:JSON.stringify(str),
+                success: function (data) {
+                    console.log(data);
+                    window.location.href = "/index";
+
+                }
+            });
+
+
+        })
+
+
+
+    </script>
+</head>
+<body>
+<div class="waves"></div>
+
+     <input id="username" type="hidden" class="input">
+    <input id="password" type="hidden" class="input" data-type="password">
+
+</div>
+</body>
+</html>

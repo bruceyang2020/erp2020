@@ -10,7 +10,11 @@ import java.util.List;
 public interface BalancesheetService {
     void add(Balancesheet Balancesheet);
 
+    void adds(List<Balancesheet>  balancesheets);
+
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(Balancesheet Balancesheet);
 
