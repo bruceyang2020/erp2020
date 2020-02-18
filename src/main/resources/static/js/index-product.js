@@ -246,15 +246,7 @@ $(document).ready(function () {
         $('.pop-pro').show();
     });
 
-    $('#pro-l-6').click(function () {
-        //获取第一条生产线的信息。
-        var ProductLine = {
-            productLineNumber: "6"
-        };
-        $('#plnValue').val("6");
-        showProductPop(ProductLine);
-        $('.pop-pro').show();
-    });
+
     $('#pro-r-1').click(function () {
         //获取第一条生产线的信息。
         var ProductLine = {
@@ -310,7 +302,9 @@ $(document).ready(function () {
         var currentTeam =   $('#currentTeam').val();
         var factoryNumber ="";
         if(Number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
-        var productLineTypeId =  $("#productLineTypeIdList").select2("data")[0];
+        var productLineTypeId =  $("#productLineTypeIdList").find("option:selected").val();
+        console.log("新建生产线：");
+        console.log(productLineTypeId);
         var deviceValue = 0;
         var processingCycle = 0;
         if(productLineTypeId =="手工线")
@@ -342,6 +336,7 @@ $(document).ready(function () {
             deviceValue:deviceValue,
             processingCycle:processingCycle
         };
+        console.log(ProductLine)
 
         $.ajax({
             type: "post",
@@ -368,7 +363,7 @@ $(document).ready(function () {
         var currentTeam =   $('#currentTeam').val();
         var factoryNumber ="";
         if(number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
-        var productLineTypeId =  $("#productLineTypeIdList").select2("data")[0];
+        var productLineTypeId =  $("#productLineTypeIdList").find("option:selected").val();
 
 
         var ProductLine = {
@@ -436,7 +431,7 @@ $(document).ready(function () {
         var currentTeam =   $('#currentTeam').val();
         var factoryNumber ="";
         if(number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
-        var productC =  $("#productCList").select2("data")[0];
+        var productC =  $("#productCList").find("option:selected").val();
 
 
         var ProductLine = {
@@ -572,68 +567,69 @@ function statusByPln(pln,status) {
     var myProductLineNumber = pln;
     var myStatus = status;
     var myObjId = "";
-    switch (myProductLineNumber) {
+    switch (Number(myProductLineNumber))
+    {
         case 1:
-            myObjId = "pro-l-1";
+            myObjId = "#pro-l-1";
 
             break
         case 2:
-            myObjId = "pro-l-2";
+            myObjId = "#pro-l-2";
             break
         case 3:
-            myObjId = "pro-l-3";
+            myObjId = "#pro-l-3";
             break
         case 4:
-            myObjId = "pro-l-4";
+            myObjId = "#pro-l-4";
             break
         case 5:
-            myObjId = "pro-l-5";
+            myObjId = "#pro-l-5";
             break
         case 6:
-            myObjId = "pro-l-6";
+            myObjId = "#pro-l-6";
             break
         case 7:
-            myObjId = "pro-r-1";
+            myObjId = "#pro-r-1";
             break
         case 8:
-            myObjId = "pro-r-2";
+            myObjId = "#pro-r-2";
             break
         case 9:
-            myObjId = "pro-r-3";
+            myObjId = "#pro-r-3";
             break
         case 10:
-            myObjId = "pro-r-4";
+            myObjId = "#pro-r-4";
             break
 
     }
     switch (myStatus) {
         case "生产":
-            if (Number(pln) < 6) {
-                $(eval(myObjId)).addClass('sclsc-l');
+            if (Number(pln) < 7) {
+                $(myObjId).addClass('sclsc-l');
             } else {
-                $(eval(myObjId)).addClass('sclsc-r');
+                $(myObjId).addClass('sclsc-r');
             }
 
             break
         case "停产":
-            if (Number(pln) < 6) {
-                $(eval(myObjId)).addClass('scltc-l');
+            if (Number(pln) < 7) {
+                $(myObjId).addClass('scltc-l');
             } else {
-                $(eval(myObjId)).addClass('scltc-r');
+                $(myObjId).addClass('scltc-r');
             }
             break
         case "转产":
-            if (Number(pln) < 6) {
-                $(eval(myObjId)).addClass('sclzc-l');
+            if (Number(pln) < 7) {
+                $(myObjId).addClass('sclzc-l');
             } else {
-                $(eval(myObjId)).addClass('sclzc-r');
+                $(myObjId).addClass('sclzc-r');
             }
             break
         case "在建":
-            if (Number(pln) < 6) {
-                $(eval(myObjId)).addClass('sclzj-l');
+            if (Number(pln) < 7) {
+                $(myObjId).addClass('sclzj-l');
             } else {
-                $(eval(myObjId)).addClass('sclzj-r');
+                $(myObjId).addClass('sclzj-r');
             }
             break
 
@@ -647,56 +643,57 @@ function showPLByPln(pln,productLineTypeId) {
         var myProductLineNumber = pln;
         var myProductLineTypeId = productLineTypeId;
         var myObjId = "";
-        switch (myProductLineNumber) {
+        switch (Number(myProductLineNumber)) {
             case 1:
-                myObjId = "pro-l-1";
+                myObjId = "#pro-l-1";
 
                 break
             case 2:
-                myObjId = "pro-l-2";
+                myObjId = "#pro-l-2";
                 break
             case 3:
-                myObjId = "pro-l-3";
+                myObjId = "#pro-l-3";
                 break
             case 4:
-                myObjId = "pro-l-4";
+                myObjId = "#pro-l-4";
                 break
             case 5:
-                myObjId = "pro-l-5";
+                myObjId = "#pro-l-5";
                 break
             case 6:
-                myObjId = "pro-l-6";
+                myObjId = "#pro-l-6";
                 break
             case 7:
-                myObjId = "pro-r-1";
+                myObjId = "#pro-r-1";
                 break
             case 8:
-                myObjId = "pro-r-2";
+                myObjId = "#pro-r-2";
                 break
             case 9:
-                myObjId = "pro-r-3";
+                myObjId = "#pro-r-3";
                 break
             case 10:
-                myObjId = "pro-r-4";
+                myObjId = "#pro-r-4";
                 break
 
         }
         switch (myProductLineTypeId) {
             case "手工线":
-                myObjId =myObjId+"-sg"
-                 $(eval(myObjId)).addClass('show');
+                myObjId =myObjId+"-sg";
+                console.log("手工线："+myObjId);
+                $(myObjId).addClass('show');
                 break
             case "半自动":
-                myObjId =myObjId+"-bzd"
-                $(eval(myObjId)).addClass('show')
+                myObjId =myObjId+"-bzd";
+                $(myObjId).addClass('show');
                 break
             case "全自动":
-                myObjId =myObjId+"-zd"
-                $(eval(myObjId)).addClass('show')
+                myObjId =myObjId+"-zd";
+                $(myObjId).addClass('show');
                 break
             case "柔性线":
-                myObjId =myObjId+"-rx"
-                $(eval(myObjId)).addClass('show')
+                myObjId =myObjId+"-rx";
+                $(myObjId).addClass('show');
                 break
 
 

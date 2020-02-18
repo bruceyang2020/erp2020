@@ -101,9 +101,10 @@ public class ProductLineServiceImpl implements ProductLineService {
         String productLineType = producptLine.getProductLineTypeId();
         int period =  producptLine.getPeriod();
         Example example = new Example(ProductLine.class);
-        example.createCriteria().andEqualTo("factoryNumber", factoryNumber);
-        example.createCriteria().andEqualTo("productLineNumber", productLineNumber);
-        example.createCriteria().andEqualTo("period", period);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("factoryNumber", factoryNumber);
+        criteria.andEqualTo("productLineNumber", productLineNumber);
+        criteria.andEqualTo("period", period);
 
        return  ProductLineMapper.selectOneByExample(example);
     }
@@ -118,7 +119,7 @@ public class ProductLineServiceImpl implements ProductLineService {
         String productLineType = productLine.getProductLineTypeId();
 
         ProductLine myRow = productLineRow(productLine);
-        if(myRow.getId() == null || "".equals(myRow.getId()))
+        if(myRow == null)
         {  //全局变量 写入当前公司或小组ID
 
             //补充相关字段的取值
