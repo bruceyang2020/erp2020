@@ -5,6 +5,8 @@ import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.SysTeamMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,14 +79,16 @@ public class SysTeamServiceImpl implements SysTeamService {
         return SysTeamMapper.selectOneByExample(example);
     }
 
+
+    @Override
+    public SysTeam getByName(String name) {
+        Example example = new Example(SysTeam.class);
+        example.createCriteria().andEqualTo("name", name);
+        return SysTeamMapper.selectOneByExample(example);
+    }
+
     @Override
     public void reloadData(String userTeam,int period) {
-
-
-
-
-
-
 
          //初始化厂房数据
           String jsonStr = PropertiesUtils.readJsonFile("jsondata/initFatory.json");
@@ -123,7 +127,7 @@ public class SysTeamServiceImpl implements SysTeamService {
         //存货。产品P1-3 .原料 3
         String jsonStr4 = PropertiesUtils.readJsonFile("jsondata/initInv.json");
         JSONArray json4 = JSONArray.fromObject(jsonStr4);
-        List<Inv> invs= (List<Inv>)JSONArray.toCollection(json4, LongTermLoans.class);
+        List<Inv> invs= (List<Inv>)JSONArray.toCollection(json4, Inv.class);
         invService.deleteByTeamCount(userTeam);
         invService.adds(invs);
         System.out.println(json4);
@@ -156,22 +160,20 @@ public class SysTeamServiceImpl implements SysTeamService {
         accountBalanceService.adds(accountBalanceList);
         System.out.println(json7);
 
-        //资产负债表
-
-        String jsonStr8 = PropertiesUtils.readJsonFile("jsondata/initBalancesheetjson");
-        JSONArray json8 = JSONArray.fromObject(jsonStr8);
-        List<Balancesheet> balancesheets= (List<Balancesheet>)JSONArray.toCollection(json7, Balancesheet.class);
+        //资产负债表这里不使用List.初始化一个会计期间只有一条数据
+        String jsonStr8 = PropertiesUtils.readJsonFile("jsondata/initBalancesheet.json");
+        JSONObject json8= JSONObject.fromObject(jsonStr7);
+        Balancesheet balancesheet= (Balancesheet) JSONObject.toBean(json8, Balancesheet.class);
         balancesheetService.deleteByTeamCount(userTeam);
-        balancesheetService.adds(balancesheets);
+        balancesheetService.add(balancesheet);
         System.out.println(json8);
 
-        //利润表。
-
+        //利润表。这里不使用List.初始化一个会计期间只有一条数据
         String jsonStr9 = PropertiesUtils.readJsonFile("jsondata/initIncomesheet.json");
-        JSONArray json9 = JSONArray.fromObject(jsonStr9);
-        List<Incomesheet> incomesheets= (List<Incomesheet>)JSONArray.toCollection(json7, Incomesheet.class);
+        JSONObject json9 = JSONObject.fromObject(jsonStr9);
+        Incomesheet incomesheet= (Incomesheet)JSONObject.toBean(json9, Incomesheet.class);
         incomesheetService.deleteByTeamCount(userTeam);
-        incomesheetService.adds(incomesheets);
+        incomesheetService.add(incomesheet);
         System.out.println(json9);
 
 

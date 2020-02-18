@@ -23,7 +23,8 @@ public class ResearchFee extends BaseBean {
     /**
      * 状态
      */
-    private Integer sate;
+    @Column(name = "state")
+    private Integer state;
 
     /**
      * 剩余研发期数
@@ -111,19 +112,19 @@ public class ResearchFee extends BaseBean {
     /**
      * 获取状态
      *
-     * @return sate - 状态
+     * @return state - 状态
      */
-    public Integer getSate() {
-        return sate;
+    public Integer getState() {
+        return state;
     }
 
     /**
      * 设置状态
      *
-     * @param sate 状态
+     * @param state 状态
      */
-    public void setSate(Integer sate) {
-        this.sate = sate;
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     /**

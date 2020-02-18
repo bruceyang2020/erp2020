@@ -42,7 +42,7 @@ html,body,#wrapper{
     width: 400px;
     height:300px;
     position: absolute;
-    top: 700px;
+    top: 200px;
     left: 0;
     bottom: 0;
     right: 0;
@@ -585,12 +585,29 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 .scltc-r{background:url(erp-scltc-r.svg) no-repeat;}
 
 /* 生产线的弹窗   */
-.pop-pro,.pop-factory{
+.pop-pro{
     display: none;
     width: 400px;
     height:250px;
     position: absolute;
     top: 2800px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 25px;
+    z-index: 130;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+    text-align: center;
+}
+.pop-factory{
+    display: none;
+    width: 400px;
+    height:250px;
+    position: absolute;
+    top: 2200px;
     left: 0;
     bottom: 0;
     right: 0;

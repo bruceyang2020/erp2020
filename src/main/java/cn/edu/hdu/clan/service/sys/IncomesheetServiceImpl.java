@@ -23,6 +23,11 @@ public class IncomesheetServiceImpl implements IncomesheetService {
     @Transactional
     @Override
     public void add(Incomesheet Incomesheet) {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        Incomesheet.setPeriod(period);
+        Incomesheet.setTeamCount(userTeam);
+        Incomesheet.setGroupId("1000");
         BaseBeanHelper.insert(Incomesheet);
         IncomesheetMapper.insert(Incomesheet);
     }

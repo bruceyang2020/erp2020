@@ -24,6 +24,10 @@ public class BalancesheetServiceImpl implements BalancesheetService {
     @Transactional
     @Override
     public void add(Balancesheet Balancesheet) {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        Balancesheet.setPeriod(period);
+        Balancesheet.setTeamCount(userTeam);
         BaseBeanHelper.insert(Balancesheet);
         BalancesheetMapper.insert(Balancesheet);
 

@@ -7,11 +7,7 @@ import javax.persistence.*;
 
 @Table(name = "usury")
 public class Usury extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
 
     @Column(name = "group_id")
     private Integer groupId;
@@ -66,23 +62,7 @@ public class Usury extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group_id

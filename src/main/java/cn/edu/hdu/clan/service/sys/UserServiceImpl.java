@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         SysUser user = new SysUser();
         user.setUsername(username);
         Example example = new Example(SysUser.class);
-        example.createCriteria().andEqualTo(user);
+        example.createCriteria().andEqualTo("username",username);
         List<SysUser> users = userMapper.selectByExample(example);
         if (CollectionUtils.isEmpty(users)) {
             return null;
@@ -57,7 +57,6 @@ public class UserServiceImpl implements UserService {
         if (count != 0) {
             throw new SystemException("该用户名已存在");
         }
-        BaseBeanHelper.insert(record);
         BaseBeanHelper.insert(record);
         record.setRegistrationTime(new Date());
         userMapper.insert(record);

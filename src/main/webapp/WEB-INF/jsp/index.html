@@ -6,14 +6,18 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/select2.js"></script>
-    <script src="js/product.js"></script>
-    <script src="js/factory.js"></script>
+    <script src="js/index-jz.js"></script> //期间结转操作
+    <script src="js/index-ceo.js"></script> //CEO办公室相关显示及操作
+    <script src="js/index-market.js"></script> //市场销售部相关显示及操作
+    <script src="js/index-management.js"></script> //物料管理部相关显示及操作
+    <script src="js/index-product.js"></script>  //生产线相关显示及操作
+    <script src="js/index-factory.js"></script> //厂房相关显示及操作
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style/index.css">
     <link rel="stylesheet" type="text/css" href="style/select2.css">
     <title>ERP沙盘系统</title>
     <script>
-        //获取当前用户、当前会计期间、公司ID
+        //获取当前用户、当前会计期间、公司ID，初始化前端对应的全局参数
         $.ajax({
             type: "get",
             dataType: "json",
@@ -23,163 +27,14 @@
                 data = data['data'];
                 console.log(data);
                 $("#currentAp").val(data.currentAp);  //获取当前会计期间
-                $("#currentUser").val(data.currentUser);  //获取当前会计期间
-                $("#currentTeam").val(data.currentTeam);  //获取当前会计期间
+                $("#currentUser").val(data.currentUser);  //获取当前用户名
+                $("#currentTeam").val(data.currentTeam);  //获取当前的群组ID
                 console.log(data.currentAp);
                 console.log($("#currentAp").val()+"全局会计期间");
 
             }
         });
 
-        var currentAp =$("#currentAp").val();
-        var currentTeam = $("#currentTeam").val();
-
-
-        var daikuan = 0;//贷款数
-        var touzi = 0;//投资额
-        var dindan=0;//订单数
-        //贷款显示
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/LongTermLoans/listbyuserandperiod",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                $.each(data,function(n,value){
-                    var i = 6-((value.returnTime-1)/4);
-                    console.log(i);
-                    $("#ceo-cz-c"+i).val(value.moneyTotal);
-                });
-
-                console.log(data);
-                console.log('*****长期贷款数据');
-            }
-        });
-
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/ShortTermLoan/listbyuserandperiod",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                $.each(data,function(n,value){
-                    var currentAp =$("#currentAp").val();
-                    var i = 1+currentAp*1-value.period;
-                    console.log(i);
-                    $("#ceo-cz-d"+i).val(value.moneyTotal);
-                });
-
-
-                console.log(data);
-                console.log('*******短期贷款数据');
-            }
-        });
-
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/Usury/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $("#ceo-cz-g").val(data[0].moneyTotal);
-                console.log(data);
-                console.log('******高利贷数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
-
-
-        //原材料及成品库存显示
-        $.ajax({
-            type: "get",
-            dataType: "json",
-            url: "/Inv/listInv",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                console.log(data);
-                $.each(data,function(n,value){
-                    if(value.number == "R1")
-                    {  $("#mag-r4").text(value.amountB);}
-                    if(value.number == "R2")
-                    {  $("#mag-r3").text(value.amountB);}
-                    if(value.number == "R3")
-                    {  $("#mag-r2").text(value.amountB);}
-                    if(value.number == "R4")
-                    {  $("#mag-r1").text(value.amountB);}
-                    if(value.number == "P1")
-                    {  $("#mag-p1").text(value.amountB);}
-                    if(value.number == "P2")
-                    {  $("#mag-p2").text(value.amountB);}
-                    if(value.number == "P3")
-                    {  $("#mag-p3").text(value.amountB);}
-                    if(value.number == "P4")
-                    {  $("#mag-p4").text(value.amountB);}
-
-                });
-                console.log('************类型1原材料数据');
-            }
-        });
-
-        //采购订单的显示
-        $.ajax({
-            type: "get",
-            dataType: "json",
-            url: "/MaterialOrder/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                console.log(data);
-                $.each(data,function(n,value){
-                    var currentAp =$("#currentAp").val();
-                    var leadTime = 1+currentAp*1-value.period;
-                    if(value.materialId == "R1" )
-                    {  $("#r1-1").val(value.amount);}
-                    if(value.materialId == "R2")
-                    {  $("#r2-1").val(value.amount);}
-                    if(value.materialId == "R3"  && leadTime == 1)
-                    {  $("#r3-2").val(value.amount);}
-                    if(value.materialId == "R3"  && leadTime == 2)
-                    {  $("#r3-1").val(value.amount);}
-                    if(value.materialId == "R4" && leadTime == 1)
-                    {  $("#r4-2").val(value.amount);}
-                    if(value.materialId == "R4" && leadTime == 2)
-                    {  $("#r4-1").val(value.amount);}
-
-                });
-                console.log('采购订单提取数据成功');
-            }
-        });
-
-
-
-        //生产线值
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/MaterialOrder/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-
-                $("#pro-l-1-zd").text("1");
-                $("#pro-l-1-rx").text("2");
-                console.log(data);
-                console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@productline');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
         //财务部现金
         $.ajax({
             type: "post",
@@ -196,374 +51,21 @@
                 // $('#year').text(Math.floor(data.period / 4))
                 // $('#money_flow').text(data.money_flow)
             }
-        });
+        })
 
 
-        //贷款按钮点击事件
-        $(function () {
-            $("#pop-ok").click(function () {
-
-
-                var LongTermLoans = {
-                    moneyTotal:$('#load-c').val(),
-                    period: $('#currentAp').val()
-
-                };
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/LongTermLoans/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(LongTermLoans),
-                    success: function (data) {
-                        alert("长期贷款成功");
-                        $('#cash').text(parseInt($('#load-c').val()) + parseInt($('#cash').text()));//财务显示更新
-                    }
-                })
-                $("#ceo-cz-c1").val($('#load-c').val());
-            });
-
-
-            $("#pop-ok1").click(function () {
-                // $('#load-c').value;
-                var ShortTermLoan = {
-                    moneyTotal:$('#load-d').val(),
-                    period: $('#currentAp').val()
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/ShortTermLoan/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(ShortTermLoan),
-                    success: function (data) {
-                        alert("短期贷款成功");
-                        daikuan = parseInt(daikuan) + parseInt($('#load-d').val());//记录贷款数
-                        $('#cash').text(parseInt($('#load-d').val()) + parseInt($('#cash').text()));//财务显示更新
-                    }
-                })
-                $("#ceo-cz-d1").val($('#load-d').val());
-            });
-
-
-            $("#pop-ok2").click(function () {
-                // $('#load-c').value;
-                var Usury = {
-                    id: "1",
-                    longTermLoan: $('#load-g').val(),
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Usury/update",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(Balancesheet),
-                    success: function (data) {
-                        alert("高利贷成功");
-                    }
-                })
-
-            });
-        });
+        /
         //投资按钮点击事件
         $(function () {
-            $("#ok-qy").click(function () {
-                var MarketFee = {
-                    period: $('#currentAp').val(),
-                    marketId:"区域"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MarketFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MarketFee),
-                    success: function (data) {
-                        alert("区域市场开拓成功");
-                    }
-                })
-
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//区域扣20
-                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-            });
-
-            $("#ok-gn").click(function () {
-
-                var MarketFee = {
-                    period: $('#currentAp').val(),
-                    marketId:"国内"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MarketFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MarketFee),
-                    success: function (data) {
-                        alert("国内市场开拓成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("40"));//国内扣40
-                touzi = parseInt(touzi) + parseInt("40");//记录扣款数
-            })
-            $("#ok-yz").click(function () {
-
-                var MarketFee = {
-                    period: $('#currentAp').val(),
-                    marketId:"亚洲"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MarketFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MarketFee),
-                    success: function (data) {
-                        alert("亚洲市场开拓成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("60"));//亚洲扣60
-                touzi = parseInt(touzi) + parseInt("60");//记录扣款数
-            })
-            $("#ok-gj").click(function () {
-                var MarketFee = {
-                    period: $('#currentAp').val(),
-                    marketId:"国际"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MarketFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MarketFee),
-                    success: function (data) {
-                        alert("国际市场开拓成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("80"));//国际扣80
-                touzi = parseInt(touzi) + parseInt("80");//记录扣款数
-            })
-            $("#ok-p2").click(function () {
-                var ResearchFee = {
-                    period: $('#currentAp').val(),
-                    productId:"P2"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/ResearchFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(ResearchFee),
-                    success: function (data) {
-                        alert("P2研发成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P2扣20
-                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-            })
-            $("#ok-p3").click(function () {
-                var ResearchFee = {
-                    period: $('#currentAp').val(),
-                    productId:"P3"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/ResearchFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(ResearchFee),
-                    success: function (data) {
-                        alert("P3研发成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P3扣20
-                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-            })
-            $("#ok-p4").click(function () {
-                var ResearchFee = {
-                    period: $('#currentAp').val(),
-                    productId:"P4"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/ResearchFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(ResearchFee),
-                    success: function (data) {
-                        alert("P4研发成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P4扣20
-                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-            })
-            $("#ok-9k").click(function () {
-                var IsoFee = {
-                    period: $('#currentAp').val(),
-                    number:"ISO9K"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/IsoFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(ResearchFee),
-                    success: function (data) {
-                        alert("ISO9K研发成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("200"));//ISO1扣200
-                touzi = parseInt(touzi) + parseInt("200");//记录扣款数
-            })
-            $("#ok-14k").click(function () {
-                var IsoFee = {
-                    period: $('#currentAp').val(),
-                    number:"ISO14K"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/IsoFee/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(ResearchFee),
-                    success: function (data) {
-                        alert("ISO14K研发成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
-            })
-            //原材料采购的点击事件
-            $("#ok-r1-1").click(function () {
-                var MaterialOrder = {
-                    period: $('#currentAp').val(),
-                    amount:$('#buy-r1-1').val(),
-                    moneyTotal:$('#buy-r1-1').val(),
-                    materialId:"R1"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MaterialOrder/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder),
-                    success: function (data) {
-                        alert("RI订单成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
-            })
-
-            $("#ok-r2-1").click(function () {
-                var MaterialOrder = {
-                    period: $('#currentAp').val(),
-                    amount:$('#buy-r2-1').val(),
-                    moneyTotal:$('#buy-r2-1').val(),
-                    materialId:"R2"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MaterialOrder/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder),
-                    success: function (data) {
-                        alert("R2订单成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
-            })
-
-            $("#ok-r3-2").click(function () {
-                var MaterialOrder = {
-                    period: $('#currentAp').val(),
-                    amount:$('#buy-r3-2').val(),
-                    moneyTotal:$('#buy-r3-1').val(),
-                    materialId:"R3"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MaterialOrder/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder),
-                    success: function (data) {
-                        alert("R3订单成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
-            })
-
-            $("#ok-r4-2").click(function () {
-                var MaterialOrder = {
-                    period: $('#currentAp').val(),
-                    amount:$('#buy-r4-2').val(),
-                    moneyTotal:$('#buy-r4-1').val(),
-                    materialId:"R4"
-                }
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/MaterialOrder/add",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder),
-                    success: function (data) {
-                        alert("R4订单成功");
-                    }
-                })
-                $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-                touzi = parseInt(touzi) + parseInt("400");//记录扣款数
-            })
 
             //广告费的提交按钮事件
             $("#ok-advertise").click(function () {
-
                 $("#market-page-manager").val("1"); //将广告费提交标识设置为1.
             })
 
 
         })
-        //结转按钮对应的功能
-        $(function () {
-            $("#Accountingclosing").click(function () {
 
-                //会计结账处理
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Index/closing",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder),
-                    success: function (data) {
-                        alert("R4订单成功");
-                    }
-                })
-                window.location.reload();//页面刷新
-            });
-
-
-
-            $("#final").click(function () {
-
-                //会计结账处理
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Index/closing",
-                    contentType: "application/json;charset=utf-8;",
-                    data: JSON.stringify(MaterialOrder),
-                    success: function (data) {
-                        alert("R4订单成功");
-                    }
-                })
-                window.location.reload();//页面刷新
-            });
-
-
-        });
     </script>
 </head>
 <body>
@@ -572,10 +74,9 @@
         <div class="erp">
             <div class="content">
                 <input name="jz" id="jz"  type="button"/>
-
                 <div id="ceo">
                     <input name="financial-report" id="ceo-cw" type="button"/>
-                    <!--财务弹出框-->
+                    <!--财务弹出框资产负债表-利润表-->
                     <div class="pop">
                         <div class="tab-contain">
                             <ul id="tabs">
@@ -1029,13 +530,10 @@
             </tr>
 
         </table>
-
-
         <div class="pop-foot">
             <input type="button" value="取消" class="pop-cancel pop-close">
             <input type="button" value="投资" class="pop-ok" id="ok-pro-newBuild">
         </div>
-
     </div>
     <div class ="pro-build">
         <table>

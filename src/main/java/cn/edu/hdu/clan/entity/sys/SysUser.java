@@ -6,11 +6,7 @@ import javax.persistence.*;
 
 @Table(name = "sys_user")
 public class SysUser extends BaseBean {
-    /**
-     * 主键
-     */
-    @Id
-    private String id;
+
 
     /**
      * 公司id
@@ -39,23 +35,7 @@ public class SysUser extends BaseBean {
     @Column(name = "registration_time")
     private Date registrationTime;
 
-    /**
-     * 获取主键
-     *
-     * @return id - 主键
-     */
-    public String getId() {
-        return id;
-    }
 
-    /**
-     * 设置主键
-     *
-     * @param id 主键
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * 获取公司id

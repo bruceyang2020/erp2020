@@ -6,6 +6,7 @@ import cn.edu.hdu.clan.entity.sys.Factory;
 import cn.edu.hdu.clan.entity.sys.SysTeam;
 import cn.edu.hdu.clan.entity.sys.SysUser;
 import cn.edu.hdu.clan.service.sys.*;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.rmi.CORBA.Util;
 import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONArray;
@@ -25,6 +27,7 @@ import net.sf.json.JSONObject;
 
 import cn.edu.hdu.clan.util.Jurisdiction;
 import cn.edu.hdu.clan.util.PropertiesUtils;
+import tk.mybatis.mapper.util.StringUtil;
 
 
 /**
@@ -221,16 +224,43 @@ public class IndexController extends BaseController {
     @ResponseBody
     @RequestMapping("/loginlabTo")
     public String loginlabTo(@RequestBody Map<String, String> params) {
+        String userName = params.get("username");
         try{
             Session session = Jurisdiction.getSession();
 
-            SysUser sysUser  = userService.findByUsername(params.get("username"));
-            SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
+            SysUser sysUser  = userService.findByUsername(userName);
 
-            session.setAttribute(Const.SESSION_USER,sysUser);
-            session.setAttribute(Const.SESSION_USERID,sysUser.getId());
-            session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
-            session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
+
+            //当教育部平台传过来的USERNAME 也就是ID在系统中不存在。
+            if (sysUser == null) {
+                  //先建立一个群组保存。根据ID
+                SysTeam userTeam = new SysTeam();
+                userTeam.setGroupId("1000");
+                userTeam.setName(userName);
+                userTeam.setState(1);//设置当前会计期间为1
+                sysTeamService.add(userTeam);
+                userTeam = sysTeamService.getByName(userName);
+
+                sysUser.setUsername(params.get("username"));
+                sysUser.setTeamId(userTeam.getId());
+                userService.addUser(sysUser);
+
+
+                session.setAttribute(Const.SESSION_USER,sysUser);
+                session.setAttribute(Const.SESSION_USERID,sysUser.getId());
+                session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
+                session.setAttribute(Const.SESSION_USERPERIOD,userTeam.getState().toString());  //当前的会计期间
+
+                sysTeamService.reloadData(sysUser.getTeamId(),1);
+
+            }else{
+                SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
+                session.setAttribute(Const.SESSION_USER,sysUser);
+                session.setAttribute(Const.SESSION_USERID,sysUser.getId());
+                session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
+                session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
+            }
+
 
 
 

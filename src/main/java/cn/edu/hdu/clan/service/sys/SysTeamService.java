@@ -14,5 +14,7 @@ public interface SysTeamService {
 
     SysTeam getById(String id);
 
+    SysTeam getByName(String name);
+
     void reloadData(String userTeam,int period);
 }
