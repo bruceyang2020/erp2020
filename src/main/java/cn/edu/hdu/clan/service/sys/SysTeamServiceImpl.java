@@ -162,7 +162,7 @@ public class SysTeamServiceImpl implements SysTeamService {
 
         //资产负债表这里不使用List.初始化一个会计期间只有一条数据
         String jsonStr8 = PropertiesUtils.readJsonFile("jsondata/initBalancesheet.json");
-        JSONObject json8= JSONObject.fromObject(jsonStr7);
+        JSONObject json8= JSONObject.fromObject(jsonStr8);
         Balancesheet balancesheet= (Balancesheet) JSONObject.toBean(json8, Balancesheet.class);
         balancesheetService.deleteByTeamCount(userTeam);
         balancesheetService.add(balancesheet);

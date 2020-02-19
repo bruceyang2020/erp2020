@@ -15,172 +15,29 @@ $(document).ready(function () {
             for(var i=0; i<len;i++){
                 var productLineNumber = data[i].productLineNumber;
                 var state = Number(data[i].state);
-                var cycle = data[i].productLineTypeId;
+                var productLineTypeId = data[i].productLineTypeId;
                 console.log('生产线编码：'+productLineNumber);
-                switch (Number(productLineNumber)) {
+
+                switch (state) {
+                    case 0:
+                        statusByPln(productLineNumber,"在建");
+                        showPLByPln(productLineNumber,productLineTypeId);
+                        break;
                     case 1:
-                        console.log('当前生产线'+cycle);
-                        if(state==1){
-                            console.log('当前生产线'+cycle);
-                            $('#pro-l-1').addClass('sclsc-l')
-                            if(cycle=='柔性线'){
-                                $('#pro-l-1-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-l-1-zd').addClass('show')
-                            }else if(cycle=='半自动'){
-                                $('#pro-l-1-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-l-1-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-l-1').addClass('scltc-l')
-                        }
-                        break
+                        statusByPln(productLineNumber,"生产");
+                        showPLByPln(productLineNumber,productLineTypeId);
+                        break;
                     case 2:
-                        if(state==1){
-                            $('#pro-l-2').addClass('sclsc-l')
-                            if(cycle=='柔性线'){
-                                $('#pro-l-2-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-l-2-zd').addClass('show')
-                            }else if(cycle=='半自动'){
-                                $('#pro-l-2-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-l-2-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-l-2').addClass('scltc-l')
-                        }
-                        break
+                        statusByPln(productLineNumber,"停产");
+                        showPLByPln(productLineNumber,productLineTypeId);
+                        break;
                     case 3:
-                        if(state==1){
-                            $('#pro-l-3').addClass('sclsc-l')
-                            if(cycle=='柔性线'){
-                                $('#pro-l-3-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-l-3-zd').addClass('show')
-                            }else if(cycle=='半自动'){
-                                $('#pro-l-3-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-l-3-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-l-3').addClass('scltc-l')
-                        }
-                        break
-                    case 4:
-                        if(state==1){
-                            $('#pro-l-4').addClass('sclsc-l')
-                            if(cycle=='柔性线'){
-                                $('#pro-l-4-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-l-4-zd').addClass('show')
-                            }else if(cycle=='半自动'){
-                                $('#pro-l-4-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-l-4-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-l-4').addClass('scltc-l')
-                        }
-                        break
-                    case 5:
-                        if(state==1){
-                            $('#pro-l-5').addClass('sclsc-l')
-                            if(cycle=='柔性线'){
-                                $('#pro-l-5-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-l-5-zd').addClass('show')
-                            }else if(cycle==3){
-                                $('#pro-l-5-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-l-5-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-l-5').addClass('scltc-l')
-                        }
-                        break
-                    case 6:
-                        if(state==1){
-                            $('#pro-l-6').addClass('sclsc-l')
-                            if(cycle=='柔性线'){
-                                $('#pro-l-6-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-l-6-zd').addClass('show')
-                            }else if(cycle=='半自动'){
-                                $('#pro-l-6-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-l-6-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-l-6').addClass('scltc-l')
-                        }
-                        break
-                    case 7:
-                        if(state==1){
-                            $('#pro-r-1').addClass('sclsc-r')
-                            if(cycle=='柔性线'){
-                                $('#pro-r-1-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-r-1-zd').addClass('show')
-                            }else if(cycle==3){
-                                $('#pro-r-1-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-r-1-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-r-1').addClass('scltc-r')
-                        }
-                        break
-                    case 8:
-                        if(state==1){
-                            $('#pro-r-2').addClass('sclsc-r')
-                            if(cycle=='柔性线'){
-                                $('#pro-r-2-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-r-2-zd').addClass('show')
-                            }else if(cycle=='半自动'){
-                                $('#pro-r-2-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-r-2-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-r-2').addClass('scltc-r')
-                        }
-                        break
-                    case 9:
-                        if(state==1){
-                            $('#pro-r-3').addClass('sclsc-r')
-                            if(cycle=='柔性线'){
-                                $('#pro-r-3-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-r-3-zd').addClass('show')
-                            }else if(cycle=='半自动'){
-                                $('#pro-r-3-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-r-3-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-r-3').addClass('scltc-r')
-                        }
-                        break
-                    case 10:
-                        if(state==1){
-                            $('#pro-r-4').addClass('sclsc-r')
-                            if(cycle=='柔性线'){
-                                $('#pro-r-4-rx').addClass('show')
-                            }else if(cycle=='全自动'){
-                                $('#pro-r-4-zd').addClass('show')
-                            }else if(cycle=='半自动'){
-                                $('#pro-r-4-bzd').addClass('show')
-                            }else if(cycle=='手工线'){
-                                $('#pro-r-4-sg').addClass('show')
-                            }
-                        }else{
-                            $('#pro-r-4').addClass('scltc-r')
-                        }
-                        break
-                }
+                        statusByPln(productLineNumber,"转产");
+                        showPLByPln(productLineNumber,productLineTypeId);
+                        break;
+
+                };
+
             }
         }
     })
@@ -190,7 +47,7 @@ $(document).ready(function () {
 
 
 
-
+    //生产线1-10号的点击弹窗功能，传递生产线编号参数。
     $('#pro-l-1').click(function () {
         //获取第一条生产线的信息。
         var ProductLine = {
@@ -351,7 +208,7 @@ $(document).ready(function () {
 
             }
         })
-        $('.pro-status').addClass('noshow');
+
         $('.pop-pro').hide();
     });
 
@@ -630,6 +487,13 @@ function statusByPln(pln,status) {
                 $(myObjId).addClass('sclzj-l');
             } else {
                 $(myObjId).addClass('sclzj-r');
+            }
+            break
+        case "出售":
+            if (Number(pln) < 7) {
+                $(myObjId).removeClass();
+            } else {
+                $(myObjId).removeClass();
             }
             break
 
