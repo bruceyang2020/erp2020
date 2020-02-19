@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('.pop').show();
     });
 
-    //结转按钮点击事件弹窗
+
     $('#jz').click(function () {
         $('.pop-jz').show()
     });

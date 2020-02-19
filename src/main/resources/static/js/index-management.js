@@ -67,9 +67,10 @@ $(document).ready(function () {
 
     //原材料采购的点击事件：R1、R2、R3、R4
     $("#ok-r1-1").click(function () {
+        var amount = $('#buy-r1-1').val();
         var MaterialOrder = {
             period: $('#currentAp').val(),
-            amount:$('#buy-r1-1').val(),
+            amount: amount,
             moneyTotal:$('#buy-r1-1').val(),
             materialId:"R1"
         }
@@ -80,6 +81,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(MaterialOrder),
             success: function (data) {
+                $("#r1-1").val(amount);
                 alert("RI订单成功");
             }
         })
@@ -88,9 +90,10 @@ $(document).ready(function () {
     })
 
     $("#ok-r2-1").click(function () {
+        var amount = $('#buy-r2-1').val();
         var MaterialOrder = {
             period: $('#currentAp').val(),
-            amount:$('#buy-r2-1').val(),
+            amount: amount,
             moneyTotal:$('#buy-r2-1').val(),
             materialId:"R2"
         }
@@ -101,6 +104,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(MaterialOrder),
             success: function (data) {
+                $("#r2-1").val(amount);
                 alert("R2订单成功");
             }
         })
@@ -109,9 +113,10 @@ $(document).ready(function () {
     })
 
     $("#ok-r3-2").click(function () {
+        var amount = $('#buy-r3-2').val();
         var MaterialOrder = {
             period: $('#currentAp').val(),
-            amount:$('#buy-r3-2').val(),
+            amount: amount,
             moneyTotal:$('#buy-r3-1').val(),
             materialId:"R3"
         }
@@ -122,6 +127,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(MaterialOrder),
             success: function (data) {
+                $("#r3-2").val(amount);
                 alert("R3订单成功");
             }
         })
@@ -130,9 +136,10 @@ $(document).ready(function () {
     })
 
     $("#ok-r4-2").click(function () {
+        var amount = $('#buy-r4-2').val();
         var MaterialOrder = {
             period: $('#currentAp').val(),
-            amount:$('#buy-r4-2').val(),
+            amount:amount,
             moneyTotal:$('#buy-r4-1').val(),
             materialId:"R4"
         }
@@ -143,6 +150,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(MaterialOrder),
             success: function (data) {
+                $("#r4-2").val(amount);
                 alert("R4订单成功");
             }
         })
