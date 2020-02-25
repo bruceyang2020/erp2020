@@ -1,0 +1,271 @@
+
+[33mcommit e125ac30040ceca1e786216cf31027fa10dcc56c[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Sun Feb 23 19:29:34 2020 +0800
+
+    IU-2018.3.1 <bruce@LAPTOP-6ENA30L2 Update ui.lnf.xml
+
+[33mcommit 130027928ab8703eed9dc4afba394b5b7268cee3[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Wed Feb 19 15:18:08 2020 +0800
+
+    20200219修正物料订单的显示问题。
+
+[33mcommit d6474ea132c66adba99b8cc6d89bfa4382c9ad66[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Wed Feb 19 11:17:05 2020 +0800
+
+    20200219修改了生产线前端相关的BUG
+
+[33mcommit ddec8bcf264c664d30f378d68e590dd982d4f376[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Tue Feb 18 21:51:32 2020 +0800
+
+    20200218全端的Js从Index.js中分离出来，按功能区域拆分多个JS文件。主页面上的js代码都转移到对应js文件中。
+
+[33mcommit c0346c7686ed0052a7e58f3310557ab1fa9cf1d9[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Tue Feb 18 20:54:58 2020 +0800
+
+    20200218全端的Js从Index.js中分离出来，按功能区域拆分多个JS文件。主页面上的js代码都转移到对应js文件中。
+
+[33mcommit 31ce9b6e2053f56409b055b8d84eaa795a6c745d[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Mon Feb 17 21:55:53 2020 +0800
+
+    20200217完成数据初始化、期间损益结转等。基本上第一版的框架全部逻辑代码都完成了。
+
+[33mcommit 8148c1a8e7856fd475d155ad230365bab8282b4d[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Mon Feb 17 21:27:28 2020 +0800
+
+    2020
+
+[33mcommit 536377cbea2ffc9b2bd82aa1ae466908e526a9a4[m
+Merge: 94f6a0f fc59348
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Sat Feb 15 15:35:02 2020 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 94f6a0f3629739b62802632155b67c74221a10df[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Sat Feb 15 15:30:46 2020 +0800
+
+    2020
+
+[33mcommit fc593485c7ef531e87a2da0ffd4ca2115ae2516d[m
+Merge: 47eef3f 36d0426
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Thu Jan 9 09:00:19 2020 +0800
+
+    IU-2018.3.1 <bruce@LAPTOP-6ENA30L2 Merge branch 'master'
+
+[33mcommit 47eef3facb3c8f5f7d58ea34cc4560b762585f49[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Wed Jan 8 15:08:24 2020 +0800
+
+    IU-2018.3.1 <bruce@LAPTOP-6ENA30L2 Delete jdk.table.xml, updates.xml
+
+[33mcommit eed31d715989d3f0a52201350a3ff35e66c159c3[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Tue Jan 7 18:24:06 2020 +0800
+
+    IU-2018.3.1 <bruce@LAPTOP-6ENA30L2 Create github.xml
+
+[33mcommit 97a9f2baacf6cdebe90455499b56b96603ce6023[m
+Merge: 7167143 7167143
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Tue Jan 7 17:55:10 2020 +0800
+
+    IU-2018.3.1 <bruce@LAPTOP-6ENA30L2 Overwrite remote https://github.com/bruceyang2020/erp2020.git to local
+
+[33mcommit 716714340449db31acfe966147aa11c4a85a8233[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Tue Jan 7 17:49:29 2020 +0800
+
+    IU-2018.3.1 <bruce@LAPTOP-6ENA30L2 Create ide.general.xml, git.xml, project.default.xml, laf.xml, jdk.table.xml, Default.xml, path.macros.xml, ui.lnf.xml, filetypes.xml, colors.scheme.xml, editor.xml, debugger.xml, updates.xml
+
+[33mcommit 36d042684b904eb81d87045a85a895352b674f56[m
+Author: bruceyang2020 <250449192@qq.com>
+Date:   Tue Jan 7 17:29:00 2020 +0800
+
+    Signed-off-by: bruceyang2020 <250449192@qq.com>
+
+[33mcommit bc0c0cb484e989d974c9f2f93b24db16f3916d1a[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Sun Jun 2 00:30:59 2019 +0800
+
+    final work 6.2
+
+[33mcommit 01cf7c5d2e5315d919337956d07c0acbb2e41844[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Sat Jun 1 18:50:05 2019 +0800
+
+    update work
+
+[33mcommit 37b056fead358f2d0b395d6f93d3f57ea9d1f4dd[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Sat Jun 1 00:30:43 2019 +0800
+
+    update work
+
+[33mcommit 6aa7f98c726d29b08427027da0bb1b355f91e08a[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Fri May 31 00:54:11 2019 +0800
+
+    query work
+
+[33mcommit f5bc8bfe91ccde2651c751b0281036b9cd034048[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Thu May 30 21:25:10 2019 +0800
+
+    query work
+
+[33mcommit d538901b975a92eccc698ac06d07a17e5e221960[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Wed May 29 00:21:43 2019 +0800
+
+    jj go on
+
+[33mcommit 39765d9603ecb67afbf7999f49e5912195f62087[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Mon May 27 01:56:11 2019 +0800
+
+    jjwanshan
+
+[33mcommit 1940ae08ec4c7fd52fa1b25f904a32bb73ebb345[m
+Author: clinan <artergo163@gmail.com>
+Date:   Mon May 27 00:09:15 2019 +0800
+
+    ajax
+
+[33mcommit bc6238e613ebe12482be4b3c3cc081d793cdb43f[m
+Author: clinan <artergo163@gmail.com>
+Date:   Sun May 26 23:42:40 2019 +0800
+
+    Revert "Revert "static""
+    
+    This reverts commit 982c70d06fe4a938013f05045c700221c50693bb.
+
+[33mcommit 982c70d06fe4a938013f05045c700221c50693bb[m
+Author: clinan <artergo163@gmail.com>
+Date:   Sun May 26 23:25:55 2019 +0800
+
+    Revert "static"
+    
+    This reverts commit b3941c07408c9fc30cda36bb4bfdb81b45424e89.
+
+[33mcommit cf7159e6f32e6f3a6d744cc1be74760999503218[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Sun May 26 23:19:05 2019 +0800
+
+    message init
+
+[33mcommit b3941c07408c9fc30cda36bb4bfdb81b45424e89[m
+Author: clinan <artergo163@gmail.com>
+Date:   Sat May 25 22:37:06 2019 +0800
+
+    static
+
+[33mcommit b6bf6aae49e0980a55388deb11088351da032d5a[m
+Merge: 59c8db0 44a3db7
+Author: clinan <artergo163@gmail.com>
+Date:   Sat May 25 21:46:56 2019 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 44a3db7f37f725787343767d64df2552c9c97406[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Sat May 25 21:43:15 2019 +0800
+
+    message init
+
+[33mcommit 4d12374e8f6b12ca80f8e5ae22025ba9bb0c726b[m
+Merge: 7f5841f 1e9622e
+Author: JiangJun <1146583283@qq.com>
+Date:   Sat May 25 21:06:48 2019 +0800
+
+    Merge remote-tracking branch 'origin/master'
+
+[33mcommit 59c8db0be7f3eec82782a1f21b9cbf3816663553[m
+Author: clinan <artergo163@gmail.com>
+Date:   Sat May 18 21:32:45 2019 +0800
+
+    加上版本号版本号
+
+[33mcommit 1e9622ef1fe7795d3c9da8865d6d6bbe9e899246[m
+Author: clinan <artergo163@gmail.com>
+Date:   Sat May 18 20:05:09 2019 +0800
+
+    加上版本号版本号
+
+[33mcommit 29df4558f617135237d1ea0f05057c318158be21[m
+Author: clinan <artergo163@gmail.com>
+Date:   Sat May 18 17:40:20 2019 +0800
+
+    去掉版本号
+
+[33mcommit 7f5841f2af76baaa6e12e5dd2d74966a38457192[m
+Merge: 6136d64 ed96e9e
+Author: JiangJun <1146583283@qq.com>
+Date:   Sat May 18 16:52:51 2019 +0800
+
+    Merge remote-tracking branch 'origin/master'
+    
+    # Conflicts:
+    #       src/main/java/cn/edu/hdu/clan/entity/sys/LoanType.java
+
+[33mcommit ed96e9e8ca4ca4cc69f7b4eb183fae08496b45eb[m
+Author: clinan <artergo163@gmail.com>
+Date:   Sat May 18 16:51:52 2019 +0800
+
+    bug fix
+
+[33mcommit 6136d64de88b32c0ccf3cde6d0522bf5961ede6d[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Sat May 18 16:31:07 2019 +0800
+
+    Merge branch 'master' of E:\recent\demo\springbootdemo-master with conflicts.
+
+[33mcommit e63f10b37cd1e78afbb54d2935e28b2163333ed6[m
+Author: clinan <artergo163@gmail.com>
+Date:   Sat May 18 16:16:12 2019 +0800
+
+    生成controller service
+
+[33mcommit 58e34aaa6dedbe97f42bd6f74cea7c882f6eecb9[m
+Author: clinan <artergo163@gmail.com>
+Date:   Fri May 17 00:01:59 2019 +0800
+
+    重新生成代码 新增controller service 增删改查代码生成器
+
+[33mcommit 609188a1592f66c4418253821a9ba17e1a4ff3d0[m
+Author: clinan <artergo163@gmail.com>
+Date:   Thu May 16 23:56:41 2019 +0800
+
+    重新生成代码 新增controller service 增删改查代码生成器
+
+[33mcommit 0fa2255cce214a6e85fda4f6fcef0e4d3e08271d[m
+Author: clinan <artergo163@gmail.com>
+Date:   Thu May 16 23:55:56 2019 +0800
+
+    重新生成代码 新增controller service 增删改查代码生成器
+
+[33mcommit 4e45235dd44573548a73d312135015dd1a67135a[m
+Author: clinan <artergo163@gmail.com>
+Date:   Thu May 16 09:45:25 2019 +0800
+
+    临时修补生成代码的bug
+
+[33mcommit e49f780bbe8d87f9b982b63a0c5c326515999ea7[m
+Author: clinan <artergo163@gmail.com>
+Date:   Thu May 16 09:36:53 2019 +0800
+
+    用户登录注册
+
+[33mcommit 2a06ffdc680689dae83853261b95c47814c3b728[m
+Author: JiangJun <1146583283@qq.com>
+Date:   Sun May 12 21:27:16 2019 +0800
+
+    message init
