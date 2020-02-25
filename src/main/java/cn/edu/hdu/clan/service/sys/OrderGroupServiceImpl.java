@@ -44,8 +44,9 @@ public class OrderGroupServiceImpl implements OrderGroupService {
         //全局变量 写入当前公司或小组ID
         int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         Example example = new Example(OrderGroup.class);
-        example.createCriteria().andEqualTo("productId", productId);
-        example.createCriteria().andEqualTo("period", period);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("productId", productId);
+        criteria.andEqualTo("period", period);
 
         return OrderGroupMapper.selectByExample(example);
     }

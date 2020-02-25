@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.SysUser;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
+import cn.edu.hdu.clan.helper.UUIDHelper;
 import cn.edu.hdu.clan.mapper.sys.SysUserMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+
+import java.util.Date;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
@@ -19,7 +22,11 @@ public class SysUserServiceImpl implements SysUserService {
     @Transactional
     @Override
     public void add(SysUser SysUser) {
-        BaseBeanHelper.insert(SysUser);
+        SysUser.setId(UUIDHelper.getUUID());
+        SysUser.setCreateTime(new Date());
+        SysUser.setEditTime(new Date());
+        SysUser.setCreateUser("yang");
+        SysUser.setEditUser("yang");
         SysUserMapper.insert(SysUser);
     }
 

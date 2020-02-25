@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.rmi.CORBA.Util;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import net.sf.json.JSONArray;
@@ -37,6 +38,8 @@ import tk.mybatis.mapper.util.StringUtil;
  */
 @Controller
 public class IndexController extends BaseController {
+    @Resource
+    private SysUserService sysUserService;
     @Resource
     private UserService userService;
     @Resource
@@ -214,8 +217,7 @@ public class IndexController extends BaseController {
 
 
 
-    @ResponseBody
-    @RequestMapping("/loginlab")
+    @RequestMapping("loginlab")
     public String loginlab() {
         return "loginlab";
 
@@ -226,13 +228,18 @@ public class IndexController extends BaseController {
     public String loginlabTo(@RequestBody Map<String, String> params) {
         String userName = params.get("username");
         try{
+            SysUser sysUser1  = userService.findByUsername("yang");
             Session session = Jurisdiction.getSession();
+            session.setAttribute(Const.SESSION_USER,sysUser1);
+            session.setAttribute(Const.SESSION_USERID,sysUser1.getId());
 
-            SysUser sysUser  = userService.findByUsername(userName);
+
+            SysUser sysUser2  = userService.findByUsername(params.get("username"));
+
 
 
             //当教育部平台传过来的USERNAME 也就是ID在系统中不存在。
-            if (sysUser == null) {
+            if (sysUser2 == null) {
                   //先建立一个群组保存。根据ID
                 SysTeam userTeam = new SysTeam();
                 userTeam.setGroupId("1000");
@@ -241,23 +248,29 @@ public class IndexController extends BaseController {
                 sysTeamService.add(userTeam);
                 userTeam = sysTeamService.getByName(userName);
 
-                sysUser.setUsername(params.get("username"));
+                SysUser sysUser = new SysUser();
+                sysUser.setUsername(userName);
                 sysUser.setTeamId(userTeam.getId());
-                userService.addUser(sysUser);
+                sysUser.setPassword("123456");
+                sysUser.setRegistrationTime(new Date());
+                sysUser.setTelephome(800);
+                sysUserService.add(sysUser);
 
-
-                session.setAttribute(Const.SESSION_USER,sysUser);
-                session.setAttribute(Const.SESSION_USERID,sysUser.getId());
-                session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
+                SysUser sysUser3  = userService.findByUsername(userName);
+                session.setAttribute(Const.SESSION_USER,sysUser3);
+                session.setAttribute(Const.SESSION_USERID,sysUser3.getId());
+                session.setAttribute(Const.SESSION_USERTEAM,sysUser3.getTeamId());
                 session.setAttribute(Const.SESSION_USERPERIOD,userTeam.getState().toString());  //当前的会计期间
 
-                sysTeamService.reloadData(sysUser.getTeamId(),1);
+                String myUserTeam = sysUser3.getTeamId();
+
+                sysTeamService.reloadData(myUserTeam,1);
 
             }else{
-                SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
-                session.setAttribute(Const.SESSION_USER,sysUser);
-                session.setAttribute(Const.SESSION_USERID,sysUser.getId());
-                session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
+                SysTeam  sysTeam = sysTeamService.getById(sysUser2.getTeamId());
+                session.setAttribute(Const.SESSION_USER,sysUser2);
+                session.setAttribute(Const.SESSION_USERID,sysUser2.getId());
+                session.setAttribute(Const.SESSION_USERTEAM,sysUser2.getTeamId());
                 session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
             }
 

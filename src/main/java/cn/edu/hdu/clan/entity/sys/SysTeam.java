@@ -6,8 +6,7 @@ import javax.persistence.*;
 
 @Table(name = "sys_team")
 public class SysTeam extends BaseBean {
-    @Id
-    private String id;
+
 
     @Column(name = "group_id")
     private String groupId;
@@ -28,19 +27,6 @@ public class SysTeam extends BaseBean {
     @Column(name = "edit_time")
     private Date editTime;
 
-    /**
-     * @return id
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * @param id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
 
     /**
      * @return group_id

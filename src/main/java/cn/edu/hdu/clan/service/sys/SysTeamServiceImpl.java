@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.*;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
+import cn.edu.hdu.clan.helper.UUIDHelper;
 import cn.edu.hdu.clan.mapper.sys.SysTeamMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -15,6 +16,7 @@ import net.sf.json.JSONArray;
 import cn.edu.hdu.clan.util.PropertiesUtils;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -49,7 +51,11 @@ public class SysTeamServiceImpl implements SysTeamService {
     @Transactional
     @Override
     public void add(SysTeam SysTeam) {
-        BaseBeanHelper.insert(SysTeam);
+        SysTeam.setId(SysTeam.getName());
+        SysTeam.setCreateTime(new Date());
+        SysTeam.setEditTime(new Date());
+        SysTeam.setCreateUser("yang");
+        SysTeam.setEditUser("yang");
         SysTeamMapper.insert(SysTeam);
     }
 

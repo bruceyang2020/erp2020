@@ -54,11 +54,13 @@ public class FactoryServiceImpl implements FactoryService {
             for (int i = 0; i < factories.size(); i++) {
                 String userTeam = Jurisdiction.getUserTeam();
                 int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-                factories.get(i).setPeriod(period);
-                factories.get(i).setTeamCount(userTeam);
-                factories.get(i).setGroupId("1000");
-                BaseBeanHelper.insert(factories.get(i));
-                FactoryMapper.insert(factories.get(i));
+                Factory factory =  factories.get(i);
+
+                factory.setPeriod(period);
+                factory.setTeamCount(userTeam);
+                factory.setGroupId("1000");
+                BaseBeanHelper.insert(factory);
+                FactoryMapper.insert(factory);
             }
         }
     }
