@@ -279,6 +279,9 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
            case "DUANDAI":  //短贷的会计分录
                voucherMakerBase(teamCount,period,"现金","短期负债",amount,content);
                break;
+            case "GAOLIDAI":  //高利贷的会计分录
+                voucherMakerBase(teamCount,period,"现金","高利贷",amount,content);
+                break;
             case "CPYF": //产品研发的
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                  break;

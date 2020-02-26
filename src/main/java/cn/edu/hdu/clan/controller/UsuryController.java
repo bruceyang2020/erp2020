@@ -1,7 +1,9 @@
 package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.Usury;
+import cn.edu.hdu.clan.mapper.sys.UsuryMapper;
 import cn.edu.hdu.clan.service.sys.UsuryService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +47,12 @@ public class UsuryController extends BaseController {
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(UsuryService.getById(param.get("id")));
+    }
+    @RequestMapping("listbyuserandperiod")
+    public String getByUserIdAndPeriod() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+
+        return success(UsuryService.getByUserIdAndPeriod(userTeam));
     }
 }

@@ -10,10 +10,10 @@ public class Usury extends BaseBean {
 
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "team_count")
-    private Integer teamCount;
+    private String teamCount;
 
     /**
      * 高利贷编码
@@ -67,28 +67,28 @@ public class Usury extends BaseBean {
     /**
      * @return group_id
      */
-    public Integer getGroupId() {
+    public String getGroupId() {
         return groupId;
     }
 
     /**
      * @param groupId
      */
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
 
     /**
      * @return team_count
      */
-    public Integer getTeamCount() {
+    public String getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(Integer teamCount) {
+    public void setTeamCount(String teamCount) {
         this.teamCount = teamCount;
     }
 

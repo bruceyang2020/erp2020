@@ -57,7 +57,7 @@ $(document).ready(function () {
         type: "post",
         dataType: "json",
         data: {pageSize: 100, pageNum: 0},
-        url: "/Usury/list",
+        url: "/Usury/listbyuserandperiod",
         contentType: "application/json;charset=utf-8;",
         success: function (data) {
             data = data['data'];
@@ -121,19 +121,21 @@ $(document).ready(function () {
     $("#pop-ok2").click(function () {
         // $('#load-c').value;
         var Usury = {
-            id: "1",
-            longTermLoan: $('#load-g').val(),
+            moneyTotal:$('#load-g').val(),
+            period: $('#currentAp').val()
         }
         $.ajax({
             type: "post",
             dataType: "json",
-            url: "/Usury/update",
+            url: "/Usury/add",
             contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(Balancesheet),
+            data: JSON.stringify(Usury),
             success: function (data) {
                 alert("高利贷成功");
+                $('#cash').text(parseInt($('#load-g').val()) + parseInt($('#cash').text()));//财务显示更新
             }
         })
+        $("#ceo-cz-g").val($('#load-g').val());
 
     });
 
