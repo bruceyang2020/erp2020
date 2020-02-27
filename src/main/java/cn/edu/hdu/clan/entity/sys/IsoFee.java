@@ -44,13 +44,13 @@ public class IsoFee extends BaseBean {
     /**
      * 创建时间
      */
-    @Column(name = "creae_time")
-    private Date creaeTime;
+    @Column(name = "create_time")
+    private Date createTime;
 
     /**
      * 编辑人
      */
-    @Column(name = "edit-user")
+    @Column(name = "edit_user")
     private String editUser;
 
     /**
@@ -184,8 +184,8 @@ public class IsoFee extends BaseBean {
      *
      * @return creae_time - 创建时间
      */
-    public Date getCreaeTime() {
-        return creaeTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
     /**
@@ -193,14 +193,14 @@ public class IsoFee extends BaseBean {
      *
      * @param creaeTime 创建时间
      */
-    public void setCreaeTime(Date creaeTime) {
-        this.creaeTime = creaeTime;
+    public void setCreateTime(Date creaeTime) {
+        this.createTime = creaeTime;
     }
 
     /**
      * 获取编辑人
      *
-     * @return edit-user - 编辑人
+     * @return edit_user - 编辑人
      */
     public String getEditUser() {
         return editUser;

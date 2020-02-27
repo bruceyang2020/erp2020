@@ -158,9 +158,11 @@ $(document).ready(function () {
                 alert("区域市场开拓成功");
             }
         })
-
+         // touzi: 0
         $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//区域扣20
         touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+         //touzi: 20
+
     });
 
     //国内投资
@@ -297,9 +299,11 @@ $(document).ready(function () {
             dataType: "json",
             url: "/IsoFee/add",
             contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ResearchFee),
+            data: JSON.stringify(IsoFee),
             success: function (data) {
                 alert("ISO9K研发成功");
+                console.log(data);
+                console.log("*************ISO9K");
             }
         })
         $("#cash").text(parseInt($('#cash').text()) - parseInt("200"));//ISO1扣200
@@ -318,9 +322,11 @@ $(document).ready(function () {
             dataType: "json",
             url: "/IsoFee/add",
             contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ResearchFee),
+            data: JSON.stringify(IsoFee),
             success: function (data) {
                 alert("ISO14K研发成功");
+                console.log(data);
+                console.log("**********************ISO14K")
             }
         })
         $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400

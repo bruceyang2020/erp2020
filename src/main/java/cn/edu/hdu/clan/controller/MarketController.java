@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 @RestController
+
 @RequestMapping("Market")
 public class MarketController extends BaseController {
 

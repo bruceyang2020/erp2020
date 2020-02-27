@@ -41,8 +41,8 @@ public class Iso extends BaseBean {
     /**
      * 总投入
      */
-    @Column(name = "cost_tatal")
-    private BigDecimal costTatal;
+    @Column(name = "cost_total")
+    private BigDecimal costTotal;
 
     /**
      * 创建人外键用户表
@@ -179,19 +179,19 @@ public class Iso extends BaseBean {
     /**
      * 获取总投入
      *
-     * @return cost_tatal - 总投入
+     * @return cost_total - 总投入
      */
-    public BigDecimal getCostTatal() {
-        return costTatal;
+    public BigDecimal getCostTotal() {
+        return costTotal;
     }
 
     /**
      * 设置总投入
      *
-     * @param costTatal 总投入
+     * @param costTotal 总投入
      */
-    public void setCostTatal(BigDecimal costTatal) {
-        this.costTatal = costTatal;
+    public void setCostTotal(BigDecimal costTotal) {
+        this.costTotal = costTotal;
     }
 
     /**

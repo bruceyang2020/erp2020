@@ -285,8 +285,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             case "CPYF": //产品研发的
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                  break;
-
-        case "SCKF":  //市场研发的会计分录
+            case "SCKF":  //市场研发的会计分录
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                 break;
             case "ISOZZ": //ISO认证的会计分录

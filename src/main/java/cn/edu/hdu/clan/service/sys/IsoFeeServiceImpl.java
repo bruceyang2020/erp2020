@@ -56,12 +56,12 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         {
             case "ISO9K":
                 //自动生成ISO9K会计凭证
-                accountingVoucherService.voucherMaker(userTeam,IsoFee.getPeriod(),new BigDecimal("1"),"”ISOZZ","ISO9K");
+                accountingVoucherService.voucherMaker(userTeam,IsoFee.getPeriod(),new BigDecimal("200"),"ISOZZ","ISO9K");
                 break;
 
             case "ISO14K":
                 //自动生成ISO14K会计凭证
-                accountingVoucherService.voucherMaker(userTeam,IsoFee.getPeriod(),new BigDecimal("2"),"ISOZZ","ISO14K");
+                accountingVoucherService.voucherMaker(userTeam,IsoFee.getPeriod(),new BigDecimal("400"),"ISOZZ","ISO14K");
                 break;
 
         }

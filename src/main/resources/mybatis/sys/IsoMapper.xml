@@ -11,7 +11,7 @@
     <result column="cost" property="cost" jdbcType="DECIMAL" />
     <result column="period" property="period" jdbcType="INTEGER" />
     <result column="points" property="points" jdbcType="INTEGER" />
-    <result column="cost_tatal" property="costTatal" jdbcType="DECIMAL" />
+    <result column="cost_total" property="costTotal" jdbcType="DECIMAL" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
