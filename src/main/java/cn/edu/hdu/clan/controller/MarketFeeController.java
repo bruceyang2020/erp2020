@@ -21,8 +21,6 @@ public class MarketFeeController extends BaseController {
     private MarketFeeService MarketFeeService;
     @RequestMapping("add")
     public String add(@RequestBody MarketFee MarketFee) {
-
-
         MarketFeeService.add(MarketFee);
         return success();
     }

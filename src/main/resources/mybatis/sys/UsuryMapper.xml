@@ -6,8 +6,8 @@
       WARNING - @mbg.generated
     -->
     <id column="id" property="id" jdbcType="VARCHAR" />
-    <result column="group_id" property="groupId" jdbcType="INTEGER" />
-    <result column="team_count" property="teamCount" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR" />
+    <result column="team_count" property="teamCount" jdbcType="VARCHAR" />
     <result column="usury_number" property="usuryNumber" jdbcType="INTEGER" />
     <result column="period" property="period" jdbcType="INTEGER" />
     <result column="money_total" property="moneyTotal" jdbcType="DECIMAL" />

@@ -1,6 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
-import cn.edu.hdu.clan.entity.sys.LongTermLoans;
+
 import cn.edu.hdu.clan.entity.sys.ShortTermLoan;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.ShortTermLoanMapper;

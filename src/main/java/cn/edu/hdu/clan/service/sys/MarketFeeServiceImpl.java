@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.sys.Market;
 import cn.edu.hdu.clan.entity.sys.MarketFee;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.MarketFeeMapper;
@@ -21,8 +22,10 @@ public class MarketFeeServiceImpl implements MarketFeeService {
     @Autowired
     private MarketFeeMapper MarketFeeMapper;
 
+
     @Resource
     private AccountingVoucherService accountingVoucherService;
+
 
     @Transactional
     @Override
@@ -32,7 +35,7 @@ public class MarketFeeServiceImpl implements MarketFeeService {
         //补充相关字段的取值
         MarketFee.setTeamCount(userTeam);
         MarketFee.setGroupId("1000");
-        MarketFee.setPeriodLeft(MarketFee.getPeriod()+1);
+        MarketFee.setPeriodLeft(2);
 
         //删除当前市场开发的记录
         Example example = new Example(MarketFee.class);
@@ -50,27 +53,27 @@ public class MarketFeeServiceImpl implements MarketFeeService {
         BaseBeanHelper.insert(MarketFee);
         MarketFeeMapper.insert(MarketFee);
 
-        String marketId = MarketFee.getGroupId();
+        String marketId = MarketFee.getMarketId();
 
         switch (marketId)
         {
             case "区域":
                 //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam,MarketFee.getPeriod(),new BigDecimal("1"),"SCKF","区域");
+                accountingVoucherService.voucherMaker(userTeam,MarketFee.getPeriod(),new BigDecimal("20") ,"SCKF","区域");
                 break;
 
             case "国内":
                 //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam,MarketFee.getPeriod(),new BigDecimal("1"),"SCKF","国内");
+                accountingVoucherService.voucherMaker(userTeam,MarketFee.getPeriod(),new BigDecimal("40"),"SCKF","国内");
                 break;
             case "亚洲":
                 //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam,MarketFee.getPeriod(),new BigDecimal("1"),"SCKF","亚洲");
+                accountingVoucherService.voucherMaker(userTeam,MarketFee.getPeriod(),new BigDecimal("60"),"SCKF","亚洲");
                 break;
 
             case "国际":
                 //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam,MarketFee.getPeriod(),new BigDecimal("1"),"SCKF","国际");
+                accountingVoucherService.voucherMaker(userTeam,MarketFee.getPeriod(),new BigDecimal("80"),"SCKF","国际");
                 break;
 
 

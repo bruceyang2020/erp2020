@@ -58,21 +58,21 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         {
             case "P1":
                 //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam,ResearchFee.getPeriod(),new BigDecimal("1"),"CPYF","P1");
+                accountingVoucherService.voucherMaker(userTeam,ResearchFee.getPeriod(),new BigDecimal("20"),"CPYF","P1");
                 break;
 
             case "P2":
                 //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam,ResearchFee.getPeriod(),new BigDecimal("1"),"CPYF","P2");
+                accountingVoucherService.voucherMaker(userTeam,ResearchFee.getPeriod(),new BigDecimal("20"),"CPYF","P2");
                 break;
             case "P3":
                 //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam,ResearchFee.getPeriod(),new BigDecimal("1"),"CPYF","P3");
+                accountingVoucherService.voucherMaker(userTeam,ResearchFee.getPeriod(),new BigDecimal("20"),"CPYF","P3");
                 break;
 
             case "P4":
                 //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam,ResearchFee.getPeriod(),new BigDecimal("2"),"CPYF","P4");
+                accountingVoucherService.voucherMaker(userTeam,ResearchFee.getPeriod(),new BigDecimal("20"),"CPYF","P4");
                 break;
 
 
