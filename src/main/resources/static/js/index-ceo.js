@@ -72,6 +72,12 @@ $(document).ready(function () {
 
 
 
+
+
+
+
+
+
     //长期贷款的提交按钮事件
     $("#pop-ok").click(function () {
 
@@ -142,6 +148,268 @@ $(document).ready(function () {
 
 
   /*  投资部分*/
+
+    //市场开拓的显示      marketId=“区域” “国内”  “亚洲”  “国际”
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        data: {pageSize: 100, pageNum: 0},
+        url: "/MarketFee/list",
+        contentType: "application/json;charset=utf-8;",
+        success: function (data) {
+            data = data['data'];
+            $.each(data,function(n,value){
+                var mymarket = value.marketId;
+                var leftperiod = value.periodLeft;
+                switch(String (mymarket)){
+                    case "区域":
+                        switch (Number (leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-ma1").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-ma1").attr("class","tz1");
+                                break;
+
+                        }
+                        break;
+
+                    case "国内":
+                        switch (Number (leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-ma2").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-ma2").attr("class","tz3");
+                                break;
+                            case 2:
+                                $("#ceo-tz-ma2").attr("class","tz1");
+                                break;
+
+                        }
+                        break;
+
+                    case "亚洲":
+                        switch (Number (leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-ma3").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-ma3").attr("class","tz3");
+                                break;
+                            case 2:
+                                $("#ceo-tz-ma3").attr("class","tz2");
+                                break;
+                            case 3:
+                                $("#ceo-tz-ma3").attr("class","tz1");
+                                break;
+
+                        }
+                        break;
+
+                    case "国际":
+                        switch (Number (leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-ma4").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-ma4").attr("class","tz4");
+                                break;
+                            case 2:
+                                $("#ceo-tz-ma4").attr("class","tz3");
+                                break;
+                            case 3:
+                                $("#ceo-tz-ma4").attr("class","tz2");
+                                break;
+                            case 4:
+                                $("#ceo-tz-ma4").attr("class","tz1");
+                                break;
+
+                        }
+                        break;
+                }
+
+            });
+
+        }
+    });
+        //产品研发的显示
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        data: {pageSize: 100, pageNum: 0},
+        url: "/ResearchFee/list",
+        contentType: "application/json;charset=utf-8;",
+        success: function (data) {
+            data = data['data'];
+            $.each(data, function (n, value) {
+                var myproduct = value.productId;
+                var leftperiod = value.periodLeft;
+                switch (String (myproduct)) {
+                    //出于代码的完整性，还是加上了P1
+                    case "P1":
+                        switch (Number (leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-pr1").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-pr1").attr("class","tz4");
+                                break;
+                            case 2:
+                                $("#ceo-tz-pr1").attr("class","tz3_5");
+                                break;
+                            case 3:
+                                $("#ceo-tz-pr1").attr("class","tz3");
+                                break;
+                            case 4:
+                                $("#ceo-tz-pr1").attr("class","tz2");
+                                break;
+                            case 5:
+                                $("#ceo-tz-pr1").attr("class","tz1_5");
+                                break;
+                            case 6:
+                                $("#ceo-tz-pr1").attr("class","tz1");
+                                break;
+                        }
+                        break;
+                    case "P2":
+                        switch (Number (leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-pr2").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-pr2").attr("class","tz4");
+                                break;
+                            case 2:
+                                $("#ceo-tz-pr2").attr("class","tz3_5");
+                                break;
+                            case 3:
+                                $("#ceo-tz-pr2").attr("class","tz3");
+                                break;
+                            case 4:
+                                $("#ceo-tz-pr2").attr("class","tz2");
+                                break;
+                            case 5:
+                                $("#ceo-tz-pr2").attr("class","tz1_5");
+                                break;
+                            case 6:
+                                $("#ceo-tz-pr2").attr("class","tz1");
+                                break;
+                        }
+                        break;
+                    case "P3":
+                        switch (Number (leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-pr3").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-pr3").attr("class","tz4");
+                                break;
+                            case 2:
+                                $("#ceo-tz-pr3").attr("class","tz3_5");
+                                break;
+                            case 3:
+                                $("#ceo-tz-pr3").attr("class","tz3");
+                                break;
+                            case 4:
+                                $("#ceo-tz-pr3").attr("class","tz2");
+                                break;
+                            case 5:
+                                $("#ceo-tz-pr3").attr("class","tz1_5");
+                                break;
+                            case 6:
+                                $("#ceo-tz-pr3").attr("class","tz1");
+                                break;
+                        }
+                        break;
+                    case "P4":
+                        switch (Number (leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-pr4").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-pr4").attr("class","tz4");
+                                break;
+                            case 2:
+                                $("#ceo-tz-pr4").attr("class","tz3_5");
+                                break;
+                            case 3:
+                                $("#ceo-tz-pr4").attr("class","tz3");
+                                break;
+                            case 4:
+                                $("#ceo-tz-pr4").attr("class","tz2");
+                                break;
+                            case 5:
+                                $("#ceo-tz-pr4").attr("class","tz1_5");
+                                break;
+                            case 6:
+                                $("#ceo-tz-pr4").attr("class","tz1");
+                                break;
+                        }
+                        break;
+
+
+                }
+
+
+
+
+            });
+        }
+    });
+
+    //ISO认证显示
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        data: {pageSize: 100, pageNum: 0},
+        url: "/IsoFee/list",
+        contentType: "application/json;charset=utf-8;",
+        success: function (data) {
+            data = data['data'];
+            $.each(data, function (n, value) {
+                var mynumber=value.number;
+                var leftperiod=value.periodLeft;
+                switch (String (mynumber)) {
+                    case "ISO9K":
+                        switch (Number(leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-iso1").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-iso1").attr("class","tz3");
+                                break;
+                            case 2:
+                                $("#ceo-tz-iso1").attr("class","tz1");
+                                break;
+                            
+                        }
+                        break;
+
+                    case "ISO14K":
+                        switch (Number(leftperiod)) {
+                            case 0:
+                                $("#ceo-tz-iso2").attr("class","tz5");
+                                break;
+                            case 1:
+                                $("#ceo-tz-iso2").attr("class","tz3");
+                                break;
+                            case 2:
+                                $("#ceo-tz-iso2").attr("class","tz1");
+                                break;
+
+                        }
+                        break;
+
+                }
+
+            });
+            }
+});
+
+
+
+
     //区域投资
     $("#ok-qy").click(function () {
         var MarketFee = {

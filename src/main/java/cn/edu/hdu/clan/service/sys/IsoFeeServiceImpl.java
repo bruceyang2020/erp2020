@@ -32,7 +32,7 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         //补充相关字段的取值
         IsoFee.setTeamCount(userTeam);
         IsoFee.setGroupId("1000");
-        IsoFee.setPeriodLeft(IsoFee.getPeriod()+1);
+        IsoFee.setPeriodLeft(1);
 
         //删除当前市场开发的记录
         Example example = new Example(IsoFee.class);
@@ -91,5 +91,14 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         Example example = new Example(IsoFee.class);
         example.createCriteria().andEqualTo("id", id);
         return IsoFeeMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<IsoFee> list(String userTeam ,int period) {
+        Example example = new Example(IsoFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        return IsoFeeMapper.selectByExample(example);
     }
 }

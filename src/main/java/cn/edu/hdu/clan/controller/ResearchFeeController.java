@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.ResearchFee;
 import cn.edu.hdu.clan.service.sys.ResearchFeeService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,9 +34,11 @@ public class ResearchFeeController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
-    public String list(@RequestBody Map<String, Integer> param) {
-        return success(ResearchFeeService.list(param.get("pageNum"), param.get("pageSize")));
+    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    public String list() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(ResearchFeeService.list(userTeam,period));
     }
 
     @RequestMapping("getById")

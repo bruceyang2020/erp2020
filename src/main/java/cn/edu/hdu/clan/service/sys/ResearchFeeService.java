@@ -18,4 +18,6 @@ public interface ResearchFeeService {
     PageInfo<ResearchFee> list(int pageNum, int pageSize);
 
     ResearchFee getById(String id);
+
+    List<ResearchFee> list(String userTeam ,int period);
 }

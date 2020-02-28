@@ -37,13 +37,19 @@ public class MarketFeeController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
-    public String list(@RequestBody Map<String, Integer> param) {
-        return success(MarketFeeService.list(param.get("pageNum"), param.get("pageSize")));
+
+    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    public String list() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(MarketFeeService.list(userTeam,period));
     }
 
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(MarketFeeService.getById(param.get("id")));
     }
+
+
+
 }

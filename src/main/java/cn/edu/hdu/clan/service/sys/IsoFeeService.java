@@ -3,6 +3,8 @@ package cn.edu.hdu.clan.service.sys;
 import cn.edu.hdu.clan.entity.sys.IsoFee;
 import com.github.pagehelper.PageInfo;
 
+import java.util.List;
+
 public interface IsoFeeService {
     void add(IsoFee IsoFee);
 
@@ -13,4 +15,6 @@ public interface IsoFeeService {
     PageInfo<IsoFee> list(int pageNum, int pageSize);
 
     IsoFee getById(String id);
+
+    List<IsoFee> list(String userTeam , int period);
 }
