@@ -44,4 +44,12 @@ public class IsoFeeController extends BaseController {
     public String getById(@RequestBody Map<String,String> param) {
         return success(IsoFeeService.getById(param.get("id")));
     }
+
+    @RequestMapping("deleteByPeriod")
+    public String sale(@RequestBody IsoFee IsoFee){
+        String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        IsoFeeService.deleteByPeriod(userTeam,period,IsoFee.getNumber());
+        return success();
+    }
 }

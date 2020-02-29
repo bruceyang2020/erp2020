@@ -101,4 +101,19 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         criteria.andEqualTo("period", period);
         return IsoFeeMapper.selectByExample(example);
     }
+
+    @Override
+    public void deleteByPeriod(String userTeam,Integer period,String number) {
+        //删除ISO认证的记录
+        Example example = new Example(IsoFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("number", number);
+        List<IsoFee> oldRow = IsoFeeMapper.selectByExample(example);
+        if (oldRow.size() > 0) {
+            IsoFeeMapper.deleteByExample(example);
+        }
+        accountingVoucherService.deleteByPeriodAndContent(userTeam,period,number);
+    }
 }

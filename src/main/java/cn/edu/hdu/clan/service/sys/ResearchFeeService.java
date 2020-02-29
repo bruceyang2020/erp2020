@@ -20,4 +20,6 @@ public interface ResearchFeeService {
     ResearchFee getById(String id);
 
     List<ResearchFee> list(String userTeam ,int period);
+
+    void deleteByPeriod(String userTeam,Integer period,String productId);
 }

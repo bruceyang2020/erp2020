@@ -1,8 +1,10 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.sys.AccountingVoucher;
 import cn.edu.hdu.clan.entity.sys.Market;
 import cn.edu.hdu.clan.entity.sys.MarketFee;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
+import cn.edu.hdu.clan.mapper.sys.AccountingVoucherMapper;
 import cn.edu.hdu.clan.mapper.sys.MarketFeeMapper;
 import cn.edu.hdu.clan.util.Jurisdiction;
 import com.github.pagehelper.PageHelper;
@@ -10,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -80,9 +83,20 @@ public class MarketFeeServiceImpl implements MarketFeeService {
 
     }
 
+
     @Override
-    public void delete(String id) {
-        MarketFeeMapper.deleteByPrimaryKey(id);
+    public void deleteByPeriod(String userTeam,Integer period,String marketId) {
+        //删除当前市场开发的记录
+        Example example = new Example(MarketFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("marketId", marketId);
+        List<MarketFee> oldRow = MarketFeeMapper.selectByExample(example);
+        if (oldRow.size() > 0) {
+            MarketFeeMapper.deleteByExample(example);
+        }
+        accountingVoucherService.deleteByPeriodAndContent(userTeam,period,marketId);
     }
 
     @Override

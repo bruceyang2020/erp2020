@@ -140,4 +140,19 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         criteria.andEqualTo("period", period);
         return ResearchFeeMapper.selectByExample(example);
     }
+
+    @Override
+    public void deleteByPeriod(String userTeam,Integer period,String productId) {
+        //删除产品研发的记录
+        Example example = new Example(ResearchFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("productId", productId);
+        List<ResearchFee> oldRow = ResearchFeeMapper.selectByExample(example);
+        if (oldRow.size() > 0) {
+            ResearchFeeMapper.deleteByExample(example);
+        }
+        accountingVoucherService.deleteByPeriodAndContent(userTeam,period,productId);
+    }
 }

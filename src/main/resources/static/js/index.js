@@ -148,7 +148,7 @@ $(document).ready(function () {
         }
     })
     $('#ceo-tz-pr3').click(function () {
-        $('.pop-s10').show()
+        $('.pop-s10').show();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s10').hide();

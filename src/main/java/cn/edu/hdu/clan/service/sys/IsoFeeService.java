@@ -17,4 +17,6 @@ public interface IsoFeeService {
     IsoFee getById(String id);
 
     List<IsoFee> list(String userTeam , int period);
+
+    void deleteByPeriod(String userTeam,Integer period,String number);
 }

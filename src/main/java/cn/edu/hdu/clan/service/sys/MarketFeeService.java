@@ -8,7 +8,7 @@ import java.util.List;
 public interface MarketFeeService {
     void add(MarketFee MarketFee);
 
-    void delete(String id);
+    void deleteByPeriod(String userTeam,Integer period,String marketId);
 
     void update(MarketFee MarketFee);
 

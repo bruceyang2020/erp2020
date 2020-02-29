@@ -365,4 +365,22 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
      }
 
     }
+
+
+    @Override
+    public void deleteByPeriodAndContent(String userTeam,Integer period,String content) {
+
+        //删除当前期间某一项的凭证记录
+        Example example = new Example(AccountingVoucher.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("substract", content);
+        List<AccountingVoucher> oldRow1 = AccountingVoucherMapper.selectByExample(example);
+        if(oldRow1.size() > 0)
+        {
+            AccountingVoucherMapper.deleteByExample(example);
+        }
+    }
+
 }

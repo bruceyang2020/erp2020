@@ -25,11 +25,14 @@ public class MarketFeeController extends BaseController {
         return success();
     }
 
-    @RequestMapping("delete")
-    public String delete(@RequestBody Map<String,String> param) {
-        MarketFeeService.delete(param.get("id"));
+    @RequestMapping("deleteByPeriod")
+    public String sale(@RequestBody MarketFee MarketFee){
+        String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        MarketFeeService.deleteByPeriod(userTeam,period,MarketFee.getMarketId());
         return success();
     }
+
 
     @RequestMapping("update")
     public String update(@RequestBody MarketFee MarketFee){

@@ -22,4 +22,6 @@ public interface AccountingVoucherService {
 
     void transferProfitAndLoss(String teamCount, int period);
 
+    void deleteByPeriodAndContent(String userTeam,Integer period,String content);
+
 }
