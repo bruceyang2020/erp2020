@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Marketing Pre Sheet</title>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
     <script type="text/javascript" src="js/exporting.js"></script>
     <script type="text/javascript">
@@ -14,37 +14,21 @@
 
             $('#container').highcharts({
                 chart: {
+                    renderTo: "container",
+                    type: "column"
                 },
                 title: {
                     text: '市场预测'
                 },
                 //x轴
-                xAxis: {
-                    categories: ['本地', '区域', '国内', '亚洲', '国际']
+                xAxis: { categories:
+                        [{ name:"本地",categories:["1","2","3","4","5","6"]},
+                        {name:"区域",categories:["1","2","3","4","5","6"]},
+                        {name:"国内",categories:["1","2","3","4","5","6"]},
+                        {name:"亚洲",categories:["1","2","3","4","5","6"]},
+                        {name:"国际",categories:["1","2","3","4","5","6"]}]
                 },
-                tooltip: {
-                    formatter: function() {
-                        var s;
-                        if (this.point.name) { // the pie chart
-                            s = ''+
-                                this.point.name +': '+ this.y +' fruits';
-                        } else {
-                            s = ''+
-                                this.x  +': '+ this.y;
-                        }
-                        return s;
-                    }
-                },
-                labels: {
-                    items: [{
-                        html: 'Total market sharing',
-                        style: {
-                            left: '40px',
-                            top: '8px',
-                            color: 'black'
-                        }
-                    }]
-                },
+
                 series: [{
                     type: 'column',
                     name: 'P1',
