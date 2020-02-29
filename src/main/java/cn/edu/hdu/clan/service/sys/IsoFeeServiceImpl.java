@@ -95,6 +95,7 @@ public class IsoFeeServiceImpl implements IsoFeeService {
 
     @Override
     public List<IsoFee> list(String userTeam ,int period) {
+        //Y 列表查询ISO的信息。
         Example example = new Example(IsoFee.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
@@ -104,7 +105,7 @@ public class IsoFeeServiceImpl implements IsoFeeService {
 
     @Override
     public void deleteByPeriod(String userTeam,Integer period,String number) {
-        //删除ISO认证的记录
+        //H 删除ISO认证的行，并删除本期会计凭证
         Example example = new Example(IsoFee.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);

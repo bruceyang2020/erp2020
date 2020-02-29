@@ -11,7 +11,7 @@
         $(function () {
 
              var mydata = {pageSize: 100, pageNum: 0};
-            //获取市场订单的合计数
+            /*//获取市场订单的金额合计*/
             $.ajax({
                 type: "post",
                 dataType: "json",
@@ -22,7 +22,7 @@
                    var  mydata = data['data'];
                     console.log(mydata);
                     console.log(mydata["P1"]);
-                    console.log('获取市场订单的数量合计');
+                    console.log('获取市场订单的金额合计');
                     $('#containerPriceTotal').highcharts({
                         chart: {
                             renderTo: "containerPriceTotal",
