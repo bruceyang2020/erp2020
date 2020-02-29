@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Marketing Pre Sheet</title>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="js/highcharts.js"></script>
+    <script type="text/javascript" src="js/exporting.js"></script>
+    <script type="text/javascript" src="js/grouped-categories.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+             var mydata = {pageSize: 100, pageNum: 0};
+            //获取市场订单的合计数
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(mydata),
+                url: "/OrderGroup/listAllPriceTotal",
+                contentType: "application/json;charset=utf-8;",
+                success: function (data) {
+                   var  mydata = data['data'];
+                    console.log(mydata);
+                    console.log(mydata["P1"]);
+                    console.log('获取市场订单的数量合计');
+                    $('#containerPriceTotal').highcharts({
+                        chart: {
+                            renderTo: "containerPriceTotal",
+                            type: "column"
+                        },
+                        title: {
+                            text: '市场订单总金额预测试'
+                        },
+                        //x轴
+                        xAxis: { categories:
+                                [{
+                                    name:"本地",
+                                    categories:["1","2","3","4","5","6"]
+                                },
+                                    {name:"区域",categories:["1","2","3","4","5","6"]},
+                                    {name:"国内",categories:["1","2","3","4","5","6"]},
+                                    {name:"亚洲",categories:["1","2","3","4","5","6"]},
+                                    {name:"国际",categories:["1","2","3","4","5","6"]},
+                                ]
+                        },
+
+                        series: [{
+                            type: 'column',
+                            name: 'P1',
+                            data: mydata["P1"]
+                        }, {
+                            type: 'column',
+                            name: 'P2',
+                            data: mydata["P2"]
+                        }, {
+                            type: 'column',
+                            name: 'P3',
+                            data: mydata["P3"]
+                        },{
+                            type: 'column',
+                            name: 'P4',
+                            data: mydata["P4"]
+                        }]
+                    });
+
+                }
+            })
+
+        });
+    </script>
+</head>
+<body>
+<div id="containerPriceTotal" style="width:100%;height:480px;margin:0 auto">
+</div>
+</body>
+</html>
