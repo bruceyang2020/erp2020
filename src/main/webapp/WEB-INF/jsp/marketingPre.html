@@ -6,12 +6,9 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script type="text/javascript" src="js/highcharts.js"></script>
     <script type="text/javascript" src="js/exporting.js"></script>
+    <script type="text/javascript" src="js/grouped-categories.js"></script>
     <script type="text/javascript">
         $(function () {
-
-
-
-
             $('#container').highcharts({
                 chart: {
                     renderTo: "container",
@@ -22,72 +19,40 @@
                 },
                 //x轴
                 xAxis: { categories:
-                        [{ name:"本地",categories:["1","2","3","4","5","6"]},
+                        [{
+                         name:"本地",
+                         categories:["1","2","3","4","5","6"]
+                        },
                         {name:"区域",categories:["1","2","3","4","5","6"]},
                         {name:"国内",categories:["1","2","3","4","5","6"]},
                         {name:"亚洲",categories:["1","2","3","4","5","6"]},
-                        {name:"国际",categories:["1","2","3","4","5","6"]}]
+                        {name:"国际",categories:["1","2","3","4","5","6"]},
+                       ]
                 },
 
                 series: [{
                     type: 'column',
                     name: 'P1',
-                    data: [3, 2, 1, 3, 4]
+                    data: [3, 2, 1, 3, 4,3, 2, 1, 3, 4,3, 2, 1, 3, 4,3, 2, 1, 3, 4,3, 2, 1, 3, 4,3, 2, 1, 3, 4]
                 }, {
                     type: 'column',
                     name: 'P2',
-                    data: [2, 3, 5, 7, 6]
+                    data: [2, 3, 5, 7, 6,2, 3, 5, 7, 6,2, 3, 5, 7, 6,2, 3, 5, 7, 6,2, 3, 5, 7, 6,2, 3, 5, 7, 6]
                 }, {
                     type: 'column',
                     name: 'P3',
-                    data: [4, 3, 3, 9, 0]
+                    data: [4, 3, 3, 9, 0,4, 3, 3, 9, 0,4, 3, 3, 9, 0,4, 3, 3, 9, 0,4, 3, 3, 9, 0,4, 3, 3, 9, 0]
                 },{
                     type: 'column',
                     name: 'P4',
-                    data: [4, 3, 1, 5, 2]
-                }, {
-                    type: 'spline',
-                    name: 'Average',
-                    data: [3, 2.67, 3, 6.33, 3.33],
-                    marker: {
-                        lineWidth: 2,
-                        lineColor: Highcharts.getOptions().colors[4],
-                        fillColor: 'white'
-                    }
-                }, {
-                    type: 'pie',
-                    name: 'Total market sharing',
-                    data: [{
-                        name: 'P1',
-                        y: 13,
-                        color: Highcharts.getOptions().colors[0]
-                    }, {
-                        name: 'P2',
-                        y: 23,
-                        color: Highcharts.getOptions().colors[1]
-                    }, {
-                        name: 'P3',
-                        y: 19,
-                        color: Highcharts.getOptions().colors[2]
-                    },{
-                        name: 'P4',
-                        y: 15,
-                        color: Highcharts.getOptions().colors[3]
-                    }],
-                    center: [100, 80],
-                    size: 100,
-                    showInLegend: false,
-                    dataLabels: {
-                        enabled: false
-                    }
+                    data: [4, 3, 1, 5, 2,4, 3, 1, 5, 2,4, 3, 1, 5, 2,4, 3, 1, 5, 2,4, 3, 1, 5, 2,4, 3, 1, 5, 2]
                 }]
             });
         });
     </script>
 </head>
 <body>
-<div id="container" style="width:560px;height:480px;margin:0 auto">
-
+<div id="container" style="width:100%;height:480px;margin:0 auto">
 </div>
 </body>
 </html>

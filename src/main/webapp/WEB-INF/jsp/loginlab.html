@@ -1,10 +1,10 @@
-﻿<!doctype html>
+﻿﻿<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>登录-集成ilab-x</title>
     <link rel="stylesheet" type="text/css" href="style/login.css" />
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
     <script>
         $(document).ready(function () {
             var GetLabInfo={
@@ -116,8 +116,15 @@
                 });
             }
             else{
-                var str = {
+             /*  随机生成一个新的账号。暂时不需要使用。如果教育部的平台没有正确的获取账号。你
+             就使用默认的账号。yang 密码1 。
+              var str = {
                     "username": "ERP"+rand(10),
+                    "password": "1"
+                };*/
+
+                var str = {
+                    "username": "yang",
                     "password": "1"
                 };
 

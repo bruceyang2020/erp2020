@@ -70,7 +70,7 @@ html,body,#wrapper{
     background:url(erp-ceo-cw-hover.svg) no-repeat;
 }
 #balance-wrap,#income-wrap,#marketingpre-wrap,#pro-wrap{
-    width: 580px;
+    width: 100%;
     height: 500px;
 }
 #advertise-wrap{
@@ -91,7 +91,28 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 #pop-content {background: #fff;	 padding: 10px; height: 470px;	position: relative;	 border-radius: 0 5px 5px 5px; box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);	}
 .item{display: none;	}
 .show{display: block;	}
-.pop,.pop2,.pop3,.pop4,.pop-p1,.pop-p2,.pop-p3,.pop-p4{
+
+
+.pop2{
+    display: none;
+    width: 800px;
+    min-height: 600px;
+    max-height: 750px;
+    height:600px;
+    position: absolute;
+    top: 700px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 25px;
+    z-index: 130;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+}
+
+.pop,.pop3,.pop4,.pop-p1,.pop-p2,.pop-p3,.pop-p4{
     display: none;
     width: 600px;
     min-height: 600px;

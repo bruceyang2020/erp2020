@@ -227,14 +227,23 @@ public class IndexController extends BaseController {
     @RequestMapping("/loginlabTo")
     public String loginlabTo(@RequestBody Map<String, String> params) {
         String userName = params.get("username");
+        Subject subject = SecurityUtils.getSubject();
         try{
-            SysUser sysUser1  = userService.findByUsername("yang");
+            // 调用安全认证框架的登录方法
+            subject.login(new UsernamePasswordToken("yang", "1")); //用默认的用户先登录
             Session session = Jurisdiction.getSession();
-            session.setAttribute(Const.SESSION_USER,sysUser1);
-            session.setAttribute(Const.SESSION_USERID,sysUser1.getId());
+
+            SysUser sysUser  = userService.findByUsername("yang");
+            SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
+
+            session.setAttribute(Const.SESSION_USER,sysUser);
+            session.setAttribute(Const.SESSION_USERID,sysUser.getId());
+            session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
+            session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
 
 
-            SysUser sysUser2  = userService.findByUsername(params.get("username"));
+
+            SysUser sysUser2  = userService.findByUsername(userName);
 
 
 
@@ -248,13 +257,13 @@ public class IndexController extends BaseController {
                 sysTeamService.add(userTeam);
                 userTeam = sysTeamService.getByName(userName);
 
-                SysUser sysUser = new SysUser();
-                sysUser.setUsername(userName);
-                sysUser.setTeamId(userTeam.getId());
-                sysUser.setPassword("123456");
-                sysUser.setRegistrationTime(new Date());
-                sysUser.setTelephome(800);
-                sysUserService.add(sysUser);
+                SysUser userNew = new SysUser();
+                userNew.setUsername(userName);
+                userNew.setTeamId(userTeam.getId());
+                userNew.setPassword("123456");
+                userNew.setRegistrationTime(new Date());
+                userNew.setTelephome(800);
+                sysUserService.add(userNew);
 
                 SysUser sysUser3  = userService.findByUsername(userName);
                 session.setAttribute(Const.SESSION_USER,sysUser3);
@@ -262,16 +271,13 @@ public class IndexController extends BaseController {
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser3.getTeamId());
                 session.setAttribute(Const.SESSION_USERPERIOD,userTeam.getState().toString());  //当前的会计期间
 
-                String myUserTeam = sysUser3.getTeamId();
-
-                sysTeamService.reloadData(myUserTeam,1);
 
             }else{
-                SysTeam  sysTeam = sysTeamService.getById(sysUser2.getTeamId());
+                SysTeam  sysTeam2 = sysTeamService.getById(sysUser2.getTeamId());
                 session.setAttribute(Const.SESSION_USER,sysUser2);
                 session.setAttribute(Const.SESSION_USERID,sysUser2.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser2.getTeamId());
-                session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
+                session.setAttribute(Const.SESSION_USERPERIOD,sysTeam2.getState().toString());  //当前的会计期间
             }
 
 

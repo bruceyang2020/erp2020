@@ -8,7 +8,7 @@ class ShaderProgram {
             mousemove: false,
             autosize: true,
             side: 'front',
-            vertex: '
+            vertex: `
         precision highp float;
 
         attribute vec4 a_position;
@@ -28,8 +28,8 @@ class ShaderProgram {
 
           v_color = a_color;
 
-        }',
-            fragment: '
+        }`,
+            fragment: `
         precision highp float;
 
         uniform sampler2D u_texture;
@@ -49,7 +49,7 @@ class ShaderProgram {
 
           }
 
-        }',
+        }`,
             uniforms: {},
             buffers: {},
             camera: {},
