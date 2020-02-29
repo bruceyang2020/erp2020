@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.IsoFee;
 import cn.edu.hdu.clan.service.sys.IsoFeeService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,13 +34,22 @@ public class IsoFeeController extends BaseController {
         return success();
     }
 
-    @RequestMapping("list")
-    public String list(@RequestBody Map<String, Integer> param) {
-        return success(IsoFeeService.list(param.get("pageNum"), param.get("pageSize")));
+    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    public String list() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(IsoFeeService.list(userTeam,period));
     }
-
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(IsoFeeService.getById(param.get("id")));
+    }
+
+    @RequestMapping("deleteByPeriod")
+    public String sale(@RequestBody IsoFee IsoFee){
+        String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        IsoFeeService.deleteByPeriod(userTeam,period,IsoFee.getNumber());
+        return success();
     }
 }

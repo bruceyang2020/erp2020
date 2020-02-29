@@ -34,7 +34,7 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         //补充相关字段的取值
         ResearchFee.setTeamCount(userTeam);
         ResearchFee.setGroupId("1000");
-        ResearchFee.setPeriodLeft(ResearchFee.getPeriod()+1);
+        ResearchFee.setPeriodLeft(5);
 
         //删除当前市场开发的记录
         Example example = new Example(ResearchFee.class);
@@ -130,5 +130,29 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         Example example = new Example(ResearchFee.class);
         example.createCriteria().andEqualTo("id", id);
         return ResearchFeeMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<ResearchFee> list(String userTeam ,int period) {
+        Example example = new Example(ResearchFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        return ResearchFeeMapper.selectByExample(example);
+    }
+
+    @Override
+    public void deleteByPeriod(String userTeam,Integer period,String productId) {
+        //删除产品研发的记录
+        Example example = new Example(ResearchFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("productId", productId);
+        List<ResearchFee> oldRow = ResearchFeeMapper.selectByExample(example);
+        if (oldRow.size() > 0) {
+            ResearchFeeMapper.deleteByExample(example);
+        }
+        accountingVoucherService.deleteByPeriodAndContent(userTeam,period,productId);
     }
 }
