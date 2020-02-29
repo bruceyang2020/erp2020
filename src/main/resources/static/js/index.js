@@ -323,6 +323,12 @@ $(function(){
         if($(this).attr('title')=="tab2"){
             //打开第二页操作
         }
+        if($(this).attr('title')=="tab3"){
+            //打开第三页操作
+        }
+        if($(this).attr('title')=="tab4"){
+            //打开第四页操作
+        }
     });
     $('#tabs a').hover(function(){
         if(!$(this).parent().hasClass("current")){
@@ -338,6 +344,15 @@ function reinitIframe() {
 
         iframe.height = bHeight;
     } catch (ex) { };
+
+    var iframe = document.getElementById("marketingprePriceTotal-wrap");
+    try {
+        var bHeight = iframe.contentWindow.document.body.scrollHeight;
+
+        iframe.height = bHeight;
+    } catch (ex) { };
+
+
 
     var iframe = document.getElementById("advertise-wrap");
     try {

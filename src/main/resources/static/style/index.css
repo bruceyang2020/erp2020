@@ -69,10 +69,15 @@ html,body,#wrapper{
 #ceo-cw:hover{
     background:url(erp-ceo-cw-hover.svg) no-repeat;
 }
-#balance-wrap,#income-wrap,#marketingpre-wrap,#pro-wrap{
+#balance-wrap,#income-wrap,#pro-wrap{
     width: 100%;
     height: 500px;
 }
+#marketingpre-wrap,#marketingprePriceTotal-wrap{
+    width: 100%;
+    height: 500px;
+}
+
 #advertise-wrap{
     width: 420px;
     height:500px;

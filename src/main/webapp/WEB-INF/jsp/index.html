@@ -99,8 +99,23 @@
                     <input name="market-report" id="ceo-sc" type="button"/>
                     <!--市场预测弹出框-->
                     <div class="pop2">
-                        <iframe src="marketingPre.html" id="marketingpre-wrap" frameborder="0"
+                        <div class="tab-contain">
+                        <ul id="tabs">
+                            <li class="current"><a href="#" title="tab3">数量预测</a></li>
+                            <li><a href="#" title="tab4">金额预测</a></li>
+                        </ul>
+                            <div id="pop-content">
+                            <div id="tab3" class="item show">
+                                <iframe src="marketingPre.html" id="marketingpre-wrap" frameborder="0"
                                 ></iframe>
+                            </div>
+                            <div id="tab4" class="item">
+                                <iframe src="marketingPrePriceTotal.html" id="marketingprePriceTotal-wrap" frameborder="0"
+                                ></iframe>
+                            </div>
+                           </div>
+                        </div>
+
                         <div class="pop-foot">
                             <input type="button" value="关闭" class="pop-cancel pop-close">
                         </div>

@@ -52,6 +52,17 @@ public class OrderGroupServiceImpl implements OrderGroupService {
     }
 
     @Override
+    public List<OrderGroup> listAll() {
+
+        //全局变量 写入当前公司或小组ID
+        int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        Example example = new Example(OrderGroup.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("groupId", "1000");
+        return OrderGroupMapper.selectByExample(example);
+    }
+
+    @Override
     public OrderGroup getById(String id) {
         Example example = new Example(OrderGroup.class);
         example.createCriteria().andEqualTo("id", id);

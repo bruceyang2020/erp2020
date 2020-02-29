@@ -91,6 +91,10 @@ public class IndexController extends BaseController {
     public String marketingPre() {
         return "marketingPre";
     }
+    @RequestMapping("/marketingPrePriceTotal")
+    public String marketingPrePriceTotal() {
+        return "marketingPrePriceTotal";
+    }
     @RequestMapping("/ordersheet")
     public String ordersheet() {
         return "ordersheet";

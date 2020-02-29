@@ -13,6 +13,8 @@ public interface OrderGroupService {
 
     List<OrderGroup> list(String productId);
 
+    List<OrderGroup> listAll();
+
     OrderGroup getById(String id);
 
     OrderGroup getByOrderId(String orderId);
