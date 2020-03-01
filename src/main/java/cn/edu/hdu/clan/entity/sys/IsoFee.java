@@ -191,10 +191,10 @@ public class IsoFee extends BaseBean {
     /**
      * 设置创建时间
      *
-     * @param creaeTime 创建时间
+     * @param createTime 创建时间
      */
-    public void setCreateTime(Date creaeTime) {
-        this.createTime = creaeTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     /**

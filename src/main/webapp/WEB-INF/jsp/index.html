@@ -29,6 +29,8 @@
                 $("#currentAp").val(data.currentAp);  //获取当前会计期间
                 $("#currentUser").val(data.currentUser);  //获取当前用户名
                 $("#currentTeam").val(data.currentTeam);  //获取当前的群组ID
+                $("#userset-period").html(data.currentAp);  //获取当前会计期间
+                $("#userset-user").html(data.currentUser);  //获取当前用户名
                 console.log(data.currentAp);
                 console.log($("#currentAp").val()+"全局会计期间");
 
@@ -69,6 +71,7 @@
     </script>
 </head>
 <body>
+
 <div id="wrap">
     <div id="wrapper">
         <div class="erp">
@@ -466,6 +469,8 @@
 
 <!--//以下都是弹窗部分
 //弹窗-结算本季-->
+
+
 <div class="pop-jz">
     <h3>结转本季内容包括：</h3>
     1.生产线的生产进度刷新，产品入库。</br>
@@ -473,10 +478,26 @@
     3.财务部“现金池”刷新，扣减当期费用，自动计算现金余额。 </br>
     <h3>是否结转本季?</h3>
     <div class="pop-foot">
-        <input name="final" id="reloaddata"  type="button" value="初始化" class="pop-cancel pop-close">
-        <input name="final" id="final"  type="button" value="结束推演" class="pop-cancel pop-close">
         <input type="button" value="取消" class="pop-cancel pop-close">
         <input type="button" value="确定" class="pop-cancel pop-close" id="Accountingclosing">
+    </div>
+</div>
+
+
+<div class="pop-userset">
+    <table>
+        <tr>
+            <td>用户编码：</td><td><div id="userset-user"></div></td>
+        </tr>
+        <tr>
+            <td>会计期间：</td><td><div id="userset-period"></div></td>
+        </tr>
+
+    </table>
+    <div class="pop-foot">
+        <input name="final" id="reloaddata"  type="button" value="初始化" class="pop-cancel pop-close">
+        <input name="final" id="final"  type="button" value="结束推演" class="pop-cancel pop-close">
+        <input type="button" value="关闭" class="pop-cancel pop-close">
     </div>
 </div>
 
@@ -586,6 +607,8 @@
 
 </div>
 <!--点击每条生产线的弹窗部分END-->
+<!--一个悬浮窗体-->
+<div id = "menuUserSet" class = "userset">系统设置</div>
 
 <!--//这一部分代码是接口专用BEGIN-->
 <input type="hidden" name="eId" id="eId"  value = "0" />

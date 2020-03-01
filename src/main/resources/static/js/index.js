@@ -1,4 +1,11 @@
 $(document).ready(function () {
+
+    var menuYloc = $("#menuUserSet").offset().top;
+    $(window).scroll(function () {
+        var offsetTop = menuYloc;       /* $(window).scrollTop() + "px";*/
+        $("#menuUserSet").animate({top: offsetTop}, {duration: 600, queue: false});
+    });
+
     $('#ceo-cw').click(function () {
     $('.pop').show();
     });
@@ -8,9 +15,18 @@ $(document).ready(function () {
         $('.pop-jz').show()
     });
 
+    $('#menuUserSet').click(function () {
+        $('.pop-userset').show()
+    });
+
+
 
     $('.pop-close').click(function () {
         $('.pop-jz').hide();
+    });
+
+    $('.pop-close').click(function () {
+        $('.pop-userset').hide();
     });
 
 
