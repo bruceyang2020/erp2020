@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.*;
 import java.util.List;
 
 @Service
@@ -82,6 +83,15 @@ public class IncomesheetServiceImpl implements IncomesheetService {
     public Incomesheet getById(String id) {
         Example example = new Example(Incomesheet.class);
         example.createCriteria().andEqualTo("id", id);
+        return IncomesheetMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public Incomesheet getByUserTeamAndPeriod(String userTeam,int period) {
+        Example example = new Example(Incomesheet.class);
+        Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
         return IncomesheetMapper.selectOneByExample(example);
     }
 

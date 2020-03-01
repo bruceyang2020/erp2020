@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.Incomesheet;
 import cn.edu.hdu.clan.service.sys.IncomesheetService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +48,14 @@ public class IncomesheetController extends BaseController {
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(IncomesheetService.getById(param.get("id")));
+    }
+
+
+    @RequestMapping("listbyUserTeamAndPeriod")
+    public String getByUserTeamAndPeriod(@RequestBody Incomesheet Incomesheet) {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Incomesheet.getPeriod();
+        return success(IncomesheetService.getByUserTeamAndPeriod(userTeam,period));
     }
 
 }
