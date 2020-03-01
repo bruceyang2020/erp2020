@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -86,5 +87,21 @@ public class ShortTermLoanServiceImpl implements ShortTermLoanService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         return ShortTermLoanMapper.selectByExample(example);
+    }
+
+    @Override
+    public void voucherMakerOfInterest(String userTeam,int period) {
+        //H 按teamCount取出所有短贷
+         Example example = new Example(ShortTermLoan.class);
+         Example.Criteria criteria = example.createCriteria();
+         criteria.andEqualTo("teamCount", userTeam);
+          List<ShortTermLoan> myList = ShortTermLoanMapper.selectByExample(example);
+          //H 计算利息累加
+          BigDecimal shortTermLoanInterest = BigDecimal.valueOf(0);
+          for (int i = 0; i < myList.size(); i++) {
+               shortTermLoanInterest = shortTermLoanInterest.add(myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.1)).setScale(0, BigDecimal.ROUND_DOWN));
+          }
+                //H 利息记账
+        accountingVoucherService.voucherMaker(userTeam, period, shortTermLoanInterest, "LXFY", "短期贷款利息");
     }
 }

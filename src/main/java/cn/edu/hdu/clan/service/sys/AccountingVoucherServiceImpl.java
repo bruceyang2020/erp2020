@@ -118,6 +118,19 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                     AccountingVoucherMapper.insert(vd2);
                     netMoney= netMoney.subtract(myMoneyD);
                     break;
+                case "财务支出":
+                    AccountingVoucher vd6 = new AccountingVoucher();
+                    vd6.setTeamCount(teamCount);
+                    vd6.setPeriod(period);
+                    vd6.setSubstract(content);
+                    vd6.setAcode(myCode);
+                    vd6.setAname(myCode);
+                    vd6.setMoneyD(BigDecimal.valueOf(0));
+                    vd6.setMoneyC(myMoneyD);
+                    BaseBeanHelper.insert(vd6);
+                    AccountingVoucherMapper.insert(vd6);
+                    netMoney= netMoney.subtract(myMoneyD);
+                    break;
                 case "其它支出":
                     AccountingVoucher vd3 = new AccountingVoucher();
                     vd3.setTeamCount(teamCount);
@@ -131,7 +144,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                     AccountingVoucherMapper.insert(vd3);
                     netMoney= netMoney.subtract(myMoneyD);
                     break;
-                case "折旧":
+                case "折旧费用":
                     netMoney= netMoney.subtract(myMoneyC);  //计算利润的时候要扣减一个折旧科目的贷方发生额。
                     break;
 
@@ -359,8 +372,18 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             case "SCXZC":
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                 break;
-
-
+                //H 管理费用结转
+            case "GLFY":
+                voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
+                break;
+                //H 折旧费用结转
+            case "ZJFY":
+                voucherMakerBase(teamCount,period,"综合费用","折旧",amount,content);
+                break;
+                //H 利息费用结转
+            case "LXFY":
+                voucherMakerBase(teamCount,period,"财务支出","现金",amount,content);
+                break;
 
      }
 

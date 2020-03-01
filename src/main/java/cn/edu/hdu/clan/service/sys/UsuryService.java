@@ -18,4 +18,6 @@ public interface UsuryService {
     Usury getById(String id);
     List<Usury> list();
     List<Usury> getByUserIdAndPeriod(String userTeam);
+
+    void voucherMakerOfInterest(String userTeam,int period);
 }

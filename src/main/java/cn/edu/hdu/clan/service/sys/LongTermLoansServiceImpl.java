@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import javax.lang.model.element.VariableElement;
+import java.math.BigDecimal;
+import java.sql.Array;
 import java.util.List;
 import java.util.UUID;
 import java.util.Date;
@@ -26,6 +29,9 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
 
     @Resource
     private AccountingVoucherService accountingVoucherService;
+
+    @Resource
+    private LongTermLoansService longTermLoansService;
 
     @Transactional
     @Override
@@ -121,5 +127,30 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
 
         return LongTermLoansMapper.selectByExample(example);
     }
+
+    //H 长贷利息期末结转记账
+    @Override
+    public void voucherMakerOfInterest(String userTeam,int period) {
+        int[] periodnumber;
+        periodnumber =new int[]{4,8,12,16,20,24};  //H 第四期末,第八期末。。。
+        for (int l=0;l<periodnumber.length;l++){
+        if(period==periodnumber[l]){
+                //H 按teamCount取出所有长贷
+                Example example = new Example(LongTermLoans.class);
+                Example.Criteria criteria = example.createCriteria();
+                criteria.andEqualTo("teamCount", userTeam);
+                List<LongTermLoans> myList = LongTermLoansMapper.selectByExample(example);
+                //H 计算利息累加
+                BigDecimal longTermLoaninterest = BigDecimal.valueOf(0);
+                for (int i = 0; i < myList.size(); i++) {
+                    longTermLoaninterest = longTermLoaninterest.add(myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.05)).setScale(0, BigDecimal.ROUND_DOWN));
+                }
+                //H 利息记账
+                accountingVoucherService.voucherMaker(userTeam, period, longTermLoaninterest, "LXFY", "长期贷款利息");
+            }
+        }
+        return;
+    }
+
 
 }
