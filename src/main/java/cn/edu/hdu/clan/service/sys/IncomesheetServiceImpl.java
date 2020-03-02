@@ -119,4 +119,24 @@ public class IncomesheetServiceImpl implements IncomesheetService {
 
     }
 
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(Incomesheet.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<Incomesheet> factorys = IncomesheetMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                Incomesheet myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                IncomesheetMapper.insert(myRow);
+
+            }
+        }
+
+    }
 }

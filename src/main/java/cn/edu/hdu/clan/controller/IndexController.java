@@ -72,6 +72,9 @@ public class IndexController extends BaseController {
     @Resource
     private UsuryService usuryService;
 
+    @Resource
+    private InvService invService;
+
 
 
 
@@ -226,6 +229,8 @@ public class IndexController extends BaseController {
 
         int nextPeriod = Integer.parseInt(Jurisdiction.getUserTeamintPeriod())+1;  //注意：结账的时候，会计期间要跳转到下一期。+1
 
+        sysTeamService.nextPeriod(userTeam,nextPeriod);
+
         //原材料订单到期，会计账务处理：现金减少
         materialOrderService.payment(userTeam,nextPeriod);
 
@@ -240,6 +245,17 @@ public class IndexController extends BaseController {
         //复制生产线信息到下一会计期间。
         productLineService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
+        //复制存货信息到下一个会计期间
+        invService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        //复制科目余额表到下一期
+        accountBalanceService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        //复制资产负债表到下一期
+        balancesheetService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        //复制利润表到下一期
+        incomesheetService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
 
 

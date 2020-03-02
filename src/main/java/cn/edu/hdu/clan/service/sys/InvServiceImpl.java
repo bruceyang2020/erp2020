@@ -32,8 +32,8 @@ public class InvServiceImpl implements InvService {
         InvMapper.insert(Inv);
     }
 
-    public void adds(List<Inv>  invs) {
-        if(invs.size() > 0) {
+    public void adds(List<Inv> invs) {
+        if (invs.size() > 0) {
             for (int i = 0; i < invs.size(); i++) {
                 String userTeam = Jurisdiction.getUserTeam();
                 int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
@@ -49,7 +49,7 @@ public class InvServiceImpl implements InvService {
 
     @Override
     public void delete(String id) {
-    InvMapper.deleteByPrimaryKey(id);
+        InvMapper.deleteByPrimaryKey(id);
     }
 
     @Override
@@ -75,14 +75,13 @@ public class InvServiceImpl implements InvService {
         return new PageInfo<>(InvMapper.selectAll());
     }
 
-    public void stockOutToProduce(String userTeam,int period,String product ,int amount,String content)
-    {
+    public void stockOutToProduce(String userTeam, int period, String product, int amount, String content) {
         Example example = new Example(Inv.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period);
         criteria.andEqualTo("number", product);
-        Inv  inv =    InvMapper.selectOneByExample(example);
+        Inv inv = InvMapper.selectOneByExample(example);
         BigDecimal amountOut = inv.getAmountO();
         BigDecimal moneyOut = inv.getMoneyO();
         inv.setAmountO(amountOut.subtract(new BigDecimal(amount)));
@@ -98,14 +97,13 @@ public class InvServiceImpl implements InvService {
     }
 
 
-    public void stockOutToSale(String userTeam,int period,String product ,int amount,String content)
-    {
+    public void stockOutToSale(String userTeam, int period, String product, int amount, String content) {
         Example example = new Example(Inv.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period);
         criteria.andEqualTo("number", product);
-        Inv  inv =    InvMapper.selectOneByExample(example);
+        Inv inv = InvMapper.selectOneByExample(example);
         BigDecimal amountOut = inv.getAmountO();
         BigDecimal moneyOut = inv.getMoneyO();
         inv.setAmountO(amountOut.subtract(new BigDecimal(amount)));
@@ -121,13 +119,13 @@ public class InvServiceImpl implements InvService {
     }
 
     @Override
-    public List<Inv> listInv(String userTeam,int period) {
+    public List<Inv> listInv(String userTeam, int period) {
 
         Example example = new Example(Inv.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period);
-        return  InvMapper.selectByExample(example);
+        return InvMapper.selectByExample(example);
     }
 
 
@@ -136,5 +134,25 @@ public class InvServiceImpl implements InvService {
         Example example = new Example(Inv.class);
         example.createCriteria().andEqualTo("id", id);
         return InvMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<Inv> factorys = InvMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                Inv myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                InvMapper.insert(myRow);
+
+            }
+        }
+
     }
 }

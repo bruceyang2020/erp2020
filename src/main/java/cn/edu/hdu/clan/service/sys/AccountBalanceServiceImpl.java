@@ -150,4 +150,25 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         example.createCriteria().andEqualTo("period", period);
         return AccountBalanceMapper.selectByExample(example);
     }
+
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(AccountBalance.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<AccountBalance> factorys = AccountBalanceMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                AccountBalance myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                AccountBalanceMapper.insert(myRow);
+
+            }
+        }
+
+    }
 }

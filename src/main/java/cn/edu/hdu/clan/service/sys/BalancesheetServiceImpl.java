@@ -152,4 +152,24 @@ public class BalancesheetServiceImpl implements BalancesheetService {
         BaseBeanHelper.insert(balancesheet);
         BalancesheetMapper.insert(balancesheet);
     }
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(Balancesheet.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<Balancesheet> factorys = BalancesheetMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                Balancesheet myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                BalancesheetMapper.insert(myRow);
+
+            }
+        }
+
+    }
 }
