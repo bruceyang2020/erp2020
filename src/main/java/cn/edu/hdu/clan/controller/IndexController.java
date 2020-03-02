@@ -1,10 +1,7 @@
 package cn.edu.hdu.clan.controller;
 
 
-import cn.edu.hdu.clan.entity.sys.AccountBalance;
-import cn.edu.hdu.clan.entity.sys.Factory;
-import cn.edu.hdu.clan.entity.sys.SysTeam;
-import cn.edu.hdu.clan.entity.sys.SysUser;
+import cn.edu.hdu.clan.entity.sys.*;
 import cn.edu.hdu.clan.service.sys.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.rmi.CORBA.Util;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +62,17 @@ public class IndexController extends BaseController {
 
     @Resource
     private AccountingVoucherService accountingVoucherService;
+
+    @Resource
+    private LongTermLoansService longTermLoansService;
+
+    @Resource
+    private ShortTermLoanService shortTermLoanService;
+
+    @Resource
+    private UsuryService usuryService;
+
+
 
 
     @RequestMapping("/")
@@ -177,11 +186,30 @@ public class IndexController extends BaseController {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
+        //H 扣减行政管理费用会计凭证
+        accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("10"),"GLFY","管理费用");
+        //H 折旧费用的会计凭证
+        productLineService.voucherMakerOfDep(userTeam,period);
+        //H 长期贷款利息的会计凭证
+        longTermLoansService.voucherMakerOfInterest(userTeam,period);
+        //H 短期贷款利息的会计凭证
+        shortTermLoanService.voucherMakerOfInterest(userTeam,period);
+        //H 高利贷贷款利息的会计凭证
+        usuryService.voucherMakerOfInterest(userTeam,period);
+
+
+
+
+
+
+
+
+
 
         //期末损益结转
         accountingVoucherService.transferProfitAndLoss(userTeam,period);
 
-        //清除本期的科目余额表
+        //清除本期（上期？）的科目余额表
         accountBalanceService.deleteByPeriod(userTeam,period);
         //从会计凭证表汇总本期的发生额到科目余额表
         accountBalanceService.sumFromVoucher(userTeam,period);

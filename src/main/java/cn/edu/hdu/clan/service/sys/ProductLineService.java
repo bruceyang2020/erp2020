@@ -30,4 +30,8 @@ public interface ProductLineService {
     ProductLine getById(String id);
 
     void copyDataToNextPeriod(String userTeam ,int period ,int nextPeriod);
+
+    void getDepreciation(String userTeam,int period);//H 计提折旧
+
+    void voucherMakerOfDep(String userTeam,int period);//H 折旧记账
 }

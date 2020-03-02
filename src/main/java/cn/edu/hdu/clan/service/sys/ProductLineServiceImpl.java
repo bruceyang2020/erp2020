@@ -27,6 +27,11 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Resource
     private InvService invService;
 
+    @Resource
+    private ProductLineService productLineService;
+
+
+
     @Transactional
     @Override
     public void add(ProductLine productLine) {
@@ -355,5 +360,67 @@ public class ProductLineServiceImpl implements ProductLineService {
         Example example = new Example(ProductLine.class);
         example.createCriteria().andEqualTo("id", id);
         return ProductLineMapper.selectOneByExample(example);
+    }
+
+    //H 专门计算折旧 在建0 投产1 转产3 出售4 空闲2
+    public void getDepreciation(String userTeam,int period)
+    {
+        //选出
+        Example example= new Example(ProductLine.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        criteria.andEqualTo("period", period);
+        List<ProductLine> myList = ProductLineMapper.selectByExample(example);
+        //判断状态 根据生产线种类赋值 设置DepC 并累加DepA
+        if(period==4||period==8||period==12||period==16||period==20||period==24) {
+            for (int i = 0; i < myList.size(); i++) {
+                int mystate = myList.get(i).getState();
+                if (mystate != 0 && mystate != 4) {
+                    String productionLineType = myList.get(i).getProductLineTypeId();
+                    switch (productionLineType) {
+                        case "手工线":
+                            myList.get(i).setDepreciationC(new BigDecimal(1));
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDeprecationA()));//不知道是不是这样写 A=A+C？
+
+                            break;
+                        case "半自动":
+                            myList.get(i).setDepreciationC(new BigDecimal(1));
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDeprecationA()));
+                            break;
+                        case "全自动":
+                            myList.get(i).setDepreciationC(new BigDecimal(1));
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDeprecationA()));
+                            break;
+                        case "柔性线":
+                            myList.get(i).setDepreciationC(new BigDecimal(1));
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDeprecationA()));
+                            break;
+
+                    }
+
+                }
+            }
+        }
+
+    }
+
+    //H 折旧记账
+    public  void voucherMakerOfDep(String userTeam,int period){
+        Example example= new Example(ProductLine.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        criteria.andEqualTo("period", period);
+        List<ProductLine> myList = ProductLineMapper.selectByExample(example);
+
+        BigDecimal sumDepreciation =new BigDecimal("0");
+        productLineService.getDepreciation(userTeam,period);
+
+        if(period==4||period==8||period==12||period==16||period==20||period==24){
+            for (int i = 0; i < myList.size(); i++) {
+                sumDepreciation.add(myList.get(i).getDeprecationA());
+            }
+
+        }
+        accountingVoucherService.voucherMaker(userTeam,period,sumDepreciation,"ZJFY","计提折旧费用");
     }
 }

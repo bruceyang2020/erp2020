@@ -24,4 +24,6 @@ public interface LongTermLoansService {
     List<LongTermLoans> list();
 
     List<LongTermLoans> getByUserTeamIdAndPeriod(String userTeam);
+    //H 长贷利息期末结转凭证
+    void voucherMakerOfInterest(String userTeam,int period);
 }
