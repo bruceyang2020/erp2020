@@ -95,9 +95,18 @@ public class BalancesheetServiceImpl implements BalancesheetService {
     public List<Balancesheet> getByUserIdAndPeriod(String create_user,int period) {
         Example example = new Example(Balancesheet.class);
         Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("createUser", create_user);
+        criteria.andEqualTo("teamCount", create_user);
         criteria.andEqualTo("period", period);
         return BalancesheetMapper.selectByExample(example);
+    }
+
+    @Override
+    public Balancesheet getByUserTeamAndPeriod(String userTeam,int period) {
+        Example example = new Example(Balancesheet.class);
+        Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        return BalancesheetMapper.selectOneByExample(example);
     }
 
 

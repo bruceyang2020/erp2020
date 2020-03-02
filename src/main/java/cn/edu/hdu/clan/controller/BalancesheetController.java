@@ -48,10 +48,10 @@ public class BalancesheetController extends BaseController {
         return success(BalancesheetService.getById(param.get("id")));
     }
 
-    @RequestMapping("listbyuserandperiod")
-    public String getByUserIdAndPeriod() {
-        String create_user = Jurisdiction.getUserId();
-        int period =  1;
-        return success(BalancesheetService.getByUserIdAndPeriod(create_user, period));
+    @RequestMapping("listbyteamperiod")
+    public String getByUserTeamAndPeriod(@RequestBody Balancesheet Balancesheet) {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Balancesheet.getPeriod();
+        return success(BalancesheetService.getByUserTeamAndPeriod(userTeam, period));
     }
 }

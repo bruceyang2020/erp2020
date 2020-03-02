@@ -24,6 +24,8 @@ public interface IncomesheetService {
 
     Incomesheet getincomesheet(Incomesheet incomesheet);
 
+    Incomesheet getByUserTeamAndPeriod(String userTeam,int period);
+
     void createIncomeSheet(List<AccountBalance> accountBalances, String userTeam , int period);
 
     void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);

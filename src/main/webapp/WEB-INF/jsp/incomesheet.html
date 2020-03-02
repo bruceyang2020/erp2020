@@ -4,76 +4,129 @@
     <meta charset="UTF-8">
     <title>IncomeSheet</title>
     <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
+    <link rel="stylesheet" type="text/css" href="style/bootstrap.css">
     <script src="http://mockjs.com/dist/mock.js"></script>
     <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/bootstrap.js"></script>
     <script>
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/Incomesheet/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                $("#income_sale").text(data[0].incomeSale);
-                $("#income_l").text(data[0].incomeL);
-                $("#money_new").text(data[0].moneyNew);
-                $("#money_norate").text(data[0].moneyNorate);
-                $("#money_notax").text(data[0].moneyNotax);
-                $("#money_income").text(data[0].moneyIncome);
-                $("#money_flow").text(data[0].period);
-                $("#income_sale1").text("-");
-                $("#income_l1").text("-");
-                $("#money_new1").text("-");
-                $("#money_norate1").text("-");
-                $("#money_notax1").text("-");
-                $("#money_income1").text("-");
-                $("#money_flow").text("-");
-                console.log(data);
-                console.log('****************利润表查询数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        });
+
+
+        function showIs(period) {
+            var Incomesheet = {period :period};
+            var myYear = parseInt(period/4);
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(Incomesheet),
+                url: "/Incomesheet/listbyUserTeamAndPeriod",
+                contentType: "application/json;charset=utf-8;",
+                success: function (data) {
+                    data = data['data'];
+                    console.log(data);
+                    if(data != null)
+                    { $("#is-title").html("第"+myYear+"年利润表");
+
+                    $("#income_sale").text(data.incomeSale);
+                    $("#money_cost").text(data.moneyCost);
+                    var maoli =data.incomeSale*1-data.moneyCost*1;
+                    $("#income_l").text(maoli);
+                    $("#money_fee").text(data.moneyFee);
+                    var zjqlr = maoli-data.moneyFee*1;
+                    $("#money_new").text(zjqlr);
+                    $("#money_depr").text(data.moneyDepr);
+                    var lxqlr = zjqlr - data.moneyDepr*1;
+                    $("#money_norate").text(lxqlr);
+                    $("#money_other").text(data.moneyOther);
+                    var sqlr = lxqlr-data.moneyOther*1;
+                    $("#money_notax").text(sqlr);
+                    $("#money_tax").text(data.moneyTax);
+                    var jlr = sqlr -data.moneyTax*1;
+                    $("#money_income").text(jlr);
+
+
+                    }
+                    console.log(data);
+                    console.log('****************利润表查询数据');
+                    // $('#year').text(Math.floor(data.period / 4))
+                    // $('#money_flow').text(data.money_flow)
+                }
+            });
+        }
     </script>
 </head>
 <body>
-<h4>上季度利润表</h4>
+<p>  <button type="button" class="btn btn-default btn-sm" onclick="showIs(1)">初始</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(5)">1年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(9)">2年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(13)">3年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(17)">4年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(21)">5年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(25)">6年</button>
+</p>
 <table id="income">
+    <tr>
+        <td colspan="3" style="text-align: center;"><p id = "is-title">利润表</p></td>
+    </tr>
     <tr class="light">
         <th>项目</th>
-        <th>上年数</th>
-        <th>本年数</th>
+        <th style="text-align: center">上年数</th>
+        <th style="text-align: center">本年数</th>
     </tr>
     <tr>
         <td>销售收入</td>
-        <td><span id="income_sale1"></td>
-        <td><span id="income_sale"></span></td>
+        <td ><span id="income_sale1"></span></td>
+        <td style="text-align: center"><span id="income_sale"></span></td>
+    </tr>
+    <tr>
+        <td>直接成本</td>
+        <td style="text-align: center"><span id="money_cost1"></span></td>
+        <td style="text-align: center"><span id="money_cost"></span></td>
     </tr>
     <tr>
         <td>毛利</td>
-        <td><span id="income_l1"></span></td>
-        <td><span id="income_l"></span></td>
+        <td style="text-align: center"><span id="income_l1"></span></td>
+        <td style="text-align: center"><span id="income_l"></span></td>
     </tr>
     <tr>
+        <td>综合费用</td>
+        <td style="text-align: center"><span id="money_fee1"></span></td>
+        <td style="text-align: center"><span id="money_fee"></span></td>
+    </tr>
+
+    <tr>
         <td>折旧前利润</td>
-        <td><span id="money_new1"></span></td>
-        <td><span id="money_new"></span></td>
+        <td style="text-align: center"><span id="money_new1"></span></td>
+        <td style="text-align: center"><span id="money_new"></span></td>
+    </tr>
+    <tr>
+        <td>折旧</td>
+        <td style="text-align: center"><span id="money_depr1"></span></td>
+        <td style="text-align: center"><span id="money_depr"></span></td>
     </tr>
     <tr>
         <td>支付利息前利润</td>
-        <td><span id="money_norate1"></span></td>
-        <td><span id="money_norate"></span></td>
+        <td style="text-align: center"><span id="money_norate1"></span></td>
+        <td style="text-align: center"><span id="money_norate"></span></td>
+    </tr>
+    <tr>
+        <td>支付利息前利润</td>
+        <td style="text-align: center"><span id="money_other1"></span></td>
+        <td style="text-align: center"><span id="money_other"></span></td>
     </tr>
     <tr>
         <td>税前利润</td>
-        <td><span id="money_notax1"></span></td>
-        <td><span id="money_notax"></span></td>
+        <td style="text-align: center"><span id="money_notax1"></span></td>
+        <td style="text-align: center"><span id="money_notax"></span></td>
+    </tr>
+    <tr>
+        <td>所得税</td>
+        <td style="text-align: center"><span id="money_tax1"></span></td>
+        <td style="text-align: center"><span id="money_tax"></span></td>
     </tr>
     <tr>
         <td>净利润</td>
-        <td><span id="money_flow"></span></td>
-        <td><span id="money_income"></span></td>
+        <td style="text-align: center"><span id="money_income1"></span></td>
+        <td style="text-align: center"><span id="money_income"></span></td>
     </tr>
 </table>
 </body>
