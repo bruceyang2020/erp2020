@@ -48,6 +48,12 @@ $(document).ready(function () {
         $('.pop4').hide();
     });
     $('#ceo-cz-c').click(function () {
+        var period = $('#currentAp').val();
+        if(Number(period)%4 != 1  )
+        {
+            alert("当前会计期间不可执行长贷筹资。");
+            return;
+        }
         $('.pop-s1').show();
     });
     $('.pop-ok').click(function () {
