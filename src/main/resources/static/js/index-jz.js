@@ -22,7 +22,7 @@ $(document).ready(function () {
     });
 
 
-    $("#Accountingclosing").click(function () {
+    $("#closing").click(function () {
         var currentAp = $("#currentAp").val();
         var currentTeam = $("#currentTeam").val();
         var mydata ={userTeam:currentTeam,period:currentAp};
@@ -30,7 +30,7 @@ $(document).ready(function () {
         $.ajax({
             type: "post",
             dataType: "json",
-            url: "/Index/closing",
+            url: "/closing",
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(mydata),
             success: function (data) {

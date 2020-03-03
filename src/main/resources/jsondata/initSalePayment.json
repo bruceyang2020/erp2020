@@ -1,2 +1,2 @@
-[{"number": "B0001", "saleOrderId" : "B0001", "money" : 15, "payPeriod" : 3, "State" : 1}
+[{"number": "B0001", "saleOrderId" : "B0001", "money" : 15, "payPeriod" : 3, "state" : 0,"period" : 1,"surplusPeriod": 2}
 ]

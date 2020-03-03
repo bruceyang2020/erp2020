@@ -173,19 +173,22 @@ public class IndexController extends BaseController {
     @RequestMapping(value = "reloaddata",produces = "application/json;charset=utf-8")
     public String reloaddata(@RequestBody Map<String, String> params) {
         String userTeam = params.get("userTeam");
-        int period = Integer.parseInt(params.get("period"));
 
+        //Y 需要将当前session中保存的会计期间重置为1。
+        Session session = Jurisdiction.getSession();
+        session.setAttribute(Const.SESSION_USERPERIOD,1);  //当前的会计期间
         //初始化到第一个会计期间。
-        sysTeamService.reloadData(userTeam,period);
+        sysTeamService.reloadData(userTeam,1);
 
         return success("初始化成功");
     }
 
 
 
-
+    @ResponseBody
     @RequestMapping("closing")
-    public String closing(){
+    public String closing(@RequestBody Map<String, String> params){
+        //Y 没有用前端传过来的参数，而是直接用了当前session里的参数。
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
@@ -228,8 +231,12 @@ public class IndexController extends BaseController {
 
 
         int nextPeriod = Integer.parseInt(Jurisdiction.getUserTeamintPeriod())+1;  //注意：结账的时候，会计期间要跳转到下一期。+1
-
+        //Y 将当前用户组的state值修改成下一个会计期间。
         sysTeamService.nextPeriod(userTeam,nextPeriod);
+
+        //Y 需要将当前session中保存的会计期间也跳转到下一个会计期间。
+        Session session = Jurisdiction.getSession();
+        session.setAttribute(Const.SESSION_USERPERIOD,nextPeriod);  //当前的会计期间
 
         //原材料订单到期，会计账务处理：现金减少
         materialOrderService.payment(userTeam,nextPeriod);
