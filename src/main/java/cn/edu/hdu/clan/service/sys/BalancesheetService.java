@@ -29,4 +29,6 @@ public interface BalancesheetService {
     Balancesheet  getByUserTeamAndPeriod(String userTeam,int period);
 
     void createBalanceSheet(List<AccountBalance> accountBalances,String userTeam ,int period);
+
+    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 }

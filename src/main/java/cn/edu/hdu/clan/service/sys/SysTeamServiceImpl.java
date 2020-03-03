@@ -94,6 +94,17 @@ public class SysTeamServiceImpl implements SysTeamService {
     }
 
     @Override
+    public void nextPeriod(String userTeam,Integer nextPeriod) {
+        Example example = new Example(SysTeam.class);
+        example.createCriteria().andEqualTo("name", userTeam);
+        List<SysTeam> myList = SysTeamMapper.selectByExample(example);
+        for(int i=0;i<myList.size();i++){
+            myList.get(i).setState(nextPeriod);
+        }
+    }
+
+
+    @Override
     public void reloadData(String userTeam,int period) {
 
          //初始化厂房数据

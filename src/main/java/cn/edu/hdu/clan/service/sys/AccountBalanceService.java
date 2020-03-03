@@ -24,4 +24,6 @@ public interface AccountBalanceService {
     AccountBalance getById(String id);
 
     List<AccountBalance> getByTeamcountAndPeriod(String userTeam ,int period);
+
+    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 }
