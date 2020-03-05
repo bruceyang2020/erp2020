@@ -95,12 +95,16 @@ public class SysTeamServiceImpl implements SysTeamService {
 
     @Override
     public void nextPeriod(String userTeam,Integer nextPeriod) {
+
+        //Y 根据userTeam　找到当前这个用户组的ID,将state写入下一个期间。
         Example example = new Example(SysTeam.class);
-        example.createCriteria().andEqualTo("name", userTeam);
-        List<SysTeam> myList = SysTeamMapper.selectByExample(example);
-        for(int i=0;i<myList.size();i++){
-            myList.get(i).setState(nextPeriod);
-        }
+        example.createCriteria().andEqualTo("id", userTeam);
+        SysTeam sysTeam = SysTeamMapper.selectOneByExample(example);
+        sysTeam.setState(nextPeriod);
+        BaseBeanHelper.edit(sysTeam);
+        SysTeamMapper.updateByPrimaryKey(sysTeam);
+
+
     }
 
 
@@ -127,7 +131,7 @@ public class SysTeamServiceImpl implements SysTeamService {
         //初始化应收账款。这里的应收账款也包括了出售厂房产生的应收账款
         String jsonStr2 = PropertiesUtils.readJsonFile("jsondata/initSalepayment.json");
         JSONArray json2 = JSONArray.fromObject(jsonStr2);
-        List<Salepayment> salepayments= (List<Salepayment>)JSONArray.toCollection(json1, Salepayment.class);
+        List<Salepayment> salepayments= (List<Salepayment>)JSONArray.toCollection(json2, Salepayment.class);
         salepaymentService.deleteByTeamCount(userTeam);
         salepaymentService.adds(salepayments);
         System.out.println(json2);

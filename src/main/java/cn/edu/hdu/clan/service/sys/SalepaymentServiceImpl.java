@@ -116,7 +116,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         Example example = new Example(Salepayment.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
-        criteria.andNotEqualTo("state", 0);
+        criteria.andNotEqualTo("state", 1);
         List<Salepayment> oldRow = SalepaymentMapper.selectByExample(example);
         if(oldRow.size() > 0)
         {
@@ -125,7 +125,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
             int createPeriod = 0;
             int duePeriod = 0;
 
-            for(int i=1;i<oldRow.size();i++)
+            for (int i = 0; i < oldRow.size(); i++)
             {
                 number = oldRow.get(i).getNumber();
                 myMoney =  oldRow.get(i).getMoney();
