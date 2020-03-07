@@ -75,6 +75,16 @@ public class IndexController extends BaseController {
     @Resource
     private InvService invService;
 
+    @Resource
+    private ResearchFeeService researchFeeService;
+
+    @Resource
+    private MarketFeeService marketFeeService;
+
+    @Resource
+    private IsoFeeService isoFeeService;
+
+
 
 
 
@@ -244,6 +254,8 @@ public class IndexController extends BaseController {
         //应收账款到期，会计账务处理：现金增加
         salepaymentService.receivePayment(userTeam,nextPeriod);
 
+        //长期贷款回收期减4
+        longTermLoansService.goToNextPeriod(userTeam,nextPeriod);
 
         //复制厂房信息到下一会计期间。
         factoryService.copyDataToNextPeriod(userTeam,period,nextPeriod);
@@ -263,6 +275,15 @@ public class IndexController extends BaseController {
 
         //复制利润表到下一期
         incomesheetService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        //复制市场开拓信息到下一期
+        marketFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        //复制产品研发信息到下一期
+        researchFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        //复制ISO认证到信息到下一期
+        isoFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
 
 

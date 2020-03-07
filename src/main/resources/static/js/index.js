@@ -47,6 +47,9 @@ $(document).ready(function () {
     $('.pop-close').click(function () {
         $('.pop4').hide();
     });
+
+
+    //长贷
     $('#ceo-cz-c').click(function () {
         var period = $('#currentAp').val();
         if(Number(period)%4 != 1  )
@@ -56,12 +59,16 @@ $(document).ready(function () {
         }
         $('.pop-s1').show();
     });
+
     $('.pop-ok').click(function () {
         $('.pop-s1').hide();
     });
+
     $('.pop-cancel').click(function () {
         $('.pop-s1').hide();
     });
+
+    //短贷
     $('#ceo-cz-d').click(function () {
         $('.pop-s2').show();
     });
@@ -71,6 +78,9 @@ $(document).ready(function () {
     $('.pop-cancel').click(function () {
         $('.pop-s2').hide();
     });
+
+
+    //高利贷
     $('#ceo-cz-gl').click(function () {
         $('.pop-s3').show();
     });
@@ -80,6 +90,8 @@ $(document).ready(function () {
     $('.pop-cancel').click(function () {
         $('.pop-s3').hide();
     });
+
+    //投资
     $('#ceo-tz-ma1').click(function () {
         $('.pop-s4').show()
     });
@@ -219,6 +231,8 @@ $(document).ready(function () {
     $('.pop-cancel').click(function () {
         $('.pop-s13').hide();
     });
+
+
 
     //订货会弹窗-广告费
     $('#order').click(function () {

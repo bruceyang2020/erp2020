@@ -128,4 +128,24 @@ public class MarketFeeServiceImpl implements MarketFeeService {
         criteria.andEqualTo("period", period);
         return MarketFeeMapper.selectByExample(example);
     }
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(MarketFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<MarketFee> factorys = MarketFeeMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                MarketFee myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                MarketFeeMapper.insert(myRow);
+
+            }
+        }
+
+    }
 }

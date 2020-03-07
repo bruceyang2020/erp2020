@@ -73,28 +73,25 @@ $(document).ready(function () {
 
     //长期贷款的提交按钮事件
     $("#pop-ok").click(function () {
-
-
-
-
         var LongTermLoans = {
-            moneyTotal: $('#load-c').val(),
-            period: period
-
+          moneyTotal: $('#load-c').val(),
+          period: currentAp
         };
         $.ajax({
             type: "post",
             dataType: "json",
-            url: "/LongTermLoans/add",
+             url: "/LongTermLoans/add",
             contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(LongTermLoans),
-            success: function (data) {
-                alert("长期贷款成功");
-                $('#cash').text(parseInt($('#load-c').val()) + parseInt($('#cash').text()));//财务显示更新
+             data: JSON.stringify(LongTermLoans),
+             success: function (data) {
+            alert("长期贷款成功");
+            $('#cash').text(parseInt($('#load-c').val()) + parseInt($('#cash').text()));//财务显示更新
             }
         })
         $("#ceo-cz-c1").val($('#load-c').val());
     });
+
+
 
     //短期贷款的提交按钮事件
     $("#pop-ok1").click(function () {
