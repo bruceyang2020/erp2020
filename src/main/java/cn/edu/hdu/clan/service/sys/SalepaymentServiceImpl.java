@@ -113,6 +113,8 @@ public class SalepaymentServiceImpl implements SalepaymentService {
 
     @Override
     public void receivePayment(String userTeam ,int period) {
+
+        //Y 修改应收账款的状态，生成会计凭证。
         Example example = new Example(Salepayment.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);

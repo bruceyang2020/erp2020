@@ -63,6 +63,12 @@ $(document).ready(function () {
         $('.pop-s1').hide();
     });
     $('#ceo-cz-d').click(function () {
+        var period = $('#currentAp').val();
+        if(Number(period)%4 != 1  )
+        {
+            alert("当前会计期间不可执行长贷筹资。");
+            return;
+        }
         $('.pop-s2').show();
     });
     $('.pop-ok').click(function () {
@@ -72,6 +78,7 @@ $(document).ready(function () {
         $('.pop-s2').hide();
     });
     $('#ceo-cz-gl').click(function () {
+
         $('.pop-s3').show();
     });
     $('.pop-ok').click(function () {
@@ -198,6 +205,12 @@ $(document).ready(function () {
         }
     })
     $('#ceo-tz-iso1').click(function () {
+        var period = $('#currentAp').val();
+        if(Number(period)%4 != 1  )
+        {
+            alert("当前会计期间不可执行长贷筹资。");
+            return;
+        }
         $('.pop-s12').show()
     });
     $('.pop-cancel').click(function () {
@@ -214,6 +227,12 @@ $(document).ready(function () {
         }
     })
     $('#ceo-tz-iso2').click(function () {
+        var period = $('#currentAp').val();
+        if(Number(period)%4 != 1  )
+        {
+            alert("当前会计期间不可执行长贷筹资。");
+            return;
+        }
         $('.pop-s13').show()
     });
     $('.pop-cancel').click(function () {

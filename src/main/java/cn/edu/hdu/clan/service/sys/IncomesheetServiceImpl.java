@@ -102,6 +102,10 @@ public class IncomesheetServiceImpl implements IncomesheetService {
 
     @Override
     public void createIncomeSheet(List<AccountBalance> accountBalances,String userTeam ,int period) {
+
+        //Y 修改利润表的字段取值。
+
+        //删除已存在的利润表
         Example example = new Example(Incomesheet.class);
         example.createCriteria().andEqualTo("teamCount", userTeam);
         example.createCriteria().andEqualTo("period", period);
@@ -123,6 +127,9 @@ public class IncomesheetServiceImpl implements IncomesheetService {
                 if("所得税".equals(acode)){incomesheet.setMoneyTax(accountBalances.get(i).getMoneyE());}
             }
         }
+        incomesheet.setTeamCount(userTeam);
+        incomesheet.setPeriod(period);
+        incomesheet.setGroupId("1000");
 
         BaseBeanHelper.insert(incomesheet);
         IncomesheetMapper.insert(incomesheet);
