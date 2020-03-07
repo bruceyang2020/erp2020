@@ -24,8 +24,7 @@ public interface LongTermLoansService {
     List<LongTermLoans> list();
 
     List<LongTermLoans> getByUserTeamIdAndPeriod(String userTeam);
-    //H 长贷利息期末结转凭证
-    void voucherMakerOfInterest(String userTeam,int period);
-    //H 长期贷款在年末对到期的长贷到期时间的调整
-    void goToNextPeriod(String userTeam,int nextPeriod);
+    //H 长贷利息期初还息记入下一年度财务费用
+    void voucherMakerOfInterestAndRepayment(String userTeam,int nextPeriod);
+
 }

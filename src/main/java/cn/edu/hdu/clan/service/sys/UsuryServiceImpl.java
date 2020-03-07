@@ -34,9 +34,9 @@ public class UsuryServiceImpl implements UsuryService {
         Usury.setTeamCount(userTeam);
         Usury.setGroupId("1000");
         //随借随还SurplusPeriod多余
-        Usury.setSurplusPeriod(Usury.getPeriod()+20);
+       // Usury.setSurplusPeriod(Usury.getPeriod()+20);
 
-        //删除当前长贷记录
+        //删除当前高利贷记录
         Example example = new Example(Usury.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount",Usury.getTeamCount());
@@ -51,7 +51,7 @@ public class UsuryServiceImpl implements UsuryService {
 
         BaseBeanHelper.insert(Usury);
         UsuryMapper.insert(Usury);
-        //自动生成长贷会计凭证
+        //自动生成高利贷会计凭证,同时用于高利贷还款（-）就可
         accountingVoucherService.voucherMaker(userTeam,Usury.getPeriod(),Usury.getMoneyTotal(),"GAOLIDAI","新增高利贷");
 
     }
@@ -85,6 +85,8 @@ public class UsuryServiceImpl implements UsuryService {
     public List<Usury> list() {
         return UsuryMapper.selectAll();
     }
+
+
     @Override
     public List<Usury> getByUserIdAndPeriod(String userTeam) {
         Example example = new Example(Usury.class);
@@ -95,24 +97,34 @@ public class UsuryServiceImpl implements UsuryService {
 
     @Override
     public void voucherMakerOfInterest(String userTeam,int period) {
-        int[] periodnumber;
-        periodnumber =new int[]{4,8,12,16,20,24};  //H 第四期末,第八期末。。。
-        for (int l=0;l<periodnumber.length;l++){
-            if(period==periodnumber[l]){
                 //H 按teamCount取出所有高利贷
                 Example example = new Example(Usury.class);
                 Example.Criteria criteria = example.createCriteria();
                 criteria.andEqualTo("teamCount", userTeam);
                 List<Usury> myList = UsuryMapper.selectByExample(example);
-                //H 计算利息累加(30%)
+                //H 计算每期结算利息
                 BigDecimal usuryInterest = BigDecimal.valueOf(0);
                 for (int i = 0; i < myList.size(); i++) {
-                    usuryInterest = usuryInterest.add(myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.3)).setScale(0, BigDecimal.ROUND_DOWN));
+                    usuryInterest = usuryInterest.add(myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.05)).setScale(0, BigDecimal.ROUND_DOWN));
                 }
-                //H 利息记账
-                accountingVoucherService.voucherMaker(userTeam, period, usuryInterest, "LXFY", "高利贷利息");
-            }
+                //H BigDecimal大于0等于int 1，防止bug
+                if(usuryInterest.compareTo(BigDecimal.valueOf(0))==1) {
+                    //H 利息记账
+                    accountingVoucherService.voucherMaker(userTeam, period, usuryInterest, "LXFY", "高利贷利息");
+
+                }
+    }
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+
+        //用于初始化，清空高利贷
+        Example example = new Example(Usury.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        List<Usury> oldRow1 = UsuryMapper.selectByExample(example);
+        if(oldRow1.size() > 0)
+        {
+            UsuryMapper.deleteByExample(example);
         }
-        return;
     }
 }

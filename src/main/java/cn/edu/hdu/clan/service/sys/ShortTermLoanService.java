@@ -10,8 +10,6 @@ import java.util.List;
 public interface ShortTermLoanService {
     void add(ShortTermLoan ShortTermLoan);
 
-
-
     void delete(String id);
 
     void update(ShortTermLoan ShortTermLoan);
@@ -22,6 +20,7 @@ public interface ShortTermLoanService {
 
     List<ShortTermLoan> getByUserIdAndPeriod(String userTeam);
 
-    void voucherMakerOfInterest(String userTeam,int period);
+    void voucherMakerOfInterestAndRepayment(String userTeam,int nextPeriod);
 
+    void deleteByTeamCount(String userTeam);
 }
