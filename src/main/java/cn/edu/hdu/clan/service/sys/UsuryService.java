@@ -20,4 +20,6 @@ public interface UsuryService {
     List<Usury> getByUserIdAndPeriod(String userTeam);
 
     void voucherMakerOfInterest(String userTeam,int period);
+
+    void deleteByTeamCount(String userTeam);
 }

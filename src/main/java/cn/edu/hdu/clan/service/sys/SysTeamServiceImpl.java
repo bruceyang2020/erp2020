@@ -48,6 +48,13 @@ public class SysTeamServiceImpl implements SysTeamService {
     private IncomesheetService incomesheetService;
     @Resource
     private AccountingVoucherService accountingVoucherService;
+    @Resource
+    private ShortTermLoanService shortTermLoanService;
+
+    @Resource
+    private UsuryService usuryService;
+
+
 
 
 
@@ -116,6 +123,14 @@ public class SysTeamServiceImpl implements SysTeamService {
 
         // 清空会计凭证
         accountingVoucherService.deleteByTeamCount(userTeam);
+
+        //清空短贷
+        shortTermLoanService.deleteByTeamCount(userTeam);
+
+        //清空高利贷
+        usuryService.deleteByTeamCount(userTeam);
+
+
 
          //初始化厂房数据
         String jsonStr = PropertiesUtils.readJsonFile("jsondata/initFatory.json");

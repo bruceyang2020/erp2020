@@ -8,6 +8,7 @@ $(document).ready(function () {
     var touzi = 0;//投资额
     var dindan = 0;//订单数
 
+
     //贷款显示-长期贷款
     $.ajax({
         type: "post",
@@ -60,9 +61,14 @@ $(document).ready(function () {
         url: "/Usury/listbyuserandperiod",
         contentType: "application/json;charset=utf-8;",
         success: function (data) {
+              var gaolidai=0
             data = data['data'];
             // $("#period").text(data[0].period);
-            $("#ceo-cz-g").val(data[0].moneyTotal);
+            $.each(data, function (n, value) {
+
+                gaolidai=value.moneyTotal+gaolidai;
+            });
+            $("#ceo-cz-g").val(gaolidai);
             console.log(data);
             console.log('******高利贷数据');
             // $('#year').text(Math.floor(data.period / 4))
@@ -73,28 +79,31 @@ $(document).ready(function () {
 
     //长期贷款的提交按钮事件
     $("#pop-ok").click(function () {
-
-
-
-
         var LongTermLoans = {
-            moneyTotal: $('#load-c').val(),
-            period: period
-
+          moneyTotal: $('#load-c').val(),
+          period: currentAp
         };
+        //可输入负数的bug
+        if(parseInt($('#load-c').val())<0){
+            alert("请输入正确的长期贷款金额");
+            return;
+        }
         $.ajax({
             type: "post",
             dataType: "json",
-            url: "/LongTermLoans/add",
+             url: "/LongTermLoans/add",
             contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(LongTermLoans),
-            success: function (data) {
-                alert("长期贷款成功");
-                $('#cash').text(parseInt($('#load-c').val()) + parseInt($('#cash').text()));//财务显示更新
+             data: JSON.stringify(LongTermLoans),
+             success: function (data) {
+            alert("长期贷款成功");
+            $('#cash').text(parseInt($('#load-c').val()) + parseInt($('#cash').text()));//财务显示更新
+                 $("#ceo-cz-c1").val($('#load-c').val());
             }
         })
-        $("#ceo-cz-c1").val($('#load-c').val());
+
     });
+
+
 
     //短期贷款的提交按钮事件
     $("#pop-ok1").click(function () {
@@ -102,6 +111,11 @@ $(document).ready(function () {
         var ShortTermLoan = {
             moneyTotal: $('#load-d').val(),
             period: $('#currentAp').val()
+        }
+        //可输入负数的bug
+        if(parseInt($('#load-d').val())<0){
+            alert("请输入正确的短期贷款金额");
+            return;
         }
         $.ajax({
             type: "post",
@@ -113,9 +127,10 @@ $(document).ready(function () {
                 alert("短期贷款成功");
                 daikuan = parseInt(daikuan) + parseInt($('#load-d').val());//记录贷款数
                 $('#cash').text(parseInt($('#load-d').val()) + parseInt($('#cash').text()));//财务显示更新
+                $("#ceo-cz-d1").val($('#load-d').val());
             }
         })
-        $("#ceo-cz-d1").val($('#load-d').val());
+
     });
 
     //高利贷的提交按钮事件
@@ -133,10 +148,14 @@ $(document).ready(function () {
             data: JSON.stringify(Usury),
             success: function (data) {
                 alert("高利贷成功");
+
                 $('#cash').text(parseInt($('#load-g').val()) + parseInt($('#cash').text()));//财务显示更新
+
+
             }
+
         })
-        $("#ceo-cz-g").val($('#load-g').val());
+        $('#ceo-cz-g').val($('#load-g').val());
 
     });
 

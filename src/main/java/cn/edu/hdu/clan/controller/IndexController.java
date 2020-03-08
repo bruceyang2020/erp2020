@@ -88,6 +88,7 @@ public class IndexController extends BaseController {
 
 
 
+
     @RequestMapping("/")
      public String login_tologin() {
          return "login";}
@@ -206,11 +207,8 @@ public class IndexController extends BaseController {
         accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("10"),"GLFY","管理费用");
         //H 折旧费用的会计凭证
         productLineService.voucherMakerOfDep(userTeam,period);
-        //H 长期贷款利息的会计凭证
-        longTermLoansService.voucherMakerOfInterest(userTeam,period);
-        //H 短期贷款利息的会计凭证
-        shortTermLoanService.voucherMakerOfInterest(userTeam,period);
-        //H 高利贷贷款利息的会计凭证
+
+        //H 高利贷贷款利息的会计凭证,每期期末计
         usuryService.voucherMakerOfInterest(userTeam,period);
 
 
@@ -254,8 +252,12 @@ public class IndexController extends BaseController {
         //应收账款到期，会计账务处理：现金增加
         salepaymentService.receivePayment(userTeam,nextPeriod);
 
-        //长期贷款回收期减4
-        longTermLoansService.goToNextPeriod(userTeam,nextPeriod);
+        //长期贷款回收期减少，还本
+        longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
+
+        //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
+        shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
+
 
         //复制厂房信息到下一会计期间。
         factoryService.copyDataToNextPeriod(userTeam,period,nextPeriod);

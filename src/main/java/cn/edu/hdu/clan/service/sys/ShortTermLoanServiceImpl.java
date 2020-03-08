@@ -5,6 +5,7 @@ import cn.edu.hdu.clan.entity.sys.ShortTermLoan;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.ShortTermLoanMapper;
 import cn.edu.hdu.clan.util.Jurisdiction;
+import com.alibaba.druid.sql.visitor.functions.Substring;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class ShortTermLoanServiceImpl implements ShortTermLoanService {
         //补充相关字段的取值
         ShortTermLoan.setTeamCount(userTeam);
         ShortTermLoan.setGroupId("1000");
-        ShortTermLoan.setSurplusPeriod(ShortTermLoan.getPeriod()+4);
+        ShortTermLoan.setSurplusPeriod(5); //短期贷款剩余还款时间
 
         //删除当前长贷记录
         Example example = new Example(ShortTermLoan.class);
@@ -58,6 +59,21 @@ public class ShortTermLoanServiceImpl implements ShortTermLoanService {
     @Override
     public void delete(String id) {
     ShortTermLoanMapper.deleteByPrimaryKey(id);
+    }
+
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+
+        //用于初始化，清空短贷
+        Example example = new Example(ShortTermLoan.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        List<ShortTermLoan> oldRow1 = ShortTermLoanMapper.selectByExample(example);
+        if(oldRow1.size() > 0)
+        {
+            ShortTermLoanMapper.deleteByExample(example);
+        }
     }
 
     @Override
@@ -88,20 +104,29 @@ public class ShortTermLoanServiceImpl implements ShortTermLoanService {
         criteria.andEqualTo("teamCount", userTeam);
         return ShortTermLoanMapper.selectByExample(example);
     }
-
+   //一年后短贷还款还息，记入的报表时间为结转后的period，即nextPeriod
     @Override
-    public void voucherMakerOfInterest(String userTeam,int period) {
+    public void voucherMakerOfInterestAndRepayment(String userTeam,int nextPeriod) {
         //H 按teamCount取出所有短贷
          Example example = new Example(ShortTermLoan.class);
          Example.Criteria criteria = example.createCriteria();
          criteria.andEqualTo("teamCount", userTeam);
           List<ShortTermLoan> myList = ShortTermLoanMapper.selectByExample(example);
-          //H 计算利息累加
+          //H 计算利息累加,每期都有结转，利息记入当期，一期只有一笔利息
           BigDecimal shortTermLoanInterest = BigDecimal.valueOf(0);
           for (int i = 0; i < myList.size(); i++) {
-               shortTermLoanInterest = shortTermLoanInterest.add(myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.1)).setScale(0, BigDecimal.ROUND_DOWN));
+              //H 每一期结转时还款期减1
+              myList.get(i).setSurplusPeriod(myList.get(i).getSurplusPeriod()- 1);
+              BaseBeanHelper.edit(myList.get(i));
+              ShortTermLoanMapper.updateByPrimaryKey(myList.get(i));
+              //到还款期时还息
+              if(myList.get(i).getSurplusPeriod()==1) {
+                  shortTermLoanInterest=myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.05)).setScale(0, BigDecimal.ROUND_DOWN);
+                  //H 利息记账
+                  accountingVoucherService.voucherMaker(userTeam, nextPeriod, shortTermLoanInterest, "LXFY", "短期贷款利息");
+                  //H 偿还本金
+                  accountingVoucherService.voucherMaker(userTeam, nextPeriod, myList.get(i).getMoneyTotal(), "CHDD", "偿还短期贷款");
+              }
           }
-                //H 利息记账
-        accountingVoucherService.voucherMaker(userTeam, period, shortTermLoanInterest, "LXFY", "短期贷款利息");
     }
 }
