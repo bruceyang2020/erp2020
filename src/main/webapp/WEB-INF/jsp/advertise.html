@@ -77,6 +77,8 @@
 
                     });
 
+
+                    SumMoney();
                 }
             });
 
@@ -85,6 +87,27 @@
 
 
             $("#btn-advertise").click(function () {
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/OrderManagement/listCurrentPeriodOrder",
+                    contentType: "application/json;charset=utf-8;",
+                    data:JSON.stringify(adList),
+                    success: function (data) {
+                        var myrownumber = data['data'].length;
+                        if(myrownumber != null && myrownumber > 0)
+                        {
+
+                            alert("已存在本期的选单，广告费不可修改。");
+                            return;
+                        }
+
+
+                    }
+                })
+
+
                 var adList = new Array();
                 var var1= $("#bd-p1").val();
                 console.log(var1);
@@ -164,13 +187,28 @@
             })
 
 
-            //将广告费提交之后，就可以进入选单环节。
-            $("#btn-advertise-commit").click(function () {
-
+            //Y  当输入框的内容发生变化时，统计合计金额
+            $("#main-table").on('input propertychange', function()
+            {
+                SumMoney();
 
 
             })
 
+            function SumMoney() {
+                //定义一个变量并附初始值。
+                var _money=0;
+                //循环遍历文本框input
+                $('#main-table').find(":input").each(function(){
+                    //累加求和
+                    if($(this).val() != "")
+                    {
+                    _money+=Number($(this).val());
+                    };
+                });
+                //Y 将合计金额写入汇总单元格
+                $("#money-total").text(_money);
+            }
 
 
 
@@ -183,7 +221,7 @@
 </head>
 <body style="overflow-x:hidden;overflow-y:auto">
 <h4>广告信息单</h4>
-  <table style="text-align: center">
+  <table style="text-align: center"  id="main-table">
       <thead>
       <td style="width: 50px;">市场</td>
       <td style="width: 50px;">产品</td>
@@ -226,15 +264,19 @@
       <tr>
           <td>国际</td><td>P2</td><td><input  name ="gj-p2"  id="gj-p2" value=""></td>      <td>国际</td><td>P4</td><td><input  name ="gj-p4"  id="gj-p4" value=""></td>
       </tr>
+      <tr>
+          <td colspan="2">广告金额合计：</td>
+          <td colspan="4"><div id="money-total" name = "money-total" style="color: #204d74;font-weight: bold;"></div></td>
+      </tr>
       <tr >
           <td colspan="6">
-              <div class="card-bottom"><a href="#" class="btn btn-default" id="btn-advertise">暂存广告费</a></div>
-              <div class="card-bottom"><a href="#" class="btn btn-default" id="btn-advertise-commit">提交广告费</a></div>
+              <div class="card-bottom"><a href="#" class="btn btn-default" id="btn-advertise">提交广告费</a></div>
           </td>
       </tr>
 
       </tbody>
   </table>
+
 
 
 </body>

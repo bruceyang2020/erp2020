@@ -11,6 +11,8 @@ public interface AdvertiseService {
 
     void delete(String id);
 
+    void deleteByTeamCount(String userTeam);
+
     void update(Advertise Advertise);
 
     PageInfo<Advertise> list(int pageNum, int pageSize);

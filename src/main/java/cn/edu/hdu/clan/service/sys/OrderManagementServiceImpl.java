@@ -94,8 +94,27 @@ public class OrderManagementServiceImpl implements OrderManagementService {
         //全局变量 写入当前公司或小组ID
         int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         Example example = new Example(OrderManagement.class);
-        example.createCriteria().andEqualTo("productId", productId);
-        example.createCriteria().andEqualTo("state", 0);  //列出未交付的订单
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("productId", productId);
+        criteria.andEqualTo("state", 0);  //列出未交付的订单
+
+        return OrderManagementMapper.selectByExample(example);
+    }
+
+    /**
+     * Y  列表当前会计期间的已选择的订单。
+     * @returnｒ
+     */
+    @Override
+    public List<OrderManagement> listCurrentPeriodOrder() {
+        //全局变量 写入当前公司或小组ID
+        int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        String userTeam = Jurisdiction.getUserTeam();
+        Example example = new Example(OrderManagement.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamId", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("state", 0); //列出未交付的订单
 
         return OrderManagementMapper.selectByExample(example);
     }

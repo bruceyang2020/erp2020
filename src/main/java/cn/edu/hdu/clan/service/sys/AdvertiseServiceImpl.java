@@ -91,6 +91,22 @@ public class AdvertiseServiceImpl implements AdvertiseService {
     AdvertiseMapper.deleteByPrimaryKey(id);
     }
 
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+
+        //Y 用于初始化，清空广告费的全面信息
+        Example example = new Example(Advertise.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        List<Advertise> oldRow1 = AdvertiseMapper.selectByExample(example);
+        if(oldRow1.size() > 0)
+        {
+            AdvertiseMapper.deleteByExample(example);
+        }
+
+    }
+
     @Override
     public void update(Advertise Advertise) {
         BaseBeanHelper.edit(Advertise);

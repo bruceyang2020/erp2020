@@ -257,15 +257,19 @@ $(document).ready(function () {
     $('#order').click(function () {
 
 
-
-        var isAd = $("#market-page-manager").val();
-        if(isAd == "0")
-        {$('.pop-advertise').show()};
-        if(isAd == "1")
-        {$('.pop-marketing').show()};
+       $('.pop-advertise').show();
 
 
     });
+    $('#ok-tomarketing').click(function () {
+
+        $('.pop-advertise').hide();
+        $('.pop-marketing').show();
+
+
+    });
+
+
     $('.pop-cancel').click(function () {
         $('.pop-advertise').hide();
     });

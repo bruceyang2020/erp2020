@@ -53,6 +53,8 @@ public class SysTeamServiceImpl implements SysTeamService {
 
     @Resource
     private UsuryService usuryService;
+    @Resource
+    private AdvertiseService advertiseService;
 
 
 
@@ -129,6 +131,9 @@ public class SysTeamServiceImpl implements SysTeamService {
 
         //清空高利贷
         usuryService.deleteByTeamCount(userTeam);
+
+        //Y  清空广告费列表
+        advertiseService.deleteByTeamCount(userTeam);
 
 
 

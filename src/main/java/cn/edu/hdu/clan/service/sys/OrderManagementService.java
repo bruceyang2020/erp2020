@@ -20,4 +20,6 @@ public interface OrderManagementService {
     OrderManagement getById(String id);
 
     List<OrderManagement> list(String productId);
+
+    List<OrderManagement> listCurrentPeriodOrder();
 }
