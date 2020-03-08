@@ -32,9 +32,10 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         //补充相关字段的取值
         IsoFee.setTeamCount(userTeam);
         IsoFee.setGroupId("1000");
-        IsoFee.setPeriodLeft(1);
+        IsoFee.setPeriodLeft(2);
+        IsoFee.setState(1);//这期开发过了
 
-        //删除当前市场开发的记录
+
         Example example = new Example(IsoFee.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", IsoFee.getTeamCount());
@@ -43,7 +44,7 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         List<IsoFee> oldRow = IsoFeeMapper.selectByExample(example);
         if(oldRow.size() > 0)
         {
-            IsoFeeMapper.deleteByExample(example);
+           return;  //H 这期开发过就不能开发了,取消方式见deleteByPeriod
         }
 
         //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
@@ -65,6 +66,28 @@ public class IsoFeeServiceImpl implements IsoFeeService {
                 break;
 
         }
+    }
+    //H
+    public void adds(List<IsoFee>  isoFees) {
+        if(isoFees.size() > 0) {
+            for (int i = 0; i < isoFees.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                isoFees.get(i).setPeriod(period-1);
+                isoFees.get(i).setTeamCount(userTeam);
+                isoFees.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(isoFees.get(i));
+                IsoFeeMapper.insert(isoFees.get(i));
+            }
+        }
+    }
+    //H
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(IsoFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        IsoFeeMapper.deleteByExample(example);
     }
 
     @Override

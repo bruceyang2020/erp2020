@@ -8,7 +8,11 @@ import java.util.List;
 public interface IsoFeeService {
     void add(IsoFee IsoFee);
 
+   void adds(List<IsoFee>  isoFees);
+
     void delete(String id);
+
+    void deleteByTeamCount(String userTeam);
 
     void update(IsoFee IsoFee);
 

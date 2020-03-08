@@ -85,7 +85,7 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
             for (int i = 0; i < researchFees.size(); i++) {
                 String userTeam = Jurisdiction.getUserTeam();
                 int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-                researchFees.get(i).setPeriod(period);
+                researchFees.get(i).setPeriod(period-1);
                 researchFees.get(i).setTeamCount(userTeam);
                 researchFees.get(i).setGroupId("1000");
                 BaseBeanHelper.insert(researchFees.get(i));
