@@ -75,6 +75,8 @@ $(document).ready(function () {
     $("#pop-ok").click(function () {
 
 
+
+
         var LongTermLoans = {
             moneyTotal: $('#load-c').val(),
             period: period

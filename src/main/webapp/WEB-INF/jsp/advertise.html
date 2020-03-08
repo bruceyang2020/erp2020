@@ -18,6 +18,72 @@
         //市场订单下单，跟新订单数和材料数
         $(function () {
 
+            //显示广告费。
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: "/Advertise/listbyteamperiod",
+                contentType: "application/json;charset=utf-8;",
+                success: function (data) {
+                    data = data['data'];
+                    console.log(data);
+                    $.each(data,function(n,value){
+                        if(value.productId == "P1" && value.marketId == "本地")
+                        {  $("#bd-p1").val(value.moneyI);}
+                        if(value.productId == "P2" && value.marketId == "本地")
+                        {  $("#bd-p2").val(value.moneyI);}
+                        if(value.productId == "P3" && value.marketId == "本地")
+                        {  $("#bd-p3").val(value.moneyI);}
+                        if(value.productId == "P4" && value.marketId == "本地")
+                        {  $("#bd-p4").val(value.moneyI);}
+
+                        if(value.productId == "P1" && value.marketId == "区域")
+                        {  $("#qy-p1").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "区域")
+                        {  $("#qy-p2").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "区域")
+                        {  $("#qy-p3").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "区域")
+                        {  $("#qy-p4").val(value.moneyI);}
+
+                        if(value.productId == "P1" && value.marketId == "国内")
+                        {  $("#gl-p1").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "国内")
+                        {  $("#gl-p2").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "国内")
+                        {  $("#gl-p3").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "国内")
+                        {  $("#gl-p4").val(value.moneyI);}
+
+
+                        if(value.productId == "P1" && value.marketId == "亚洲")
+                        {  $("#yz-p1").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "亚洲")
+                        {  $("#yz-p2").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "亚洲")
+                        {  $("#yz-p3").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "亚洲")
+                        {  $("#yz-p4").val(value.moneyI);}
+
+
+                        if(value.productId == "P1" && value.marketId == "国际")
+                        {  $("#gj-p1").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "国际")
+                        {  $("#gj-p2").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "国际")
+                        {  $("#gj-p3").val(value.moneyI);}
+                        if(value.productId == "P1" && value.marketId == "国际")
+                        {  $("#gj-p4").val(value.moneyI);}
+
+                    });
+
+                }
+            });
+
+
+
+
+
             $("#btn-advertise").click(function () {
                 var adList = new Array();
                 var var1= $("#bd-p1").val();
@@ -37,49 +103,49 @@
                 var var5= $("#gj-p1").val();
                 if(var5 != "")
                 {   adList.push({ productId:"P1",marketId:"国际",moneyI: var5});}
-                var var6= $("#bd-p1").val();
+                var var6= $("#bd-p2").val();
                 if(var6 != "")
                 {   adList.push({ productId:"P2",marketId:"本地",moneyI: var6});}
-                var var7= $("#qy-p1").val();
+                var var7= $("#qy-p3").val();
                 if(var7 != "")
                 {   adList.push({ productId:"P2",marketId:"区域",moneyI: var7});}
-                var var8= $("#gl-p1").val();
+                var var8= $("#gl-p2").val();
                 if(var8 != "")
                 {   adList.push({ productId:"P2",marketId:"国内",moneyI: var8});}
-                var var9= $("#yz-p1").val();
+                var var9= $("#yz-p2").val();
                 if(var9 != "")
                 {   adList.push({ productId:"P2",marketId:"亚洲",moneyI: var9});}
-                var var10= $("#gj-p1").val();
+                var var10= $("#gj-p2").val();
                 if(var10 != "")
                 {   adList.push({ productId:"P2",marketId:"国际",moneyI: var10});}
-                var var11= $("#bd-p1").val();
+                var var11= $("#bd-p3").val();
                 if(var11 != "")
                 {   adList.push({ productId:"P3",marketId:"本地",moneyI: var11});}
-                var var12= $("#qy-p1").val();
+                var var12= $("#qy-p3").val();
                 if(var12 != "")
                 {   adList.push({ productId:"P3",marketId:"区域",moneyI: var12});}
-                var var13= $("#gl-p1").val();
+                var var13= $("#gl-p3").val();
                 if(var13 != "")
                 {   adList.push({ productId:"P3",marketId:"国内",moneyI: var13});}
-                var var14= $("#yz-p1").val();
+                var var14= $("#yz-p3").val();
                 if(var14 != "")
                 {   adList.push({ productId:"P3",marketId:"亚洲",moneyI: var14});}
-                var var15= $("#gj-p1").val();
+                var var15= $("#gj-p3").val();
                 if(var15 != "")
                 {   adList.push({ productId:"P3",marketId:"国际",moneyI: var15});}
-                var var16= $("#bd-p1").val();
+                var var16= $("#bd-p4").val();
                 if(var16 != "")
                 {   adList.push({ productId:"P4",marketId:"本地",moneyI: var16});}
-                var var17= $("#qy-p1").val();
+                var var17= $("#qy-p4").val();
                 if(var17 != "")
                 {   adList.push({ productId:"P4",marketId:"区域",moneyI: var17});}
-                var var18= $("#gl-p1").val();
+                var var18= $("#gl-p4").val();
                 if(var18 != "")
                 {   adList.push({ productId:"P4",marketId:"国内",moneyI: var18});}
-                var var19= $("#yz-p1").val();
+                var var19= $("#yz-p4").val();
                 if(var19!= "")
                 {   adList.push({ productId:"P4",marketId:"亚洲",moneyI: var19});}
-                var var20= $("#gj-p1").val();
+                var var20= $("#gj-p4").val();
                 if(var20 != "")
                 {   adList.push({ productId:"P4",marketId:"国际",moneyI: var20});}
 
@@ -91,10 +157,18 @@
                     contentType: "application/json;charset=utf-8;",
                     data:JSON.stringify(adList),
                     success: function (data) {
-                        alert("成功");
+                        alert("保存成功");
 
                     }
                 })
+            })
+
+
+            //将广告费提交之后，就可以进入选单环节。
+            $("#btn-advertise-commit").click(function () {
+
+
+
             })
 
 
@@ -154,7 +228,8 @@
       </tr>
       <tr >
           <td colspan="6">
-              <div class="card-bottom"><a href="#" class="btn btn-default" id="btn-advertise">提交广告费</a></div>
+              <div class="card-bottom"><a href="#" class="btn btn-default" id="btn-advertise">暂存广告费</a></div>
+              <div class="card-bottom"><a href="#" class="btn btn-default" id="btn-advertise-commit">提交广告费</a></div>
           </td>
       </tr>
 

@@ -24,4 +24,6 @@ public interface AccountingVoucherService {
 
     void deleteByPeriodAndContent(String userTeam,Integer period,String content);
 
+    void deleteByTeamCount(String userTeam);
+
 }

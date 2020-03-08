@@ -41,7 +41,9 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
         //补充相关字段的取值
         LongTermLoans.setTeamCount(userTeam);
         LongTermLoans.setGroupId("1000");
-        LongTermLoans.setReturnTime(LongTermLoans.getPeriod()+20);
+        LongTermLoans.setRate(new BigDecimal (0.1));   //长贷利率10%
+        LongTermLoans.setReturnTime(21);  //长贷回收的时间
+        LongTermLoans.setPeriodLoan(LongTermLoans.getPeriod());  //长贷生成的时间
 
         //删除当前长贷记录
         Example example = new Example(LongTermLoans.class);
@@ -69,7 +71,7 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
             for (int i = 0; i < longTermLoansList.size(); i++) {
                 String userTeam = Jurisdiction.getUserTeam();
                 int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-                longTermLoansList.get(i).setPeriod(period);
+                longTermLoansList.get(i).setPeriod(0); //初始化的period应设置为0，否则会被删除记录代码块删除
                 longTermLoansList.get(i).setTeamCount(userTeam);
                 longTermLoansList.get(i).setGroupId("1000");
                 BaseBeanHelper.insert(longTermLoansList.get(i));
@@ -131,10 +133,7 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
     //H 长贷利息期末结转记账
     @Override
     public void voucherMakerOfInterest(String userTeam,int period) {
-        int[] periodnumber;
-        periodnumber =new int[]{4,8,12,16,20,24};  //H 第四期末,第八期末。。。
-        for (int l=0;l<periodnumber.length;l++){
-        if(period==periodnumber[l]){
+        if(period%4==0){
                 //H 按teamCount取出所有长贷
                 Example example = new Example(LongTermLoans.class);
                 Example.Criteria criteria = example.createCriteria();
@@ -143,14 +142,29 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
                 //H 计算利息累加
                 BigDecimal longTermLoaninterest = BigDecimal.valueOf(0);
                 for (int i = 0; i < myList.size(); i++) {
-                    longTermLoaninterest = longTermLoaninterest.add(myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.05)).setScale(0, BigDecimal.ROUND_DOWN));
+                    longTermLoaninterest = longTermLoaninterest.add(myList.get(i).getMoneyTotal().multiply(myList.get(i).getRate()).setScale(0, BigDecimal.ROUND_DOWN));
                 }
                 //H 利息记账
                 accountingVoucherService.voucherMaker(userTeam, period, longTermLoaninterest, "LXFY", "长期贷款利息");
             }
-        }
-        return;
     }
+   //长贷在年末发生的变化,回收的期减4
+    @Override
+    public void goToNextPeriod(String userTeam,int nextPeriod){
+        Example example = new Example(LongTermLoans.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        List<LongTermLoans> myList = LongTermLoansMapper.selectByExample(example);
+        for (int i = 0; i < myList.size(); i++) {
+            myList.get(i).setReturnTime(5);
+            System.out.println("------定时任务--------");
+            System.out.println(myList.get(i).getReturnTime());
 
+            //到期还款年初还，报表完成之后申请长贷之前
+            if(myList.get(i).getReturnTime()==1){
+                accountingVoucherService.voucherMaker(userTeam,nextPeriod,myList.get(i).getMoneyTotal(), "CHCD", "偿还长期贷款");
+            }
+        }
 
+    }
 }

@@ -46,6 +46,9 @@ public class SysTeamServiceImpl implements SysTeamService {
     private BalancesheetService balancesheetService;
     @Resource
     private IncomesheetService incomesheetService;
+    @Resource
+    private AccountingVoucherService accountingVoucherService;
+
 
 
     @Transactional
@@ -111,13 +114,16 @@ public class SysTeamServiceImpl implements SysTeamService {
     @Override
     public void reloadData(String userTeam,int period) {
 
+        // 清空会计凭证
+        accountingVoucherService.deleteByTeamCount(userTeam);
+
          //初始化厂房数据
-          String jsonStr = PropertiesUtils.readJsonFile("jsondata/initFatory.json");
-          JSONArray json = JSONArray.fromObject(jsonStr);
-          List<Factory> factories= (List<Factory>)JSONArray.toCollection(json, Factory.class);
-          factoryService.deleteByTeamCount(userTeam);
-          factoryService.adds(factories);
-          System.out.println(json);
+        String jsonStr = PropertiesUtils.readJsonFile("jsondata/initFatory.json");
+        JSONArray json = JSONArray.fromObject(jsonStr);
+        List<Factory> factories= (List<Factory>)JSONArray.toCollection(json, Factory.class);
+        factoryService.deleteByTeamCount(userTeam);
+        factoryService.adds(factories);
+        System.out.println(json);
 
         //初始化生产线
         String jsonStr1 = PropertiesUtils.readJsonFile("jsondata/initProductLine.json");
@@ -137,7 +143,7 @@ public class SysTeamServiceImpl implements SysTeamService {
         System.out.println(json2);
 
 
-        //初始化应收账款。这里的应收账款也包括了出售厂房产生的应收账款
+        //初始化长期贷款。
         String jsonStr3 = PropertiesUtils.readJsonFile("jsondata/initLongTermLoan.json");
         JSONArray json3 = JSONArray.fromObject(jsonStr3);
         List<LongTermLoans> longTermLoanList= (List<LongTermLoans>)JSONArray.toCollection(json3, LongTermLoans.class);

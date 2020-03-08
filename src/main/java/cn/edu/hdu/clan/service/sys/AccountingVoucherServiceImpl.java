@@ -289,50 +289,64 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
            case "CHANGDAI":  //长贷的自动会计分录
                voucherMakerBase(teamCount,period,"现金","长期负债",amount,content);
                break;
+
+           case "CHCD":  //还长贷的自动会计分录
+                voucherMakerBase(teamCount,period,"长期负债","现金",amount,content);
+                break;
+
            case "DUANDAI":  //短贷的会计分录
                voucherMakerBase(teamCount,period,"现金","短期负债",amount,content);
                break;
-            case "GAOLIDAI":  //高利贷的会计分录
+
+           case "CHDD":  //还短贷的自动会计分录
+               voucherMakerBase(teamCount,period,"短期负债","现金",amount,content);
+                break;
+           case "GAOLIDAI":  //高利贷的会计分录
                 voucherMakerBase(teamCount,period,"现金","高利贷",amount,content);
                 break;
-            case "CPYF": //产品研发的
+
+           case "CHGLD":  //高利贷的会计分录
+                voucherMakerBase(teamCount,period,"高利贷","现金",amount,content);
+                break;
+
+           case "CPYF": //产品研发的
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                  break;
-            case "SCKF":  //市场研发的会计分录
+           case "SCKF":  //市场研发的会计分录
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                 break;
-            case "ISOZZ": //ISO认证的会计分录
+           case "ISOZZ": //ISO认证的会计分录
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                break;
 
             //产品交货，生成主营业务收入，应收账款的会计分录
-            case "JH": //交货的会计分录
+           case "JH": //交货的会计分录
                 voucherMakerBase(teamCount,period,"应收款","销售收入",amount,content);
                 break;
             //原材料入库，生成借原料，贷现金的会计分录
-            case "CLRK": //材料入库的会计分录
+           case "CLRK": //材料入库的会计分录
                 voucherMakerBase(teamCount,period,"原料","现金",amount,content);
                break;
 
 
             //销售收款，生成借现金，贷应收款的会计分录
-            case "XSSK": //材料入库的会计分录
+           case "XSSK": //材料入库的会计分录
                 voucherMakerBase(teamCount,period,"现金","应收款",amount,content);
                 break;
             //销售出库。
-            case "XSCK":
+           case "XSCK":
                 voucherMakerBase(teamCount,period,"直接成本","成品",amount,content);
                 break;
 
 
             //出售厂房，生成借应收款，贷应收款的会计分录
-            case "CSCF": //出售厂房的会计分录
+           case "CSCF": //出售厂房的会计分录
                 voucherMakerBase(teamCount,period,"应收款","土地与建筑",amount,content);
                 break;
 
 
             //购买厂房，生成借土地与建筑，贷现金的会计分录
-            case "GMCF": //购买厂房的会计分录
+           case "GMCF": //购买厂房的会计分录
                 voucherMakerBase(teamCount,period,"土地与建筑","现金",amount,content);
                 break;
 
@@ -399,6 +413,20 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         criteria.andEqualTo("teamCount",userTeam);
         criteria.andEqualTo("period", period);
         criteria.andEqualTo("substract", content);
+        List<AccountingVoucher> oldRow1 = AccountingVoucherMapper.selectByExample(example);
+        if(oldRow1.size() > 0)
+        {
+            AccountingVoucherMapper.deleteByExample(example);
+        }
+    }
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+
+        //用于初始化，清空会计凭证
+        Example example = new Example(AccountingVoucher.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
         List<AccountingVoucher> oldRow1 = AccountingVoucherMapper.selectByExample(example);
         if(oldRow1.size() > 0)
         {

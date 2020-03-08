@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.List;
+import cn.edu.hdu.clan.util.Jurisdiction;
+
 
 
 
@@ -50,5 +52,17 @@ public class AdvertiseController extends BaseController {
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(AdvertiseService.getById(param.get("id")));
+    }
+
+    /**
+     * Y 不需要前端传参数。直接查询当前群组、当前会计期间的广告费。
+     * @param
+     * @return
+     */
+    @RequestMapping("listbyteamperiod")
+    public String getByUserTeamAndPeriod() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(AdvertiseService.getByUserTeamAndPeriod(userTeam, period));
     }
 }

@@ -117,4 +117,25 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         }
         accountingVoucherService.deleteByPeriodAndContent(userTeam,period,number);
     }
+
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(IsoFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<IsoFee> factorys = IsoFeeMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                IsoFee myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                IsoFeeMapper.insert(myRow);
+
+            }
+        }
+
+    }
 }

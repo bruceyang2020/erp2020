@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.*;
 
 import java.util.List;
 
@@ -49,6 +50,10 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
     }
 
+    /**
+     * Y 广告投放
+     * @param Advertises
+     */
     @Override
     public void addList(List<Advertise> Advertises) {
         String userTeam = Jurisdiction.getUserTeam();
@@ -98,6 +103,21 @@ public class AdvertiseServiceImpl implements AdvertiseService {
     public PageInfo<Advertise> list(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(AdvertiseMapper.selectAll());
+    }
+
+    /**
+     * Y  根据当前群组与会计期间获取广告投放的数据
+     * @param userTeam
+     * @param period
+     * @return
+     */
+    @Override
+    public List<Advertise> getByUserTeamAndPeriod(String userTeam,int period) {
+        Example example = new Example(Advertise.class);
+        Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        return AdvertiseMapper.selectByExample(example);
     }
 
     @Override

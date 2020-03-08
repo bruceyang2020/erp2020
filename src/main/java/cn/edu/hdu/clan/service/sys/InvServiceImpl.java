@@ -34,7 +34,7 @@ public class InvServiceImpl implements InvService {
 
 
     /**
-     * 批量将存货信息写入当前会计期间。用于初始化操作。
+     * Y 批量将存货信息写入当前会计期间。用于初始化操作。
      * @param invs
      */
     public void adds(List<Inv> invs) {

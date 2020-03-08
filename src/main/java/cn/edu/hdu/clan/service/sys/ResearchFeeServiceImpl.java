@@ -155,4 +155,24 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         }
         accountingVoucherService.deleteByPeriodAndContent(userTeam,period,productId);
     }
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(ResearchFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<ResearchFee> factorys = ResearchFeeMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                ResearchFee myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                ResearchFeeMapper.insert(myRow);
+
+            }
+        }
+
+    }
 }

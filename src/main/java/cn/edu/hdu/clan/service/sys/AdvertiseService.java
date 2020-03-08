@@ -15,5 +15,7 @@ public interface AdvertiseService {
 
     PageInfo<Advertise> list(int pageNum, int pageSize);
 
+    List<Advertise> getByUserTeamAndPeriod(String userTeam,int period);
+
     Advertise getById(String id);
 }
