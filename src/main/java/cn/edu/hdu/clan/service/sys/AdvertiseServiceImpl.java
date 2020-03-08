@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.entity.Example.*;
 
 import java.util.List;
 
@@ -49,6 +50,10 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
     }
 
+    /**
+     * Y 广告投放
+     * @param Advertises
+     */
     @Override
     public void addList(List<Advertise> Advertises) {
         String userTeam = Jurisdiction.getUserTeam();
@@ -86,6 +91,22 @@ public class AdvertiseServiceImpl implements AdvertiseService {
     AdvertiseMapper.deleteByPrimaryKey(id);
     }
 
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+
+        //Y 用于初始化，清空广告费的全面信息
+        Example example = new Example(Advertise.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        List<Advertise> oldRow1 = AdvertiseMapper.selectByExample(example);
+        if(oldRow1.size() > 0)
+        {
+            AdvertiseMapper.deleteByExample(example);
+        }
+
+    }
+
     @Override
     public void update(Advertise Advertise) {
         BaseBeanHelper.edit(Advertise);
@@ -98,6 +119,21 @@ public class AdvertiseServiceImpl implements AdvertiseService {
     public PageInfo<Advertise> list(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
         return new PageInfo<>(AdvertiseMapper.selectAll());
+    }
+
+    /**
+     * Y  根据当前群组与会计期间获取广告投放的数据
+     * @param userTeam
+     * @param period
+     * @return
+     */
+    @Override
+    public List<Advertise> getByUserTeamAndPeriod(String userTeam,int period) {
+        Example example = new Example(Advertise.class);
+        Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        return AdvertiseMapper.selectByExample(example);
     }
 
     @Override

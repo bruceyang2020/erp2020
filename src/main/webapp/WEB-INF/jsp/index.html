@@ -31,42 +31,48 @@
                 $("#currentTeam").val(data.currentTeam);  //获取当前的群组ID
                 $("#userset-period").html(data.currentAp);  //获取当前会计期间
                 $("#userset-user").html(data.currentUser);  //获取当前用户名
+
+                var period = data.currentAp;
+                var str = "第"+Math.ceil(period/4)+"年"+period%4+"季";
+                $("#tip-period").html(str);  //在系统设置按钮上显示当前的会计期间。
                 console.log(data.currentAp);
                 console.log($("#currentAp").val()+"全局会计期间");
 
             }
         });
 
-        //财务部现金
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            data: {pageSize: 100, pageNum: 0},
-            url: "/Balancesheet/list",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                // $("#period").text(data[0].period);
-                $('#cash').text(parseInt(data[0].moneyNow));
-                console.log(data);
-                console.log('财务部资金数据');
-                // $('#year').text(Math.floor(data.period / 4))
-                // $('#money_flow').text(data.money_flow)
-            }
-        })
 
 
-        /
-        //投资按钮点击事件
-        $(function () {
 
-            //广告费的提交按钮事件
-            $("#ok-advertise").click(function () {
-                $("#market-page-manager").val("1"); //将广告费提交标识设置为1.
-            })
+        //Y timer处理函数-更新现金流的数据显示-暂时先显示时间，等后台接口完成，删除时间显示
+        function SetCash() {
+            var date = new Date();
+            var h = date.getHours();
+            var m = date.getMinutes();
+            var s = date.getSeconds();
+            var str = h + ':' + m + ':' + s;
+
+                //财务部现金
+      $.ajax({
+          type: "post",
+          dataType: "json",
+          data: {pageSize: 100, pageNum: 0},
+          url: "/Balancesheet/list",
+          contentType: "application/json;charset=utf-8;",
+          success: function (data) {
+              data = data['data'];
+              // $("#period").text(data[0].period);
+              $('#cash').text(parseInt(data[0].moneyNow)+"-"+str);
+              console.log(data);
+              console.log('财务部资金数据');
+          }
+      })
+        }
+
+        //Y 计时器，每3秒触发一次。
+        setInterval(SetCash, 3000);
 
 
-        })
 
     </script>
 </head>
@@ -304,7 +310,7 @@
                         </div>
                     </div>
 
-                    <input type="hidden" name ="market-page-manager" id="market-page-manager" value="0">
+
                     <div class="pop-marketing">
                         <iframe src="ordersheet.html" id="order-wrap" frameborder="0"  onload="reinitIframe()"></iframe>
                         <div class="pop-foot">
@@ -315,7 +321,7 @@
                         <iframe src="advertise.html" id="advertise-wrap" frameborder="0"  onload="reinitIframe()"></iframe>
                         <div class="pop-foot-advertise">
                             <input type="button" value="关闭" class="pop-cancel pop-close">
-                            <input type="button" value="确认" id="ok-advertise" class="pop-ok">
+                            <input type="button" value="参加订货会" id="ok-tomarketing" class="pop-ok">
                         </div>
                     </div>
                 </div>
@@ -608,7 +614,10 @@
 </div>
 <!--点击每条生产线的弹窗部分END-->
 <!--一个悬浮窗体-->
-<div id = "menuUserSet" class = "userset">系统设置</div>
+<div id = "menuUserSet" class = "userset">
+    <p>系统设置</p>
+    <div id="tip-period" style="color: white;font-weight: bold;font-variant: normal;padding-top:15px;"></div>
+</div>
 
 <!--//这一部分代码是接口专用BEGIN-->
 <input type="hidden" name="eId" id="eId"  value = "0" />

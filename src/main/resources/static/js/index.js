@@ -70,6 +70,12 @@ $(document).ready(function () {
 
     //短贷
     $('#ceo-cz-d').click(function () {
+        var period = $('#currentAp').val();
+        if(Number(period)%4 != 1  )
+        {
+            alert("当前会计期间不可执行长贷筹资。");
+            return;
+        }
         $('.pop-s2').show();
     });
     $('.pop-ok').click(function () {
@@ -82,6 +88,7 @@ $(document).ready(function () {
 
     //高利贷
     $('#ceo-cz-gl').click(function () {
+
         $('.pop-s3').show();
     });
     $('.pop-ok').click(function () {
@@ -210,6 +217,12 @@ $(document).ready(function () {
         }
     })
     $('#ceo-tz-iso1').click(function () {
+        var period = $('#currentAp').val();
+        if(Number(period)%4 != 1  )
+        {
+            alert("当前会计期间不可执行长贷筹资。");
+            return;
+        }
         $('.pop-s12').show()
     });
     $('.pop-cancel').click(function () {
@@ -226,6 +239,12 @@ $(document).ready(function () {
         }
     })
     $('#ceo-tz-iso2').click(function () {
+        var period = $('#currentAp').val();
+        if(Number(period)%4 != 1  )
+        {
+            alert("当前会计期间不可执行长贷筹资。");
+            return;
+        }
         $('.pop-s13').show()
     });
     $('.pop-cancel').click(function () {
@@ -236,14 +255,21 @@ $(document).ready(function () {
 
     //订货会弹窗-广告费
     $('#order').click(function () {
-        var isAd = $("#market-page-manager").val();
-        if(isAd == "0")
-        {$('.pop-advertise').show()};
-        if(isAd == "1")
-        {$('.pop-marketing').show()};
+
+
+       $('.pop-advertise').show();
 
 
     });
+    $('#ok-tomarketing').click(function () {
+
+        $('.pop-advertise').hide();
+        $('.pop-marketing').show();
+
+
+    });
+
+
     $('.pop-cancel').click(function () {
         $('.pop-advertise').hide();
     });

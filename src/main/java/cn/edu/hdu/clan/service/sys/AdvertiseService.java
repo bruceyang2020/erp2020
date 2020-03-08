@@ -11,9 +11,13 @@ public interface AdvertiseService {
 
     void delete(String id);
 
+    void deleteByTeamCount(String userTeam);
+
     void update(Advertise Advertise);
 
     PageInfo<Advertise> list(int pageNum, int pageSize);
+
+    List<Advertise> getByUserTeamAndPeriod(String userTeam,int period);
 
     Advertise getById(String id);
 }

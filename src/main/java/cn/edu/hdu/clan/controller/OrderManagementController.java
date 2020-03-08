@@ -61,4 +61,10 @@ public class OrderManagementController extends BaseController {
     public String getById(@RequestBody Map<String,String> param) {
         return success(OrderManagementService.getById(param.get("id")));
     }
+
+    @RequestMapping("listCurrentPeriodOrder")
+    public String listCurrentPeriodOrder() {
+
+        return success(OrderManagementService.listCurrentPeriodOrder());
+    }
 }
