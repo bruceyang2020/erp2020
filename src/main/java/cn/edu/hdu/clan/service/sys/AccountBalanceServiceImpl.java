@@ -129,7 +129,11 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         criteria.andEqualTo("period", period-1);//取上期
         criteria.andEqualTo("acode", "现金");//取现金科目
         List<AccountBalance> list = AccountBalanceMapper.selectByExample(example);
-        money=money.add(list.get(0).getMoneyE());//上期期末余额+（本期借方-贷方）
+        if(list.size() == 1)
+        {   money=money.add(list.get(0).getMoneyE());//上期期末+（本期借方-贷方）
+            System.out.println("这是上年期末数");
+            System.out.println(list.get(0).getMoneyE());
+        }
         return money;
 
     }

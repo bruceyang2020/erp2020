@@ -148,10 +148,6 @@ $(document).ready(function () {
                 if($('#load-g').val()>=0){alert("高利贷借款成功")}
                 else{alert("高利贷还款成功")};
 
-
-
-
-
             }
 
         })
@@ -436,7 +432,6 @@ $(document).ready(function () {
             }
         })
         // touzi: 0
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//区域扣20
         touzi = parseInt(touzi) + parseInt("20");//记录扣款数
         //touzi: 20
 
@@ -492,7 +487,6 @@ $(document).ready(function () {
                 alert("国内市场开拓成功");
             }
         });
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("40"));//国内扣40
         touzi = parseInt(touzi) + parseInt("40");//记录扣款数
     });
     //国内投资按钮取消事件
@@ -546,7 +540,6 @@ $(document).ready(function () {
                 alert("亚洲市场开拓成功");
             }
         })
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("60"));//亚洲扣60
         touzi = parseInt(touzi) + parseInt("60");//记录扣款数
     });
     //亚洲投资按钮取消事件
@@ -566,7 +559,6 @@ $(document).ready(function () {
             }
         });
 
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("60"));//亚洲加60
 
         var battery = ["tz1", "tz2", "tz3", "tz5"];
         $('.pop-s6').hide();
@@ -599,7 +591,6 @@ $(document).ready(function () {
                 alert("国际市场开拓成功");
             }
         })
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("80"));//国际扣80
         touzi = parseInt(touzi) + parseInt("80");//记录扣款数
     })
     //国际投资按钮取消事件
@@ -619,7 +610,6 @@ $(document).ready(function () {
             }
         });
 
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("80"));//国际加80
 
         var battery = ["tz1", "tz2", "tz3", "tz4", "tz5"];
         $('.pop-s7').hide();
@@ -652,7 +642,7 @@ $(document).ready(function () {
                 alert("P2研发成功");
             }
         });
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P2扣20
+
         touzi = parseInt(touzi) + parseInt("20");//记录扣款数
     });
     //产品研发取消按钮-p2
@@ -672,7 +662,7 @@ $(document).ready(function () {
             }
         });
 
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("20"));//P2加20
+
 
         var battery = ["tz1","tz1_5","tz2","tz3","tz3_5","tz4","tz5"];
         $('.pop-s9').hide();
@@ -707,7 +697,7 @@ $(document).ready(function () {
                     alert("P3研发成功");
                 }
             })
-            $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P3扣20
+
             touzi = parseInt(touzi) + parseInt("20");//记录扣款数
         })
     //产品研发取消按钮-p3
@@ -727,7 +717,7 @@ $(document).ready(function () {
             }
         });
 
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("20"));//P3加20
+
 
         var battery = ["tz1","tz1_5","tz2","tz3","tz3_5","tz4","tz5"];
         $('.pop-s10').hide();
@@ -760,7 +750,7 @@ $(document).ready(function () {
                     alert("P4研发成功");
                 }
             })
-            $("#cash").text(parseInt($('#cash').text()) - parseInt("20"));//P4扣20
+
             touzi = parseInt(touzi) + parseInt("20");//记录扣款数
         })
 
@@ -781,7 +771,7 @@ $(document).ready(function () {
             }
         });
 
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("20"));//P4加20
+
 
         var battery = ["tz1","tz1_5","tz2","tz3","tz3_5","tz4","tz5"];
         $('.pop-s11').hide();
@@ -818,7 +808,7 @@ $(document).ready(function () {
                     console.log("*************ISO9K");
                 }
             });
-            $("#cash").text(parseInt($('#cash').text()) - parseInt("200"));//ISO1扣200
+
             touzi = parseInt(touzi) + parseInt("200");//记录扣款数
         });
     //ISO9K投资按钮取消事件
@@ -839,7 +829,7 @@ $(document).ready(function () {
         });
 
 
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("200"));//ISO9K加200
+
         $('.pop-s12').hide();
         var battery = ["tz1","tz3","tz5"];
         for (var i = 0; i < battery.length; i++) {
@@ -872,7 +862,7 @@ $(document).ready(function () {
                     console.log("**********************ISO14K")
                 }
             });
-            $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
+
             touzi = parseInt(touzi) + parseInt("400");//记录扣款数
         });
     //ISO14K投资按钮取消事件
@@ -893,7 +883,7 @@ $(document).ready(function () {
         });
 
 
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("400"));//ISO14K加400
+
         $('.pop-s13').hide();
         var battery = ["tz1","tz3","tz5"];
         for (var i = 0; i < battery.length; i++) {

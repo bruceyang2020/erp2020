@@ -231,7 +231,7 @@ public class SysTeamServiceImpl implements SysTeamService {
         incomesheetService.add(incomesheet);
         System.out.println(json9);
 
-        //ISO认证初始化
+        //H ISO认证初始化
         String jsonStr10 = PropertiesUtils.readJsonFile("jsondata/initIsoFee.json");
         JSONArray json10 = JSONArray.fromObject(jsonStr10);
         List<IsoFee> isoFees= (List<IsoFee>)JSONArray.toCollection(json10, IsoFee.class);
@@ -239,7 +239,7 @@ public class SysTeamServiceImpl implements SysTeamService {
         isoFeeService.adds(isoFees);
         System.out.println(json10);
 
-        //市场开发初始化
+        //H 市场开发初始化
         String jsonStr11 = PropertiesUtils.readJsonFile("jsondata/initMarketFee.json");
         JSONArray json11= JSONArray.fromObject(jsonStr11);
         List<MarketFee> marketFees= (List<MarketFee>)JSONArray.toCollection(json11, MarketFee.class);

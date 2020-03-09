@@ -130,7 +130,7 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
         return LongTermLoansMapper.selectByExample(example);
     }
 
-    //一年后短贷还款还息，记入的报表时间为结转后的period，即nextPeriod
+    //H一年后长贷还还息，记入的报表时间为结转后的period，即nextPeriod
     @Override
     public void voucherMakerOfInterestAndRepayment(String userTeam,int nextPeriod) {
        // 每年初计一次

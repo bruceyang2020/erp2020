@@ -70,12 +70,6 @@ $(document).ready(function () {
 
     //短贷
     $('#ceo-cz-d').click(function () {
-        var period = $('#currentAp').val();
-        if(Number(period)%4 != 1  )
-        {
-            alert("当前会计期间不可执行长贷筹资。");
-            return;
-        }
         $('.pop-s2').show();
     });
     $('.pop-ok').click(function () {
@@ -100,7 +94,14 @@ $(document).ready(function () {
 
     //投资
     $('#ceo-tz-ma1').click(function () {
-        $('.pop-s4').show()
+        var period = $('#currentAp').val();
+        //H 年末
+        if(Number(period)%4 != 0  )
+        {
+            alert("当前会计期间不可市场开拓哦。");
+            return;
+        }
+        $('.pop-s4').show();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s4').hide();
@@ -111,7 +112,14 @@ $(document).ready(function () {
         $('#ceo-tz-ma1').addClass('tz5')
     })
     $('#ceo-tz-ma2').click(function () {
-        $('.pop-s5').show()
+        var period = $('#currentAp').val();
+        //H 年末
+        if(Number(period)%4 != 0  )
+        {
+            alert("当前会计期间不可市场开拓哦。");
+            return;
+        }
+        $('.pop-s5').show();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s5').hide();
@@ -127,7 +135,14 @@ $(document).ready(function () {
         }
     })
     $('#ceo-tz-ma3').click(function () {
-        $('.pop-s6').show()
+        var period = $('#currentAp').val();
+        //H 年末
+        if(Number(period)%4 != 0  )
+        {
+            alert("当前会计期间不可市场开拓哦。");
+            return;
+        }
+        $('.pop-s6').show();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s6').hide();
@@ -146,7 +161,14 @@ $(document).ready(function () {
         }
     })
     $('#ceo-tz-ma4').click(function () {
-        $('.pop-s7').show()
+        var period = $('#currentAp').val();
+        //H 年末
+        if(Number(period)%4 != 0  )
+        {
+            alert("当前会计期间不可市场开拓哦。");
+            return;
+        }
+        $('.pop-s7').show();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s7').hide();
@@ -218,12 +240,13 @@ $(document).ready(function () {
     })
     $('#ceo-tz-iso1').click(function () {
         var period = $('#currentAp').val();
-        if(Number(period)%4 != 1  )
+        //H 年末
+        if(Number(period)%4 != 0  )
         {
-            alert("当前会计期间不可执行长贷筹资。");
+            alert("当前会计期间不可获得证书哦。");
             return;
         }
-        $('.pop-s12').show()
+        $('.pop-s12').show();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s12').hide();
@@ -240,9 +263,10 @@ $(document).ready(function () {
     })
     $('#ceo-tz-iso2').click(function () {
         var period = $('#currentAp').val();
-        if(Number(period)%4 != 1  )
+        //H 年末
+        if(Number(period)%4 != 0  )
         {
-            alert("当前会计期间不可执行长贷筹资。");
+            alert("当前会计期间不可获得证书哦。");
             return;
         }
         $('.pop-s13').show()

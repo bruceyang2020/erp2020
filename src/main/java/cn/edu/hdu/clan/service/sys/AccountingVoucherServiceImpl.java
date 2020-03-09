@@ -206,7 +206,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
     @Override
     public BigDecimal sumMoney(String userTeam ,int period,String acode,String aType) {
         BigDecimal myMoney = BigDecimal.valueOf(0);
-        BigDecimal  addMoney = BigDecimal.valueOf(0);
+
 
         Example example = new Example(AccountingVoucher.class);
         Example.Criteria criteria = example.createCriteria();
@@ -214,9 +214,9 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         criteria.andEqualTo("acode", acode);
         criteria.andEqualTo("period", period);
         List<AccountingVoucher> oldRow = AccountingVoucherMapper.selectByExample( example);
-
-        for(int i=1;i<oldRow.size();i++)
+        for(int i=0;i<oldRow.size();i++)
         {
+            BigDecimal  addMoney = BigDecimal.valueOf(0);
             if("借".equals(aType) && null !=oldRow.get(i).getMoneyD())
             {
                 addMoney = oldRow.get(i).getMoneyD();

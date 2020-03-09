@@ -23,33 +23,45 @@ public class IsoFeeServiceImpl implements IsoFeeService {
     @Resource
     private AccountingVoucherService accountingVoucherService;
 
+
     @Transactional
     @Override
+   //H ISO初始化
+    public void adds(List<IsoFee>  isoFees) {
+        if(isoFees.size() > 0) {
+            for (int i = 0; i < isoFees.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                isoFees.get(i).setPeriod(period);
+                isoFees.get(i).setTeamCount(userTeam);
+                isoFees.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(isoFees.get(i));
+                IsoFeeMapper.insert(isoFees.get(i));
+            }
+        }
+    }
+    //H ISO确定按钮更新
     public void add(IsoFee IsoFee) {
 
         //全局变量 写入当前公司或小组ID
         String userTeam = Jurisdiction.getUserTeam();
-        //补充相关字段的取值
-        IsoFee.setTeamCount(userTeam);
-        IsoFee.setGroupId("1000");
-        IsoFee.setPeriodLeft(2);
-        IsoFee.setState(1);//这期开发过了
-
-
+        //每一期都有复制，取出原始的数据
         Example example = new Example(IsoFee.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", IsoFee.getTeamCount());
+        criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", IsoFee.getPeriod());
         criteria.andEqualTo("number", IsoFee.getNumber());
-        List<IsoFee> oldRow = IsoFeeMapper.selectByExample(example);
-        if(oldRow.size() > 0)
-        {
-           return;  //H 这期开发过就不能开发了,取消方式见deleteByPeriod
-        }
+        List<IsoFee> updateRow = IsoFeeMapper.selectByExample(example);
+
+        //补充相关字段的取值
+        updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft()-1);
+        System.out.println(updateRow.get(0).getPeriodLeft());
+        updateRow.get(0).setState(updateRow.get(0).getPeriodLeft()==0?1:0);//这期开发过了
+
 
         //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
-        BaseBeanHelper.insert(IsoFee);
-        IsoFeeMapper.insert(IsoFee);
+        BaseBeanHelper.edit(updateRow.get(0));
+        IsoFeeMapper.updateByPrimaryKey(updateRow.get(0));
 
         String isoNumber = IsoFee.getNumber();
 
@@ -67,20 +79,30 @@ public class IsoFeeServiceImpl implements IsoFeeService {
 
         }
     }
-    //H
-    public void adds(List<IsoFee>  isoFees) {
-        if(isoFees.size() > 0) {
-            for (int i = 0; i < isoFees.size(); i++) {
-                String userTeam = Jurisdiction.getUserTeam();
-                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-                isoFees.get(i).setPeriod(period-1);
-                isoFees.get(i).setTeamCount(userTeam);
-                isoFees.get(i).setGroupId("1000");
-                BaseBeanHelper.insert(isoFees.get(i));
-                IsoFeeMapper.insert(isoFees.get(i));
-            }
-        }
+
+    //H ISO取消投资的按钮更新
+    @Override
+    public void deleteByPeriod(String userTeam,Integer period,String number) {
+
+        Example example = new Example(IsoFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("number", number);
+        List<IsoFee> updateRow = IsoFeeMapper.selectByExample(example);
+
+        //补充相关字段的取值
+        updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft()+1);//剩余时间回撤
+        updateRow.get(0).setState(updateRow.get(0).getPeriodLeft()==0?1:0);//这期开发过了
+        //补充相关字段的取值
+        System.out.println(updateRow.get(0).getPeriodLeft());
+        //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
+        BaseBeanHelper.edit(updateRow.get(0));
+        IsoFeeMapper.updateByPrimaryKey(updateRow.get(0));
+       //删除会计凭证
+        accountingVoucherService.deleteByPeriodAndContent(userTeam,period,number);
     }
+
     //H
     @Override
     public void deleteByTeamCount(String userTeam) {
@@ -124,21 +146,6 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period);
         return IsoFeeMapper.selectByExample(example);
-    }
-
-    @Override
-    public void deleteByPeriod(String userTeam,Integer period,String number) {
-        //H 删除ISO认证的行，并删除本期会计凭证
-        Example example = new Example(IsoFee.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
-        criteria.andEqualTo("number", number);
-        List<IsoFee> oldRow = IsoFeeMapper.selectByExample(example);
-        if (oldRow.size() > 0) {
-            IsoFeeMapper.deleteByExample(example);
-        }
-        accountingVoucherService.deleteByPeriodAndContent(userTeam,period,number);
     }
 
 

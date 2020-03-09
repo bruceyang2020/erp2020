@@ -33,7 +33,7 @@
                 $("#userset-user").html(data.currentUser);  //获取当前用户名
 
                 var period = data.currentAp;
-                var str = "第"+Math.ceil(period/4)+"年"+period%4+"季";
+                var str = "第"+Math.ceil(period/4)+"年"+(period%4==0?4:period%4)+"季";
                 $("#tip-period").html(str);  //在系统设置按钮上显示当前的会计期间。
                 console.log(data.currentAp);
                 console.log($("#currentAp").val()+"全局会计期间");
@@ -49,23 +49,27 @@
 
 
                 //财务部现金
-      $.ajax({
-          type: "post",
-          dataType: "json",
-          url: "/AccountBalance/moneyTotal",
-          contentType: "application/json;charset=utf-8;",
-          success: function (data) {
-              data = data['data'];
-              // $("#period").text(data[0].period);
-              $('#cash').text(parseInt(data[0]));
-              console.log(data);
-              console.log('财务部资金数据');
-          }
-      })
+                  $.ajax({
+                      type: "post",
+                      dataType: "json",
+                      url: "/AccountBalance/moneyTotal",
+                      contentType: "application/json;charset=utf-8;",
+                      success: function (data) {
+                          data = data['data'];
+                          console.log(data);
+                          $('#cash').text(parseInt(data['moneytotal']));
+                          if(data['moneytotal']<0){
+                              alert("啊哦，破产了");
+                          }
+
+                          console.log('财务部资金数据');
+                      }
+                  })
+
         }
 
         //Y 计时器，每3秒触发一次。
-        setInterval(SetCash, 3000);
+        setInterval(SetCash, 5000);
 
 
 
