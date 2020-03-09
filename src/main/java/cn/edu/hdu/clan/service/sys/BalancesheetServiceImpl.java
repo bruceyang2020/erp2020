@@ -13,6 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.*;
 
+import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -20,7 +22,8 @@ public class BalancesheetServiceImpl implements BalancesheetService {
 
     @Autowired
     private BalancesheetMapper BalancesheetMapper;
-
+    @Resource
+    private  AccountingVoucherService accountingVoucherService;
     @Transactional
     @Override
     public void add(Balancesheet Balancesheet) {

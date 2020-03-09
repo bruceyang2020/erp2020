@@ -5,6 +5,7 @@ import cn.edu.hdu.clan.entity.sys.Balancesheet;
 import cn.edu.hdu.clan.entity.sys.Incomesheet;
 import com.github.pagehelper.PageInfo;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface BalancesheetService {
@@ -31,4 +32,5 @@ public interface BalancesheetService {
     void createBalanceSheet(List<AccountBalance> accountBalances,String userTeam ,int period);
 
     void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
+
 }
