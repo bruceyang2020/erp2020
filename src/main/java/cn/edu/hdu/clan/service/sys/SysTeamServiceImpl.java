@@ -56,6 +56,12 @@ public class SysTeamServiceImpl implements SysTeamService {
     @Resource
     private AdvertiseService advertiseService;
 
+    @Resource
+    private IsoFeeService isoFeeService;
+
+    @Resource
+    private MarketFeeService marketFeeService;
+
 
 
 
@@ -134,6 +140,8 @@ public class SysTeamServiceImpl implements SysTeamService {
 
         //Y  清空广告费列表
         advertiseService.deleteByTeamCount(userTeam);
+
+
 
 
 
@@ -223,6 +231,21 @@ public class SysTeamServiceImpl implements SysTeamService {
         incomesheetService.add(incomesheet);
         System.out.println(json9);
 
+        //ISO认证初始化
+        String jsonStr10 = PropertiesUtils.readJsonFile("jsondata/initIsoFee.json");
+        JSONArray json10 = JSONArray.fromObject(jsonStr10);
+        List<IsoFee> isoFees= (List<IsoFee>)JSONArray.toCollection(json10, IsoFee.class);
+        isoFeeService.deleteByTeamCount(userTeam);
+        isoFeeService.adds(isoFees);
+        System.out.println(json10);
+
+        //市场开发初始化
+        String jsonStr11 = PropertiesUtils.readJsonFile("jsondata/initMarketFee.json");
+        JSONArray json11= JSONArray.fromObject(jsonStr11);
+        List<MarketFee> marketFees= (List<MarketFee>)JSONArray.toCollection(json11, MarketFee.class);
+        marketFeeService.deleteByTeamCount(userTeam);
+        marketFeeService.adds(marketFees);
+        System.out.println(json11);
 
 
     }

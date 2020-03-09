@@ -158,8 +158,4 @@ $(document).ready(function () {
         touzi = parseInt(touzi) + parseInt("400");//记录扣款数
     })
 
-
-
-
-
 })

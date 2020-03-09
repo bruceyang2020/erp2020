@@ -147,9 +147,11 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(Usury),
             success: function (data) {
-                alert("高利贷成功");
+                if($('#load-g').val()>=0){alert("高利贷借款成功")}
+                else{alert("高利贷还款成功")};
 
-                $('#cash').text(parseInt($('#load-g').val()) + parseInt($('#cash').text()));//财务显示更新
+
+
 
 
             }

@@ -82,7 +82,28 @@ public class MarketFeeServiceImpl implements MarketFeeService {
 
 
     }
-
+//H
+    public void adds(List<MarketFee>  marketFees) {
+        if(marketFees.size() > 0) {
+            for (int i = 0; i < marketFees.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                marketFees.get(i).setPeriod(period-1);
+                marketFees.get(i).setTeamCount(userTeam);
+                marketFees.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(marketFees.get(i));
+                MarketFeeMapper.insert(marketFees.get(i));
+            }
+        }
+    }
+    //H
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(MarketFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        MarketFeeMapper.deleteByExample(example);
+    }
 
     @Override
     public void deleteByPeriod(String userTeam,Integer period,String marketId) {
