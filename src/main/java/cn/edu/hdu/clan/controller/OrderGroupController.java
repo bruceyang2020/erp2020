@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("OrderGroup")
@@ -35,11 +36,25 @@ public class OrderGroupController extends BaseController {
         return success();
     }
 
+    /**
+     * 列表显示备选订单。
+     * @param param
+     * @return
+     */
     @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
     public String list(@RequestBody Map<String,String> param) {
+        List<OrderGroup> myList = OrderGroupService.list(param.get("productId"));
+        List<Map<String,String>> datas = new ArrayList<Map<String, String>>();
+
+
         return success(OrderGroupService.list(param.get("productId")));
     }
 
+    /**
+     * Y 生成用于图表显示全部订单的数量状图
+     * @param param
+     * @return
+     */
     @RequestMapping(value = "listAllAmount",produces = "application/json;charset=utf-8")
     public String listAllAmount(@RequestBody Map<String,String> param) {
          List<OrderGroup> myList = OrderGroupService.listAll();
@@ -124,6 +139,11 @@ public class OrderGroupController extends BaseController {
         return success(dataMap);
     }
 
+    /**
+     * Y 生成用于图表显示全部订单的价格状图
+     * @param param
+     * @return
+     */
     @RequestMapping(value = "listAllPriceTotal",produces = "application/json;charset=utf-8")
     public String listAllPriceTotal(@RequestBody Map<String,String> param) {
         List<OrderGroup> myList = OrderGroupService.listAll();

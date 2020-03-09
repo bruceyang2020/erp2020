@@ -23,7 +23,7 @@ $(function(){
                     var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
                     tableStr = tableStr
                         + "<tr>"
-                        +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"
+                        +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"+"<td >状态</td>"
                         +"<td >操作</td>"+"</tr>";
                     var len = data.length;
                     for ( var i = 0; i < len; i++) {
@@ -35,6 +35,7 @@ $(function(){
                             +"<td class='purple'>"+data[i].periodPay+"</td>"
                             +"<td >"+data[i].isurgent+"</td>"
                             +"<td >"+data[i].iso+"</td>"
+                            +"<td >"+"备选"+"</td>"
                             +"<td ><button type='button' class='btn  btn-mini btn-select''  onclick=''>选择</button></td>"
                             +"</tr>";
                     }
@@ -83,7 +84,7 @@ $(function(){
                     var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
                     tableStr = tableStr
                         + "<tr>"
-                        +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"
+                        +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"+"<td >状态</td>"
                         +"<td >操作</td>"+"</tr>";
                     var len = data.length;
                     for ( var i = 0; i < len; i++) {
@@ -95,6 +96,7 @@ $(function(){
                             +"<td class='purple'>"+data[i].periodPay+"</td>"
                             +"<td >"+data[i].isurgent+"</td>"
                             +"<td >"+data[i].iso+"</td>"
+                            +"<td >"+"备选"+"</td>"
                             +"<td ><button type='button' class='btn  btn-mini btn-select''  onclick=''>选择</button></td>"
                             +"</tr>";
                     }
@@ -143,7 +145,7 @@ $(function(){
                     var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
                     tableStr = tableStr
                         + "<tr>"
-                        +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"
+                        +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"+"<td >状态</td>"
                         +"<td >操作</td>"+"</tr>";
                     var len = data.length;
                     for ( var i = 0; i < len; i++) {
@@ -155,6 +157,7 @@ $(function(){
                             +"<td class='purple'>"+data[i].periodPay+"</td>"
                             +"<td >"+data[i].isurgent+"</td>"
                             +"<td >"+data[i].iso+"</td>"
+                            +"<td >"+"备选"+"</td>"
                             +"<td ><button type='button' class='btn  btn-mini btn-select''  onclick=''>选择</button></td>"
                             +"</tr>";
                     }
@@ -203,7 +206,7 @@ $(function(){
                     var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
                     tableStr = tableStr
                         + "<tr>"
-                        +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"
+                        +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"+"<td >状态</td>"
                         +"<td >操作</td>"+"</tr>";
                     var len = data.length;
                     for ( var i = 0; i < len; i++) {
@@ -215,6 +218,7 @@ $(function(){
                             +"<td class='purple'>"+data[i].periodPay+"</td>"
                             +"<td >"+data[i].isurgent+"</td>"
                             +"<td >"+data[i].iso+"</td>"
+                            +"<td >"+"备选"+"</td>"
                             +"<td ><button type='button' class='btn  btn-mini btn-select'  onclick=''>选择</button></td>"
                             +"</tr>";
                     }

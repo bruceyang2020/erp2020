@@ -53,20 +53,20 @@
             var str = h + ':' + m + ':' + s;
 
                 //财务部现金
-      $.ajax({
-          type: "post",
-          dataType: "json",
-          data: {pageSize: 100, pageNum: 0},
-          url: "/Balancesheet/list",
-          contentType: "application/json;charset=utf-8;",
-          success: function (data) {
-              data = data['data'];
-              // $("#period").text(data[0].period);
-              $('#cash').text(parseInt(data[0].moneyNow)+"-"+str);
-              console.log(data);
-              console.log('财务部资金数据');
-          }
-      })
+                  $.ajax({
+                      type: "post",
+                      dataType: "json",
+                      data: {pageSize: 100, pageNum: 0},
+                      url: "/Balancesheet/list",
+                      contentType: "application/json;charset=utf-8;",
+                      success: function (data) {
+                          data = data['data'];
+                          // $("#period").text(data[0].period);
+                          $('#cash').text(parseInt(data[0].moneyNow)+"-"+str);
+                          console.log(data);
+                          console.log('财务部资金数据');
+                      }
+                  })
         }
 
         //Y 计时器，每3秒触发一次。
