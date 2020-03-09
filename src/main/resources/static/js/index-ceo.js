@@ -96,7 +96,6 @@ $(document).ready(function () {
              data: JSON.stringify(LongTermLoans),
              success: function (data) {
             alert("长期贷款成功");
-            $('#cash').text(parseInt($('#load-c').val()) + parseInt($('#cash').text()));//财务显示更新
                  $("#ceo-cz-c1").val($('#load-c').val());
             }
         })
@@ -126,7 +125,6 @@ $(document).ready(function () {
             success: function (data) {
                 alert("短期贷款成功");
                 daikuan = parseInt(daikuan) + parseInt($('#load-d').val());//记录贷款数
-                $('#cash').text(parseInt($('#load-d').val()) + parseInt($('#cash').text()));//财务显示更新
                 $("#ceo-cz-d1").val($('#load-d').val());
             }
         })
