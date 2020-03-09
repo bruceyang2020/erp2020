@@ -111,12 +111,29 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
 
 
-
             }
         }
 
 
     }
+    //H
+    public BigDecimal moneyAsFar(String userTeam ,int period){
+        BigDecimal moneyD;
+        BigDecimal moneyC;
+        moneyD = accountingVoucherService.sumMoney(userTeam,period,"现金","借");
+        moneyC = accountingVoucherService.sumMoney(userTeam,period,"现金","贷");
+        BigDecimal money=moneyD.subtract(moneyC);//借方-贷方
+        Example example = new Example(AccountBalance.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period-1);//取上期
+        criteria.andEqualTo("acode", "现金");//取现金科目
+        List<AccountBalance> list = AccountBalanceMapper.selectByExample(example);
+        money=money.add(list.get(0).getMoneyE());//上期期末余额+（本期借方-贷方）
+        return money;
+
+    }
+
 
     @Override
     public void update(AccountBalance AccountBalance) {

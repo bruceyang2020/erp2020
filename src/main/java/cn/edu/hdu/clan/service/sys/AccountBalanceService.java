@@ -2,6 +2,8 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
 import com.github.pagehelper.PageInfo;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface AccountBalanceService {
@@ -26,4 +28,6 @@ public interface AccountBalanceService {
     List<AccountBalance> getByTeamcountAndPeriod(String userTeam ,int period);
 
     void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
+
+    BigDecimal moneyAsFar(String userTeam , int period);
 }

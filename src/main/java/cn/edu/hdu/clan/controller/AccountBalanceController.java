@@ -2,11 +2,13 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
 import cn.edu.hdu.clan.service.sys.AccountBalanceService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 @RestController
@@ -42,4 +44,12 @@ public class AccountBalanceController extends BaseController {
     public String getById(@RequestBody Map<String,String> param) {
         return success(AccountBalanceService.getById(param.get("id")));
     }
+
+    /*@RequestMapping("moneyTotal")
+    public BigDecimal moneyTotal( @RequestBody AccountBalance AccountBalance) {
+       String userTeam = Jurisdiction.getUserTeam();
+       int period = AccountBalance.getPeriod();
+
+      return  AccountBalanceService.moneyAsFar(userTeam,period);
+   }*/
 }
