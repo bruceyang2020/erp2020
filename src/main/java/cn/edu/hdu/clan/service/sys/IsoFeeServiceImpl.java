@@ -23,6 +23,10 @@ public class IsoFeeServiceImpl implements IsoFeeService {
     @Resource
     private AccountingVoucherService accountingVoucherService;
 
+    @Resource
+    private IsoFeeService isoFeeService;
+
+
 
     @Transactional
     @Override
@@ -40,6 +44,7 @@ public class IsoFeeServiceImpl implements IsoFeeService {
             }
         }
     }
+
     //H ISO确定按钮更新
     public void add(IsoFee IsoFee) {
 
@@ -54,29 +59,30 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         List<IsoFee> updateRow = IsoFeeMapper.selectByExample(example);
 
         //补充相关字段的取值
-        updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft()-1);
-        System.out.println(updateRow.get(0).getPeriodLeft());
-        updateRow.get(0).setState(updateRow.get(0).getPeriodLeft()==0?1:0);//这期开发过了
+        if(updateRow.get(0).getPeriodLeft()>0) {
+            updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() - 1);
+            System.out.println(updateRow.get(0).getPeriodLeft());
+            updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
 
 
-        //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
-        BaseBeanHelper.edit(updateRow.get(0));
-        IsoFeeMapper.updateByPrimaryKey(updateRow.get(0));
+            //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
+            BaseBeanHelper.edit(updateRow.get(0));
+            IsoFeeMapper.updateByPrimaryKey(updateRow.get(0));
 
-        String isoNumber = IsoFee.getNumber();
+            String isoNumber = IsoFee.getNumber();
 
-        switch (isoNumber)
-        {
-            case "ISO9K":
-                //自动生成ISO9K会计凭证
-                accountingVoucherService.voucherMaker(userTeam,IsoFee.getPeriod(),new BigDecimal("200"),"ISOZZ","ISO9K");
-                break;
+            switch (isoNumber) {
+                case "ISO9K":
+                    //自动生成ISO9K会计凭证
+                    accountingVoucherService.voucherMaker(userTeam, IsoFee.getPeriod(), new BigDecimal("200"), "ISOZZ", "ISO9K");
+                    break;
 
-            case "ISO14K":
-                //自动生成ISO14K会计凭证
-                accountingVoucherService.voucherMaker(userTeam,IsoFee.getPeriod(),new BigDecimal("400"),"ISOZZ","ISO14K");
-                break;
+                case "ISO14K":
+                    //自动生成ISO14K会计凭证
+                    accountingVoucherService.voucherMaker(userTeam, IsoFee.getPeriod(), new BigDecimal("400"), "ISOZZ", "ISO14K");
+                    break;
 
+            }
         }
     }
 
@@ -84,23 +90,19 @@ public class IsoFeeServiceImpl implements IsoFeeService {
     @Override
     public void deleteByPeriod(String userTeam,Integer period,String number) {
 
-        Example example = new Example(IsoFee.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
-        criteria.andEqualTo("number", number);
-        List<IsoFee> updateRow = IsoFeeMapper.selectByExample(example);
-
-        //补充相关字段的取值
-        updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft()+1);//剩余时间回撤
-        updateRow.get(0).setState(updateRow.get(0).getPeriodLeft()==0?1:0);//这期开发过了
-        //补充相关字段的取值
-        System.out.println(updateRow.get(0).getPeriodLeft());
-        //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
-        BaseBeanHelper.edit(updateRow.get(0));
-        IsoFeeMapper.updateByPrimaryKey(updateRow.get(0));
-       //删除会计凭证
-        accountingVoucherService.deleteByPeriodAndContent(userTeam,period,number);
+        List<IsoFee> oldRow = isoFeeService.listByperiod(userTeam, period - 1, number);
+        if (oldRow.get(0).getState() == 0) {
+            //补充相关字段的取值
+            List<IsoFee> updateRow = isoFeeService.listByperiod(userTeam, period, number);
+            updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
+            updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
+            //补充相关字段的取值
+            //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
+            BaseBeanHelper.edit(updateRow.get(0));
+            IsoFeeMapper.updateByPrimaryKey(updateRow.get(0));
+            //删除会计凭证
+            accountingVoucherService.deleteByPeriodAndContent(userTeam, period, number);
+        }
     }
 
     //H
@@ -136,6 +138,17 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         Example example = new Example(IsoFee.class);
         example.createCriteria().andEqualTo("id", id);
         return IsoFeeMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<IsoFee> listByperiod(String userTeam ,int period,String number) {
+        //H 根据number查询ISO的信息
+        Example example = new Example(IsoFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("number", number);
+        return IsoFeeMapper.selectByExample(example);
     }
 
     @Override

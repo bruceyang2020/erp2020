@@ -58,9 +58,9 @@
                           data = data['data'];
                           console.log(data);
                           $('#cash').text(parseInt(data['moneytotal']));
-                          if(data['moneytotal']<0){
-                              alert("啊哦，破产了");
-                          }
+                         /* if(data['moneytotal']<0){
+                              /!*alert("啊哦，破产了");*!/
+                          }*/
 
                           console.log('财务部资金数据');
                       }
@@ -211,6 +211,13 @@
                     <h4 id="ceo-tz-gj" class="tz-text">国际</h4>
 
                     <input name="ceo_tz_p1" id="ceo-tz-pr1" class="tz5" type="button"/>
+                    <div class="pop-s8">
+                        <h3>确认投资？（20M/Q）</h3>
+                        <div class="pop-foot">
+                            <input type="button" value="取消" id="cancel-p1" class="pop-cancel pop-close">
+                            <input type="button" value="确认" id="ok-p1" class="pop-ok">
+                        </div>
+                    </div>
                     <h4 id="ceo-tz-p1" class="tz-text">P1</h4>
 
                     <input name="ceo_tz_p2" id="ceo-tz-pr2" class="tz1" type="button"/>

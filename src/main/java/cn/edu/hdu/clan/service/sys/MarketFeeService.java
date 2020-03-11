@@ -23,4 +23,6 @@ public interface MarketFeeService {
     List<MarketFee> list(String userTeam ,int period);
 
     void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
+
+    List<MarketFee> listByperiod(String userTeam ,int period,String marketId);
 }

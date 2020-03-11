@@ -157,6 +157,7 @@ $(document).ready(function () {
 
 
     /*  投资部分*/
+    /*小电池模块tz1 tz1_5 tz2 tz2_5 tz3 tz3_5 tz4 tz5 可用于改动规则*/
 
     //市场开拓的显示      marketId=“区域” “国内”  “亚洲”  “国际”
     $.ajax({
@@ -172,69 +173,23 @@ $(document).ready(function () {
                 var leftperiod = value.periodLeft;
                 switch (String(mymarket)) {
                     case "区域":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-ma1").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-ma1").attr("class", "tz1");
-                                break;
-
-                        }
+                        var battery = ["tz5","tz1"];    //H 可通过添加随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-ma1').attr("class", battery[leftperiod]);//H 0是完成
                         break;
 
                     case "国内":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-ma2").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-ma2").attr("class", "tz3");
-                                break;
-                            case 2:
-                                $("#ceo-tz-ma2").attr("class", "tz1");
-                                break;
-
-                        }
+                        var battery = ["tz5","tz3","tz1"];    //H 可通过添加随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-ma2').attr("class", battery[leftperiod]);//H 0是完成
                         break;
 
                     case "亚洲":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-ma3").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-ma3").attr("class", "tz3");
-                                break;
-                            case 2:
-                                $("#ceo-tz-ma3").attr("class", "tz2");
-                                break;
-                            case 3:
-                                $("#ceo-tz-ma3").attr("class", "tz1");
-                                break;
-
-                        }
+                        var battery = ["tz5","tz3","tz2","tz1"];    //H 可通过添加随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-ma3').attr("class", battery[leftperiod]);//H 0是完成
                         break;
 
                     case "国际":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-ma4").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-ma4").attr("class", "tz4");
-                                break;
-                            case 2:
-                                $("#ceo-tz-ma4").attr("class", "tz3");
-                                break;
-                            case 3:
-                                $("#ceo-tz-ma4").attr("class", "tz2");
-                                break;
-                            case 4:
-                                $("#ceo-tz-ma4").attr("class", "tz1");
-                                break;
-
-                        }
+                        var battery = ["tz5","tz4","tz3","tz2","tz1"];    //H 可通过添加随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-ma4').attr("class", battery[leftperiod]);//H 0是完成
                         break;
                 }
 
@@ -255,112 +210,27 @@ $(document).ready(function () {
                 var myproduct = value.productId;
                 var leftperiod = value.periodLeft;
                 switch (String(myproduct)) {
-                    //出于代码的完整性，还是加上了P1
                     case "P1":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-pr1").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-pr1").attr("class", "tz4");
-                                break;
-                            case 2:
-                                $("#ceo-tz-pr1").attr("class", "tz3_5");
-                                break;
-                            case 3:
-                                $("#ceo-tz-pr1").attr("class", "tz3");
-                                break;
-                            case 4:
-                                $("#ceo-tz-pr1").attr("class", "tz2");
-                                break;
-                            case 5:
-                                $("#ceo-tz-pr1").attr("class", "tz1_5");
-                                break;
-                            case 6:
-                                $("#ceo-tz-pr1").attr("class", "tz1");
-                                break;
-                        }
+                        var battery = ["tz5","tz1"];    //H 可通过添加删改随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-pr1').attr("class", battery[leftperiod]);//H 0是完成
                         break;
+
                     case "P2":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-pr2").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-pr2").attr("class", "tz4");
-                                break;
-                            case 2:
-                                $("#ceo-tz-pr2").attr("class", "tz3_5");
-                                break;
-                            case 3:
-                                $("#ceo-tz-pr2").attr("class", "tz3");
-                                break;
-                            case 4:
-                                $("#ceo-tz-pr2").attr("class", "tz2");
-                                break;
-                            case 5:
-                                $("#ceo-tz-pr2").attr("class", "tz1_5");
-                                break;
-                            case 6:
-                                $("#ceo-tz-pr2").attr("class", "tz1");
-                                break;
-                        }
+                        var battery = ["tz5","tz4","tz3_5","tz3","tz2","tz1_5","tz1"];    //H 可通过添加随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-pr2').attr("class", battery[leftperiod]);//H 0是完成
+                        console.log(leftperiod+"***************************");
                         break;
+
                     case "P3":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-pr3").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-pr3").attr("class", "tz4");
-                                break;
-                            case 2:
-                                $("#ceo-tz-pr3").attr("class", "tz3_5");
-                                break;
-                            case 3:
-                                $("#ceo-tz-pr3").attr("class", "tz3");
-                                break;
-                            case 4:
-                                $("#ceo-tz-pr3").attr("class", "tz2");
-                                break;
-                            case 5:
-                                $("#ceo-tz-pr3").attr("class", "tz1_5");
-                                break;
-                            case 6:
-                                $("#ceo-tz-pr3").attr("class", "tz1");
-                                break;
-                        }
+                        var battery =["tz5","tz4","tz3_5","tz3","tz2","tz1_5","tz1"];     //H 可通过添加随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-pr3').attr("class", battery[leftperiod]);//H 0是完成
                         break;
+
                     case "P4":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-pr4").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-pr4").attr("class", "tz4");
-                                break;
-                            case 2:
-                                $("#ceo-tz-pr4").attr("class", "tz3_5");
-                                break;
-                            case 3:
-                                $("#ceo-tz-pr4").attr("class", "tz3");
-                                break;
-                            case 4:
-                                $("#ceo-tz-pr4").attr("class", "tz2");
-                                break;
-                            case 5:
-                                $("#ceo-tz-pr4").attr("class", "tz1_5");
-                                break;
-                            case 6:
-                                $("#ceo-tz-pr4").attr("class", "tz1");
-                                break;
-                        }
+                        var battery =["tz5","tz4","tz3_5","tz3","tz2","tz1_5","tz1"];     //H 可通过添加随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-pr4').attr("class", battery[leftperiod]);//H 0是完成
                         break;
-
-
                 }
-
-
             });
         }
     });
@@ -379,44 +249,30 @@ $(document).ready(function () {
                 var leftperiod = value.periodLeft;
                 switch (String(mynumber)) {
                     case "ISO9K":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-iso1").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-iso1").attr("class", "tz3");
-                                break;
-                            case 2:
-                                $("#ceo-tz-iso1").attr("class", "tz1");
-                                break;
-
-                        }
+                        var battery = ["tz5","tz3","tz1"];    //H 可通过添加删改随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-iso1').attr("class", battery[leftperiod]);//H 0是完成
                         break;
-
                     case "ISO14K":
-                        switch (Number(leftperiod)) {
-                            case 0:
-                                $("#ceo-tz-iso2").attr("class", "tz5");
-                                break;
-                            case 1:
-                                $("#ceo-tz-iso2").attr("class", "tz3");
-                                break;
-                            case 2:
-                                $("#ceo-tz-iso2").attr("class", "tz1");
-                                break;
-
-                        }
+                        var battery = ["tz5","tz3","tz1"];    //H 可通过添加删改随意更改规则, leftPeriod 0 为1 倒序
+                        $('#ceo-tz-iso2').attr("class", battery[leftperiod]);//H 0是完成
                         break;
-
                 }
-
             });
         }
     });
 
+    // H 投资按钮
+    //H 市场开拓
+    var qy=0;
+    var gn=0;
+    var yz=0;
+    var gj=0;
+
+
 
     //区域投资按钮确定事件
     $("#ok-qy").click(function () {
+        if(qy==0){
         var MarketFee = {
             period: $('#currentAp').val(),
             marketId: "区域"
@@ -431,263 +287,426 @@ $(document).ready(function () {
                 alert("区域市场开拓成功");
             }
         })
-        // touzi: 0
-        touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-        //touzi: 20
 
-    });
-    //区域投资按钮取消事件
-    $("#cancel-qy").click(function () {
-        var MarketFee = {
-            period: $('#currentAp').val(),
-            marketId: "区域"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/MarketFee/deleteByPeriod",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(MarketFee),
-            success: function (data) {
-                alert("区域市场开拓取消成功");
-            }
-        });
-
-
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("20"));//区域加20
-        $('.pop-s4').hide();
-        var battery = ["tz1", "tz5"];
+        //H 前端battery显示变化
+        var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
         for (var i = 0; i < battery.length; i++) {
             if ($('#ceo-tz-ma1').hasClass(battery[i])) {
-                if (i == 0) {
+                if (i == 4) {
                     break;
-                } else {
-                    $('#ceo-tz-ma1').attr("class", battery[i - 1]);
+                }
+                else {
+                    $('#ceo-tz-ma1').attr("class", battery[i+1]);
                     break;
                 }
             }
+        }}
+        else{alert("您已投资");}
+    });
 
-        }
+    //区域投资按钮取消事件
+    $("#cancel-qy").click(function () {
+        if(qy==1) {
+            qy = 0;
+            var MarketFee = {
+                period: $('#currentAp').val(),
+                marketId: "区域"
+            }
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/MarketFee/deleteByPeriod",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(MarketFee),
+                success: function (data) {
+                    alert("区域市场开拓取消成功");
+                }
+            });
+            var battery = ["tz1", "tz5"];
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-ma1').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-ma1').attr("class", battery[i - 1]);
+                        break;
+                    }
+                }
+
+            }
+        }else {alert("请投资!")}
     });
 
     //国内投资按钮确定事件
     $("#ok-gn").click(function () {
-
-        var MarketFee = {
-            period: $('#currentAp').val(),
-            marketId: "国内"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/MarketFee/add",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(MarketFee),
-            success: function (data) {
-                alert("国内市场开拓成功");
+        if(gn==0) {
+            gn = 1;
+            var MarketFee = {
+                period: $('#currentAp').val(),
+                marketId: "国内"
             }
-        });
-        touzi = parseInt(touzi) + parseInt("40");//记录扣款数
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/MarketFee/add",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(MarketFee),
+                success: function (data) {
+                    alert("国内市场开拓成功");
+                }
+            });
+            touzi = parseInt(touzi) + parseInt("40");//记录扣款数
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz3", "tz5"];    //H 可通过添加随意更改
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-ma2').hasClass(battery[i])) {
+                    if (i == 4) {
+                        break;
+                    } else {
+                        $('#ceo-tz-ma2').attr("class", battery[i + 1]);
+                        break;
+                    }
+                }
+            }
+        }
+        else{alert("您已投资");}
     });
     //国内投资按钮取消事件
     $("#cancel-gn").click(function () {
-        var MarketFee = {
-            period: $('#currentAp').val(),
-            marketId: "国内"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/MarketFee/deleteByPeriod",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(MarketFee),
-            success: function (data) {
-                alert("国内市场开拓取消成功");
+        if(gn==1) {
+            gn = 0;
+            var MarketFee = {
+                period: $('#currentAp').val(),
+                marketId: "国内"
             }
-        });
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/MarketFee/deleteByPeriod",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(MarketFee),
+                success: function (data) {
+                    alert("国内市场开拓取消成功");
+                }
+            });
 
-        $("#cash").text(parseInt($('#cash').text()) + parseInt("40"));//国内加40
+            $("#cash").text(parseInt($('#cash').text()) + parseInt("40"));//国内加40
 
-        var battery = ["tz1", "tz3", "tz5"];
-        $('.pop-s5').hide();
-        for (var i = 0; i < battery.length; i++) {
-            if ($('#ceo-tz-ma2').hasClass(battery[i])) {
-                if (i == 0) {
-                    break;
-                } else {
-                    $('#ceo-tz-ma2').attr("class", battery[i - 1]);
-                    break;
+            var battery = ["tz1", "tz3", "tz5"];
+            $('.pop-s5').hide();
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-ma2').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-ma2').attr("class", battery[i - 1]);
+                        break;
+                    }
                 }
             }
         }
-
+        else{alert("请投资")}
     });
-
 
     //亚洲投资按钮确定事件
     $("#ok-yz").click(function () {
-        var MarketFee = {
-            period: $('#currentAp').val(),
-            marketId: "亚洲"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/MarketFee/add",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(MarketFee),
-            success: function (data) {
-                alert("亚洲市场开拓成功");
+        if(yz==0) {
+            yz = 1;
+
+            var MarketFee = {
+                period: $('#currentAp').val(),
+                marketId: "亚洲"
             }
-        })
-        touzi = parseInt(touzi) + parseInt("60");//记录扣款数
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/MarketFee/add",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(MarketFee),
+                success: function (data) {
+                    alert("亚洲市场开拓成功");
+                }
+            })
+            touzi = parseInt(touzi) + parseInt("60");//记录扣款数
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz2", "tz3", "tz5"];    //H 可通过添加随意更改
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-ma3').hasClass(battery[i])) {
+                    if (i == 4) {
+                        break;
+                    } else {
+                        $('#ceo-tz-ma3').attr("class", battery[i + 1]);
+                        break;
+                    }
+                }
+            }
+        }else{alert("您已投资")}
     });
     //亚洲投资按钮取消事件
     $("#cancel-yz").click(function () {
-        var MarketFee = {
-            period: $('#currentAp').val(),
-            marketId: "亚洲"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/MarketFee/deleteByPeriod",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(MarketFee),
-            success: function (data) {
-                alert("亚洲市场开拓取消成功");
+        if(yz==1) {
+            yz = 0;
+            var MarketFee = {
+                period: $('#currentAp').val(),
+                marketId: "亚洲"
             }
-        });
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/MarketFee/deleteByPeriod",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(MarketFee),
+                success: function (data) {
+                    alert("亚洲市场开拓取消成功");
+                }
+            });
 
 
-        var battery = ["tz1", "tz2", "tz3", "tz5"];
-        $('.pop-s6').hide();
-        for (var i = 0; i < battery.length; i++) {
-            if ($('#ceo-tz-ma3').hasClass(battery[i])) {
-                if (i == 0) {
-                    break;
-                } else {
-                    $('#ceo-tz-ma3').attr("class", battery[i - 1]);
-                    break;
+            var battery = ["tz1", "tz2", "tz3", "tz5"];
+            $('.pop-s6').hide();
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-ma3').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-ma3').attr("class", battery[i - 1]);
+                        break;
+                    }
                 }
             }
         }
+        else{alert("请投资")}
 
     });
 
     //国际投资按钮确定事件
     $("#ok-gj").click(function () {
-        var MarketFee = {
-            period: $('#currentAp').val(),
-            marketId: "国际"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/MarketFee/add",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(MarketFee),
-            success: function (data) {
-                alert("国际市场开拓成功");
+        if(gj==0) {
+            gj = 1;
+            var MarketFee = {
+                period: $('#currentAp').val(),
+                marketId: "国际"
             }
-        })
-        touzi = parseInt(touzi) + parseInt("80");//记录扣款数
-    })
-    //国际投资按钮取消事件
-    $("#cancel-gj").click(function () {
-        var MarketFee = {
-            period: $('#currentAp').val(),
-            marketId: "国际"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/MarketFee/deleteByPeriod",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(MarketFee),
-            success: function (data) {
-                alert("国际市场开拓取消成功");
-            }
-        });
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/MarketFee/add",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(MarketFee),
+                success: function (data) {
+                    alert("国际市场开拓成功");
+                }
+            })
+            touzi = parseInt(touzi) + parseInt("80");//记录扣款数
 
-
-        var battery = ["tz1", "tz2", "tz3", "tz4", "tz5"];
-        $('.pop-s7').hide();
-        for (var i = 0; i < battery.length; i++) {
-            if ($('#ceo-tz-ma4').hasClass(battery[i])) {
-                if (i == 0) {
-                    break;
-                } else {
-                    $('#ceo-tz-ma4').attr("class", battery[i - 1]);
-                    break;
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz2", "tz3", "tz4", "tz5"];    //H 可通过添加随意更改
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-ma4').hasClass(battery[i])) {
+                    if (i == 4) {
+                        break;
+                    } else {
+                        $('#ceo-tz-ma4').attr("class", battery[i + 1]);
+                        break;
+                    }
                 }
             }
         }
+        else{alert("您已投资")}
+    })
+    //国际投资按钮取消事件
+    $("#cancel-gj").click(function () {
+        if(gj==1) {
+            gj = 0;
+            var MarketFee = {
+                period: $('#currentAp').val(),
+                marketId: "国际"
+            }
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/MarketFee/deleteByPeriod",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(MarketFee),
+                success: function (data) {
+                    alert("国际市场开拓取消成功");
+                }
+            });
+
+
+            var battery = ["tz1", "tz2", "tz3", "tz4", "tz5"];
+            $('.pop-s7').hide();
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-ma4').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-ma4').attr("class", battery[i - 1]);
+                        break;
+                    }
+                }
+            }
+        }
+        else{alert("请投资")}
+
+    });
+    var cp1=0;
+    var cp2=0;
+    var cp3=0;
+    var cp4=0;
+
+    //产品研发投资-P1
+    $("#ok-p1").click(function () {
+        if(cp1==0) {
+            cp1 = 1;
+            var ResearchFee = {
+                period: $('#currentAp').val(),
+                productId: "P1"
+            }
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/ResearchFee/add",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(ResearchFee),
+                success: function (data) {
+                    alert("P1研发成功");
+                }
+            });
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-pr1').hasClass(battery[i])) {
+                    if (i == 1) {
+                        break;
+                    } else {
+                        $('#ceo-tz-pr1').attr("class", battery[i + 1]);
+                        break;
+                    }
+                }
+            }
+
+            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+        }
+        else{alert("您已投资");}
+    });
+    //产品研发取消按钮-p1
+    $("#cancel-p1").click(function () {
+        if(cp1==1) {
+            cp1 = 0;
+            var ResearchFee = {
+                period: $('#currentAp').val(),
+                productId: "P1"
+            }
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/ResearchFee/deleteByPeriod",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(ResearchFee),
+                success: function (data) {
+                    alert("P1产品研发取消成功");
+                }
+            });
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
+            $('.pop-s9').hide();
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-pr1').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-pr1').attr("class", battery[i - 1]);
+                        break;
+                    }
+                }
+            }
+        }
+        else{alert("请投资");}
 
     });
 
     //产品研发投资-P2
     $("#ok-p2").click(function () {
-        var ResearchFee = {
-            period: $('#currentAp').val(),
-            productId: "P2"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/ResearchFee/add",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ResearchFee),
-            success: function (data) {
-                alert("P2研发成功");
+        if(cp2==0) {
+            cp2 = 1;
+            var ResearchFee = {
+                period: $('#currentAp').val(),
+                productId: "P2"
             }
-        });
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/ResearchFee/add",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(ResearchFee),
+                success: function (data) {
+                    alert("P2研发成功");
+                }
+            });
+            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
 
-        touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-pr2').hasClass(battery[i])) {
+                    if (i == 6) {
+                        break;
+                    } else {
+                        $('#ceo-tz-pr2').attr("class", battery[i + 1]);
+                        break;
+                    }
+                }
+            }
+        }
+        else{alert("您已投资");}
     });
     //产品研发取消按钮-p2
     $("#cancel-p2").click(function () {
-        var ResearchFee = {
-            period: $('#currentAp').val(),
-            productId: "P2"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/ResearchFee/deleteByPeriod",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ResearchFee),
-            success: function (data) {
-                alert("P2产品研发取消成功");
+        if(cp2==1) {
+            cp2=0;
+            var ResearchFee = {
+                period: $('#currentAp').val(),
+                productId: "P2"
             }
-        });
-
-
-
-        var battery = ["tz1","tz1_5","tz2","tz3","tz3_5","tz4","tz5"];
-        $('.pop-s9').hide();
-        for (var i = 0; i < battery.length; i++) {
-            if ($('#ceo-tz-pr2').hasClass(battery[i])) {
-                if (i == 0) {
-                    break;
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/ResearchFee/deleteByPeriod",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(ResearchFee),
+                success: function (data) {
+                    alert("P2产品研发取消成功");
                 }
-                else {
-                    $('#ceo-tz-pr2').attr("class", battery[i-1]);
-                    break;
+            });
+
+
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-pr2').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-pr2').attr("class", battery[i - 1]);
+                        break;
+                    }
                 }
             }
         }
-
+        else{alert("请投资");}
     });
 
 
         //产品研发投资-P3
     $("#ok-p3").click(function () {
-        var ResearchFee = {
+        if(cp3==0) {
+            cp3 = 1;
+            var ResearchFee = {
                 period: $('#currentAp').val(),
                 productId: "P3"
             }
-        $.ajax({
+            $.ajax({
                 type: "post",
                 dataType: "json",
                 url: "/ResearchFee/add",
@@ -697,45 +716,96 @@ $(document).ready(function () {
                     alert("P3研发成功");
                 }
             })
-
             touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-pr3').hasClass(battery[i])) {
+                    if (i == 6) {
+                        break;
+                    } else {
+                        $('#ceo-tz-pr3').attr("class", battery[i + 1]);
+                        break;
+                    }
+                }
+            }
+            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+        }else{alert("您已投资");}
         })
     //产品研发取消按钮-p3
     $("#cancel-p3").click(function () {
-        var ResearchFee = {
-            period: $('#currentAp').val(),
-            productId: "P3"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/ResearchFee/deleteByPeriod",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ResearchFee),
-            success: function (data) {
-                alert("P3产品研发取消成功");
+        if(cp3==1) {
+            cp3 = 0;
+
+            var ResearchFee = {
+                period: $('#currentAp').val(),
+                productId: "P3"
             }
-        });
-
-
-
-        var battery = ["tz1","tz1_5","tz2","tz3","tz3_5","tz4","tz5"];
-        $('.pop-s10').hide();
-        for (var i = 0; i < battery.length; i++) {
-            if ($('#ceo-tz-pr3').hasClass(battery[i])) {
-                if (i == 0) {
-                    break;
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/ResearchFee/deleteByPeriod",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(ResearchFee),
+                success: function (data) {
+                    alert("P3产品研发取消成功");
                 }
-                else {
-                    $('#ceo-tz-pr3').attr("class", battery[i-1]);
-                    break;
+            });
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-pr3').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-pr3').attr("class", battery[i - 1]);
+                        break;
+                    }
                 }
             }
         }
+        else{alert("请投资");}
 
     });
         //产品研发投资-P4
         $("#ok-p4").click(function () {
+            if(cp4==0) {
+                cp4 = 1;
+                var ResearchFee = {
+                    period: $('#currentAp').val(),
+                    productId: "P4"
+                }
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/ResearchFee/add",
+                    contentType: "application/json;charset=utf-8;",
+                    data: JSON.stringify(ResearchFee),
+                    success: function (data) {
+                        alert("P4研发成功");
+                    }
+                })
+
+                touzi = parseInt(touzi) + parseInt("20");//记录扣款数
+                //H 前端battery显示变化
+                var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+                for (var i = 0; i < battery.length; i++) {
+                    if ($('#ceo-tz-pr4').hasClass(battery[i])) {
+                        if (i == 6) {
+                            break;
+                        } else {
+                            $('#ceo-tz-pr4').attr("class", battery[i + 1]);
+                            break;
+                        }
+                    }
+                }
+            }else{alert("您已投资")}
+            })
+
+    //产品研发取消按钮-p4
+    $("#cancel-p4").click(function () {
+        if(cp4==1) {
+            cp4 = 0;
             var ResearchFee = {
                 period: $('#currentAp').val(),
                 productId: "P4"
@@ -743,55 +813,37 @@ $(document).ready(function () {
             $.ajax({
                 type: "post",
                 dataType: "json",
-                url: "/ResearchFee/add",
+                url: "/ResearchFee/deleteByPeriod",
                 contentType: "application/json;charset=utf-8;",
                 data: JSON.stringify(ResearchFee),
                 success: function (data) {
-                    alert("P4研发成功");
+                    alert("P4产品研发取消成功");
                 }
-            })
-
-            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-        })
-
-    //产品研发取消按钮-p4
-    $("#cancel-p4").click(function () {
-        var ResearchFee = {
-            period: $('#currentAp').val(),
-            productId: "P4"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/ResearchFee/deleteByPeriod",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ResearchFee),
-            success: function (data) {
-                alert("P4产品研发取消成功");
-            }
-        });
-
-
-
-        var battery = ["tz1","tz1_5","tz2","tz3","tz3_5","tz4","tz5"];
-        $('.pop-s11').hide();
-        for (var i = 0; i < battery.length; i++) {
-            if ($('#ceo-tz-pr4').hasClass(battery[i])) {
-                if (i == 0) {
-                    break;
-                }
-                else {
-                    $('#ceo-tz-pr4').attr("class", battery[i-1]);
-                    break;
+            });
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+            $('.pop-s11').hide();
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-pr4').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-pr4').attr("class", battery[i - 1]);
+                        break;
+                    }
                 }
             }
         }
+        else {alert("请投资")};
 
     });
 
-
+    var Iso1=0;
+    var Iso2=0;
         //ISO认证投资-ISO9000
         $("#ok-9k").click(function () {
+            if(Iso1==0){
+                Iso1=1;//在这一期间
             var IsoFee = {
                 period: $('#currentAp').val(),
                 number: "ISO9K"
@@ -810,9 +862,25 @@ $(document).ready(function () {
             });
 
             touzi = parseInt(touzi) + parseInt("200");//记录扣款数
-        });
+            //H 前端battery显示变化
+            var battery = ["tz1","tz3","tz5"];
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-iso1').hasClass(battery[i])) {
+                    if (i == 2) {
+                        break;
+                    } else {
+                        $('#ceo-tz-iso1').attr("class", battery[i + 1]);
+                        break;
+                    }
+                }
+            }
+            }
+            else{alert("您已投资！");}
+            });
     //ISO9K投资按钮取消事件
     $("#cancel-9k").click(function () {
+        if(Iso1==1){
+            Iso1=0;
         var IsoFee = {
             period: $('#currentAp').val(),
             number: "ISO9K"
@@ -828,9 +896,7 @@ $(document).ready(function () {
             }
         });
 
-
-
-        $('.pop-s12').hide();
+        //H 前端battery显示变化
         var battery = ["tz1","tz3","tz5"];
         for (var i = 0; i < battery.length; i++) {
             if ($('#ceo-tz-iso1').hasClass(battery[i])) {
@@ -841,11 +907,16 @@ $(document).ready(function () {
                     break;
                 }
             }
-        }
+        }}
+        else{
+            alert("请投资");
+            }
     });
 
-        //ISO认证投资-ISO14000
+        //H ISO认证投资-ISO14000
     $("#ok-14k").click(function () {
+        if(Iso2==0) {
+            Iso2 = 1;
             var IsoFee = {
                 period: $('#currentAp').val(),
                 number: "ISO14K"
@@ -861,43 +932,56 @@ $(document).ready(function () {
                     console.log(data);
                     console.log("**********************ISO14K")
                 }
+
             });
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz3", "tz5"];
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-iso2').hasClass(battery[i])) {
+                    if (i == 2) {
+                        break;
+                    } else {
+                        $('#ceo-tz-iso2').attr("class", battery[i + 1]);
+                        break;
+                    }
+                }
+
+            }
 
             touzi = parseInt(touzi) + parseInt("400");//记录扣款数
+        }else{alert("您已投资")}
         });
-    //ISO14K投资按钮取消事件
+    //H ISO14K投资按钮取消事件
     $("#cancel-14k").click(function () {
-        var IsoFee = {
-            period: $('#currentAp').val(),
-            number: "ISO14K"
-        }
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/IsoFee/deleteByPeriod",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(IsoFee),
-            success: function (data) {
-                alert("ISO14K认证取消成功");
+        if(Iso2 ==1) {
+            Iso2=0;
+            var IsoFee = {
+                period: $('#currentAp').val(),
+                number: "ISO14K"
             }
-        });
-
-
-
-        $('.pop-s13').hide();
-        var battery = ["tz1","tz3","tz5"];
-        for (var i = 0; i < battery.length; i++) {
-
-            if ($('#ceo-tz-iso2').hasClass(battery[i])) {
-                if (i == 0) {
-                    break;
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/IsoFee/deleteByPeriod",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(IsoFee),
+                success: function (data) {
+                    alert("ISO14K认证取消成功");
                 }
-                else {
-                    $('#ceo-tz-iso2').attr("class", battery[i-1]);
-                    break;
+            });
+            //H 前端battery显示变化
+            var battery = ["tz1", "tz3", "tz5"];
+            for (var i = 0; i < battery.length; i++) {
+                if ($('#ceo-tz-iso2').hasClass(battery[i])) {
+                    if (i == 0) {
+                        break;
+                    } else {
+                        $('#ceo-tz-iso2').attr("class", battery[i - 1]);
+                        break;
+                    }
                 }
+
             }
-
-        }
+        }else {alert("请投资");}
     });
 })
