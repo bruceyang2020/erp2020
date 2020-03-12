@@ -101,14 +101,13 @@ $(document).ready(function () {
         }
         $('.pop-s4').show();
     });
+    $('.pop-ok').click(function () {
+        $('.pop-s4').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s4').hide();
     });
-    $('#ok-qy').click(function () {
-        $('.pop-s4').hide()
-        $('#ceo-tz-ma1').removeClass('tz1')
-        $('#ceo-tz-ma1').addClass('tz5')
-    })
+
     $('#ceo-tz-ma2').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -119,19 +118,13 @@ $(document).ready(function () {
         }
         $('.pop-s5').show();
     });
+    $('.pop-ok').click(function () {
+        $('.pop-s5').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s5').hide();
     });
-    $('#ok-gn').click(function () {
-        $('.pop-s5').hide()
-        if($("#ceo-tz-ma2").hasClass("tz1")){
-            $('#ceo-tz-ma2').removeClass('tz1')
-            $('#ceo-tz-ma2').addClass('tz3')
-        }else{
-            $('#ceo-tz-ma2').removeClass('tz3')
-            $('#ceo-tz-ma2').addClass('tz5')
-        }
-    })
+
     $('#ceo-tz-ma3').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -142,22 +135,13 @@ $(document).ready(function () {
         }
         $('.pop-s6').show();
     });
+    $('.pop-ok').click(function () {
+        $('.pop-s6').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s6').hide();
     });
-    $('#ok-yz').click(function () {
-        $('.pop-s6').hide()
-        if($("#ceo-tz-ma3").hasClass("tz1")){
-            $('#ceo-tz-ma3').removeClass('tz1')
-            $('#ceo-tz-ma3').addClass('tz2')
-        }else if($("#ceo-tz-ma3").hasClass("tz2")){
-            $('#ceo-tz-ma3').removeClass('tz2')
-            $('#ceo-tz-ma3').addClass('tz3')
-        }else {
-            $('#ceo-tz-ma3').removeClass('tz3')
-            $('#ceo-tz-ma3').addClass('tz5')
-        }
-    })
+
     $('#ceo-tz-ma4').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -168,28 +152,28 @@ $(document).ready(function () {
         }
         $('.pop-s7').show();
     });
+    $('.pop-ok').click(function () {
+        $('.pop-s7').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s7').hide();
     });
-    $('#ok-gj').click(function () {
-        $('.pop-s7').hide()
-        if($("#ceo-tz-ma4").hasClass("tz1")){
-            $('#ceo-tz-ma4').removeClass('tz1')
-            $('#ceo-tz-ma4').addClass('tz2')
-        }else if($("#ceo-tz-ma4").hasClass("tz2")){
-            $('#ceo-tz-ma4').removeClass('tz2')
-            $('#ceo-tz-ma4').addClass('tz3')
-        }else if($("#ceo-tz-ma4").hasClass("tz3")){
-            $('#ceo-tz-ma4').removeClass('tz3')
-            $('#ceo-tz-ma4').addClass('tz4')
-        }else {
-            $('#ceo-tz-ma4').removeClass('tz4')
-            $('#ceo-tz-ma4').addClass('tz5')
-        }
-    })
-    var battery=["tz1","tz1_5","tz2","tz3","tz3_5","tz4","tz5"]
+
+    $('#ceo-tz-pr1').click(function () {
+        $('.pop-s8').show()
+    });
+    $('.pop-ok').click(function () {
+        $('.pop-s8').hide();
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-s8').hide();
+    });
+
     $('#ceo-tz-pr2').click(function () {
         $('.pop-s9').show()
+    });
+    $('.pop-ok').click(function () {
+        $('.pop-s9').hide();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s9').hide();
@@ -354,17 +338,6 @@ $(document).ready(function () {
     $('.pop-ok').click(function () {
         $('.pop-r4-2').hide();
     });
-
-    $('#ok-14k').click(function () {
-        $('.pop-s13').hide()
-        if($("#ceo-tz-iso2").hasClass("tz1")){
-            $('#ceo-tz-iso2').removeClass('tz1')
-            $('#ceo-tz-iso2').addClass('tz3')
-        }else{
-            $('#ceo-tz-iso2').removeClass('tz3')
-            $('#ceo-tz-iso2').addClass('tz5')
-        }
-    })
 
 
 

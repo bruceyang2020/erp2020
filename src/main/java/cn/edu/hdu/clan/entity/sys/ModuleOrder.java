@@ -13,43 +13,16 @@ public class ModuleOrder extends BaseBean {
     private Integer groupId;
 
     @Column(name = "team_count")
-    private Integer teamCount;
+    private String teamCount;
 
-    private Integer advertises;
+    @Column(name = "activities")
+    private String activities;
 
-    @Column(name = "group_order")
-    private Integer groupOrder;
+    @Column(name = "state")
+    private Integer state;
 
-    @Column(name = "sale_order")
-    private Integer saleOrder;
-
-    @Column(name = "short_term")
-    private Integer shortTerm;
-
-    private Integer usury;
-
-    @Column(name = "raw_materials_order")
-    private Integer rawMaterialsOrder;
-
-    private Integer produtline;
-
-    @Column(name = "account_pay")
-    private Integer accountPay;
-
-    @Column(name = "account_receive")
-    private Integer accountReceive;
-
-    @Column(name = "product_order")
-    private Integer productOrder;
-
-    @Column(name = "product_development")
-    private Integer productDevelopment;
-
-    @Column(name = "other_fees")
-    private Integer otherFees;
-
-    @Column(name = "iso_certification")
-    private Integer isoCertification;
+    @Column(name = "period")
+    private Integer period;
 
     @Column(name = "create_user")
     private String createUser;
@@ -94,198 +67,50 @@ public class ModuleOrder extends BaseBean {
     /**
      * @return team_count
      */
-    public Integer getTeamCount() {
+    public String getTeamCount() {
         return teamCount;
     }
 
     /**
      * @param teamCount
      */
-    public void setTeamCount(Integer teamCount) {
+    public void setTeamCount(String teamCount) {
         this.teamCount = teamCount;
     }
 
     /**
-     * @return advertises
+     * @return activities
      */
-    public Integer getAdvertises() {
-        return advertises;
+    public String getActivities() {
+        return activities;
     }
 
     /**
-     * @param advertises
+     * @param activities
      */
-    public void setAdvertises(Integer advertises) {
-        this.advertises = advertises;
+    public void setActivities(String activities) {
+        this.activities = activities;
     }
 
     /**
-     * @return group_order
+     * @return state
      */
-    public Integer getGroupOrder() {
-        return groupOrder;
-    }
+     public Integer getState(){ return  state; }
 
     /**
-     * @param groupOrder
+     * @param state
      */
-    public void setGroupOrder(Integer groupOrder) {
-        this.groupOrder = groupOrder;
-    }
+    public void setState(Integer state){this.state = state;}
 
     /**
-     * @return sale_order
+     * @return period
      */
-    public Integer getSaleOrder() {
-        return saleOrder;
-    }
+    public Integer getPeriod(){ return  period; }
 
     /**
-     * @param saleOrder
+     * @param period
      */
-    public void setSaleOrder(Integer saleOrder) {
-        this.saleOrder = saleOrder;
-    }
-
-    /**
-     * @return short_term
-     */
-    public Integer getShortTerm() {
-        return shortTerm;
-    }
-
-    /**
-     * @param shortTerm
-     */
-    public void setShortTerm(Integer shortTerm) {
-        this.shortTerm = shortTerm;
-    }
-
-    /**
-     * @return usury
-     */
-    public Integer getUsury() {
-        return usury;
-    }
-
-    /**
-     * @param usury
-     */
-    public void setUsury(Integer usury) {
-        this.usury = usury;
-    }
-
-    /**
-     * @return raw_materials_order
-     */
-    public Integer getRawMaterialsOrder() {
-        return rawMaterialsOrder;
-    }
-
-    /**
-     * @param rawMaterialsOrder
-     */
-    public void setRawMaterialsOrder(Integer rawMaterialsOrder) {
-        this.rawMaterialsOrder = rawMaterialsOrder;
-    }
-
-    /**
-     * @return produtline
-     */
-    public Integer getProdutline() {
-        return produtline;
-    }
-
-    /**
-     * @param produtline
-     */
-    public void setProdutline(Integer produtline) {
-        this.produtline = produtline;
-    }
-
-    /**
-     * @return account_pay
-     */
-    public Integer getAccountPay() {
-        return accountPay;
-    }
-
-    /**
-     * @param accountPay
-     */
-    public void setAccountPay(Integer accountPay) {
-        this.accountPay = accountPay;
-    }
-
-    /**
-     * @return account_receive
-     */
-    public Integer getAccountReceive() {
-        return accountReceive;
-    }
-
-    /**
-     * @param accountReceive
-     */
-    public void setAccountReceive(Integer accountReceive) {
-        this.accountReceive = accountReceive;
-    }
-
-    /**
-     * @return product_order
-     */
-    public Integer getProductOrder() {
-        return productOrder;
-    }
-
-    /**
-     * @param productOrder
-     */
-    public void setProductOrder(Integer productOrder) {
-        this.productOrder = productOrder;
-    }
-
-    /**
-     * @return product_development
-     */
-    public Integer getProductDevelopment() {
-        return productDevelopment;
-    }
-
-    /**
-     * @param productDevelopment
-     */
-    public void setProductDevelopment(Integer productDevelopment) {
-        this.productDevelopment = productDevelopment;
-    }
-
-    /**
-     * @return other_fees
-     */
-    public Integer getOtherFees() {
-        return otherFees;
-    }
-
-    /**
-     * @param otherFees
-     */
-    public void setOtherFees(Integer otherFees) {
-        this.otherFees = otherFees;
-    }
-
-    /**
-     * @return iso_certification
-     */
-    public Integer getIsoCertification() {
-        return isoCertification;
-    }
-
-    /**
-     * @param isoCertification
-     */
-    public void setIsoCertification(Integer isoCertification) {
-        this.isoCertification = isoCertification;
-    }
+    public void setPeriod(Integer period){this.period = period;}
 
     /**
      * @return create_user

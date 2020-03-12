@@ -300,7 +300,7 @@ $(document).ready(function () {
         var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
         for (var i = 0; i < battery.length; i++) {
             if ($('#ceo-tz-ma1').hasClass(battery[i])) {
-                if (i == 4) {
+                if (i == 1) {
                     break;
                 }
                 else {
@@ -370,7 +370,7 @@ $(document).ready(function () {
                 var battery = ["tz1", "tz3", "tz5"];    //H 可通过添加随意更改
                 for (var i = 0; i < battery.length; i++) {
                     if ($('#ceo-tz-ma2').hasClass(battery[i])) {
-                        if (i == 4) {
+                        if (i == 2) {
                             break;
                         } else {
                             $('#ceo-tz-ma2').attr("class", battery[i + 1]);
@@ -444,7 +444,7 @@ $(document).ready(function () {
             var battery = ["tz1", "tz2", "tz3", "tz5"];    //H 可通过添加随意更改
             for (var i = 0; i < battery.length; i++) {
                 if ($('#ceo-tz-ma3').hasClass(battery[i])) {
-                    if (i == 4) {
+                    if (i == 3) {
                         break;
                     } else {
                         $('#ceo-tz-ma3').attr("class", battery[i + 1]);
