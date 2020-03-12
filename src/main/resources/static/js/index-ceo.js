@@ -280,6 +280,7 @@ $(document).ready(function () {
     //区域投资按钮确定事件
     $("#ok-qy").click(function () {
         if(qy==0){
+            qy=1;
         var MarketFee = {
             period: $('#currentAp').val(),
             marketId: "区域"

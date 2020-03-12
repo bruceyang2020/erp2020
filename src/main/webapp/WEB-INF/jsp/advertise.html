@@ -18,7 +18,11 @@
         //市场订单下单，跟新订单数和材料数
         $(function () {
 
-            //显示广告费。
+            var productlist  =0;
+
+
+
+            //Y 显示广告费。
             $.ajax({
                 type: "get",
                 dataType: "json",
@@ -85,7 +89,7 @@
 
 
 
-
+            //Y 提交广告费的操作。
             $("#btn-advertise").click(function () {
 
                 $.ajax({

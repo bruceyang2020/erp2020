@@ -172,6 +172,22 @@ public class MarketFeeServiceImpl implements MarketFeeService {
         return MarketFeeMapper.selectByExample(example);
     }
 
+    /**
+     * Y 列表显示已经开发完成的市场
+     * @param userTeam
+     * @param period
+     * @return
+     */
+    @Override
+    public List<MarketFee> listFinish(String userTeam ,int period) {
+        Example example = new Example(MarketFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("state", 1);
+        return MarketFeeMapper.selectByExample(example);
+    }
+
     @Override
     public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
         Example example = new Example(MarketFee.class);
