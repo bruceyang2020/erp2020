@@ -48,6 +48,17 @@ public class MarketFeeController extends BaseController {
         return success(MarketFeeService.list(userTeam,period));
     }
 
+    /**
+     * Y 列表已开发完成的市场
+     * @return
+     */
+    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    public String listFinish() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(MarketFeeService.listFinish(userTeam,period));
+    }
+
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(MarketFeeService.getById(param.get("id")));

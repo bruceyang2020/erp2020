@@ -229,7 +229,8 @@ $(document).ready(function () {
         $('.pop-s11').hide();
     });
     $('#ok-p4').click(function () {
-        $('.pop-s11').hide()
+        $('.pop-s11').hide();
+        $('.pop-s11').outerHTML;
         for(var i =0;i<battery.length-1;i++){
             if($('#ceo-tz-pr4').hasClass(battery[i])){
                 $('#ceo-tz-pr4').removeClass(battery[i])

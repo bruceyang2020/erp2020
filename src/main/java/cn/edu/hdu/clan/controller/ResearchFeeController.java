@@ -41,6 +41,17 @@ public class ResearchFeeController extends BaseController {
         return success(ResearchFeeService.list(userTeam,period));
     }
 
+    /**
+     * Y 列表研究完成的产品列表
+     * @return
+     */
+    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    public String listFinish() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(ResearchFeeService.listFinish(userTeam,period));
+    }
+
     @RequestMapping("getById")
     public String getById(@RequestBody Map<String,String> param) {
         return success(ResearchFeeService.getById(param.get("id")));

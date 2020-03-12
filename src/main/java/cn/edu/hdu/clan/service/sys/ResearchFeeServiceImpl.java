@@ -141,6 +141,22 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         return ResearchFeeMapper.selectByExample(example);
     }
 
+    /**
+     * Y 列表已完成研发的产品.判断条件是state = 1
+     * @param userTeam
+     * @param period
+     * @return
+     */
+    @Override
+    public List<ResearchFee> listFinish(String userTeam ,int period) {
+        Example example = new Example(ResearchFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("state", 1);
+        return ResearchFeeMapper.selectByExample(example);
+    }
+
     @Override
     public void deleteByPeriod(String userTeam,Integer period,String productId) {
         //删除产品研发的记录
