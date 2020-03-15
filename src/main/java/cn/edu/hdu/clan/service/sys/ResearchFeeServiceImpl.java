@@ -145,7 +145,6 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
 
 
 
-
     @Override
     public void update(ResearchFee ResearchFee) {
         BaseBeanHelper.edit(ResearchFee);
@@ -176,7 +175,6 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         return ResearchFeeMapper.selectByExample(example);
     }
 
-
     /**
      * Y 列表已完成研发的产品.判断条件是state = 1
      * @param userTeam
@@ -192,7 +190,6 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         criteria.andEqualTo("state", 1);
         return ResearchFeeMapper.selectByExample(example);
     }
-
 
     @Override
     public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {

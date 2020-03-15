@@ -45,7 +45,7 @@ public class ResearchFeeController extends BaseController {
      * Y 列表研究完成的产品列表
      * @return
      */
-    @RequestMapping(value = "listFinish",produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "lists",produces = "application/json;charset=utf-8")
     public String listFinish() {
         String userTeam = Jurisdiction.getUserTeam();
         int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());

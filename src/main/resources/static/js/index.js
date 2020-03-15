@@ -80,6 +80,7 @@ $(document).ready(function () {
 
     //高利贷
     $('#ceo-cz-gl').click(function () {
+
         $('.pop-s3').show();
     });
     $('.pop-ok').click(function () {
@@ -89,7 +90,7 @@ $(document).ready(function () {
         $('.pop-s3').hide();
     });
 
-    //投资-市场开拓
+    //投资
     $('#ceo-tz-ma1').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -151,7 +152,6 @@ $(document).ready(function () {
         }
         $('.pop-s7').show();
     });
-
     $('.pop-ok').click(function () {
         $('.pop-s7').hide();
     });
@@ -159,11 +159,9 @@ $(document).ready(function () {
         $('.pop-s7').hide();
     });
 
-    //H 投资-产品研发
     $('#ceo-tz-pr1').click(function () {
-        $('.pop-s8').show();
+        $('.pop-s8').show()
     });
-
     $('.pop-ok').click(function () {
         $('.pop-s8').hide();
     });
@@ -172,9 +170,8 @@ $(document).ready(function () {
     });
 
     $('#ceo-tz-pr2').click(function () {
-        $('.pop-s9').show();
+        $('.pop-s9').show()
     });
-
     $('.pop-ok').click(function () {
         $('.pop-s9').hide();
     });
@@ -341,6 +338,9 @@ $(document).ready(function () {
     $('.pop-ok').click(function () {
         $('.pop-r4-2').hide();
     });
+
+
+
 
 
 })
