@@ -248,7 +248,13 @@ $(document).ready(function () {
 
     //订货会弹窗-广告费
     $('#order').click(function () {
-
+        var period = $('#currentAp').val();
+        //H 年末
+        if(Number(period)%4 != 1  )
+        {
+            alert("当前会计期间不能参加订货会。");
+            return;
+        }
 
        $('.pop-advertise').show();
 

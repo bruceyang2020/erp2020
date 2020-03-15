@@ -18,7 +18,93 @@
         //市场订单下单，跟新订单数和材料数
         $(function () {
 
-            var productlist  =0;
+            var mdata  ="";  //已开发市场
+            var pdata  =""; //已研发产品
+
+            var inputs = $("input");
+            inputs.each(function(){
+                $(this).attr("readOnly","true");  //将所有的填写单元格锁定
+            });
+
+
+            //Y 根据产品研发及市场研发的数据，对广告费的填写单元构进行锁定或解锁。
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: "/MarketFee/listFinish",
+                contentType: "application/json;charset=utf-8;",
+                success: function (data) {
+                    mdata = data['data'];
+                    console.log(mdata);
+
+                }
+            });
+
+            //Y 根据产品研发及市场研发的数据，对广告费的填写单元构进行锁定或解锁。
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: "/ResearchFee/listFinish",
+                contentType: "application/json;charset=utf-8;",
+                success: function (data) {
+                    pdata = data['data'];
+                    console.log(pdata);
+
+                }
+            });
+
+            $.each(mdata,function(n,mvalue){
+
+                $.each(pdata,function(n,pvalue){
+                    if(pvalue.productId == "P1" && mvalue.marketId == "本地")
+                    {  $("#bd-p1").attr("readOnly","false");}
+                    if(pvalue.productId == "P2" && mvalue.marketId == "本地")
+                    {  $("#bd-p2").attr("readOnly","false");}
+                    if(pvalue.productId == "P3" && mvalue.marketId == "本地")
+                    {  $("#bd-p3").attr("readOnly","false");}
+                    if(pvalue.productId == "P4" && mvalue.marketId == "本地")
+                    {  $("#bd-p4").attr("readOnly","false");}
+
+                    if(pvalue.productId == "P1" && mvalue.marketId == "区域")
+                    {  $("#qy-p1").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "区域")
+                    {  $("#qy-p2").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "区域")
+                    {  $("#qy-p3").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "区域")
+                    {  $("#qy-p4").attr("readOnly","false");}
+
+                    if(pvalue.productId == "P1" && mvalue.marketId == "国内")
+                    {  $("#gl-p1").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "国内")
+                    {  $("#gl-p2").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "国内")
+                    {  $("#gl-p3").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "国内")
+                    {  $("#gl-p4").attr("readOnly","false");}
+
+
+                    if(pvalue.productId == "P1" && mvalue.marketId == "亚洲")
+                    {  $("#yz-p1").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "亚洲")
+                    {  $("#yz-p2").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "亚洲")
+                    {  $("#yz-p3").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "亚洲")
+                    {  $("#yz-p4").attr("readOnly","false");}
+
+
+                    if(pvalue.productId == "P1" && mvalue.marketId == "国际")
+                    {  $("#gj-p1").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "国际")
+                    {  $("#gj-p2").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "国际")
+                    {  $("#gj-p3").attr("readOnly","false");}
+                    if(pvalue.productId == "P1" && mvalue.marketId == "国际")
+                    {  $("#gj-p4").attr("readOnly","false");}
+
+                })
+            })
 
 
 
