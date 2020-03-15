@@ -26,4 +26,6 @@ public interface ResearchFeeService {
     void deleteByPeriod(String userTeam,Integer period,String productId);
 
     void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
+
+    List<ResearchFee> listByperiod(String userTeam ,int period,String productId);
 }

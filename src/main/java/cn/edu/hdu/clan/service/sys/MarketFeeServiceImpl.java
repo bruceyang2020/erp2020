@@ -29,66 +29,19 @@ public class MarketFeeServiceImpl implements MarketFeeService {
     @Resource
     private AccountingVoucherService accountingVoucherService;
 
+    @Resource
+    private MarketFeeService marketFeeService;
+
 
     @Transactional
     @Override
-    public void add(MarketFee MarketFee) {
-        //全局变量 写入当前公司或小组ID
-        String userTeam = Jurisdiction.getUserTeam();
-        //补充相关字段的取值
-        MarketFee.setTeamCount(userTeam);
-        MarketFee.setGroupId("1000");
-        MarketFee.setPeriodLeft(1);
-
-        //删除当前市场开发的记录
-        Example example = new Example(MarketFee.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", MarketFee.getTeamCount());
-        criteria.andEqualTo("period", MarketFee.getPeriod());
-        criteria.andEqualTo("marketId", MarketFee.getMarketId());
-        List<MarketFee> oldRow = MarketFeeMapper.selectByExample(example);
-        if (oldRow.size() > 0) {
-            MarketFeeMapper.deleteByExample(example);
-        }
-
-        //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
-        BaseBeanHelper.insert(MarketFee);
-        MarketFeeMapper.insert(MarketFee);
-
-        String marketId = MarketFee.getMarketId();
-
-        switch (marketId) {
-            case "区域":
-                //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("20"), "SCKF", "区域");
-                break;
-
-            case "国内":
-                //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("40"), "SCKF", "国内");
-                break;
-            case "亚洲":
-                //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("60"), "SCKF", "亚洲");
-                break;
-
-            case "国际":
-                //自动生成市场开拓会计凭证
-                accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("80"), "SCKF", "国际");
-                break;
-
-
-        }
-
-
-    }
-//H
+    //H 初始化
     public void adds(List<MarketFee>  marketFees) {
         if(marketFees.size() > 0) {
             for (int i = 0; i < marketFees.size(); i++) {
                 String userTeam = Jurisdiction.getUserTeam();
                 int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-                marketFees.get(i).setPeriod(period-1);
+                marketFees.get(i).setPeriod(period);
                 marketFees.get(i).setTeamCount(userTeam);
                 marketFees.get(i).setGroupId("1000");
                 BaseBeanHelper.insert(marketFees.get(i));
@@ -96,6 +49,78 @@ public class MarketFeeServiceImpl implements MarketFeeService {
             }
         }
     }
+
+    @Override
+    // 确定研发按钮
+    public void add(MarketFee MarketFee) {
+
+        //全局变量 写入当前公司或小组ID
+        String userTeam = Jurisdiction.getUserTeam();
+        //每一期都有复制，取出原始的数据
+        Example example = new Example(MarketFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", MarketFee.getPeriod());
+        criteria.andEqualTo("marketId", MarketFee.getMarketId());
+        List<MarketFee> updateRow = MarketFeeMapper.selectByExample(example);
+    if(updateRow.get(0).getPeriodLeft()>0) {
+
+      updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() - 1);
+
+      updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//剩余期为0，则开发完成
+
+      //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
+      BaseBeanHelper.edit(updateRow.get(0));
+      MarketFeeMapper.updateByPrimaryKey(updateRow.get(0));
+
+      String marketId = MarketFee.getMarketId();
+
+      switch (marketId) {
+        case "区域":
+            //自动生成市场开拓会计凭证
+            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("20"), "SCKF", "区域");
+            break;
+
+        case "国内":
+            //自动生成市场开拓会计凭证
+            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("40"), "SCKF", "国内");
+            break;
+        case "亚洲":
+            //自动生成市场开拓会计凭证
+            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("60"), "SCKF", "亚洲");
+            break;
+
+        case "国际":
+            //自动生成市场开拓会计凭证
+            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("80"), "SCKF", "国际");
+            break;
+
+
+      }
+     }
+    }
+
+    //H  取消按钮
+    @Override
+    public void deleteByPeriod(String userTeam,Integer period,String marketId) {
+        //删除当前市场开发的记录
+        //H 消除已经研发完成还能删退的bug
+        List<MarketFee> oldRow= marketFeeService.listByperiod(userTeam,period-1,marketId);
+        if(oldRow.get(0).getState()==0) {
+            List<MarketFee> updateRow= marketFeeService.listByperiod(userTeam,period,marketId);
+            //补充相关字段的取值
+            updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
+            updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
+
+            //补充相关字段的取值
+            //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
+            BaseBeanHelper.edit(updateRow.get(0));
+            MarketFeeMapper.updateByPrimaryKey(updateRow.get(0));
+            //删除会计凭证
+            accountingVoucherService.deleteByPeriodAndContent(userTeam, period, marketId);
+        }
+    }
+
     //H
     @Override
     public void deleteByTeamCount(String userTeam) {
@@ -105,20 +130,17 @@ public class MarketFeeServiceImpl implements MarketFeeService {
         MarketFeeMapper.deleteByExample(example);
     }
 
+    //H
     @Override
-    public void deleteByPeriod(String userTeam,Integer period,String marketId) {
-        //删除当前市场开发的记录
+    public List<MarketFee> listByperiod(String userTeam ,int period,String marketId) {
         Example example = new Example(MarketFee.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period);
-        criteria.andEqualTo("marketId", marketId);
-        List<MarketFee> oldRow = MarketFeeMapper.selectByExample(example);
-        if (oldRow.size() > 0) {
-            MarketFeeMapper.deleteByExample(example);
-        }
-        accountingVoucherService.deleteByPeriodAndContent(userTeam,period,marketId);
+        criteria.andEqualTo("marketId",marketId);
+        return MarketFeeMapper.selectByExample(example);
     }
+
 
     @Override
     public void update(MarketFee MarketFee) {

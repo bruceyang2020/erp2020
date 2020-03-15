@@ -25,4 +25,6 @@ public interface IsoFeeService {
     void deleteByPeriod(String userTeam,Integer period,String number);
 
     void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
+
+    List<IsoFee> listByperiod(String userTeam ,int period,String number);
 }

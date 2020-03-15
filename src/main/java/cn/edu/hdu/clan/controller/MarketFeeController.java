@@ -52,7 +52,7 @@ public class MarketFeeController extends BaseController {
      * Y 列表已开发完成的市场
      * @return
      */
-    @RequestMapping(value = "list",produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "listFinish",produces = "application/json;charset=utf-8")
     public String listFinish() {
         String userTeam = Jurisdiction.getUserTeam();
         int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());

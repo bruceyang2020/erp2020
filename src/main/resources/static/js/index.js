@@ -59,11 +59,9 @@ $(document).ready(function () {
         }
         $('.pop-s1').show();
     });
-
     $('.pop-ok').click(function () {
         $('.pop-s1').hide();
     });
-
     $('.pop-cancel').click(function () {
         $('.pop-s1').hide();
     });
@@ -82,7 +80,6 @@ $(document).ready(function () {
 
     //高利贷
     $('#ceo-cz-gl').click(function () {
-
         $('.pop-s3').show();
     });
     $('.pop-ok').click(function () {
@@ -92,7 +89,7 @@ $(document).ready(function () {
         $('.pop-s3').hide();
     });
 
-    //投资
+    //投资-市场开拓
     $('#ceo-tz-ma1').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -103,14 +100,13 @@ $(document).ready(function () {
         }
         $('.pop-s4').show();
     });
+    $('.pop-ok').click(function () {
+        $('.pop-s4').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s4').hide();
     });
-    $('#ok-qy').click(function () {
-        $('.pop-s4').hide()
-        $('#ceo-tz-ma1').removeClass('tz1')
-        $('#ceo-tz-ma1').addClass('tz5')
-    })
+
     $('#ceo-tz-ma2').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -121,19 +117,13 @@ $(document).ready(function () {
         }
         $('.pop-s5').show();
     });
+    $('.pop-ok').click(function () {
+        $('.pop-s5').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s5').hide();
     });
-    $('#ok-gn').click(function () {
-        $('.pop-s5').hide()
-        if($("#ceo-tz-ma2").hasClass("tz1")){
-            $('#ceo-tz-ma2').removeClass('tz1')
-            $('#ceo-tz-ma2').addClass('tz3')
-        }else{
-            $('#ceo-tz-ma2').removeClass('tz3')
-            $('#ceo-tz-ma2').addClass('tz5')
-        }
-    })
+
     $('#ceo-tz-ma3').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -144,22 +134,13 @@ $(document).ready(function () {
         }
         $('.pop-s6').show();
     });
+    $('.pop-ok').click(function () {
+        $('.pop-s6').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s6').hide();
     });
-    $('#ok-yz').click(function () {
-        $('.pop-s6').hide()
-        if($("#ceo-tz-ma3").hasClass("tz1")){
-            $('#ceo-tz-ma3').removeClass('tz1')
-            $('#ceo-tz-ma3').addClass('tz2')
-        }else if($("#ceo-tz-ma3").hasClass("tz2")){
-            $('#ceo-tz-ma3').removeClass('tz2')
-            $('#ceo-tz-ma3').addClass('tz3')
-        }else {
-            $('#ceo-tz-ma3').removeClass('tz3')
-            $('#ceo-tz-ma3').addClass('tz5')
-        }
-    })
+
     $('#ceo-tz-ma4').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -170,75 +151,61 @@ $(document).ready(function () {
         }
         $('.pop-s7').show();
     });
+
+    $('.pop-ok').click(function () {
+        $('.pop-s7').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s7').hide();
     });
-    $('#ok-gj').click(function () {
-        $('.pop-s7').hide()
-        if($("#ceo-tz-ma4").hasClass("tz1")){
-            $('#ceo-tz-ma4').removeClass('tz1')
-            $('#ceo-tz-ma4').addClass('tz2')
-        }else if($("#ceo-tz-ma4").hasClass("tz2")){
-            $('#ceo-tz-ma4').removeClass('tz2')
-            $('#ceo-tz-ma4').addClass('tz3')
-        }else if($("#ceo-tz-ma4").hasClass("tz3")){
-            $('#ceo-tz-ma4').removeClass('tz3')
-            $('#ceo-tz-ma4').addClass('tz4')
-        }else {
-            $('#ceo-tz-ma4').removeClass('tz4')
-            $('#ceo-tz-ma4').addClass('tz5')
-        }
-    })
-    var battery=["tz1","tz1_5","tz2","tz3","tz3_5","tz4","tz5"]
+
+    //H 投资-产品研发
+    $('#ceo-tz-pr1').click(function () {
+        $('.pop-s8').show();
+    });
+
+    $('.pop-ok').click(function () {
+        $('.pop-s8').hide();
+    });
+    $('.pop-cancel').click(function () {
+        $('.pop-s8').hide();
+    });
+
     $('#ceo-tz-pr2').click(function () {
-        $('.pop-s9').show()
+        $('.pop-s9').show();
+    });
+
+    $('.pop-ok').click(function () {
+        $('.pop-s9').hide();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s9').hide();
     });
-    $('#ok-p2').click(function () {
-        $('.pop-s9').hide()
-        for(var i =0;i<battery.length-1;i++){
-            if($('#ceo-tz-pr2').hasClass(battery[i])){
-                $('#ceo-tz-pr2').removeClass(battery[i])
-                $('#ceo-tz-pr2').addClass(battery[i+1])
-                return
-            }
-        }
-    })
+
     $('#ceo-tz-pr3').click(function () {
         $('.pop-s10').show();
+    });
+
+    $('.pop-ok').click(function () {
+        $('.pop-s10').hide();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s10').hide();
     });
-    $('#ok-p3').click(function () {
-        $('.pop-s10').hide()
-        for(var i =0;i<battery.length-1;i++){
-            if($('#ceo-tz-pr3').hasClass(battery[i])){
-                $('#ceo-tz-pr3').removeClass(battery[i])
-                $('#ceo-tz-pr3').addClass(battery[i+1])
-                return
-            }
-        }
-    })
-    $('#ceo-tz-pr4').click(function () {
-        $('.pop-s11').show()
+
+   $('#ceo-tz-pr4').click(function () {
+        $('.pop-s11').show();
+    });
+
+    $('.pop-ok').click(function () {
+        $('.pop-s11').hide();
     });
     $('.pop-cancel').click(function () {
         $('.pop-s11').hide();
     });
-    $('#ok-p4').click(function () {
-        $('.pop-s11').hide();
-        $('.pop-s11').outerHTML;
-        for(var i =0;i<battery.length-1;i++){
-            if($('#ceo-tz-pr4').hasClass(battery[i])){
-                $('#ceo-tz-pr4').removeClass(battery[i])
-                $('#ceo-tz-pr4').addClass(battery[i+1])
-                return
-            }
-        }
-    })
+
+
+  // H ISO认证-ISO9K
     $('#ceo-tz-iso1').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -249,19 +216,17 @@ $(document).ready(function () {
         }
         $('.pop-s12').show();
     });
+
+    $('.pop-ok').click(function () {
+        $('.pop-s12').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s12').hide();
     });
-    $('#ok-9k').click(function () {
-        $('.pop-s12').hide()
-        if($("#ceo-tz-iso1").hasClass("tz1")){
-            $('#ceo-tz-iso1').removeClass('tz1')
-            $('#ceo-tz-iso1').addClass('tz3')
-        }else{
-            $('#ceo-tz-iso1').removeClass('tz3')
-            $('#ceo-tz-iso1').addClass('tz5')
-        }
-    })
+
+
+
+    //H ISO认证-ISO14K
     $('#ceo-tz-iso2').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -272,9 +237,15 @@ $(document).ready(function () {
         }
         $('.pop-s13').show()
     });
+    $('.pop-ok').click(function () {
+        $('.pop-s13').hide();
+    });
     $('.pop-cancel').click(function () {
         $('.pop-s13').hide();
     });
+
+
+
 
 
 
@@ -370,20 +341,6 @@ $(document).ready(function () {
     $('.pop-ok').click(function () {
         $('.pop-r4-2').hide();
     });
-
-    $('#ok-14k').click(function () {
-        $('.pop-s13').hide()
-        if($("#ceo-tz-iso2").hasClass("tz1")){
-            $('#ceo-tz-iso2').removeClass('tz1')
-            $('#ceo-tz-iso2').addClass('tz3')
-        }else{
-            $('#ceo-tz-iso2').removeClass('tz3')
-            $('#ceo-tz-iso2').addClass('tz5')
-        }
-    })
-
-
-
 
 
 })
