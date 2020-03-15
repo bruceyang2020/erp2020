@@ -17,162 +17,15 @@
 
         //市场订单下单，跟新订单数和材料数
         $(function () {
+            initPageData();
 
-            var mdata  ="";  //已开发市场
-            var pdata  =""; //已研发产品
-
-            var inputs = $("input");
-            inputs.each(function(){
-                $(this).attr("readOnly","true");  //将所有的填写单元格锁定
             });
 
+            //Y 提交广告费的操作。
+            $("#btn-reloade").click(function () {
 
-            //Y 根据产品研发及市场研发的数据，对广告费的填写单元构进行锁定或解锁。
-            $.ajax({
-                type: "get",
-                dataType: "json",
-                url: "/MarketFee/listFinish",
-                contentType: "application/json;charset=utf-8;",
-                success: function (data) {
-                    mdata = data['data'];
-                    console.log(mdata);
-
-                }
-            });
-
-            //Y 根据产品研发及市场研发的数据，对广告费的填写单元构进行锁定或解锁。
-            $.ajax({
-                type: "get",
-                dataType: "json",
-                url: "/ResearchFee/listFinish",
-                contentType: "application/json;charset=utf-8;",
-                success: function (data) {
-                    pdata = data['data'];
-                    console.log(pdata);
-
-                }
-            });
-
-            $.each(mdata,function(n,mvalue){
-
-                $.each(pdata,function(n,pvalue){
-                    if(pvalue.productId == "P1" && mvalue.marketId == "本地")
-                    {  $("#bd-p1").attr("readOnly","false");}
-                    if(pvalue.productId == "P2" && mvalue.marketId == "本地")
-                    {  $("#bd-p2").attr("readOnly","false");}
-                    if(pvalue.productId == "P3" && mvalue.marketId == "本地")
-                    {  $("#bd-p3").attr("readOnly","false");}
-                    if(pvalue.productId == "P4" && mvalue.marketId == "本地")
-                    {  $("#bd-p4").attr("readOnly","false");}
-
-                    if(pvalue.productId == "P1" && mvalue.marketId == "区域")
-                    {  $("#qy-p1").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "区域")
-                    {  $("#qy-p2").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "区域")
-                    {  $("#qy-p3").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "区域")
-                    {  $("#qy-p4").attr("readOnly","false");}
-
-                    if(pvalue.productId == "P1" && mvalue.marketId == "国内")
-                    {  $("#gl-p1").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "国内")
-                    {  $("#gl-p2").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "国内")
-                    {  $("#gl-p3").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "国内")
-                    {  $("#gl-p4").attr("readOnly","false");}
-
-
-                    if(pvalue.productId == "P1" && mvalue.marketId == "亚洲")
-                    {  $("#yz-p1").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "亚洲")
-                    {  $("#yz-p2").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "亚洲")
-                    {  $("#yz-p3").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "亚洲")
-                    {  $("#yz-p4").attr("readOnly","false");}
-
-
-                    if(pvalue.productId == "P1" && mvalue.marketId == "国际")
-                    {  $("#gj-p1").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "国际")
-                    {  $("#gj-p2").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "国际")
-                    {  $("#gj-p3").attr("readOnly","false");}
-                    if(pvalue.productId == "P1" && mvalue.marketId == "国际")
-                    {  $("#gj-p4").attr("readOnly","false");}
-
-                })
+                initPageData();
             })
-
-
-
-            //Y 显示广告费。
-            $.ajax({
-                type: "get",
-                dataType: "json",
-                url: "/Advertise/listbyteamperiod",
-                contentType: "application/json;charset=utf-8;",
-                success: function (data) {
-                    data = data['data'];
-                    console.log(data);
-                    $.each(data,function(n,value){
-                        if(value.productId == "P1" && value.marketId == "本地")
-                        {  $("#bd-p1").val(value.moneyI);}
-                        if(value.productId == "P2" && value.marketId == "本地")
-                        {  $("#bd-p2").val(value.moneyI);}
-                        if(value.productId == "P3" && value.marketId == "本地")
-                        {  $("#bd-p3").val(value.moneyI);}
-                        if(value.productId == "P4" && value.marketId == "本地")
-                        {  $("#bd-p4").val(value.moneyI);}
-
-                        if(value.productId == "P1" && value.marketId == "区域")
-                        {  $("#qy-p1").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "区域")
-                        {  $("#qy-p2").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "区域")
-                        {  $("#qy-p3").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "区域")
-                        {  $("#qy-p4").val(value.moneyI);}
-
-                        if(value.productId == "P1" && value.marketId == "国内")
-                        {  $("#gl-p1").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "国内")
-                        {  $("#gl-p2").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "国内")
-                        {  $("#gl-p3").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "国内")
-                        {  $("#gl-p4").val(value.moneyI);}
-
-
-                        if(value.productId == "P1" && value.marketId == "亚洲")
-                        {  $("#yz-p1").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "亚洲")
-                        {  $("#yz-p2").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "亚洲")
-                        {  $("#yz-p3").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "亚洲")
-                        {  $("#yz-p4").val(value.moneyI);}
-
-
-                        if(value.productId == "P1" && value.marketId == "国际")
-                        {  $("#gj-p1").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "国际")
-                        {  $("#gj-p2").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "国际")
-                        {  $("#gj-p3").val(value.moneyI);}
-                        if(value.productId == "P1" && value.marketId == "国际")
-                        {  $("#gj-p4").val(value.moneyI);}
-
-                    });
-
-
-                    SumMoney();
-                }
-            });
-
-
 
 
             //Y 提交广告费的操作。
@@ -300,12 +153,175 @@
                 $("#money-total").text(_money);
             }
 
+            function initPageData() {
+                var mdata  ="";  //已开发市场
+                var pdata  =""; //已研发产品
+
+                var inputs = $("input");
+                inputs.each(function(){
+                    $(this).attr({"readonly":"readonly"});  //将所有的填写单元格锁定
+                });
+
+
+                //Y 根据产品研发及市场研发的数据，对广告费的填写单元构进行锁定或解锁。
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/MarketFee/listFinish",
+                    contentType: "application/json;charset=utf-8;",
+                    success: function (data) {
+                        mdata = data['data'];
+                        console.log("已开发在的市场");
+                        //Y 根据产品研发及市场研发的数据，对广告费的填写单元构进行锁定或解锁。
+                        $.ajax({
+                            type: "get",
+                            dataType: "json",
+                            url: "/ResearchFee/listFinish",
+                            contentType: "application/json;charset=utf-8;",
+                            success: function (data) {
+                                pdata = data['data'];
+                                console.log("已研发的产品");
+
+                                console.log(mdata);
+                                console.log(pdata);
+                                for ( var i = 0; i < mdata.length; i++) {
+                                    console.log(mdata[i].marketId);
+
+                                    for ( var j = 0; j < pdata.length; j++) {
+                                        console.log(pdata[j].productId);
+                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "本地")
+                                        {  $("#bd-p1").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "本地")
+                                        {  $("#bd-p2").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "本地")
+                                        {  $("#bd-p3").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "本地")
+                                        {  $("#bd-p4").removeAttr("readonly");}
+
+                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "区域")
+                                        {  $("#qy-p1").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "区域")
+                                        {  $("#qy-p2").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "区域")
+                                        {  $("#qy-p3").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "区域")
+                                        {  $("#qy-p4").removeAttr("readonly");}
+
+                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "国内")
+                                        {  $("#gl-p1").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "国内")
+                                        {  $("#gl-p2").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "国内")
+                                        {  $("#gl-p3").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "国内")
+                                        {  $("#gl-p4").removeAttr("readonly");}
+
+
+                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "亚洲")
+                                        {  $("#yz-p1").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "亚洲")
+                                        {  $("#yz-p2").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "亚洲")
+                                        {  $("#yz-p3").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "亚洲")
+                                        {  $("#yz-p4").removeAttr("readonly");}
+
+
+                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "国际")
+                                        {  $("#gj-p1").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "国际")
+                                        {  $("#gj-p2").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "国际")
+                                        {  $("#gj-p3").removeAttr("readonly");}
+                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "国际")
+                                        {  $("#gj-p4").removeAttr("readonly");}
+
+                                    }
+                                }
+
+                            }
+                        });
+
+
+                    }
+                });
 
 
 
 
 
-        })
+
+
+                //Y 显示广告费。
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/Advertise/listbyteamperiod",
+                    contentType: "application/json;charset=utf-8;",
+                    success: function (data) {
+                        data = data['data'];
+                        console.log(data);
+                        $.each(data,function(n,value){
+                            if(value.productId == "P1" && value.marketId == "本地")
+                            {  $("#bd-p1").val(value.moneyI);}
+                            if(value.productId == "P2" && value.marketId == "本地")
+                            {  $("#bd-p2").val(value.moneyI);}
+                            if(value.productId == "P3" && value.marketId == "本地")
+                            {  $("#bd-p3").val(value.moneyI);}
+                            if(value.productId == "P4" && value.marketId == "本地")
+                            {  $("#bd-p4").val(value.moneyI);}
+
+                            if(value.productId == "P1" && value.marketId == "区域")
+                            {  $("#qy-p1").val(value.moneyI);}
+                            if(value.productId == "P2" && value.marketId == "区域")
+                            {  $("#qy-p2").val(value.moneyI);}
+                            if(value.productId == "P3" && value.marketId == "区域")
+                            {  $("#qy-p3").val(value.moneyI);}
+                            if(value.productId == "P4" && value.marketId == "区域")
+                            {  $("#qy-p4").val(value.moneyI);}
+
+                            if(value.productId == "P1" && value.marketId == "国内")
+                            {  $("#gl-p1").val(value.moneyI);}
+                            if(value.productId == "P2" && value.marketId == "国内")
+                            {  $("#gl-p2").val(value.moneyI);}
+                            if(value.productId == "P3" && value.marketId == "国内")
+                            {  $("#gl-p3").val(value.moneyI);}
+                            if(value.productId == "P4" && value.marketId == "国内")
+                            {  $("#gl-p4").val(value.moneyI);}
+
+
+                            if(value.productId == "P1" && value.marketId == "亚洲")
+                            {  $("#yz-p1").val(value.moneyI);}
+                            if(value.productId == "P2" && value.marketId == "亚洲")
+                            {  $("#yz-p2").val(value.moneyI);}
+                            if(value.productId == "P3" && value.marketId == "亚洲")
+                            {  $("#yz-p3").val(value.moneyI);}
+                            if(value.productId == "P4" && value.marketId == "亚洲")
+                            {  $("#yz-p4").val(value.moneyI);}
+
+
+                            if(value.productId == "P1" && value.marketId == "国际")
+                            {  $("#gj-p1").val(value.moneyI);}
+                            if(value.productId == "P2" && value.marketId == "国际")
+                            {  $("#gj-p2").val(value.moneyI);}
+                            if(value.productId == "P3" && value.marketId == "国际")
+                            {  $("#gj-p3").val(value.moneyI);}
+                            if(value.productId == "P4" && value.marketId == "国际")
+                            {  $("#gj-p4").val(value.moneyI);}
+
+                        });
+
+
+                        SumMoney();
+                    }
+            })
+
+
+
+
+
+
+        }
     </script>
 
 </head>
@@ -360,7 +376,8 @@
       </tr>
       <tr >
           <td colspan="6">
-              <div class="card-bottom"><a href="#" class="btn btn-default" id="btn-advertise">提交广告费</a></div>
+
+              <div class="card-bottom"><a href="#" class="btn btn-default btn-info" id="btn-reload">刷新</a><a href="#" class="btn btn-default btn-primary" id="btn-advertise">提交广告费</a></div>
           </td>
       </tr>
 
