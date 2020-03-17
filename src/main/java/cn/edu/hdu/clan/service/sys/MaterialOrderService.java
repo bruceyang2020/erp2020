@@ -22,4 +22,9 @@ public interface MaterialOrderService {
     List<MaterialOrder> list();
 
     void payment(String userTeam ,int period);
+
+    List<MaterialOrder> listR1R2(int period);
+    List<MaterialOrder> listR3R4(int period);
+
+
 }

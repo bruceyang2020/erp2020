@@ -46,9 +46,10 @@ $(document).ready(function () {
             $.each(data,function(n,value){
                 var currentAp =$("#currentAp").val();
                 var leadTime = 1+currentAp*1-value.period;
-                if(value.materialId == "R1" )
+                console.log(leadTime);
+                if(value.materialId == "R1" && leadTime == 1 )
                 {  $("#r1-1").val(value.amount);}
-                if(value.materialId == "R2")
+                if(value.materialId == "R2" && leadTime == 1)
                 {  $("#r2-1").val(value.amount);}
                 if(value.materialId == "R3"  && leadTime == 1)
                 {  $("#r3-2").val(value.amount);}
@@ -85,8 +86,6 @@ $(document).ready(function () {
                 alert("RI订单成功");
             }
         })
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-        touzi = parseInt(touzi) + parseInt("400");//记录扣款数
     })
 
     $("#ok-r2-1").click(function () {
@@ -108,8 +107,6 @@ $(document).ready(function () {
                 alert("R2订单成功");
             }
         })
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-        touzi = parseInt(touzi) + parseInt("400");//记录扣款数
     })
 
     $("#ok-r3-2").click(function () {
@@ -117,7 +114,7 @@ $(document).ready(function () {
         var MaterialOrder = {
             period: $('#currentAp').val(),
             amount: amount,
-            moneyTotal:$('#buy-r3-1').val(),
+            moneyTotal:$('#buy-r3-2').val(),
             materialId:"R3"
         }
         $.ajax({
@@ -140,7 +137,7 @@ $(document).ready(function () {
         var MaterialOrder = {
             period: $('#currentAp').val(),
             amount:amount,
-            moneyTotal:$('#buy-r4-1').val(),
+            moneyTotal:$('#buy-r4-2').val(),
             materialId:"R4"
         }
         $.ajax({

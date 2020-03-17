@@ -27,4 +27,5 @@ public interface InvService {
     Inv getById(String id);
 
     void copyDataToNextPeriod(String userTeam ,int period ,int nextPeriod);
+    void goToPeriod(String userTeam,int period);
 }

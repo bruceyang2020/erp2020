@@ -199,9 +199,9 @@ public class Inv extends BaseBean {
     /**
      * 设置本期入库数量
      *
-     * @param amount 本期入库数量
+     * @param amountI 本期入库数量
      */
-    public void setAmountI(BigDecimal amount) {
+    public void setAmountI(BigDecimal amountI) {
         this.amountI = amountI;
     }
 

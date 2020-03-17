@@ -107,20 +107,35 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
     public void deleteByPeriod(String userTeam,Integer period,String productId) {
         //删除产品研发的记录
         //H 消除已经研发完成还能删退的bug
-        List<ResearchFee> oldRow= researchFeeService.listByperiod(userTeam,period-1,productId);
+        if(period >1) {
+            List<ResearchFee> oldRow = researchFeeService.listByperiod(userTeam, period - 1, productId);
 
-        if(oldRow.get(0).getState()==0) {
-            List<ResearchFee> updateRow = researchFeeService.listByperiod(userTeam,period,productId);
-            //补充相关字段的取值
-            updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
-            updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
+            if (oldRow.get(0).getState() == 0) {
+                List<ResearchFee> updateRow = researchFeeService.listByperiod(userTeam, period, productId);
+                //补充相关字段的取值
+                updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
+                updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
 
-            //删除新增记录，自动生成GUID主键及新增的createuser ,createtime
-            BaseBeanHelper.edit(updateRow.get(0));
-            ResearchFeeMapper.updateByPrimaryKey(updateRow.get(0));
-            //删除会计凭证
-            accountingVoucherService.deleteByPeriodAndContent(userTeam, period, productId);
+                //删除新增记录，自动生成GUID主键及新增的createuser ,createtime
+                BaseBeanHelper.edit(updateRow.get(0));
+                ResearchFeeMapper.updateByPrimaryKey(updateRow.get(0));
+                //删除会计凭证
+                accountingVoucherService.deleteByPeriodAndContent(userTeam, period, productId);
+            }}
+
+        else{
+                List<ResearchFee> updateRow = researchFeeService.listByperiod(userTeam, period, productId);
+                //补充相关字段的取值
+                updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
+                updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
+
+                //删除新增记录，自动生成GUID主键及新增的createuser ,createtime
+                BaseBeanHelper.edit(updateRow.get(0));
+                ResearchFeeMapper.updateByPrimaryKey(updateRow.get(0));
+                //删除会计凭证
+                accountingVoucherService.deleteByPeriodAndContent(userTeam, period, productId);
         }
+
     }
 
 

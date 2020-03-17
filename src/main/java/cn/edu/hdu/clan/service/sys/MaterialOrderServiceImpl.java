@@ -16,6 +16,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -92,7 +93,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         Example example = new Example(MaterialOrder.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
-        criteria.andNotEqualTo("state", 0);
+        criteria.andNotEqualTo("state", 1); //H 入库为1 未入库为0
         List<MaterialOrder> oldRow = MaterialOrderMapper.selectByExample(example);
         if(oldRow.size() > 0)
         {
@@ -101,7 +102,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
             int purchasePeriod = 0;
             int leadTime = 0;
 
-            for(int i=1;i<oldRow.size();i++)
+            for(int i=0;i<oldRow.size();i++)
             {
                 materialId = oldRow.get(i).getMaterialId();
                 amount =  oldRow.get(i).getAmount();
@@ -161,12 +162,47 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         return MaterialOrderMapper.selectOneByExample(example);
     }
     public List<MaterialOrder> list() {
-        //根据当前的用户组（公司）、当前会计期间查询
+        //H 根据当前的用户组（公司）不需要会计期间
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         Example example = new Example(MaterialOrder.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
         return MaterialOrderMapper.selectByExample(example);}
+
+    /** H
+     * 用于入库查询
+     * @param period
+     * @return
+     */
+    public List<MaterialOrder> listR1R2(int period) {
+        //根据当前的用户组（公司）、当前会计期间查询R1R2
+        String userTeam = Jurisdiction.getUserTeam();
+        Example example = new Example(MaterialOrder.class);
+        Example.Criteria criteria1 = example.createCriteria();
+        criteria1.andEqualTo("teamCount", userTeam);
+        criteria1.andEqualTo("period", period-1);
+        List<String> x=new ArrayList<>();
+        x.add("R1");
+        x.add("R2");
+        criteria1.andIn("materialId",x);
+
+        return MaterialOrderMapper.selectByExample(example);}
+
+    public List<MaterialOrder> listR3R4(int period) {
+        //根据当前的用户组（公司）、当前会计期间查询R3R4
+        String userTeam = Jurisdiction.getUserTeam();
+        Example example = new Example(MaterialOrder.class);
+        Example.Criteria criteria1 = example.createCriteria();
+        criteria1.andEqualTo("teamCount", userTeam);
+        criteria1.andEqualTo("period", period-2);
+        List<String> x=new ArrayList<>();
+        x.add("R3");
+        x.add("R4");
+        criteria1.andIn("materialId",x);
+
+        return MaterialOrderMapper.selectByExample(example);}
+
 }
+
+

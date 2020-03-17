@@ -1,4 +1,4 @@
-[{"productId": "P1", "state" : 1, "periodLeft" : 1, "period" : 1},
+[{"productId": "P1", "state" : 1, "periodLeft" : 0, "period" : 1},
   {"productId": "P2", "state" : 0, "periodLeft" : 6, "period" : 1},
   {"productId": "P3", "state" : 0, "periodLeft" : 6, "period" : 1},
   {"productId": "P4", "state" : 0, "periodLeft" : 6, "period" : 1}
