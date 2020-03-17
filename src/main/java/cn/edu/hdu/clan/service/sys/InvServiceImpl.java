@@ -51,9 +51,11 @@ public class InvServiceImpl implements InvService {
         List<MaterialOrder> materialOrderList12 = materialOrderService.listR1R2(period);
         List<MaterialOrder> materialOrderList34 = materialOrderService.listR3R4(period);
         List<Inv> inv= invService.listInv(userTeam,period-1);//上期数取出期初数
+        //H 上期期末数，如果period=1 默认上期期末数为0
         BigDecimal r1Ab=  BigDecimal.valueOf(0); BigDecimal r2Ab=  BigDecimal.valueOf(0);BigDecimal r3Ab=  BigDecimal.valueOf(0); BigDecimal r4Ab=  BigDecimal.valueOf(0);
         BigDecimal r1Mb=  BigDecimal.valueOf(0); BigDecimal r2Mb=  BigDecimal.valueOf(0);BigDecimal r3Mb=  BigDecimal.valueOf(0); BigDecimal r4Mb=  BigDecimal.valueOf(0);
-        if (period!=1) { //如果有期初就不用写
+        //H 通过上期期初数和发生额计算本期期初数
+        if (period!=1) {
             for (int i = 0; i < inv.size(); i++) {
                 switch (inv.get(i).getNumber()) {
                     case "R1":
@@ -75,82 +77,83 @@ public class InvServiceImpl implements InvService {
                 }
             }
         }
-        Inv inv1=new Inv();
-        Inv inv2=new Inv();
-        Inv inv3=new Inv();
-        Inv inv4=new Inv();
+        // 根据material 表计算发生值
+        BigDecimal r1Ai=  BigDecimal.valueOf(0); BigDecimal r2Ai=  BigDecimal.valueOf(0);BigDecimal r3Ai=  BigDecimal.valueOf(0); BigDecimal r4Ai=  BigDecimal.valueOf(0);
+        BigDecimal r1Mi=  BigDecimal.valueOf(0); BigDecimal r2Mi=  BigDecimal.valueOf(0);BigDecimal r3Mi=  BigDecimal.valueOf(0); BigDecimal r4Mi=  BigDecimal.valueOf(0);
+        Inv inv1=new Inv();Inv inv2=new Inv();Inv inv3=new Inv();Inv inv4=new Inv();
         for(int i=0;i< materialOrderList12.size();i++) {
             //全局变量 写入当前公司或小组ID
-
             switch (materialOrderList12.get(i).getMaterialId()) {
                 case "R1":
-                    inv1.setTeamCount(userTeam);
-                    inv1.setPeriod(period);
-                    inv1.setGroupId("1000");
-                    inv1.setNumber("R1");
-                    inv1.setAmountB(r1Ab);
-                    inv1.setMoneyB(r1Mb);
-                    inv1.setAmountI(BigDecimal.valueOf(materialOrderList12.get(i).getAmount()));//H 材料入库
-                    inv1.setMoneyI(materialOrderList12.get(i).getMoneyTotal());//H 材料入库
-                    inv1.setAmountO(BigDecimal.valueOf(0));//先预设0
-                    inv1.setMoneyO(BigDecimal.valueOf(0));//先预设0
-                    BaseBeanHelper.insert(inv1);
-                    InvMapper.insert(inv1);
+                    r1Ai= BigDecimal.valueOf(materialOrderList12.get(i).getAmount());//H 材料入库
+                    r1Mi= materialOrderList12.get(i).getMoneyTotal();//H 材料入库
                     break;
                 case "R2":
-                    inv2.setTeamCount(userTeam);
-                    inv2.setPeriod(period);
-                    inv2.setGroupId("1000");
-                    inv2.setNumber("R2");
-                    inv2.setAmountB(r2Ab);
-                    inv2.setMoneyB(r2Mb);
-                    inv2.setAmountI(BigDecimal.valueOf(materialOrderList12.get(i).getAmount()));//H 材料入库
-                    inv2.setMoneyI(materialOrderList12.get(i).getMoneyTotal());//H 材料入库
-                    inv2.setAmountO(BigDecimal.valueOf(0));//先预设0
-                    inv2.setMoneyO(BigDecimal.valueOf(0));//先预设0
-                    BaseBeanHelper.insert(inv2);
-                    InvMapper.insert(inv2);
-                    break;
-
-            }
-
-        }
+                    r2Ai= BigDecimal.valueOf(materialOrderList12.get(i).getAmount());//H 材料入库
+                    r2Mi= materialOrderList12.get(i).getMoneyTotal();//H 材料入库
+                    break; } }
         for(int i=0;i< materialOrderList34.size();i++) {
             switch (materialOrderList34.get(i).getMaterialId()) {
                 case "R3":
-                    inv3.setTeamCount(userTeam);
-                    inv3.setPeriod(period);
-                    inv3.setGroupId("1000");
-                    inv3.setNumber("R3");
-                    inv3.setAmountB(r3Ab);
-                    inv3.setMoneyB(r3Mb);
-                    inv3.setAmountI(BigDecimal.valueOf(materialOrderList34.get(i).getAmount()));//H 材料入库
-                    inv3.setMoneyI(materialOrderList34.get(i).getMoneyTotal());//H 材料入库
-                    inv3.setAmountO(BigDecimal.valueOf(0));//先预设0
-                    inv3.setMoneyO(BigDecimal.valueOf(0));//先预设0
-                    System.out.println(materialOrderList34.get(i).getMaterialId());
-                    BaseBeanHelper.insert(inv3);
-                    InvMapper.insert(inv3);
+                    r3Ai= BigDecimal.valueOf(materialOrderList34.get(i).getAmount());//H 材料入库
+                    r3Mi= materialOrderList34.get(i).getMoneyTotal();//H 材料入库
                     break;
                 case "R4":
-                    inv4.setTeamCount(userTeam);
-                    inv4.setPeriod(period);
-                    inv4.setGroupId("1000");
-                    inv4.setNumber("R4");
-                    inv4.setAmountB(r4Ab);
-                    inv4.setMoneyB(r4Mb);
-                    inv4.setAmountI(BigDecimal.valueOf(materialOrderList34.get(i).getAmount()));//H 材料入库
-                    inv4.setMoneyI(materialOrderList34.get(i).getMoneyTotal());//H 材料入库
-                    inv4.setAmountO(BigDecimal.valueOf(0));//先预设0
-                    inv4.setMoneyO(BigDecimal.valueOf(0));//先预设0
-                    BaseBeanHelper.insert(inv4);
-                    InvMapper.insert(inv4);
-                    break;
+                    r4Ai= BigDecimal.valueOf(materialOrderList34.get(i).getAmount());//H 材料入库
+                    r4Mi= materialOrderList34.get(i).getMoneyTotal();//H 材料入库
+                    break; } }
+        //H 在结转时写入
+        inv1.setTeamCount(userTeam);
+        inv1.setGroupId("1000");
+        inv1.setPeriod(period);
+        inv1.setNumber("R1");
+        inv1.setMoneyB(r1Mb);
+        inv1.setAmountB(r1Ab);
+        inv1.setMoneyI(r1Mi);
+        inv1.setAmountI(r1Ai);
+        inv1.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv1.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        BaseBeanHelper.insert(inv1);
+        InvMapper.insert(inv1);
 
-            }
+        inv2.setTeamCount(userTeam);
+        inv2.setGroupId("1000");
+        inv2.setPeriod(period);
+        inv2.setNumber("R2");
+        inv2.setMoneyB(r2Mb);
+        inv2.setAmountB(r2Ab);
+        inv2.setMoneyI(r2Mi);
+        inv2.setAmountI(r2Ai);
+        inv2.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv2.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        BaseBeanHelper.insert(inv2);
+        InvMapper.insert(inv2);
 
+        inv3.setTeamCount(userTeam);
+        inv3.setGroupId("1000");
+        inv3.setPeriod(period);
+        inv3.setNumber("R3");
+        inv3.setMoneyB(r3Mb);
+        inv3.setAmountB(r3Ab);
+        inv3.setMoneyI(r3Mi);
+        inv3.setAmountI(r3Ai);
+        inv3.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv3.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        BaseBeanHelper.insert(inv3);
+        InvMapper.insert(inv3);
 
-        }
+        inv4.setTeamCount(userTeam);
+        inv4.setGroupId("1000");
+        inv4.setPeriod(period);
+        inv4.setNumber("R4");
+        inv4.setMoneyB(r4Mb);
+        inv4.setAmountB(r4Ab);
+        inv4.setMoneyI(r4Mi);
+        inv4.setAmountI(r4Ai);
+        inv4.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv4.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        BaseBeanHelper.insert(inv4);
+        InvMapper.insert(inv4);
     }
 
 
@@ -217,7 +220,7 @@ public class InvServiceImpl implements InvService {
 
 
         //自动生成出库对应应的会计凭证:借在制品 贷原材料
-        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal(amount), "”SCCK", content);
+        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal(amount), "SCCK", content);
 
 
     }
@@ -239,7 +242,7 @@ public class InvServiceImpl implements InvService {
 
 
         //自动生成出库对应应的会计凭证:借直接成本 贷成品
-        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal(amount), "”XSCK", content);
+        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal(amount), "XSCK", content);
 
 
     }
@@ -262,23 +265,4 @@ public class InvServiceImpl implements InvService {
         return InvMapper.selectOneByExample(example);
     }
 
-    @Override
-    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
-        Example example = new Example(Inv.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
-        List<Inv> factorys = InvMapper.selectByExample(example);
-
-        if (factorys.size() > 0) {
-            for (int i = 0; i < factorys.size(); i++) {
-                Inv myRow = factorys.get(i);
-                myRow.setPeriod(nextPeriod);
-                BaseBeanHelper.insert(myRow);
-                InvMapper.insert(myRow);
-
-            }
-        }
-
-    }
 }

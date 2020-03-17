@@ -26,6 +26,5 @@ public interface InvService {
 
     Inv getById(String id);
 
-    void copyDataToNextPeriod(String userTeam ,int period ,int nextPeriod);
-    void goToPeriod(String userTeam,int period);
+    void goToPeriod(String userTeam,int period);// H 原材料结转和入库
 }
