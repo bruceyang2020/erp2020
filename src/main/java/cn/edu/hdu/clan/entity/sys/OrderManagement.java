@@ -29,6 +29,13 @@ public class OrderManagement extends BaseBean {
     @Column(name = "product_id")
     private String productId;
 
+
+    /**
+     * 所需产品对应市场编码号
+     */
+    @Column(name = "market_id")
+    private String marketId;
+
     /**
      * 数据
      */
@@ -158,6 +165,25 @@ public class OrderManagement extends BaseBean {
      */
     public void setProductId(String productId) {
         this.productId = productId;
+    }
+
+
+    /**
+     * 获取所需产品编号
+     *
+     * @return marketId - 所需产品编号
+     */
+    public String getMarketId() {
+        return marketId;
+    }
+
+    /**
+     * 设置所需产品编号
+     *
+     * @param marketId 所需产品编号
+     */
+    public void setMarketId(String marketId) {
+        this.marketId = marketId;
     }
 
     /**

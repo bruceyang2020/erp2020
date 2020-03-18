@@ -236,5 +236,15 @@ public class OrderGroupController extends BaseController {
         return success(OrderGroupService.getById(param.get("id")));
     }
 
+    /**
+     * Y 检查当前的产品订单是否可以选择。
+     * @param param
+     * @return
+     */
+    @RequestMapping(value = "checkOrderRight")
+    public String checkOrderRight(@RequestBody Map<String,String> param) {
+        return success(OrderGroupService.checkOrderRight(param.get("orderId")));
+    }
+
 
 }

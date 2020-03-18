@@ -50,6 +50,8 @@ $(function(){
 
                     $("#listP1").delegate("button.btn-select", "click",
                         function(e) {
+
+
                             var myOrderName = "xxx";
                             myOrderName = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
                             console.log(myOrderName);

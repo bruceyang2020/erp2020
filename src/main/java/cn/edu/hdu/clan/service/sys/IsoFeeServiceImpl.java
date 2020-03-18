@@ -168,11 +168,11 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period);
-        List<IsoFee> factorys = IsoFeeMapper.selectByExample(example);
+        List<IsoFee> isos = IsoFeeMapper.selectByExample(example);
 
-        if (factorys.size() > 0) {
-            for (int i = 0; i < factorys.size(); i++) {
-                IsoFee myRow = factorys.get(i);
+        if (isos.size() > 0) {
+            for (int i = 0; i < isos.size(); i++) {
+                IsoFee myRow = isos.get(i);
                 myRow.setPeriod(nextPeriod);
                 BaseBeanHelper.insert(myRow);
                 IsoFeeMapper.insert(myRow);
