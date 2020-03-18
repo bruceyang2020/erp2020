@@ -13,7 +13,8 @@
 
         function showIs(period) {
             var Incomesheet = {period :period};
-            var myYear = parseInt(period/4);
+            /*var myYear = parseInt(period/4);*/
+            var myYear = parseInt(period);
             $.ajax({
                 type: "post",
                 dataType: "json",
@@ -36,8 +37,9 @@
                     $("#money_depr").text(data.moneyDepr);
                     var lxqlr = zjqlr - data.moneyDepr*1;
                     $("#money_norate").text(lxqlr);
+                    $("#money_interest").text(data.moneyInterest);
                     $("#money_other").text(data.moneyOther);
-                    var sqlr = lxqlr-data.moneyOther*1;
+                    var sqlr = lxqlr-data.moneyOther*1-data.moneyInterest*1;
                     $("#money_notax").text(sqlr);
                     $("#money_tax").text(data.moneyTax);
                     var jlr = sqlr -data.moneyTax*1;
@@ -53,13 +55,14 @@
             });
         }
     </script>
+
 </head>
 <body>
-<p>  <button type="button" class="btn btn-default btn-sm" onclick="showIs(1)">初始</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showIs(5)">1年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showIs(9)">2年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showIs(13)">3年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showIs(17)">4年</button>
+<p>  <button type="button" class="btn btn-default btn-sm" onclick="showIs(0)">初始</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(1)">1年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(2)">2年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(3)">3年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(4)">4年</button>
     <button type="button" class="btn btn-default btn-sm" onclick="showIs(21)">5年</button>
     <button type="button" class="btn btn-default btn-sm" onclick="showIs(25)">6年</button>
 </p>
@@ -74,7 +77,7 @@
     </tr>
     <tr>
         <td>销售收入</td>
-        <td ><span id="income_sale1"></span></td>
+        <td style="text-align: center"><span id="income_sale1"></span></td>
         <td style="text-align: center"><span id="income_sale"></span></td>
     </tr>
     <tr>
@@ -104,12 +107,17 @@
         <td style="text-align: center"><span id="money_depr"></span></td>
     </tr>
     <tr>
-        <td>支付利息前利润</td>
+        <td>息前利润</td>
         <td style="text-align: center"><span id="money_norate1"></span></td>
         <td style="text-align: center"><span id="money_norate"></span></td>
     </tr>
     <tr>
-        <td>支付利息前利润</td>
+        <td>财务费用</td>
+        <td style="text-align: center"><span id="money_interest1"></span></td>
+        <td style="text-align: center"><span id="money_interest"></span></td>
+    </tr>
+    <tr>
+        <td>其他费用</td>
         <td style="text-align: center"><span id="money_other1"></span></td>
         <td style="text-align: center"><span id="money_other"></span></td>
     </tr>

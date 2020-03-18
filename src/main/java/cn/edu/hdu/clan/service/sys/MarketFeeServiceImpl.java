@@ -78,21 +78,21 @@ public class MarketFeeServiceImpl implements MarketFeeService {
       switch (marketId) {
         case "区域":
             //自动生成市场开拓会计凭证
-            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("20"), "SCKF", "区域");
+            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("20"), "SCKF", "区域市场开拓");
             break;
 
         case "国内":
             //自动生成市场开拓会计凭证
-            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("40"), "SCKF", "国内");
+            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("40"), "SCKF", "国内市场开拓");
             break;
         case "亚洲":
             //自动生成市场开拓会计凭证
-            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("60"), "SCKF", "亚洲");
+            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("60"), "SCKF", "亚洲市场开拓");
             break;
 
         case "国际":
             //自动生成市场开拓会计凭证
-            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("80"), "SCKF", "国际");
+            accountingVoucherService.voucherMaker(userTeam, MarketFee.getPeriod(), new BigDecimal("80"), "SCKF", "国际市场开拓");
             break;
 
 

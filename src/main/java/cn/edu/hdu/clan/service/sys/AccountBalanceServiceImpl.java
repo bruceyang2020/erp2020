@@ -26,6 +26,11 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     @Resource
     private AccountingVoucherService accountingVoucherService;
 
+    @Resource
+    private AccountBalanceService accountBalanceService;
+
+
+
     @Transactional
     @Override
     public void add(AccountBalance AccountBalance) {
@@ -38,7 +43,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
             for (int i = 0; i < accountBalanceList.size(); i++) {
                 String userTeam = Jurisdiction.getUserTeam();
                 int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-                accountBalanceList.get(i).setPeriod(period);
+                accountBalanceList.get(i).setPeriod(period-1);
                 accountBalanceList.get(i).setTeamCount(userTeam);
                 accountBalanceList.get(i).setGroupId("1000");
                 BaseBeanHelper.insert(accountBalanceList.get(i));
@@ -74,13 +79,14 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     @Override
     public void sumFromVoucher(String userTeam ,int period) {
         Example example = new Example(AccountBalance.class);
-        example.createCriteria().andEqualTo("teamCount", userTeam);
-        example.createCriteria().andEqualTo("period", period-1); //查询上一会计期间。period-1
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period-1); //查询上一会计期间。period-1
         List<AccountBalance> oldRow = AccountBalanceMapper.selectByExample(example);
         if(oldRow.size() > 0) {
 
 
-            for (int i = 1; i < oldRow.size(); i++)
+            for (int i = 0; i < oldRow.size(); i++)
             {
                 String acode = oldRow.get(i).getAcode();
                 BigDecimal moneyD = BigDecimal.valueOf(0);
@@ -93,22 +99,28 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 AccountBalance newRow = new AccountBalance();
                 newRow.setGroupId("1000");
                 newRow.setTeamCount(userTeam);
-                newRow.setName("yy");
                 newRow.setAcode(oldRow.get(i).getAcode());
                 newRow.setAname(oldRow.get(i).getAname());
                 newRow.setMoneyB(oldRow.get(i).getMoneyE());  //设置当前会计科目的期初金额为上一期的期末金额。
                 newRow.setMoneyD(moneyD);
                 newRow.setMoneyC(moneyC);
 
-                if("借".equals(aType)){newRow.setMoneyE(moneyB.add(moneyD).subtract(moneyC));}  //科目余额在借方的，期初+借方-贷方
-                if("贷".equals(aType)){newRow.setMoneyE(moneyB.add(moneyC).subtract(moneyD));}//科目余额在贷方的，期初-借方+贷方
+                if("借".equals(aType)){newRow.setMoneyE(moneyB.add(moneyD.subtract(moneyC)));}  //科目余额在借方的，期初+借方-贷方
+                if("贷".equals(aType)){newRow.setMoneyE(moneyB.add(moneyC.subtract(moneyD)));}//科目余额在贷方的，期初-借方+贷方
+               switch (aType){
+                    case "借":
+                        newRow.setName("借");
+                        break;
+                   case "贷":
+                       newRow.setName("贷");
+                       break;
 
-                newRow.setMoneyE(moneyC);
+
+               }
                 newRow.setPeriod(period); //设置当前会计期间。
 
                 BaseBeanHelper.insert(newRow);
                 AccountBalanceMapper.insert(newRow);
-
 
 
             }
@@ -163,13 +175,35 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     @Override
     public List<AccountBalance> getByTeamcountAndPeriod(String userTeam ,int period) {
         Example example = new Example(AccountBalance.class);
-        example.createCriteria().andEqualTo("teamCount", userTeam);
-        example.createCriteria().andEqualTo("period", period);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
         return AccountBalanceMapper.selectByExample(example);
     }
 
-
     @Override
+    public List<AccountBalance> getByTeamcountAndPeriodAndacode(String userTeam ,int period,String acode) {
+        Example example = new Example(AccountBalance.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("acode",acode);
+        return AccountBalanceMapper.selectByExample(example);
+    }
+    //H 缴纳上年度所得税
+    public void makeVoucherOfTax(String userTeam ,int period){
+        BigDecimal tax=accountBalanceService.getByTeamcountAndPeriodAndacode(userTeam,period-1,"应交税金").get(0).getMoneyE();
+        accountingVoucherService.voucherMaker(userTeam,period,tax,"JS","缴纳上年度所得税");
+
+    }
+   //H 上年度年度净利转利润留存
+    public void makeVoucherOfNI(String userTeam ,int period){
+        BigDecimal tax=accountBalanceService.getByTeamcountAndPeriodAndacode(userTeam,period-1,"年度净利").get(0).getMoneyE();
+        accountingVoucherService.voucherMaker(userTeam,period,tax,"LRLCE","转上年度年度净利");
+System.out.println("这是一次");
+    }
+
+ /*   @Override
     public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
         Example example = new Example(AccountBalance.class);
         Example.Criteria criteria = example.createCriteria();
@@ -187,5 +221,5 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
             }
         }
 
-    }
+    }*/
 }

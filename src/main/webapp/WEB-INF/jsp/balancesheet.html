@@ -14,7 +14,8 @@
 
         function showBs(period) {
             var BalanceSheet = {period :period};
-            var myYear = parseInt(period/4);
+            /*var myYear = parseInt(period/4);*/
+            var myYear = parseInt(period);
             $.ajax({
                 type: "post",
                 dataType: "json",
@@ -39,7 +40,7 @@
                     $("#long_term_loan_year").text(data.longTermLoanYear);
                     $("#money_loan").text(data.moneyLoan);
                     $("#money_j").text(data.moneyJ);
-                    $("#money_income1").text(data.moneyIncomel);
+                    $("#money_incomel").text(data.moneyIncomel);
                     $("#money_p").text(data.moneyP);
                     $("#money_m").text(data.moneyM);
                     $("#money_static").text(data.moneyStatic);
@@ -63,11 +64,11 @@
 </head>
 <body>
 
-<p>  <button type="button" class="btn btn-default btn-sm" onclick="showBs(1)">初始</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showBs(5)">1年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showBs(9)">2年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showBs(13)">3年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showBs(17)">4年</button>
+<p>  <button type="button" class="btn btn-default btn-sm" onclick="showBs(0)">初始</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showBs(1)">1年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showBs(2)">2年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showBs(3)">3年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showBs(4)">4年</button>
     <button type="button" class="btn btn-default btn-sm" onclick="showBs(21)">5年</button>
     <button type="button" class="btn btn-default btn-sm" onclick="showBs(25)">6年</button>
 </p>
@@ -111,7 +112,7 @@
         <td>在制品</td>
         <td style="text-align: center"><span id="money_making"></span></td>
         <td style="text-align: center"><span id="money_making1"></span></td>
-        <td>应收账款</td>
+        <td>应付账款</td>
         <td style="text-align: center"><span id="money_order_get"></span></td>
         <td style="text-align: center"><span id="money_order_get1"></span></td>
     </tr>

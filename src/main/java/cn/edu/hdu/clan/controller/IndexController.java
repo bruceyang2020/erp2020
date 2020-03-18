@@ -203,30 +203,40 @@ public class IndexController extends BaseController {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
+
+
         //H 扣减行政管理费用会计凭证
         accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("10"),"GLFY","管理费用");
         //H 折旧费用的会计凭证
         productLineService.voucherMakerOfDep(userTeam,period);
+        //H 维修费用的会计凭证
 
         //H 高利贷贷款利息的会计凭证,每期期末计
         usuryService.voucherMakerOfInterest(userTeam,period);
 
+       //H 缴纳上年度所得税
+        accountBalanceService.makeVoucherOfTax(userTeam,period);
+
+        //H 转上年度年度净利
+        accountBalanceService.makeVoucherOfNI(userTeam,period);
 
 
 
 
 
 
-
-
+/*
+        //清除本期的科目余额表
+        accountBalanceService.deleteByPeriod(userTeam,period);*/
 
         //期末损益结转
-        accountingVoucherService.transferProfitAndLoss(userTeam,period);
+        accountingVoucherService.transferToProfitAndLoss(userTeam,period);
 
-        //清除本期（上期？）的科目余额表
-        accountBalanceService.deleteByPeriod(userTeam,period);
         //从会计凭证表汇总本期的发生额到科目余额表
         accountBalanceService.sumFromVoucher(userTeam,period);
+
+
+
         //获取当前会计期间的科目余额表
         List<AccountBalance> accountBalances = accountBalanceService.getByTeamcountAndPeriod(userTeam,period);
         //根据科目余额表，生成本期的资产负债表。
@@ -235,7 +245,7 @@ public class IndexController extends BaseController {
         incomesheetService.createIncomeSheet(accountBalances,userTeam,period);
 
 
-
+       /*------------------------------------------------下一期发生的动态-----------------------------------------------------------------*/
 
 
         int nextPeriod = Integer.parseInt(Jurisdiction.getUserTeamintPeriod())+1;  //注意：结账的时候，会计期间要跳转到下一期。+1
@@ -255,7 +265,7 @@ public class IndexController extends BaseController {
         //应收账款到期，会计账务处理：现金增加
         salepaymentService.receivePayment(userTeam,nextPeriod);
 
-        //长期贷款回收期减少，还本
+        //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
         longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
 
         //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
@@ -269,17 +279,14 @@ public class IndexController extends BaseController {
         //复制生产线信息到下一会计期间。
         productLineService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-        /*//复制存货信息到下一个会计期间
-        invService.copyDataToNextPeriod(userTeam,period,nextPeriod);*/
+       /* //复制科目余额表到下一期
+        accountBalanceService.copyDataToNextPeriod(userTeam,period,nextPeriod);*/
 
-        //复制科目余额表到下一期
-        accountBalanceService.copyDataToNextPeriod(userTeam,period,nextPeriod);
-
-        //复制资产负债表到下一期
+       /* //复制资产负债表到下一期
         balancesheetService.copyDataToNextPeriod(userTeam,period,nextPeriod);
-
-        //复制利润表到下一期
-        incomesheetService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+*/
+       /* //复制利润表到下一期
+        incomesheetService.copyDataToNextPeriod(userTeam,period,nextPeriod);*/
 
         //复制市场开拓信息到下一期
         marketFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);

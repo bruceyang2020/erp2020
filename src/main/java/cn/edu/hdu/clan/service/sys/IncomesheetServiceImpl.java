@@ -26,7 +26,7 @@ public class IncomesheetServiceImpl implements IncomesheetService {
     public void add(Incomesheet Incomesheet) {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-        Incomesheet.setPeriod(period);
+        Incomesheet.setPeriod(period-1);
         Incomesheet.setTeamCount(userTeam);
         Incomesheet.setGroupId("1000");
         BaseBeanHelper.insert(Incomesheet);
@@ -105,26 +105,27 @@ public class IncomesheetServiceImpl implements IncomesheetService {
 
         //Y 修改利润表的字段取值。
 
-        //删除已存在的利润表
+        /*//删除已存在的利润表
         Example example = new Example(Incomesheet.class);
         example.createCriteria().andEqualTo("teamCount", userTeam);
         example.createCriteria().andEqualTo("period", period);
-        IncomesheetMapper.deleteByExample(example);
+        IncomesheetMapper.deleteByExample(example);*/
 
         Incomesheet incomesheet = new Incomesheet();
         String acode ="";
 
         if(accountBalances.size() > 0) {
 
-
+               //H 利润表表示本期发生额，应该由科目余额表借贷方显示
             for (int i = 1; i < accountBalances.size(); i++) {
                 acode = accountBalances.get(i).getAcode();
-                if("销售收入".equals(acode)){incomesheet.setIncomeSale(accountBalances.get(i).getMoneyE());}
-                if("直接成本".equals(acode)){incomesheet.setIncomeSale(accountBalances.get(i).getMoneyE());}
-                if("折旧".equals(acode)){incomesheet.setMoneyDepr(accountBalances.get(i).getMoneyE());}
-                if("综合费用".equals(acode)){incomesheet.setMoneyFee(accountBalances.get(i).getMoneyE());}
-                if("其它支出".equals(acode)){incomesheet.setMoneyOther(accountBalances.get(i).getMoneyE());}
-                if("所得税".equals(acode)){incomesheet.setMoneyTax(accountBalances.get(i).getMoneyE());}
+                if("销售收入".equals(acode)){incomesheet.setIncomeSale(accountBalances.get(i).getMoneyC());}
+                if("直接成本".equals(acode)){incomesheet.setMoneyCost(accountBalances.get(i).getMoneyD());}
+                if("折旧".equals(acode)){incomesheet.setMoneyDepr(accountBalances.get(i).getMoneyD());}
+                if("综合费用".equals(acode)){incomesheet.setMoneyFee(accountBalances.get(i).getMoneyD());}
+                if("财务支出".equals(acode)){incomesheet.setMoneyInterest(accountBalances.get(i).getMoneyD());}
+                if("其它支出".equals(acode)){incomesheet.setMoneyOther(accountBalances.get(i).getMoneyD());}
+                if("所得税".equals(acode)){incomesheet.setMoneyTax(accountBalances.get(i).getMoneyD());}
             }
         }
         incomesheet.setTeamCount(userTeam);

@@ -27,7 +27,13 @@ public interface AccountBalanceService {
 
     List<AccountBalance> getByTeamcountAndPeriod(String userTeam ,int period);
 
-    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
+   /* void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);*/
 
     BigDecimal moneyAsFar(String userTeam , int period);
+
+    List<AccountBalance> getByTeamcountAndPeriodAndacode(String userTeam ,int period,String acode);
+
+    void makeVoucherOfTax(String userTeam ,int period);//H
+
+    void makeVoucherOfNI(String userTeam ,int period);//H
 }

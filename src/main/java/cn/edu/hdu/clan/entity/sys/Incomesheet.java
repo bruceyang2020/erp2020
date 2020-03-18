@@ -27,7 +27,7 @@ public class Incomesheet extends BaseBean {
     private BigDecimal incomeSale;
 
     /**
-     * 销售成本
+     * 直接成本
      */
     @Column(name = "money_cost")
     private BigDecimal moneyCost;
@@ -45,6 +45,12 @@ public class Incomesheet extends BaseBean {
     private BigDecimal moneyFee;
 
     /**
+     * 财务支出
+     */
+    @Column(name = "money_interest")
+    private BigDecimal moneyInterest;
+
+    /**
      * 税前利润
      */
     @Column(name = "money_other")
@@ -55,6 +61,12 @@ public class Incomesheet extends BaseBean {
      */
     @Column(name = "money_tax")
     private BigDecimal moneyTax;
+
+    /**
+     * 净利润
+     */
+    @Column(name = "net_income")
+    private BigDecimal netIncome;
 
     /**
      * 创建人外键用户表
@@ -197,6 +209,25 @@ public class Incomesheet extends BaseBean {
         this.moneyFee= moneyFee;
     }
 
+
+    /**
+     * 获取财务费用
+     *
+     * @return money_interest 财务费用
+     */
+    public BigDecimal getMoneyInterest(){
+        return moneyInterest;
+    }
+
+    /**
+     * 设置财务费用
+     *
+     * @param moneyInterest 财务费用
+     */
+    public void setMoneyInterest(BigDecimal moneyInterest) {
+        this.moneyInterest= moneyInterest;
+    }
+
     /**
      * 获取其他费用支出
      *
@@ -231,6 +262,25 @@ public class Incomesheet extends BaseBean {
      */
     public void setMoneyTax(BigDecimal moneyTax) {
         this.moneyTax = moneyTax;
+    }
+
+
+    /**
+     * 获取净利润
+     *
+     * @return net_Income - 净利润
+     */
+    public BigDecimal getNetIncome() {
+        return netIncome;
+    }
+
+    /**
+     * 设置综合费用
+     *
+     * @param netIncome 综合费用
+     */
+    public void setNetIncome(BigDecimal netIncome) {
+        this.moneyFee= netIncome;
     }
 
     /**

@@ -108,7 +108,7 @@ public class UsuryServiceImpl implements UsuryService {
                     usuryInterest = usuryInterest.add(myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.05)).setScale(0, BigDecimal.ROUND_DOWN));
                 }
                 //H BigDecimal大于0等于int 1，防止bug
-                if(usuryInterest.compareTo(BigDecimal.valueOf(0))==1) {
+                if(usuryInterest.compareTo(BigDecimal.valueOf(0))!=-1) {
                     //H 利息记账
                     accountingVoucherService.voucherMaker(userTeam, period, usuryInterest, "LXFY", "高利贷利息");
 
