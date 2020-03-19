@@ -148,12 +148,56 @@ public class BalancesheetServiceImpl implements BalancesheetService {
 
 
             }
-          /*  balancesheet.setMoneyFlow(balancesheet.getMoneyNow().add(balancesheet.getMoneyGet().add(balancesheet.getMoneyMaking().add(balancesheet.getMoneySale().add(balancesheet.getMoneyBuy()))))); //流动资产
-            balancesheet.setMoneyStatic(balancesheet.getMoneyJ().add(balancesheet.getMoneyP().add(balancesheet.getMoneyM()))); //固定资产
-            balancesheet.setMoneyAll(balancesheet.getMoneyFlow().add(balancesheet.getMoneyStatic())); //总资产合计
+
+            BigDecimal moneyNow = balancesheet.getMoneyNow();
+            BigDecimal moneyGet = balancesheet.getMoneyGet();
+            BigDecimal moneyMaking = balancesheet.getMoneyMaking();
+            BigDecimal moneySale = balancesheet.getMoneySale();
+            BigDecimal moneyBuy = balancesheet.getMoneyBuy();
+            BigDecimal moneyFlow = balancesheet.getMoneyFlow();
+            System.out.print("begin");
+            System.out.print(moneyNow);
+            System.out.print(moneyGet);
+            System.out.print(moneyMaking);
+            System.out.print(moneySale);
+            System.out.print(moneyBuy);
+            System.out.print("end");
+          //流动资产
+
+            BigDecimal moneyJ= balancesheet.getMoneyJ();
+            System.out.print(moneyJ);
+            BigDecimal moneyP= balancesheet.getMoneyP();
+            System.out.print(moneyP);
+            BigDecimal moneyM = balancesheet.getMoneyM();
+            System.out.print(moneyM);
+            BigDecimal moneyStatic = balancesheet.getMoneyStatic();
+            System.out.print(moneyStatic);
+            BigDecimal longTermLoan = balancesheet.getLongTermLoan();
+            System.out.print("begin");
+            BigDecimal shortTermLoan = balancesheet.getShortTermLoan();
+            System.out.print("begin");
+            BigDecimal moneyTax = balancesheet.getMoneyTax();
+            System.out.print("begin");
+            BigDecimal moneyG = balancesheet.getMoneyG();
+            System.out.print("begin");
+            BigDecimal moneyStay = balancesheet.getMoneyStay();
+            System.out.print("begin");
+            BigDecimal moneyYear = balancesheet.getMoneyYear();
+            System.out.print("begin");
+
+         /*   balancesheet.setMoneyStatic(balancesheet.getMoneyJ().add(balancesheet.().add(balancesheet.()))); //固定资产
+            balancesheet.setMoneyAll(balancesheet.getMoneyFlow().add(balancesheet.getMoneyStatic())); //总资产合计*/
             //balancesheet.setMoneyLoan(balancesheet.getLongTermLoan().add(balancesheet.getShortTermLoan().add(balancesheet.getMoneyTax()))); //负债(应付账款没写)
-            balancesheet.setMoneyUser(balancesheet.getMoneyG().add(balancesheet.getMoneyStay().add(balancesheet.getMoneyYear()))); //所有者权益
-            balancesheet.setMoneyAlls(balancesheet.getMoneyUser().add(balancesheet.getMoneyLoan())); //负债与所有者权益合计*/
+           /* balancesheet.setMoneyUser(balancesheet.getMoneyG().add(balancesheet.getMoneyStay().add(balancesheet.getMoneyYear()))); //所有者权益*/
+            BigDecimal moneyUser = balancesheet.getMoneyUser();
+            if(moneyUser == null) {
+                moneyUser = BigDecimal.valueOf(20);
+            }
+            BigDecimal moneyLoan= balancesheet.getMoneyLoan();
+            if(moneyLoan == null) {
+                moneyLoan = BigDecimal.valueOf(88);
+            }
+            balancesheet.setMoneyAlls(moneyUser.add(moneyLoan)); //负债与所有者权益合计
         }
 
 
