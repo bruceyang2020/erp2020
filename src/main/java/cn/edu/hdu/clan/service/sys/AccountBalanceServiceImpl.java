@@ -105,12 +105,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 newRow.setMoneyD(moneyD);
                 newRow.setMoneyC(moneyC);
 
-                if("借".equals(aType)){newRow.setMoneyE(moneyB.add(moneyD.subtract(moneyC)));
-                   if("现金".equals(acode)) {System.out.println(moneyC);
-                    System.out.println(moneyD);
-                       System.out.println(moneyB);
-                       System.out.println("这是现金");
-                System.out.println(moneyB.add(moneyD.subtract(moneyC)));}}  //科目余额在借方的，期初+借方-贷方
+                if("借".equals(aType)){newRow.setMoneyE(moneyB.add(moneyD.subtract(moneyC)));}  //科目余额在借方的，期初+借方-贷方
                 if("贷".equals(aType)){newRow.setMoneyE(moneyB.add(moneyC.subtract(moneyD)));}//科目余额在贷方的，期初-借方+贷方
                switch (aType){
                     case "借":
