@@ -10,7 +10,7 @@
   {"name": "借", "acode" : "综合费用", "aname" : "现金", "moneyB" : 0, "moneyE": 0,  "moneyD": 0,  "moneyC": 0 },
   {"name": "贷", "acode" : "折旧", "aname" : "现金", "moneyB" : 0, "moneyE": 0,  "moneyD": 0,  "moneyC": 0 },
   {"name": "借", "acode" : "应收款", "aname" : "现金", "moneyB" : 15, "moneyE": 15,  "moneyD": 0,  "moneyC": 0 },
-  {"name": "贷", "acode" : "其它收入", "aname" : "现金", "moneyB" : 0, "moneyE": 0,  "moneyD": 0,  "moneyC": 0 },
+  {"name": "借", "acode" : "财务支出", "aname" : "现金", "moneyB" : 0, "moneyE": 0,  "moneyD": 0,  "moneyC": 0 },
   {"name": "借", "acode" : "所得税", "aname" : "现金", "moneyB" : 0, "moneyE": 0,  "moneyD": 0,  "moneyC": 0 },
   {"name": "借", "acode" : "其它支出", "aname" : "现金", "moneyB" : 0, "moneyE": 0,  "moneyD": 0,  "moneyC": 0 },
   {"name": "借", "acode" : "在制品", "aname" : "现金", "moneyB" : 8, "moneyE": 8,  "moneyD": 0,  "moneyC": 0 },
@@ -19,5 +19,5 @@
   {"name": "借", "acode" : "土地与建筑", "aname" : "现金", "moneyB" : 40, "moneyE": 40,  "moneyD": 0,  "moneyC": 0 },
   {"name": "借", "acode" : "机器与设备", "aname" : "现金", "moneyB" : 13, "moneyE": 13,  "moneyD": 0,  "moneyC": 0 },
   {"name": "借", "acode" : "在建工程", "aname" : "现金", "moneyB" : 0, "moneyE": 0,  "moneyD": 0,  "moneyC": 0 },
-  {"name": "贷", "acode" : "长期负债", "aname" : "现金", "moneyB" : 20, "moneyE": 20,  "moneyD": 0,  "moneyC": 0 }
+  {"name": "贷", "acode" : "长期负债", "aname" : "现金", "moneyB" : 40, "moneyE": 40,  "moneyD": 0,  "moneyC": 0 }
 ]

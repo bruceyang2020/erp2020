@@ -150,14 +150,14 @@ public class ProductLineServiceImpl implements ProductLineService {
         BigDecimal value2= productLine.getInvestmentAmountA();
         if(value1.compareTo(value2) ==0) {
             //自动生成在建工程对应的会计凭证
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("5"), "”ZJGC", factoryNumber + productLineNumber + productLineType);
+            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("5"), "ZJGC", factoryNumber + productLineNumber + productLineType);
             ////自动生成在建工程转出到“机器与设备”对应的会计凭证:在建工程转出
-            accountingVoucherService.voucherMaker(userTeam, period, value1, "”ZJGCZC", factoryNumber + productLineNumber + productLineType);
+            accountingVoucherService.voucherMaker(userTeam, period, value1, "ZJGCZC", factoryNumber + productLineNumber + productLineType);
 
         }else if(value1.compareTo(value2) ==1)
         {
             //自动生成在建工程对应的会计凭证
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("5"), "”ZJGC", factoryNumber + productLineNumber + productLineType);
+            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("5"), "ZJGC", factoryNumber + productLineNumber + productLineType);
 
         }
 
@@ -207,7 +207,7 @@ public class ProductLineServiceImpl implements ProductLineService {
         }
 
         //自动生成投入生产的会计凭证.借在制品1 贷现金
-        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "”SCRGF", factoryNumber + productLineNumber + productLineType+myProduct);
+        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCRGF", factoryNumber + productLineNumber + productLineType+myProduct);
     }
 
 
@@ -238,33 +238,33 @@ public class ProductLineServiceImpl implements ProductLineService {
         if(productLineType == "手工线")
         {
             //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "”SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
+            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
             value4 = value3.subtract(new BigDecimal(1));
 
         }
         if(productLineType == "半自动")
         {
             //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "”SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
+            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
             value4 = value3.subtract(new BigDecimal(2));
         }
         if(productLineType == "全自动")
         {
             //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("3"), "”SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
+            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("3"), "SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
             value4 = value3.subtract(new BigDecimal(3));
         }
         if(productLineType == "柔性线")
         {
             //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("4"), "”SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
+            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("4"), "SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
             value4 = value3.subtract(new BigDecimal(4));
         }
 
         if(value4.compareTo(new BigDecimal(0)) == 1)  //当未提折旧减去残值后的值大于零。
         {
             //卖出生产线的损失的会计凭证.借其它支出贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, value4,"”SS", factoryNumber + productLineNumber + productLineType+"卖出生产线损失");
+            accountingVoucherService.voucherMaker(userTeam, period, value4,"SS", factoryNumber + productLineNumber + productLineType+"卖出生产线损失");
         }
 
 
@@ -372,7 +372,7 @@ public class ProductLineServiceImpl implements ProductLineService {
         criteria.andEqualTo("period", period);
         List<ProductLine> myList = ProductLineMapper.selectByExample(example);
         //判断状态 根据生产线种类赋值 设置DepC 并累加DepA
-        if(period==4||period==8||period==12||period==16||period==20||period==24) {
+        if(period%4==0) {
             for (int i = 0; i < myList.size(); i++) {
                 int mystate = myList.get(i).getState();
                 if (mystate != 0 && mystate != 4) {
@@ -415,7 +415,7 @@ public class ProductLineServiceImpl implements ProductLineService {
         BigDecimal sumDepreciation =new BigDecimal("0");
         productLineService.getDepreciation(userTeam,period);
 
-        if(period==4||period==8||period==12||period==16||period==20||period==24){
+        if(period%4==0){
             for (int i = 0; i < myList.size(); i++) {
                 sumDepreciation.add(myList.get(i).getDeprecationA());
             }

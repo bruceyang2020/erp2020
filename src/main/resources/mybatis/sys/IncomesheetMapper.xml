@@ -6,13 +6,17 @@
       WARNING - @mbg.generated
     -->
     <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="VARCHAR"/>
+    <result column="team_count" property="teamCount" jdbcType="VARCHAR"/>
     <result column="period" property="period" jdbcType="INTEGER" />
     <result column="income_sale" property="incomeSale" jdbcType="DECIMAL" />
-    <result column="income_l" property="incomeL" jdbcType="DECIMAL" />
-    <result column="money_new" property="moneyNew" jdbcType="DECIMAL" />
-    <result column="money_norate" property="moneyNorate" jdbcType="DECIMAL" />
-    <result column="money_notax" property="moneyNotax" jdbcType="DECIMAL" />
-    <result column="money_income" property="moneyIncome" jdbcType="DECIMAL" />
+    <result column="money_cost" property="moneyCost" jdbcType="DECIMAL" />
+    <result column="money_depr" property="moneyDepr" jdbcType="DECIMAL" />
+    <result column="money_fee" property="moneyFee" jdbcType="DECIMAL" />
+    <result column="money_interest" property="moneyInterest" jdbcType="DECIMAL" />
+    <result column="money_other" property="moneyOther" jdbcType="DECIMAL" />
+    <result column="money_tax" property="moneyTax" jdbcType="DECIMAL" />
+    <result column="net_income" property="netIncome" jdbcType="DECIMAL" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />

@@ -14,9 +14,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-import java.util.Date;
+import java.util.*;
 
 @Service
 public class AccountingVoucherServiceImpl implements AccountingVoucherService {
@@ -26,6 +24,9 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
     @Resource
     private  AccountBalanceService accountBalanceService;
+
+    @Resource
+    private  AccountingVoucherService accountingVoucherService;
 
 
     @Transactional
@@ -48,24 +49,22 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         AccountingVoucherMapper.updateByExampleSelective(AccountingVoucher, example);
     }
 
-    @Override
+   /* @Override
     public void transferProfitAndLoss(String teamCount, int period) {
         //
-        List<AccountBalance>  mylist = accountBalanceService.getByTeamcountAndPeriod(teamCount,period);
-
-        for(int i=0 ;i<mylist.size();i++)
-        {
+        List<AccountBalance>  mylist = accountBalanceService.getByTeamcountAndPeriod(teamCount,period-1);
+        System.out.println(mylist.size());
+        for(int i=0 ;i<mylist.size();i++) {
             String myCode = mylist.get(i).getAcode();
-            BigDecimal myMoneyC =  mylist.get(i).getMoneyC(); //贷方金额
-            BigDecimal myMoneyD =  mylist.get(i).getMoneyD(); //借方金额
-            String content ="期间损益结转";
+            BigDecimal myMoneyC = mylist.get(i).getMoneyC(); //贷方金额
+            BigDecimal myMoneyD = mylist.get(i).getMoneyD(); //借方金额
+            String content = "期间损益结转";
 
-            BigDecimal  netMoney = BigDecimal.valueOf(0);
-            BigDecimal  taxMoney = BigDecimal.valueOf(0);
+            BigDecimal netMoney = BigDecimal.valueOf(0);
+            BigDecimal taxMoney = BigDecimal.valueOf(0);
 
 
-            switch(myCode)
-            {
+            switch (myCode) {
                 case "销售收入":
                     AccountingVoucher vd4 = new AccountingVoucher();
                     vd4.setTeamCount(teamCount);
@@ -77,7 +76,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                     vd4.setMoneyC(BigDecimal.valueOf(0));
                     BaseBeanHelper.insert(vd4);
                     AccountingVoucherMapper.insert(vd4);
-                    netMoney= netMoney.add(myMoneyC);
+                    netMoney = netMoney.add(myMoneyC);
                     break;
                 case "其它收入":
                     AccountingVoucher vd5 = new AccountingVoucher();
@@ -90,20 +89,20 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                     vd5.setMoneyC(BigDecimal.valueOf(0));
                     BaseBeanHelper.insert(vd5);
                     AccountingVoucherMapper.insert(vd5);
-                    netMoney= netMoney.add(myMoneyC);
+                    netMoney = netMoney.add(myMoneyC);
                     break;
                 case "直接成本":
-                AccountingVoucher vd1 = new AccountingVoucher();
-                vd1.setTeamCount(teamCount);
-                vd1.setPeriod(period);
-                vd1.setSubstract(content);
-                vd1.setAcode(myCode);
-                vd1.setAname(myCode);
-                vd1.setMoneyD(BigDecimal.valueOf(0));
-                vd1.setMoneyC(myMoneyD);
-                BaseBeanHelper.insert(vd1);
-                AccountingVoucherMapper.insert(vd1);
-                    netMoney= netMoney.subtract(myMoneyD);
+                    AccountingVoucher vd1 = new AccountingVoucher();
+                    vd1.setTeamCount(teamCount);
+                    vd1.setPeriod(period);
+                    vd1.setSubstract(content);
+                    vd1.setAcode(myCode);
+                    vd1.setAname(myCode);
+                    vd1.setMoneyD(BigDecimal.valueOf(0));
+                    vd1.setMoneyC(myMoneyD);
+                    BaseBeanHelper.insert(vd1);
+                    AccountingVoucherMapper.insert(vd1);
+                    netMoney = netMoney.subtract(myMoneyD);
                     break;
                 case "综合费用":
                     AccountingVoucher vd2 = new AccountingVoucher();
@@ -116,7 +115,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                     vd2.setMoneyC(myMoneyD);
                     BaseBeanHelper.insert(vd2);
                     AccountingVoucherMapper.insert(vd2);
-                    netMoney= netMoney.subtract(myMoneyD);
+                    netMoney = netMoney.subtract(myMoneyD);
                     break;
                 case "财务支出":
                     AccountingVoucher vd6 = new AccountingVoucher();
@@ -129,7 +128,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                     vd6.setMoneyC(myMoneyD);
                     BaseBeanHelper.insert(vd6);
                     AccountingVoucherMapper.insert(vd6);
-                    netMoney= netMoney.subtract(myMoneyD);
+                    netMoney = netMoney.subtract(myMoneyD);
                     break;
                 case "其它支出":
                     AccountingVoucher vd3 = new AccountingVoucher();
@@ -142,18 +141,18 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                     vd3.setMoneyC(myMoneyD);
                     BaseBeanHelper.insert(vd3);
                     AccountingVoucherMapper.insert(vd3);
-                    netMoney= netMoney.subtract(myMoneyD);
+                    netMoney = netMoney.subtract(myMoneyD);
                     break;
                 case "折旧费用":
-                    netMoney= netMoney.subtract(myMoneyC);  //计算利润的时候要扣减一个折旧科目的贷方发生额。
+                    netMoney = netMoney.subtract(myMoneyC);  //计算利润的时候要扣减一个折旧科目的贷方发生额。
                     break;
 
 
             }
 
-            if(netMoney.compareTo(BigDecimal.valueOf(0)) == 1) //当毛利大于零的时候
+            if (netMoney.compareTo(BigDecimal.valueOf(0)) == 1) //当毛利大于零的时候
             {
-                taxMoney =  netMoney.multiply(BigDecimal.valueOf(0.25)).setScale(0,BigDecimal.ROUND_DOWN);  //所得税0.25,向下取整。这个BIGDECIMAL的语法真的是够烦的！
+                taxMoney = netMoney.multiply(BigDecimal.valueOf(0.25)).setScale(0, BigDecimal.ROUND_DOWN);  //所得税0.25,向下取整。这个BIGDECIMAL的语法真的是够烦的！
                 netMoney = netMoney.subtract(taxMoney);
 
                 AccountingVoucher vd1 = new AccountingVoucher();
@@ -178,10 +177,10 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                 BaseBeanHelper.insert(vd2);
                 AccountingVoucherMapper.insert(vd2);
 
-            }else if(netMoney.compareTo(BigDecimal.valueOf(0)) == -1) //当毛利小于零的时候，
+            } else if (netMoney.compareTo(BigDecimal.valueOf(0)) == -1) //当毛利小于零的时候，
             {
 
-                AccountingVoucher vd2= new AccountingVoucher();
+                AccountingVoucher vd2 = new AccountingVoucher();
                 vd2.setTeamCount(teamCount);
                 vd2.setPeriod(period);
                 vd2.setSubstract(content);
@@ -194,14 +193,55 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
             }
 
-
-
-
-
         }
+
+    }*/
+
+    @Override
+    // H  所得税和结转期末损益会计凭证记录
+    public void transferToProfitAndLoss(String teamCount, int period){
+
+        BigDecimal netMoney = BigDecimal.valueOf(0);
+        BigDecimal taxMoney = BigDecimal.valueOf(0);
+        BigDecimal revenue=BigDecimal.valueOf(0);
+        BigDecimal cost=BigDecimal.valueOf(0);
+        BigDecimal variableCost=BigDecimal.valueOf(0);
+        BigDecimal dep=BigDecimal.valueOf(0);
+        BigDecimal otherCost=BigDecimal.valueOf(0);
+        BigDecimal interest=BigDecimal.valueOf(0);
+       // 一般不可能出现例如销售收入贷方为负值，所以没有考虑特殊情况
+        revenue=revenue.add(accountingVoucherService.sumMoney(teamCount,period,"销售收入","贷").subtract(accountingVoucherService.sumMoney(teamCount,period,"销售收入","借")));
+        cost=cost.add(accountingVoucherService.sumMoney(teamCount,period,"直接成本","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"直接成本","贷")));
+        variableCost=variableCost.add(accountingVoucherService.sumMoney(teamCount,period,"综合费用","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"综合费用","贷")));
+        dep=dep.add(accountingVoucherService.sumMoney(teamCount,period,"折旧费用","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"折旧费用","贷")));
+        otherCost=otherCost.add(accountingVoucherService.sumMoney(teamCount,period,"财务支出","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"财务支出","贷")));
+        interest=interest.add(accountingVoucherService.sumMoney(teamCount,period,"其他支出","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"其他支出","贷")));
+        netMoney=netMoney.add(revenue.subtract(cost.add(variableCost.add(dep.add(otherCost.add(interest))))));
+        if (netMoney.compareTo(BigDecimal.valueOf(0)) == 1) //当毛利大于零的时候
+        {
+            taxMoney = netMoney.multiply(BigDecimal.valueOf(0.25)).setScale(0, BigDecimal.ROUND_DOWN);  //所得税0.25,向下取整。这个BIGDECIMAL的语法真的是够烦的！
+            netMoney = netMoney.subtract(taxMoney);
+            accountingVoucherService.voucherMaker(teamCount,period,taxMoney,"SDS","所得税费用");
+        }
+        System.out.println(revenue);
+        System.out.println(variableCost);
+        System.out.println(cost);
+        //H 期间损益结转
+        accountingVoucherService.voucherMaker(teamCount,period,revenue,"XSXRE","期间损益结转");//H 销售费用结转
+        accountingVoucherService.voucherMaker(teamCount,period,cost,"ZJCBE","期间损益结转");//H 直接成本结转
+        accountingVoucherService.voucherMaker(teamCount,period,variableCost,"ZHFYE","期间损益结转");//H 综合费用结转
+        accountingVoucherService.voucherMaker(teamCount,period,dep,"ZJFYE","期间损益结转");//H 折旧费用结转
+        accountingVoucherService.voucherMaker(teamCount,period,interest,"CWFYE","期间损益结转");//H 财务费用结转
+        accountingVoucherService.voucherMaker(teamCount,period,otherCost,"QTFYE","期间损益结转");//H 其他费用结转
+        accountingVoucherService.voucherMaker(teamCount,period,taxMoney,"SDSFYE","期间损益结转");//H 所得税费用结转
+        accountingVoucherService.voucherMaker(teamCount,period,netMoney,"BNLRE","期间损益结转");//H 年度净利结转 负目前不做调整，放在资产负债表和利润表都是负值.
+
 
 
     }
+
+
+
 
     @Override
     public BigDecimal sumMoney(String userTeam ,int period,String acode,String aType) {
@@ -247,16 +287,18 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
     private  void  voucherMakerBase(String teamCount, int period ,String debtAcount,String CreditAcount, BigDecimal amount,String content)
     {
+        if ( content != "期间损益结转"){
+
         Example example = new Example(AccountingVoucher.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount",teamCount);
+        criteria.andEqualTo("teamCount", teamCount);
         criteria.andEqualTo("period", period);
         criteria.andEqualTo("substract", content);
         List<AccountingVoucher> oldRow1 = AccountingVoucherMapper.selectByExample(example);
-        if(oldRow1.size() > 0)
-        {
+        if (oldRow1.size() > 0) {
             AccountingVoucherMapper.deleteByExample(example);
         }
+    }
         //插入会计分录-借方
         AccountingVoucher vd1 = new AccountingVoucher();
         vd1.setTeamCount(teamCount);
@@ -330,8 +372,8 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
 
             //销售收款，生成借现金，贷应收款的会计分录
-           case "XSSK": //材料入库的会计分录
-                voucherMakerBase(teamCount,period,"现金","应收款",amount,content);
+           case "XSSK":
+                voucherMakerBase(teamCount,period,"现金","应收账款",amount,content);
                 break;
             //销售出库。
            case "XSCK":
@@ -341,7 +383,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
             //出售厂房，生成借应收款，贷应收款的会计分录
            case "CSCF": //出售厂房的会计分录
-                voucherMakerBase(teamCount,period,"应收款","土地与建筑",amount,content);
+                voucherMakerBase(teamCount,period,"应收账款","土地与建筑",amount,content);
                 break;
 
 
@@ -392,11 +434,48 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                 break;
                 //H 折旧费用结转
             case "ZJFY":
-                voucherMakerBase(teamCount,period,"综合费用","折旧",amount,content);
+                voucherMakerBase(teamCount,period,"综合费用","折旧费用",amount,content);
                 break;
                 //H 利息费用结转
             case "LXFY":
                 voucherMakerBase(teamCount,period,"财务支出","现金",amount,content);
+                break;
+                //交税
+            case "JS":
+                voucherMakerBase(teamCount,period,"应交税金","现金",amount,content);
+                break;
+                //H 所得税结转
+            case "SDS":
+                voucherMakerBase(teamCount,period,"所得税","应交税金",amount,content);
+                break;
+
+                //H 期间损益结转 跟后面代码有冲突先加上小标
+            case "XSXRE":
+                voucherMakerBase(teamCount,period,"销售收入","本年利润",amount,"期间损益结转");
+                break;
+            case "ZJCBE":
+                voucherMakerBase(teamCount,period,"本年利润","直接成本",amount,"期间损益结转");
+                break;
+            case "ZHFYE":
+                voucherMakerBase(teamCount,period,"本年利润","综合费用",amount,"期间损益结转");
+                break;
+            case "ZJFYE":
+                voucherMakerBase(teamCount,period,"本年利润","折旧费用",amount,"期间损益结转");
+                break;
+            case "CWFYE":
+                voucherMakerBase(teamCount,period,"本年利润","财务支出",amount,"期间损益结转");
+                break;
+            case "QTFYE":
+                voucherMakerBase(teamCount,period,"本年利润","其他支出",amount,"期间损益结转");
+                break;
+            case "SDSFYE":
+                voucherMakerBase(teamCount,period,"本年利润","所得税",amount,"期间损益结转");
+                break;
+            case "BNLRE":
+                voucherMakerBase(teamCount,period,"本年利润","年度净利",amount,"期间损益结转");
+                break;
+           case "LRLCE":
+                voucherMakerBase(teamCount,period,"年度净利","利润留存",amount,content);
                 break;
 
      }
@@ -433,5 +512,16 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             AccountingVoucherMapper.deleteByExample(example);
         }
     }
+
+    @Override
+    public List<AccountingVoucher> selectByPeriodAndUserTeam( String userTeam,Integer period) {
+
+        Example example = new Example(AccountingVoucher.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        criteria.andEqualTo("period", period);
+        return(AccountingVoucherMapper.selectByExample(example));
+    }
+
 
 }
