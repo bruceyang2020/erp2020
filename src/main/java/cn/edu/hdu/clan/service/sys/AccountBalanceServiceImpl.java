@@ -92,7 +92,7 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 BigDecimal moneyD = BigDecimal.valueOf(0);
                 BigDecimal moneyC = BigDecimal.valueOf(0);
                 String aType = oldRow.get(i).getName();  //这个字段用来标识科目的余额方向。
-                BigDecimal moneyB = oldRow.get(i).getMoneyB();
+                BigDecimal moneyB = oldRow.get(i).getMoneyE();//H 期初取上一期期末！！！
                 moneyD = accountingVoucherService.sumMoney(userTeam,period,acode,"借");
                 moneyC = accountingVoucherService.sumMoney(userTeam,period,acode,"贷");
 
@@ -105,7 +105,12 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 newRow.setMoneyD(moneyD);
                 newRow.setMoneyC(moneyC);
 
-                if("借".equals(aType)){newRow.setMoneyE(moneyB.add(moneyD.subtract(moneyC)));}  //科目余额在借方的，期初+借方-贷方
+                if("借".equals(aType)){newRow.setMoneyE(moneyB.add(moneyD.subtract(moneyC)));
+                   if("现金".equals(acode)) {System.out.println(moneyC);
+                    System.out.println(moneyD);
+                       System.out.println(moneyB);
+                       System.out.println("这是现金");
+                System.out.println(moneyB.add(moneyD.subtract(moneyC)));}}  //科目余额在借方的，期初+借方-贷方
                 if("贷".equals(aType)){newRow.setMoneyE(moneyB.add(moneyC.subtract(moneyD)));}//科目余额在贷方的，期初-借方+贷方
                switch (aType){
                     case "借":
