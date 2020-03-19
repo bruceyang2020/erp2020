@@ -136,6 +136,11 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         return AdvertiseMapper.selectByExample(example);
     }
 
+
+
+
+
+
     @Override
     public Advertise getById(String id) {
         Example example = new Example(Advertise.class);

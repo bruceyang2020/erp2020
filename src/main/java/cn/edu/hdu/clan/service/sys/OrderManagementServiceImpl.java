@@ -42,6 +42,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
         orderManagement.setPeriod(period);
         orderManagement.setOrderId(orderGroup.getOrderId());
         orderManagement.setProductId(orderGroup.getProductId());
+        orderManagement.setMarketId(orderGroup.getMarketId());
         orderManagement.setAmount(orderGroup.getAmount());
         orderManagement.setMoney(orderGroup.getPriceTotal());
         orderManagement.setPeriodPay(orderGroup.getPeriodPay());

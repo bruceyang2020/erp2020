@@ -18,4 +18,6 @@ public interface OrderGroupService {
     OrderGroup getById(String id);
 
     OrderGroup getByOrderId(String orderId);
+
+    String checkOrderRight(String orderId);
 }
