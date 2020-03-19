@@ -1,6 +1,7 @@
 package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.Advertise;
+import cn.edu.hdu.clan.entity.sys.IsoFee;
 import cn.edu.hdu.clan.entity.sys.OrderGroup;
 import cn.edu.hdu.clan.entity.sys.OrderManagement;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
@@ -27,6 +28,9 @@ public class OrderGroupServiceImpl implements OrderGroupService {
 
     @Resource
     private  OrderManagementService orderManagementService;
+
+    @Resource
+    private  IsoFeeService isoFeeService;
 
     @Transactional
     @Override
@@ -99,21 +103,21 @@ public class OrderGroupServiceImpl implements OrderGroupService {
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         String marketId = "";
         String productId = "";
-        String iso ="";
+        int iso = 0;
 
 
         String infoString = "ok";
 
-                Example example = new Example(OrderGroup.class);
+        Example example = new Example(OrderGroup.class);
         example.createCriteria().andEqualTo("orderId", orderId);
         OrderGroup  orderGroup = OrderGroupMapper.selectOneByExample(example);
         marketId = orderGroup.getMarketId();
         productId = orderGroup.getProductId();
-        iso = orderGroup.getIso();
+        iso = orderGroup.getIso();  //获取这个订单ISO要求。0无要求  1 iso9k  2 iso14k  3两者都要
 
 
         int myOrderRightNumber = 0;
-        //判断当前产品+市场=的广告费能选几个单。
+        // Y 判断当前产品+市场=的广告费能选几个单。
         List<Advertise>  myAdvertises = advertiseService.getByUserTeamAndPeriod(userTeam,period);
         for(int i=0;i<myAdvertises.size();i++)
         {
@@ -125,7 +129,7 @@ public class OrderGroupServiceImpl implements OrderGroupService {
         }
 
         int myOrderManagementNumber = 0;
-        //判断当前产品+市场的已选订单有几个。
+        // Y 判断当前产品+市场的已选订单有几个。
         List<OrderManagement> myorderManagements = orderManagementService.listCurrentPeriodOrder();
         for(int j=0;j<myorderManagements.size();j++) {
             if(productId.equals(myorderManagements.get(j).getProductId()) && marketId.equals(myorderManagements.get(j).getMarketId()))
@@ -141,10 +145,32 @@ public class OrderGroupServiceImpl implements OrderGroupService {
             infoString = "订单已选满";
         }
 
-        if("1".equals(iso)){
 
-
+        // Y 检查企业的iso认证是否满足订单的要求。
+        int myIso = 0;
+        int iso9k = 0;
+        int iso14k = 0;
+        List<IsoFee> myIsoFees = isoFeeService.list(userTeam,period);
+        for(int t=0;t<myIsoFees.size();t++)
+        {
+            if("ISO9K".equals(myIsoFees.get(t).getNumber()) && myIsoFees.get(t).getState() == 1)
+            {
+                iso9k =1;
+            }
+            if("ISO14K".equals(myIsoFees.get(t).getNumber()) && myIsoFees.get(t).getState() == 1)
+            {
+                iso14k =2;
+            }
         }
+        myIso = iso9k+iso14k;
+
+        if(iso != myIso)
+        {
+            infoString = "公司达不到ISO标准";
+        }
+
+
+
 
 
 

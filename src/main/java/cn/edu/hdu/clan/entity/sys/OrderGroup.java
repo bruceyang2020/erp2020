@@ -57,7 +57,7 @@ public class OrderGroup extends BaseBean {
 
     private Integer isurgent;
 
-    private String iso;
+    private Integer iso;
 
     private Integer isvalid;
 
@@ -242,14 +242,14 @@ public class OrderGroup extends BaseBean {
     /**
      * @return iso
      */
-    public String getIso() {
+    public Integer getIso() {
         return iso;
     }
 
     /**
      * @param iso
      */
-    public void setIso(String iso) {
+    public void setIso(Integer iso) {
         this.iso = iso;
     }
 
