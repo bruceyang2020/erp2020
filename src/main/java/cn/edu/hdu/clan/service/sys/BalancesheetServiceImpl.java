@@ -154,48 +154,60 @@ public class BalancesheetServiceImpl implements BalancesheetService {
             BigDecimal moneyMaking = balancesheet.getMoneyMaking();
             BigDecimal moneySale = balancesheet.getMoneySale();
             BigDecimal moneyBuy = balancesheet.getMoneyBuy();
-            BigDecimal moneyFlow = balancesheet.getMoneyFlow();
+
             System.out.print("begin");
-            System.out.print(moneyNow);
-            System.out.print(moneyGet);
-            System.out.print(moneyMaking);
-            System.out.print(moneySale);
-            System.out.print(moneyBuy);
+            System.out.print("现金"+moneyNow);
+            System.out.print("应收"+moneyGet);
+            System.out.print("在制品"+moneyMaking);
+            System.out.print("成品"+moneySale);
+            System.out.print("材料"+moneyBuy);
             System.out.print("end");
-          //流动资产
+            balancesheet.setMoneyFlow(moneyNow.add(moneyGet).add(moneyMaking).add(moneySale).add(moneyBuy));
+            BigDecimal moneyFlow = balancesheet.getMoneyFlow();
+            // Y 流动资产
 
             BigDecimal moneyJ= balancesheet.getMoneyJ();
-            System.out.print(moneyJ);
+            System.out.print("建筑"+moneyJ);
             BigDecimal moneyP= balancesheet.getMoneyP();
-            System.out.print(moneyP);
+            System.out.print("设备"+moneyP);
             BigDecimal moneyM = balancesheet.getMoneyM();
-            System.out.print(moneyM);
-            BigDecimal moneyStatic = balancesheet.getMoneyStatic();
-            System.out.print(moneyStatic);
-            BigDecimal longTermLoan = balancesheet.getLongTermLoan();
-            System.out.print("begin");
-            BigDecimal shortTermLoan = balancesheet.getShortTermLoan();
-            System.out.print("begin");
-            BigDecimal moneyTax = balancesheet.getMoneyTax();
-            System.out.print("begin");
-            BigDecimal moneyG = balancesheet.getMoneyG();
-            System.out.print("begin");
-            BigDecimal moneyStay = balancesheet.getMoneyStay();
-            System.out.print("begin");
-            BigDecimal moneyYear = balancesheet.getMoneyYear();
-            System.out.print("begin");
+            System.out.print("在建工程"+moneyM);
 
-         /*   balancesheet.setMoneyStatic(balancesheet.getMoneyJ().add(balancesheet.().add(balancesheet.()))); //固定资产
-            balancesheet.setMoneyAll(balancesheet.getMoneyFlow().add(balancesheet.getMoneyStatic())); //总资产合计*/
-            //balancesheet.setMoneyLoan(balancesheet.getLongTermLoan().add(balancesheet.getShortTermLoan().add(balancesheet.getMoneyTax()))); //负债(应付账款没写)
-           /* balancesheet.setMoneyUser(balancesheet.getMoneyG().add(balancesheet.getMoneyStay().add(balancesheet.getMoneyYear()))); //所有者权益*/
+            balancesheet.setMoneyStatic(moneyJ.add(moneyP).add(moneyM));
+            BigDecimal moneyStatic = balancesheet.getMoneyStatic();
+            System.out.print("固定资产"+moneyStatic);
+            //固定资产
+
+            // Y 总资产合计
+            balancesheet.setMoneyAll(moneyFlow.add(moneyStatic));
+
+
+            BigDecimal longTermLoan = balancesheet.getLongTermLoan();
+            System.out.print("长期负债"+longTermLoan);
+            BigDecimal shortTermLoan = balancesheet.getShortTermLoan();
+            System.out.print("短期负债"+shortTermLoan);
+            BigDecimal moneyTax = balancesheet.getMoneyTax();
+            System.out.print("应交税金"+moneyTax);
+            balancesheet.setMoneyLoan(longTermLoan.add(shortTermLoan).add(moneyTax)); //负债(应付账款没写)
+            //负债
+
+            BigDecimal moneyG = balancesheet.getMoneyG();
+            System.out.print("股东权益"+moneyG);
+            BigDecimal moneyStay = balancesheet.getMoneyStay();
+            System.out.print("利润留存"+moneyStay);
+            BigDecimal moneyYear = balancesheet.getMoneyYear();
+            System.out.print("年度净利"+moneyYear);
+            balancesheet.setMoneyUser(moneyG.add(moneyStay).add(moneyYear));
+            //所有者权益
+
+
             BigDecimal moneyUser = balancesheet.getMoneyUser();
             if(moneyUser == null) {
-                moneyUser = BigDecimal.valueOf(20);
+                moneyUser = BigDecimal.valueOf(0);
             }
             BigDecimal moneyLoan= balancesheet.getMoneyLoan();
             if(moneyLoan == null) {
-                moneyLoan = BigDecimal.valueOf(88);
+                moneyLoan = BigDecimal.valueOf(0);
             }
             balancesheet.setMoneyAlls(moneyUser.add(moneyLoan)); //负债与所有者权益合计
         }
