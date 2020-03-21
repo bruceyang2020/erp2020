@@ -130,16 +130,18 @@ public class BalancesheetServiceImpl implements BalancesheetService {
                 if("现金".equals(acode)){balancesheet.setMoneyNow(accountBalances.get(i).getMoneyE());}
                 if("应收款".equals(acode)){balancesheet.setMoneyGet(accountBalances.get(i).getMoneyE());}
                 if("在制品".equals(acode)){balancesheet.setMoneyMaking(accountBalances.get(i).getMoneyE());}
-                if("成品".equals(acode)){balancesheet.setMoneySale(accountBalances.get(i).getMoneyE());}
+                if("成品".equals(acode)){
+                    balancesheet.setMoneySale(accountBalances.get(i).getMoneyE());
+                }
                 if("原料".equals(acode)){balancesheet.setMoneyBuy(accountBalances.get(i).getMoneyE());}
                 if("土地与建筑".equals(acode)){balancesheet.setMoneyJ(accountBalances.get(i).getMoneyE());}
                 if("机器与设备".equals(acode)){balancesheet.setMoneyP(accountBalances.get(i).getMoneyE());}
                 if("在建工程".equals(acode)){balancesheet.setMoneyM(accountBalances.get(i).getMoneyE());}
                 if("长期负债".equals(acode)){balancesheet.setLongTermLoan(accountBalances.get(i).getMoneyE());}
                 if("短期负债".equals(acode)){balancesheet.setShortTermLoan(accountBalances.get(i).getMoneyE());}
-               // if("高利贷".equals(acode)){balancesheet.setShortTermLoan(accountBalances.get(i).getMoneyE());}  高利贷记入应付账款还是短期负债？
+                // if("高利贷".equals(acode)){balancesheet.setShortTermLoan(accountBalances.get(i).getMoneyE());}  高利贷记入应付账款还是短期负债？
 
-               // if("应付账款".equals(acode)){balancesheet.setMoneyOrderGet(accountBalances.get(i).getMoneyE());}
+                if("应付账款".equals(acode)){balancesheet.setMoneyOrderGet(accountBalances.get(i).getMoneyE());}
                 if("应交税金".equals(acode)){balancesheet.setMoneyTax(accountBalances.get(i).getMoneyE());}
                 if("股东资本".equals(acode)){balancesheet.setMoneyG(accountBalances.get(i).getMoneyE());}
                 if("利润留存".equals(acode)){balancesheet.setMoneyStay(accountBalances.get(i).getMoneyE());}
