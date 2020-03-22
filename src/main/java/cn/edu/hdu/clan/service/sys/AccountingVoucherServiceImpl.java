@@ -344,11 +344,11 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                voucherMakerBase(teamCount,period,"短期负债","现金",amount,content);
                 break;
            case "GAOLIDAI":  //高利贷的会计分录
-                voucherMakerBase(teamCount,period,"现金","高利贷",amount,content);
+                voucherMakerBase(teamCount,period,"现金","应付账款",amount,content);
                 break;
 
            case "CHGLD":  //高利贷的会计分录
-                voucherMakerBase(teamCount,period,"高利贷","现金",amount,content);
+                voucherMakerBase(teamCount,period,"应付账款","现金",amount,content);
                 break;
 
            case "CPYF": //产品研发的

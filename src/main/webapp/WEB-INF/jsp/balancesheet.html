@@ -14,12 +14,13 @@
 
         function showBs(period) {
             var BalanceSheet = {period :period};
+            var BalanceSheet2 = {period :period-1};
             /*var myYear = parseInt(period/4);*/
             var myYear = parseInt(period);
             $.ajax({
                 type: "post",
                 dataType: "json",
-                data:JSON.stringify(BalanceSheet),
+                data:JSON.stringify(BalanceSheet2),
                 url: "/Balancesheet/listbyteamperiod",
                 contentType: "application/json;charset=utf-8;",
                 success: function (data) {
@@ -52,6 +53,45 @@
                     $("#money_alls").text(data.moneyAlls);
                     $("#money_order_get").text(data.moneyOrderGet);
                     $("#money_tax").text(data.moneyTax);
+
+                    console.log('***********资产负债表查询数据');
+                    // $('#year').text(Math.floor(data.period / 4))
+                    // $('#money_flow').text(data.money_flow)
+                }
+            });
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data:JSON.stringify(BalanceSheet),
+                url: "/Balancesheet/listbyteamperiod",
+                contentType: "application/json;charset=utf-8;",
+                success: function (data) {
+                    data = data['data'];
+                    console.log(data);
+                    if(data != null)
+                    $("#money_now1").text(data.moneyNow);
+                    $("#money_get1").text(data.moneyGet);
+                    $("#money_making1").text(data.moneyMaking);
+                    $("#money_sale1").text(data.moneySale);
+                    $("#money_buy1").text(data.moneyBuy);
+                    $("#money_flow1").text(data.moneyFlow);
+                    $("#long_term_loan1").text(data.longTermLoan);
+                    $("#short_term_loan1").text(data.shortTermLoan);
+                    $("#long_term_loan_year1").text(data.longTermLoanYear);
+                    $("#money_loan1").text(data.moneyLoan);
+                    $("#money_j1").text(data.moneyJ);
+                    $("#money_incomel1").text(data.moneyIncomel);
+                    $("#money_p1").text(data.moneyP);
+                    $("#money_m1").text(data.moneyM);
+                    $("#money_static1").text(data.moneyStatic);
+                    $("#money_g1").text(data.moneyG);
+                    $("#money_stay1").text(data.moneyStay);
+                    $("#money_year1").text(data.moneyYear);
+                    $("#money_user1").text(data.moneyUser);
+                    $("#money_all1").text(data.moneyAll);
+                    $("#money_alls1").text(data.moneyAlls);
+                    $("#money_order_get1").text(data.moneyOrderGet);
+                    $("#money_tax1").text(data.moneyTax);
 
                     console.log('***********资产负债表查询数据');
                     // $('#year').text(Math.floor(data.period / 4))

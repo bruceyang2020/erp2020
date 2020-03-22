@@ -137,7 +137,7 @@ public class BalancesheetServiceImpl implements BalancesheetService {
                 if("在建工程".equals(acode)){balancesheet.setMoneyM(accountBalances.get(i).getMoneyE());}
                 if("长期负债".equals(acode)){balancesheet.setLongTermLoan(accountBalances.get(i).getMoneyE());}
                 if("短期负债".equals(acode)){balancesheet.setShortTermLoan(accountBalances.get(i).getMoneyE());}
-               // if("高利贷".equals(acode)){balancesheet.setShortTermLoan(accountBalances.get(i).getMoneyE());}  高利贷记入应付账款还是短期负债？
+                if("应付账款".equals(acode)){balancesheet.setMoneyOrderGet(accountBalances.get(i).getMoneyE());}  //H 高利贷记入应付账款
 
                // if("应付账款".equals(acode)){balancesheet.setMoneyOrderGet(accountBalances.get(i).getMoneyE());}
                 if("应交税金".equals(acode)){balancesheet.setMoneyTax(accountBalances.get(i).getMoneyE());}
@@ -148,11 +148,12 @@ public class BalancesheetServiceImpl implements BalancesheetService {
 
 
             }
-          /*  balancesheet.setMoneyFlow(balancesheet.getMoneyNow().add(balancesheet.getMoneyGet().add(balancesheet.getMoneyMaking().add(balancesheet.getMoneySale().add(balancesheet.getMoneyBuy()))))); //流动资产
+           /*balancesheet.setMoneyFlow(balancesheet.getMoneyNow().add(balancesheet.getMoneyGet().add(balancesheet.getMoneyMaking().add(balancesheet.getMoneySale().add(balancesheet.getMoneyBuy()))))); //流动资产
             balancesheet.setMoneyStatic(balancesheet.getMoneyJ().add(balancesheet.getMoneyP().add(balancesheet.getMoneyM()))); //固定资产
-            balancesheet.setMoneyAll(balancesheet.getMoneyFlow().add(balancesheet.getMoneyStatic())); //总资产合计
-            //balancesheet.setMoneyLoan(balancesheet.getLongTermLoan().add(balancesheet.getShortTermLoan().add(balancesheet.getMoneyTax()))); //负债(应付账款没写)
+
+            balancesheet.setMoneyLoan(balancesheet.getLongTermLoan().add(balancesheet.getShortTermLoan().add(balancesheet.getMoneyTax()))); //负债(应付账款没写)
             balancesheet.setMoneyUser(balancesheet.getMoneyG().add(balancesheet.getMoneyStay().add(balancesheet.getMoneyYear()))); //所有者权益
+            balancesheet.setMoneyAll(balancesheet.getMoneyFlow().add(balancesheet.getMoneyStatic())); //总资产合计
             balancesheet.setMoneyAlls(balancesheet.getMoneyUser().add(balancesheet.getMoneyLoan())); //负债与所有者权益合计*/
         }
 
