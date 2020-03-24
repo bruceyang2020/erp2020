@@ -1,5 +1,11 @@
 $(document).ready(function () {
 
+    var editFlag=new Array();
+    for(i=0;i<11;i++){editFlag[i]=0;}// H 十条线今年的操作，第0条空着
+
+
+
+
     //生产显示BEGIN
     $.ajax({
         url:"/ProductLine/list",
@@ -17,7 +23,7 @@ $(document).ready(function () {
                 var state = Number(data[i].state);
                 var productLineTypeId = data[i].productLineTypeId;
                 console.log('生产线编码：'+productLineNumber);
-
+                editFlag[productLineNumber]=Number(data[i].editFlag); //H 每条生产线这期是否发生行为
                 switch (state) {
                     case 0:
                         statusByPln(productLineNumber,"在建");
@@ -40,6 +46,9 @@ $(document).ready(function () {
 
             }
         }
+
+
+
     })
 
     //生产显示部分END
@@ -160,88 +169,93 @@ $(document).ready(function () {
         var factoryNumber ="";
         if(Number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
         var productLineTypeId =  $("#productLineTypeIdList").find("option:selected").val();
+        var productLineCType = $("#productCTypeList").find("option:selected").val(); // H 产品类型
         console.log("新建生产线：");
         console.log(productLineTypeId);
-        var deviceValue = 0;
-        var processingCycle = 0;
-        if(productLineTypeId =="手工线")
-        {
-            deviceValue = 5;
-            processingCycle = 3;
-        }
-        if(productLineTypeId =="半自动")
-        {
-            deviceValue = 5;
-            processingCycle = 3;
-        }
-        if(productLineTypeId =="全自动")
-        {
-            deviceValue = 5;
-            processingCycle = 3;
-        }
-        if(productLineTypeId =="柔性线")
-        {
-            deviceValue = 5;
-            processingCycle = 3;
-        }
-        var ProductLine = {
-            teamCount:currentTeam,
-            period:currentAp,
-            productLineNumber: myPlnValue,
-            factoryNumber:factoryNumber,
-            productLineTypeId:productLineTypeId,
-            deviceValue:deviceValue,
-            processingCycle:processingCycle
-        };
-        console.log(ProductLine)
+        console.log(productLineCType);
+      if(editFlag[myPlnValue]==0) {
+          var deviceValue = 0;
+          var processingCycle = 0;
+          if (productLineTypeId == "手工线") {
+              deviceValue = 10;//设备原值
+              processingCycle = 3;//所需加工时间
+          }
+          if (productLineTypeId == "半自动") {
+              deviceValue = 5;
+              processingCycle = 3;
+          }
+          if (productLineTypeId == "全自动") {
+              deviceValue = 5;
+              processingCycle = 3;
+          }
+          if (productLineTypeId == "柔性线") {
+              deviceValue = 5;
+              processingCycle = 3;
+          }
+          var ProductLine = {
+              teamCount: currentTeam,
+              period: currentAp,
+              productLineNumber: myPlnValue,
+              factoryNumber: factoryNumber,
+              productLineTypeId: productLineTypeId,
+              deviceValue: deviceValue,
+              productC: productLineCType,
+              processingCycle: processingCycle
+          };
+          console.log(ProductLine)
 
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/ProductLine/build",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ProductLine),
-            success: function (data) {
-                alert("投资成功");
-                statusByPln(myPlnValue,"在建");
-                showPLByPln(myPlnValue,productLineTypeId);
+          $.ajax({
+              type: "post",
+              dataType: "json",
+              url: "/ProductLine/build",
+              contentType: "application/json;charset=utf-8;",
+              data: JSON.stringify(ProductLine),
+              success: function (data) {
+                  alert("投资成功");
+                  statusByPln(myPlnValue, "在建");
+                  showPLByPln(myPlnValue, productLineTypeId);
 
-            }
-        })
-
+              }
+          })
+          editFlag[myPlnValue] = 1;//H 已完成操作
+      }
         $('.pop-pro').hide();
     });
 
 
     //当后续投资生产线按钮被点击
     $('#ok-pro-build').click(function () {
+
         var myPlnValue =    $('#plnValue').val();
         var currentAp =  $('#currentAp').val();
         var currentTeam =   $('#currentTeam').val();
-        var factoryNumber ="";
-        if(number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
-        var productLineTypeId =  $("#productLineTypeIdList").find("option:selected").val();
+        /*var factoryNumber = "";
+        if(number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}*/
+        var factoryNumber= myPlnValue<7? "大厂房":"小厂房";
+        var productLineTypeId =  $("#productLineTypeId-build").val();
 
+    if(editFlag[myPlnValue]==0) {
+    var ProductLine = {
+        teamCount: currentTeam,
+        period: currentAp,
+        productLineNumber: myPlnValue,
+        factoryNumber: factoryNumber,
+        productLineTypeId: productLineTypeId
+    };
 
-        var ProductLine = {
-            teamCount:currentTeam,
-            period:currentAp,
-            productLineNumber: myPlnValue,
-            factoryNumber:factoryNumber,
-            productLineTypeId:productLineTypeId
-        };
+    $.ajax({
+        type: "post",
+        dataType: "json",
+        url: "/ProductLine/build",
+        contentType: "application/json;charset=utf-8;",
+        data: JSON.stringify(ProductLine),
+        success: function (data) {
+            alert("投资成功");
+            statusByPln(myPlnValue, "在建");
+        }
 
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/ProductLine/build",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ProductLine),
-            success: function (data) {
-                alert("投资成功");
-                statusByPln(myPlnValue,"在建");
-            }
-        })
+    })
+    }
         $('.pop-pro').hide();
     });
 

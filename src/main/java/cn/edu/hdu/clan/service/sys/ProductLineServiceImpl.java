@@ -77,6 +77,7 @@ public class ProductLineServiceImpl implements ProductLineService {
 
     //将生产线信息整体复制到下一个会计期间
     @Override
+
     public void copyDataToNextPeriod(String userTeam ,int period ,int nextPeriod){
         Example example = new Example(ProductLine.class);
         example.createCriteria().andEqualTo("teamCount", userTeam);
@@ -89,6 +90,7 @@ public class ProductLineServiceImpl implements ProductLineService {
             {
                 ProductLine myRow =  productLines.get(i);
                 myRow.setPeriod(nextPeriod);
+                myRow.setEditFlag(0);
                 BaseBeanHelper.insert(myRow);
                 ProductLineMapper.insert(myRow);
 
@@ -119,9 +121,11 @@ public class ProductLineServiceImpl implements ProductLineService {
     public void build(ProductLine productLine) {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-        String factoryNumber = productLine.getFactoryNumber();
-        String productLineNumber = productLine.getProductLineNumber();
-        String productLineType = productLine.getProductLineTypeId();
+        String factoryNumber = productLine.getFactoryNumber(); //厂房信息
+        String productLineNumber = productLine.getProductLineNumber(); //编号
+        String productLineType = productLine.getProductLineTypeId(); //产线类型编码
+        String productC = productLine.getProductC(); //H 初始产线对应的产品编号
+
 
         ProductLine myRow = productLineRow(productLine);
         if(myRow == null)
@@ -131,28 +135,51 @@ public class ProductLineServiceImpl implements ProductLineService {
             productLine.setTeamCount(userTeam);
             productLine.setGroupId("1000");
             productLine.setPeriod(period);
+
+            //H 初始化相关字段的值
+            productLine.setDepreciationC(BigDecimal.valueOf(0));
+            productLine.setDeprecationA(BigDecimal.valueOf(0));
+            productLine.setInstalledPeriodA(0);
+            productLine.setTransferredPeriodA(0);
+            productLine.setTransferFeeA(BigDecimal.valueOf(0));
+            productLine.setMaintenanceFeeA(BigDecimal.valueOf(0));
+            productLine.setProcessingCycleB(0);
+
+            productLine.setPeriodBuy(period);
             productLine.setInvestmentAmountA(BigDecimal.valueOf(5)); //投入建设，每期5M
             productLine.setState(0);
             productLine.setEditFlag(1);
+            productLine.setProductC(productC);
+
+
+
             BaseBeanHelper.insert(productLine);
             ProductLineMapper.insert(productLine);
 
 
         }else
         {
-            myRow.setInvestmentAmountA(BigDecimal.valueOf(5)); //投入建设，每期5M
-            productLine.setEditFlag(1);
-            BaseBeanHelper.edit(productLine);
-            ProductLineMapper.updateByPrimaryKey(productLine);
-        }
+            myRow.setInvestmentAmountA(myRow.getInvestmentAmountA().add(BigDecimal.valueOf(5))); //投入建设，每期+5M
+            myRow.setEditFlag(1);
+            BaseBeanHelper.edit(myRow);
+            ProductLineMapper.updateByPrimaryKey(myRow);
 
-        BigDecimal value1= productLine.getDeviceValue();
-        BigDecimal value2= productLine.getInvestmentAmountA();
+
+
+        }
+        ProductLine myRow2 = productLineRow(productLine);
+        BigDecimal value1= myRow2.getDeviceValue();
+        BigDecimal value2= myRow2.getInvestmentAmountA();
         if(value1.compareTo(value2) ==0) {
+
             //自动生成在建工程对应的会计凭证
             accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("5"), "ZJGC", factoryNumber + productLineNumber + productLineType);
             ////自动生成在建工程转出到“机器与设备”对应的会计凭证:在建工程转出
-            accountingVoucherService.voucherMaker(userTeam, period, value1, "ZJGCZC", factoryNumber + productLineNumber + productLineType);
+            accountingVoucherService.voucherMaker(userTeam, period, value1, "ZJGCZC", factoryNumber + productLineNumber + productLineType+"转出");//H content不能与上面一致，否则删除
+
+           myRow.setState(2);//H 投产完成变成停产
+            BaseBeanHelper.edit(myRow);
+            ProductLineMapper.updateByPrimaryKey(myRow);
 
         }else if(value1.compareTo(value2) ==1)
         {
@@ -160,6 +187,7 @@ public class ProductLineServiceImpl implements ProductLineService {
             accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("5"), "ZJGC", factoryNumber + productLineNumber + productLineType);
 
         }
+
 
 
 
