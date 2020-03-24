@@ -13,6 +13,7 @@
 
         function showIs(period) {
             var Incomesheet = {period :period};
+            var Incomesheet2 = {period :period-1};
             /*var myYear = parseInt(period/4);*/
             var myYear = parseInt(period);
             $.ajax({
@@ -53,6 +54,39 @@
                     // $('#money_flow').text(data.money_flow)
                 }
             });
+            //上年数
+
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                data: JSON.stringify(Incomesheet2),
+                url: "/Incomesheet/listbyUserTeamAndPeriod",
+                contentType: "application/json;charset=utf-8;",
+                success: function (data) {
+                    data = data['data'];
+                    console.log(data);
+                    if(data != null)
+                    {
+                        $("#income_sale1").text(data.incomeSale);
+                        $("#money_cost1").text(data.moneyCost);
+                        var maoli =data.incomeSale*1-data.moneyCost*1;
+                        $("#income_l1").text(maoli);
+                        $("#money_fee1").text(data.moneyFee);
+                        var zjqlr = maoli-data.moneyFee*1;
+                        $("#money_new1").text(zjqlr);
+                        $("#money_depr1").text(data.moneyDepr);
+                        var lxqlr = zjqlr - data.moneyDepr*1;
+                        $("#money_norate1").text(lxqlr);
+                        $("#money_interest1").text(data.moneyInterest);
+                        $("#money_other1").text(data.moneyOther);
+                        var sqlr = lxqlr-data.moneyOther*1-data.moneyInterest*1;
+                        $("#money_notax1").text(sqlr);
+                        $("#money_tax1").text(data.moneyTax);
+                        var jlr = sqlr -data.moneyTax*1;
+                        $("#money_income1").text(jlr);
+
+
+                    }}});
         }
     </script>
 
