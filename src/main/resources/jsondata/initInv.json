@@ -1,3 +1,6 @@
 [{"number": "R1", "amountB" : 3, "moneyB" : 3, "amountI" : 0, "moneyI": 0,  "amountO": 0,  "moneyO": 0 },
-  {"number": "P1", "amountB" : 3, "moneyB" : 6, "amountI" :0, "moneyI": 0,  "amountO": 0,  "moneyO": 0 }
+  {"number": "P1", "amountB" : 3, "moneyB" : 6, "amountI" :0, "moneyI": 0,  "amountO": 0,  "moneyO": 0 },
+  {"number": "P2", "amountB" : 0, "moneyB" : 0, "amountI" :0, "moneyI": 0,  "amountO": 0,  "moneyO": 0 },
+  {"number": "P3", "amountB" : 0, "moneyB" : 0, "amountI" :0, "moneyI": 0,  "amountO": 0,  "moneyO": 0 },
+  {"number": "P4", "amountB" : 0, "moneyB" : 0, "amountI" :0, "moneyI": 0,  "amountO": 0,  "moneyO": 0 }
 ]

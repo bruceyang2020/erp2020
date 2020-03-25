@@ -15,6 +15,7 @@ import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.logging.Handler;
 
 @Service
 public class ProductLineServiceImpl implements ProductLineService {
@@ -90,7 +91,36 @@ public class ProductLineServiceImpl implements ProductLineService {
             {
                 ProductLine myRow =  productLines.get(i);
                 myRow.setPeriod(nextPeriod);
+                //H 操作初始化
                 myRow.setEditFlag(0);
+
+
+                //H 对于生产完成的生产线期末结转
+                if(myRow.getProcessingCycleB()==myRow.getProcessingCycle()){
+                    //生产线重置
+                    myRow.setProcessingCycleB(0);
+                    //生产线停产
+                    myRow.setState(2);
+                    //产品入库
+                    String myProduct = myRow.getProductC();
+                    switch (myProduct) {
+                        case "P1":
+                            invService.stockIntoWarehouse(userTeam, nextPeriod, "P1", 2, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P1入库");
+                            break;
+                        case "P2":
+                            invService.stockIntoWarehouse(userTeam, nextPeriod, "P2", 3, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P2入库");
+                            break;
+                        case "P3":
+                            invService.stockIntoWarehouse(userTeam, nextPeriod, "P3", 4, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P3入库");
+                            break;
+                        case "P4":
+                            invService.stockIntoWarehouse(userTeam, nextPeriod, "P4", 5, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P4入库");
+                            break;
+
+                    }
+
+                }
+
                 BaseBeanHelper.insert(myRow);
                 ProductLineMapper.insert(myRow);
 
@@ -198,40 +228,42 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Override
     public void inputToProduce(ProductLine productLine) {
         String userTeam = Jurisdiction.getUserTeam();
+
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+
         String factoryNumber = productLine.getFactoryNumber();
         String productLineNumber = productLine.getProductLineNumber();
-        String productLineType = productLine.getProductLineTypeId();
+       String productLineType = productLine.getProductLineTypeId();
+        int processingCycleB = productLine.getProcessingCycleB()+1;//H 投产生产期间+1
 
         ProductLine myRow = productLineRow(productLine);
-        myRow.setProcessingCycleB(period);
-        myRow.setState(1);
-        myRow.setEditFlag(1);
+        myRow.setProcessingCycleB(processingCycleB); //投入生产期间
+
+        myRow.setEditFlag(1); //操作
         BaseBeanHelper.edit(myRow);
-        Example example = new Example(ProductLine.class);
-        example.createCriteria().andEqualTo("id", myRow.getId());
-        ProductLineMapper.updateByExampleSelective(myRow, example);
+        ProductLineMapper.updateByPrimaryKey(myRow);
 
         String myProduct = myRow.getProductC();
-        if(myProduct == "P1")
-        {
+        switch (myProduct){
+            case "P1":
             invService.stockOutToProduce(userTeam,period,"R1",1,factoryNumber + productLineNumber + productLineType+"P1R1");
-        }
-        if(myProduct == "P2")
-        {
+            break;
+
+            case "P2":
             invService.stockOutToProduce(userTeam,period,"R2",1,factoryNumber + productLineNumber + productLineType+"P2R2");
             invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P2R3");
-        }
-        if(myProduct == "P3")
-        {
+            break;
+
+            case "P3":
             invService.stockOutToProduce(userTeam,period,"R2",2,factoryNumber + productLineNumber + productLineType+"P3R2");
             invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P3R3");
-        }
-        if(myProduct == "P1")
-        {
+            break;
+
+            case "P4":
             invService.stockOutToProduce(userTeam,period,"R2",1,factoryNumber + productLineNumber + productLineType+"P4R2");
             invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P4R3");
             invService.stockOutToProduce(userTeam,period,"R4",2,factoryNumber + productLineNumber + productLineType+"P4R4");
+            break;
         }
 
         //自动生成投入生产的会计凭证.借在制品1 贷现金

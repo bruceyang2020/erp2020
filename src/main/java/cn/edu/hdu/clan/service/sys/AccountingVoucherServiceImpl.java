@@ -412,7 +412,9 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             case "SCRGF":
                 voucherMakerBase(teamCount,period,"在制品","现金",amount,content);
                 break;
-
+            //产品入库。
+            case "CPRK":
+                voucherMakerBase(teamCount,period,"成品","在制品",amount,content);
 
             //卖生产线收回残值。
             case "SHCZ":

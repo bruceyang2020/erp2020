@@ -54,6 +54,8 @@ public class InvServiceImpl implements InvService {
         //H 上期期末数，如果period=1 默认上期期末数为0
         BigDecimal r1Ab=  BigDecimal.valueOf(0); BigDecimal r2Ab=  BigDecimal.valueOf(0);BigDecimal r3Ab=  BigDecimal.valueOf(0); BigDecimal r4Ab=  BigDecimal.valueOf(0);
         BigDecimal r1Mb=  BigDecimal.valueOf(0); BigDecimal r2Mb=  BigDecimal.valueOf(0);BigDecimal r3Mb=  BigDecimal.valueOf(0); BigDecimal r4Mb=  BigDecimal.valueOf(0);
+        BigDecimal p1Ab=  BigDecimal.valueOf(0); BigDecimal p2Ab=  BigDecimal.valueOf(0);BigDecimal p3Ab=  BigDecimal.valueOf(0); BigDecimal p4Ab=  BigDecimal.valueOf(0);
+        BigDecimal p1Mb=  BigDecimal.valueOf(0); BigDecimal p2Mb=  BigDecimal.valueOf(0);BigDecimal p3Mb=  BigDecimal.valueOf(0); BigDecimal p4Mb=  BigDecimal.valueOf(0);
         //H 通过上期期初数和发生额计算本期期初数
         if (period!=1) {
             for (int i = 0; i < inv.size(); i++) {
@@ -73,6 +75,23 @@ public class InvServiceImpl implements InvService {
                     case "R4":
                         r4Ab=inv.get(i).getAmountB().add(inv.get(i).getAmountI().subtract(inv.get(i).getAmountO()));
                         r4Mb=inv.get(i).getMoneyB().add(inv.get(i).getMoneyI().subtract(inv.get(i).getMoneyO()));
+                        break;
+
+                    case "P1":
+                        p1Ab=inv.get(i).getAmountB().add(inv.get(i).getAmountI().subtract(inv.get(i).getAmountO()));
+                        p1Mb=inv.get(i).getMoneyB().add(inv.get(i).getMoneyI().subtract(inv.get(i).getMoneyO()));
+                        break;
+                    case "P2":
+                        p2Ab=inv.get(i).getAmountB().add(inv.get(i).getAmountI().subtract(inv.get(i).getAmountO()));
+                        p2Mb=inv.get(i).getMoneyB().add(inv.get(i).getMoneyI().subtract(inv.get(i).getMoneyO()));
+                        break;
+                    case "P3":
+                        p3Ab=inv.get(i).getAmountB().add(inv.get(i).getAmountI().subtract(inv.get(i).getAmountO()));
+                        p3Mb=inv.get(i).getMoneyB().add(inv.get(i).getMoneyI().subtract(inv.get(i).getMoneyO()));
+                        break;
+                    case "P4":
+                        p4Ab=inv.get(i).getAmountB().add(inv.get(i).getAmountI().subtract(inv.get(i).getAmountO()));
+                        p4Mb=inv.get(i).getMoneyB().add(inv.get(i).getMoneyI().subtract(inv.get(i).getMoneyO()));
                         break;
                 }
             }
@@ -154,7 +173,69 @@ public class InvServiceImpl implements InvService {
         inv4.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
         BaseBeanHelper.insert(inv4);
         InvMapper.insert(inv4);
+
+
+        Inv invP1=new Inv();Inv invP2=new Inv();Inv invP3=new Inv();Inv invP4=new Inv();
+
+        //H 在结转时写入
+        invP1.setTeamCount(userTeam);
+        invP1.setGroupId("1000");
+        invP1.setPeriod(period);
+        invP1.setNumber("P1");
+        invP1.setMoneyB(p1Mb);
+        invP1.setAmountB(p1Ab);
+        invP1.setMoneyI(BigDecimal.valueOf(0));
+        invP1.setAmountI(BigDecimal.valueOf(0));
+        invP1.setAmountO(BigDecimal.valueOf(0));
+        invP1.setMoneyO(BigDecimal.valueOf(0));
+        BaseBeanHelper.insert(invP1);
+        InvMapper.insert(invP1);
+
+        invP2.setTeamCount(userTeam);
+        invP2.setGroupId("1000");
+        invP2.setPeriod(period);
+        invP2.setNumber("P2");
+        invP2.setMoneyB(p2Mb);
+        invP2.setAmountB(p2Ab);
+        invP2.setMoneyI(BigDecimal.valueOf(0));
+        invP2.setAmountI(BigDecimal.valueOf(0));
+        invP2.setAmountO(BigDecimal.valueOf(0));
+        invP2.setMoneyO(BigDecimal.valueOf(0));
+        BaseBeanHelper.insert(invP2);
+        InvMapper.insert(invP2);
+
+        invP3.setTeamCount(userTeam);
+        invP3.setGroupId("1000");
+        invP3.setPeriod(period);
+        invP3.setNumber("P3");
+        invP3.setMoneyB(p3Mb);
+        invP3.setAmountB(p3Ab);
+        invP3.setMoneyI(BigDecimal.valueOf(0));
+        invP3.setAmountI(BigDecimal.valueOf(0));
+        invP3.setAmountO(BigDecimal.valueOf(0));
+        invP3.setMoneyO(BigDecimal.valueOf(0));
+        BaseBeanHelper.insert(invP3);
+        InvMapper.insert(invP3);
+
+        invP4.setTeamCount(userTeam);
+        invP4.setGroupId("1000");
+        invP4.setPeriod(period);
+        invP4.setNumber("P4");
+        invP4.setMoneyB(p4Mb);
+        invP4.setAmountB(p4Ab);
+        invP4.setMoneyI(BigDecimal.valueOf(0));
+        invP4.setAmountI(BigDecimal.valueOf(0));
+        invP4.setAmountO(BigDecimal.valueOf(0));
+        invP4.setMoneyO(BigDecimal.valueOf(0));
+        BaseBeanHelper.insert(invP4);
+        InvMapper.insert(invP4);
+
+
+
     }
+
+
+
 
 
     /**
@@ -213,8 +294,8 @@ public class InvServiceImpl implements InvService {
         Inv inv = InvMapper.selectOneByExample(example);
         BigDecimal amountOut = inv.getAmountO();
         BigDecimal moneyOut = inv.getMoneyO();
-        inv.setAmountO(amountOut.subtract(new BigDecimal(amount)));
-        inv.setMoneyO(moneyOut.subtract(new BigDecimal(amount)));
+        inv.setAmountO(amountOut.add(new BigDecimal(amount)));//H 本期出库额的合计
+        inv.setMoneyO(moneyOut.add(new BigDecimal(amount)));//H 本期出库额的合计
         BaseBeanHelper.edit(inv);
         InvMapper.updateByPrimaryKey(inv);
 
@@ -225,6 +306,27 @@ public class InvServiceImpl implements InvService {
 
     }
 
+    //H 产品入库
+    public void stockIntoWarehouse(String userTeam, int period, String product, int amount, String content) {
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("number", product);
+        Inv inv = InvMapper.selectOneByExample(example);
+        BigDecimal amountIn = inv.getAmountI();
+        BigDecimal moneyIn = inv.getMoneyI();
+        inv.setAmountO(amountIn.add(new BigDecimal(1)));//H 本期入库额的合计
+        inv.setMoneyO(moneyIn.add(new BigDecimal(amount)));//H 本期入库额的合计
+        BaseBeanHelper.edit(inv);
+        InvMapper.updateByPrimaryKey(inv);
+
+
+        //自动生成出库对应应的会计凭证:借成品 贷在制品
+        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal(amount), "CPRK", content);
+
+
+    }
 
     public void stockOutToSale(String userTeam, int period, String product, int amount, String content) {
         Example example = new Example(Inv.class);
