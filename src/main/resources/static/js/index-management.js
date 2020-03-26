@@ -11,21 +11,21 @@ $(document).ready(function () {
             console.log(data);
             $.each(data,function(n,value){
                 if(value.number == "R1")
-                {  $("#mag-r4").text(value.amountB);}
+                {  $("#mag-r4").text(value.amountB+value.amountI-value.amountO);}
                 if(value.number == "R2")
-                {  $("#mag-r3").text(value.amountB);}
+                {  $("#mag-r3").text(value.amountB+value.amountI-value.amountO);}
                 if(value.number == "R3")
-                {  $("#mag-r2").text(value.amountB);}
+                {  $("#mag-r2").text(value.amountB+value.amountI-value.amountO);}
                 if(value.number == "R4")
-                {  $("#mag-r1").text(value.amountB);}
+                {  $("#mag-r1").text(value.amountB+value.amountI-value.amountO);}
                 if(value.number == "P1")
-                {  $("#mag-p1").text(value.amountB);}
+                {  $("#mag-p1").text(value.amountB+value.amountI-value.amountO);}
                 if(value.number == "P2")
-                {  $("#mag-p2").text(value.amountB);}
+                {  $("#mag-p2").text(value.amountB+value.amountI-value.amountO);}
                 if(value.number == "P3")
-                {  $("#mag-p3").text(value.amountB);}
+                {  $("#mag-p3").text(value.amountB+value.amountI-value.amountO);}
                 if(value.number == "P4")
-                {  $("#mag-p4").text(value.amountB);}
+                {  $("#mag-p4").text(value.amountB+value.amountI-value.amountO);}
 
             });
             console.log('************类型1原材料数据');

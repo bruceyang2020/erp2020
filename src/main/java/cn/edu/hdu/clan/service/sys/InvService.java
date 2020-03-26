@@ -23,6 +23,8 @@ public interface InvService {
 
     void stockOutToSale(String userTeam,int period,String product ,int amount,String content);  //产品出库
 
+    void stockIntoWarehouse(String userTeam, int period, String product, int amount, String content); //产品入库
+
 
     Inv getById(String id);
 

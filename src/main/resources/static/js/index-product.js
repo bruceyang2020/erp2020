@@ -232,7 +232,7 @@ $(document).ready(function () {
         /*var factoryNumber = "";
         if(number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}*/
         var factoryNumber= myPlnValue<7? "大厂房":"小厂房";
-        var productLineTypeId =  $("#productLineTypeId-build").val();
+        var productLineTypeId =  $("#productLineTypeId-build").text();
 
     if(editFlag[myPlnValue]==0) {
     var ProductLine = {
@@ -255,13 +255,14 @@ $(document).ready(function () {
         }
 
     })
+        editFlag[myPlnValue]=1;
     }
         $('.pop-pro').hide();
     });
 
 
     //当生产线转产按钮被点击
-    $('.ok-pro-switching').click(function () {
+    $('#ok-pro-switching').click(function () {
         var myPlnValue =    $('#plnValue').val();
         var currentAp =  $('#currentAp').val();
         var currentTeam =   $('#currentTeam').val();
@@ -275,7 +276,7 @@ $(document).ready(function () {
             period:currentAp,
             productLineNumber: myPlnValue,
             factoryNumber:factoryNumber,
-            productLineTypeId:productLineTypeId
+            productLineTypeId: productLineTypeId
         };
 
         $.ajax({
@@ -296,47 +297,77 @@ $(document).ready(function () {
 
 
     //当生产线投产按钮被点击
-    $('.ok-pro-produce').click(function () {
-        var myPlnValue =    $('#plnValue').val();
+    $('#ok-pro-produce').click(function () {
+
+        var myPlnValue =   $('#plnValue').val();
         var currentAp =  $('#currentAp').val();
         var currentTeam =   $('#currentTeam').val();
-        var factoryNumber ="";
-        if(number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
-        var productC =  $("#productCList").find("option:selected").val();
+        var factoryNumber = myPlnValue<7? "大厂房":"小厂房";
+       /* if(Number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}*/
+        var productC =  $('#productC').text();
+       var productLineTypeId =  $('#productLineTypeId').text();
+       var processingCycleB= parseInt($('#processingCycleB').text());
+        var processingCycle= parseInt($('#processingCycle').text());
+        if(editFlag[myPlnValue]==0) {
+            editFlag[myPlnValue]=1;
+            var ProductLine = {
+                teamCount: currentTeam,
+                period: currentAp,
+                productLineNumber: myPlnValue,
+                factoryNumber: factoryNumber,
+                productLineTypeId: productLineTypeId,
+                processingCycleB: processingCycleB,
+                processingCycle: processingCycle,
+                productC: productC
+            };
 
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/ProductLine/inputToProduce",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(ProductLine),
+                success: function (data) {
+                    alert("投产成功");
+                    statusByPln(myPlnValue, "生产");
 
-        var ProductLine = {
-            teamCount:currentTeam,
-            period:currentAp,
-            productLineNumber: myPlnValue,
-            factoryNumber:factoryNumber,
-            productC:productC
-        };
+                }
+            })
 
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/ProductLine/inputToProduce",
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(ProductLine),
-            success: function (data) {
-                alert("投产成功");
-                statusByPln(myPlnValue,"生产");
+            //H 原料库显示 P1=R1 P2=R2+R3 P3=2R2+R3 P4=R2+R3+2R4
+            switch (productC){
+                case "P1":
+                    $("#mag-r4").text(parseInt($("#mag-r4").text())-1);
+                    break;
+                case "P2":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text())-1);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text())-1);
+                    break;
+                case "P3":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text())-2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text())-1);
+                    break;
+                case "P4":
+                    $("#mag-r1").text(parseInt($("#mag-r1").text())-2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text())-1);
+                    $("#mag-r3").text(parseInt($("#mag-r3").text())-1);
+                    break;
+
 
             }
-        })
+        }
         $('.pop-pro').hide();
     });
 
 
 
     //当生产线出售按钮被点击
-    $('.ok-pro-sale').click(function () {
+    $('#ok-pro-sale').click(function () {
         var myPlnValue =    $('#plnValue').val();
         var currentAp =  $('#currentAp').val();
         var currentTeam =   $('#currentTeam').val();
         var factoryNumber ="";
-        if(number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
+        if(Number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
 
 
 
@@ -368,12 +399,13 @@ $(document).ready(function () {
 
 })
 
+//不同状态下的弹窗
 function showProductPop(ProductLine) {
 
-    $('.pro-status').hide();
-    $('.newBuild').hide();
+    $('.pro-status').hide();  //
+    $('.newBuild').hide();   //新建生产线
     $('.pro-build').hide();
-    $('.pro-produce').hide();
+    $('.pro-produce').hide(); //投产
     $('.pro-status').hide();
 
     $.ajax({
