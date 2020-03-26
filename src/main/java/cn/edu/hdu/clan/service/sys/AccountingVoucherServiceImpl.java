@@ -415,6 +415,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             //产品入库。
             case "CPRK":
                 voucherMakerBase(teamCount,period,"成品","在制品",amount,content);
+                break;
 
             //卖生产线收回残值。
             case "SHCZ":

@@ -81,8 +81,9 @@ public class ProductLineServiceImpl implements ProductLineService {
 
     public void copyDataToNextPeriod(String userTeam ,int period ,int nextPeriod){
         Example example = new Example(ProductLine.class);
-        example.createCriteria().andEqualTo("teamCount", userTeam);
-        example.createCriteria().andEqualTo("period", period);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
         List<ProductLine> productLines = ProductLineMapper.selectByExample(example);
 
         if(productLines.size() > 0)
@@ -94,9 +95,12 @@ public class ProductLineServiceImpl implements ProductLineService {
                 //H 操作初始化
                 myRow.setEditFlag(0);
 
-
+                System.out.println("这是"+myRow.getProductLineNumber()+"号线");
+                System.out.println(myRow.getProcessingCycleB());
+                System.out.println(myRow.getProcessingCycle());
+                System.out.println(myRow.getState());
                 //H 对于生产完成的生产线期末结转
-                if(myRow.getProcessingCycleB()==myRow.getProcessingCycle()){
+                if(myRow.getProcessingCycleB()==myRow.getProcessingCycle()&&myRow.getState()==1){
                     //生产线重置
                     myRow.setProcessingCycleB(0);
                     //生产线停产
