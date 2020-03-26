@@ -162,7 +162,7 @@ public class OrderGroupServiceImpl implements OrderGroupService {
                 iso14k =2;
             }
         }
-        myIso = iso9k+iso14k;
+        myIso = iso9k+iso14k;  //获取这个订单ISO要求。0无要求  1 iso9k  2 iso14k  3两者都要
 
         if(iso != myIso)
         {
