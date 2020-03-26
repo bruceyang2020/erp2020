@@ -316,8 +316,8 @@ public class InvServiceImpl implements InvService {
         Inv inv = InvMapper.selectOneByExample(example);
         BigDecimal amountIn = inv.getAmountI();
         BigDecimal moneyIn = inv.getMoneyI();
-        inv.setAmountO(amountIn.add(new BigDecimal(1)));//H 本期入库额的合计
-        inv.setMoneyO(moneyIn.add(new BigDecimal(amount)));//H 本期入库额的合计
+        inv.setAmountI(amountIn.add(new BigDecimal(1)));//H 本期入库额的合计
+        inv.setMoneyI(moneyIn.add(new BigDecimal(amount)));//H 本期入库额的合计
         BaseBeanHelper.edit(inv);
         InvMapper.updateByPrimaryKey(inv);
 

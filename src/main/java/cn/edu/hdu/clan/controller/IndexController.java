@@ -259,7 +259,7 @@ public class IndexController extends BaseController {
         //原材料订单到期，会计账务处理：现金减少
         materialOrderService.payment(userTeam,nextPeriod);
 
-        //H 原材料订单到期，材料入库
+        //H 原材料订单到期，材料入库，成品入库
         invService.goToPeriod(userTeam,nextPeriod);
 
         //应收账款到期，会计账务处理：现金增加
