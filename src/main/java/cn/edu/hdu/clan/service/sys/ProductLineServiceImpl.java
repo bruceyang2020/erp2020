@@ -139,7 +139,6 @@ public class ProductLineServiceImpl implements ProductLineService {
     public ProductLine productLineRow(ProductLine producptLine) {
         String factoryNumber = producptLine.getFactoryNumber();
         String productLineNumber = producptLine.getProductLineNumber();
-        String productLineType = producptLine.getProductLineTypeId();
         int period =  producptLine.getPeriod();
         Example example = new Example(ProductLine.class);
         Example.Criteria criteria = example.createCriteria();
@@ -211,9 +210,9 @@ public class ProductLineServiceImpl implements ProductLineService {
             ////自动生成在建工程转出到“机器与设备”对应的会计凭证:在建工程转出
             accountingVoucherService.voucherMaker(userTeam, period, value1, "ZJGCZC", factoryNumber + productLineNumber + productLineType+"转出");//H content不能与上面一致，否则删除
 
-           myRow.setState(2);//H 投产完成变成停产
-            BaseBeanHelper.edit(myRow);
-            ProductLineMapper.updateByPrimaryKey(myRow);
+           myRow2.setState(2);//H 投产完成变成停产
+            BaseBeanHelper.edit(myRow2);
+            ProductLineMapper.updateByPrimaryKey(myRow2);
 
         }else if(value1.compareTo(value2) ==1)
         {
@@ -221,9 +220,6 @@ public class ProductLineServiceImpl implements ProductLineService {
             accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("5"), "ZJGC", factoryNumber + productLineNumber + productLineType);
 
         }
-
-
-
 
 
     }
@@ -234,44 +230,53 @@ public class ProductLineServiceImpl implements ProductLineService {
         String userTeam = Jurisdiction.getUserTeam();
 
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-
         String factoryNumber = productLine.getFactoryNumber();
         String productLineNumber = productLine.getProductLineNumber();
-       String productLineType = productLine.getProductLineTypeId();
-        int processingCycleB = productLine.getProcessingCycleB()+1;//H 投产生产期间+1
 
         ProductLine myRow = productLineRow(productLine);
+
+        int processingCycleB = myRow.getProcessingCycleB() + 1;//H 投产生产期间+1
+        int processingCycleBe = myRow.getProcessingCycleB();
+        String productLineType = myRow.getProductLineTypeId();
+
         myRow.setProcessingCycleB(processingCycleB); //投入生产期间
 
         myRow.setEditFlag(1); //操作
+
+        if (myRow.getState() == 2 && processingCycleBe == 0)//H 停产转投产, 继续投产就不用支付成本
+        {
+
+                myRow.setState(1);// 在产
+
+                String myProduct = myRow.getProductC();
+                switch (myProduct) {
+                    case "P1":
+                        invService.stockOutToProduce(userTeam, period, "R1", 1, factoryNumber + productLineNumber + productLineType + "P1R1");
+                        break;
+
+                    case "P2":
+                        invService.stockOutToProduce(userTeam, period, "R2", 1, factoryNumber + productLineNumber + productLineType + "P2R2");
+                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P2R3");
+                        break;
+
+                    case "P3":
+                        invService.stockOutToProduce(userTeam, period, "R2", 2, factoryNumber + productLineNumber + productLineType + "P3R2");
+                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P3R3");
+                        break;
+
+                    case "P4":
+                        invService.stockOutToProduce(userTeam, period, "R2", 1, factoryNumber + productLineNumber + productLineType + "P4R2");
+                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P4R3");
+                        invService.stockOutToProduce(userTeam, period, "R4", 2, factoryNumber + productLineNumber + productLineType + "P4R4");
+                        break;
+                }
+
+                //自动生成投入生产的会计凭证.借在制品1 贷现金
+                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCRGF", factoryNumber + productLineNumber + productLineType + myProduct);
+        }
         BaseBeanHelper.edit(myRow);
         ProductLineMapper.updateByPrimaryKey(myRow);
 
-        String myProduct = myRow.getProductC();
-        switch (myProduct){
-            case "P1":
-            invService.stockOutToProduce(userTeam,period,"R1",1,factoryNumber + productLineNumber + productLineType+"P1R1");
-            break;
-
-            case "P2":
-            invService.stockOutToProduce(userTeam,period,"R2",1,factoryNumber + productLineNumber + productLineType+"P2R2");
-            invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P2R3");
-            break;
-
-            case "P3":
-            invService.stockOutToProduce(userTeam,period,"R2",2,factoryNumber + productLineNumber + productLineType+"P3R2");
-            invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P3R3");
-            break;
-
-            case "P4":
-            invService.stockOutToProduce(userTeam,period,"R2",1,factoryNumber + productLineNumber + productLineType+"P4R2");
-            invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P4R3");
-            invService.stockOutToProduce(userTeam,period,"R4",2,factoryNumber + productLineNumber + productLineType+"P4R4");
-            break;
-        }
-
-        //自动生成投入生产的会计凭证.借在制品1 贷现金
-        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCRGF", factoryNumber + productLineNumber + productLineType+myProduct);
     }
 
 

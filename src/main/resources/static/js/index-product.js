@@ -2,6 +2,12 @@ $(document).ready(function () {
 
     var editFlag=new Array();
     for(i=0;i<11;i++){editFlag[i]=0;}// H 十条线今年的操作，第0条空着
+    var state=new Array();
+    for(i=0;i<11;i++){state[i]=0;}// H 十条线今年的操作，第0条空着
+    var productc=new Array();
+    for(i=0;i<11;i++){productc[i]="0";}// H 十条线今年的操作，第0条空着
+
+
 
 
 
@@ -24,6 +30,8 @@ $(document).ready(function () {
                 var productLineTypeId = data[i].productLineTypeId;
                 console.log('生产线编码：'+productLineNumber);
                 editFlag[productLineNumber]=Number(data[i].editFlag); //H 每条生产线这期是否发生行为
+                state[productLineNumber]=Number(data[i].state);
+                productc[productLineNumber]=data.productC;
                 switch (state) {
                     case 0:
                         statusByPln(productLineNumber,"在建");
@@ -267,7 +275,7 @@ $(document).ready(function () {
         var currentAp =  $('#currentAp').val();
         var currentTeam =   $('#currentTeam').val();
         var factoryNumber ="";
-        if(number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
+        if(Number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
 
 
 
@@ -297,28 +305,25 @@ $(document).ready(function () {
 
 
     //当生产线投产按钮被点击
-    $('#ok-pro-produce').click(function () {
+    $('#ok-pro-produce').click(function () {   //只有当停产的时候才扣原料加工费
 
         var myPlnValue =   $('#plnValue').val();
         var currentAp =  $('#currentAp').val();
         var currentTeam =   $('#currentTeam').val();
         var factoryNumber = myPlnValue<7? "大厂房":"小厂房";
        /* if(Number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}*/
-        var productC =  $('#productC').text();
-       var productLineTypeId =  $('#productLineTypeId').text();
-       var processingCycleB= parseInt($('#processingCycleB').text());
-        var processingCycle= parseInt($('#processingCycle').text());
+       /* var productC =  $('#productC').text();*/
+       /*var productLineTypeId =  $('#productLineTypeId').text();*/
+       /*var processingCycleB= parseInt($('#processingCycleB').text());*/
+        /*var processingCycle= parseInt($('#processingCycle').text());*/
         if(editFlag[myPlnValue]==0) {
             editFlag[myPlnValue]=1;
+
             var ProductLine = {
                 teamCount: currentTeam,
                 period: currentAp,
                 productLineNumber: myPlnValue,
-                factoryNumber: factoryNumber,
-                productLineTypeId: productLineTypeId,
-                processingCycleB: processingCycleB,
-                processingCycle: processingCycle,
-                productC: productC
+                factoryNumber: factoryNumber
             };
 
             $.ajax({
@@ -335,25 +340,27 @@ $(document).ready(function () {
             })
 
             //H 原料库显示 P1=R1 P2=R2+R3 P3=2R2+R3 P4=R2+R3+2R4
-            switch (productC){
-                case "P1":
-                    $("#mag-r4").text(parseInt($("#mag-r4").text())-1);
-                    break;
-                case "P2":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text())-1);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text())-1);
-                    break;
-                case "P3":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text())-2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text())-1);
-                    break;
-                case "P4":
-                    $("#mag-r1").text(parseInt($("#mag-r1").text())-2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text())-1);
-                    $("#mag-r3").text(parseInt($("#mag-r3").text())-1);
-                    break;
+            if(state[myPlnValue]==2) {
+                switch (productc[myPlnValue]) {
+                    case "P1":
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                        break;
+                    case "P2":
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                        break;
+                    case "P3":
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                        break;
+                    case "P4":
+                        $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                        break;
 
 
+                }
             }
         }
         $('.pop-pro').hide();
