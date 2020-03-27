@@ -95,51 +95,72 @@ public class     ProductLineServiceImpl implements ProductLineService {
                 //H 操作初始化
                 myRow.setEditFlag(0);
 
-                System.out.println("这是"+myRow.getProductLineNumber()+"号线");
-                System.out.println(myRow.getProcessingCycleB());
-                System.out.println(myRow.getProcessingCycle());
-                System.out.println(myRow.getState());
-                //H 对于生产完成的生产线期末结转
-                if(myRow.getProcessingCycleB()==myRow.getProcessingCycle()&&myRow.getState()==1){
-                    //生产线重置
-                    myRow.setProcessingCycleB(0);
-                    //生产线停产
-                    myRow.setState(2);
-                    //产品入库
-                    String myProduct = myRow.getProductC();
-                    switch (myProduct) {
-                        case "P1":
-                            invService.stockIntoWarehouse(userTeam, nextPeriod, "P1", 2, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P1入库");
-                            break;
-                        case "P2":
-                            invService.stockIntoWarehouse(userTeam, nextPeriod, "P2", 3, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P2入库");
-                            break;
-                        case "P3":
-                            invService.stockIntoWarehouse(userTeam, nextPeriod, "P3", 4, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P3入库");
-                            break;
-                        case "P4":
-                            invService.stockIntoWarehouse(userTeam, nextPeriod, "P4", 5, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P4入库");
+                switch (myRow.getState()) {
+                    case 0:         //在建
+                        BaseBeanHelper.insert(myRow);
+                        ProductLineMapper.insert(myRow);
+                        break;
+
+                    case 1:         //在产
+                        //H 对于生产完成的生产线期末结转
+                        if (myRow.getProcessingCycleB().equals(myRow.getProcessingCycle())) {
+                            //生产线重置
+                            myRow.setProcessingCycleB(0);
+                            //生产线停产
+                            myRow.setState(2);
+                            //产品入库
+                            String myProduct = myRow.getProductC();
+                            switch (myProduct) {
+                                case "P1":
+                                    invService.stockIntoWarehouse(userTeam, nextPeriod, "P1", 2, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P1入库");
+                                    break;
+                                case "P2":
+                                    invService.stockIntoWarehouse(userTeam, nextPeriod, "P2", 3, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P2入库");
+                                    break;
+                                case "P3":
+                                    invService.stockIntoWarehouse(userTeam, nextPeriod, "P3", 4, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P3入库");
+                                    break;
+                                case "P4":
+                                    invService.stockIntoWarehouse(userTeam, nextPeriod, "P4", 5, myRow.getFactoryNumber() + myRow.getProductLineNumber() + myRow.getProductLineTypeId() + "P4入库");
+                                    break;
+
+                            }
+                        }
+                        BaseBeanHelper.insert(myRow);
+                        ProductLineMapper.insert(myRow);
+                        break;
+
+                    case 2:  //停产
+
+                        BaseBeanHelper.insert(myRow);
+                        ProductLineMapper.insert(myRow);
+                        break;
+
+
+                    case 3:   //转产
+                            //H 转产一期，转产周期重置
+                            myRow.setTransferredPeriodA(0);
+                            //H 状态转为停产
+                            myRow.setState(2);
+                            BaseBeanHelper.insert(myRow);
+                            ProductLineMapper.insert(myRow);
                             break;
 
-                    }
+                    case 4: //出售
+                        break;
 
                 }
-
-                BaseBeanHelper.insert(myRow);
-                ProductLineMapper.insert(myRow);
-
             }
         }
-
-
     }
+
+
 
     //通过一个生产线的信息，获得后台完整的生产线信息。productLineNumber取值范围为1-10
 
     public ProductLine productLineRow(ProductLine producptLine) {
         String factoryNumber = producptLine.getFactoryNumber();
         String productLineNumber = producptLine.getProductLineNumber();
-        String productLineType = producptLine.getProductLineTypeId();
         int period =  producptLine.getPeriod();
         Example example = new Example(ProductLine.class);
         Example.Criteria criteria = example.createCriteria();
@@ -211,9 +232,9 @@ public class     ProductLineServiceImpl implements ProductLineService {
             ////自动生成在建工程转出到“机器与设备”对应的会计凭证:在建工程转出
             accountingVoucherService.voucherMaker(userTeam, period, value1, "ZJGCZC", factoryNumber + productLineNumber + productLineType+"转出");//H content不能与上面一致，否则删除
 
-           myRow.setState(2);//H 投产完成变成停产
-            BaseBeanHelper.edit(myRow);
-            ProductLineMapper.updateByPrimaryKey(myRow);
+           myRow2.setState(2);//H 投产完成变成停产
+            BaseBeanHelper.edit(myRow2);
+            ProductLineMapper.updateByPrimaryKey(myRow2);
 
         }else if(value1.compareTo(value2) ==1)
         {
@@ -221,9 +242,6 @@ public class     ProductLineServiceImpl implements ProductLineService {
             accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("5"), "ZJGC", factoryNumber + productLineNumber + productLineType);
 
         }
-
-
-
 
 
     }
@@ -234,44 +252,54 @@ public class     ProductLineServiceImpl implements ProductLineService {
         String userTeam = Jurisdiction.getUserTeam();
 
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-
         String factoryNumber = productLine.getFactoryNumber();
         String productLineNumber = productLine.getProductLineNumber();
-       String productLineType = productLine.getProductLineTypeId();
-        int processingCycleB = productLine.getProcessingCycleB()+1;//H 投产生产期间+1
 
         ProductLine myRow = productLineRow(productLine);
+
+        int processingCycleB = myRow.getProcessingCycleB() + 1;//H 投产生产期间+1
+        int processingCycleBe = myRow.getProcessingCycleB();
+        String productLineType = myRow.getProductLineTypeId();
+
         myRow.setProcessingCycleB(processingCycleB); //投入生产期间
 
         myRow.setEditFlag(1); //操作
+
+        if (myRow.getState() == 2 && processingCycleBe == 0)//H 停产转投产, 继续投产就不用支付成本
+        {
+
+                myRow.setState(1);// 在产
+
+                String myProduct = myRow.getProductC();
+                switch (myProduct) {
+                    case "P1":
+                        invService.stockOutToProduce(userTeam, period, "R1", 1, factoryNumber + productLineNumber + productLineType + "P1R1");
+                        break;
+
+                    case "P2":
+                        invService.stockOutToProduce(userTeam, period, "R2", 1, factoryNumber + productLineNumber + productLineType + "P2R2");
+                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P2R3");
+                        break;
+
+                    case "P3":
+                        invService.stockOutToProduce(userTeam, period, "R2", 2, factoryNumber + productLineNumber + productLineType + "P3R2");
+                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P3R3");
+                        break;
+
+                    case "P4":
+                        invService.stockOutToProduce(userTeam, period, "R2", 1, factoryNumber + productLineNumber + productLineType + "P4R2");
+                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P4R3");
+                        invService.stockOutToProduce(userTeam, period, "R4", 2, factoryNumber + productLineNumber + productLineType + "P4R4");
+                        break;
+                }
+
+                //自动生成投入生产的会计凭证.借在制品1 贷现金
+                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCRGF", factoryNumber + productLineNumber + productLineType + myProduct);
+        }
+
         BaseBeanHelper.edit(myRow);
         ProductLineMapper.updateByPrimaryKey(myRow);
 
-        String myProduct = myRow.getProductC();
-        switch (myProduct){
-            case "P1":
-            invService.stockOutToProduce(userTeam,period,"R1",1,factoryNumber + productLineNumber + productLineType+"P1R1");
-            break;
-
-            case "P2":
-            invService.stockOutToProduce(userTeam,period,"R2",1,factoryNumber + productLineNumber + productLineType+"P2R2");
-            invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P2R3");
-            break;
-
-            case "P3":
-            invService.stockOutToProduce(userTeam,period,"R2",2,factoryNumber + productLineNumber + productLineType+"P3R2");
-            invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P3R3");
-            break;
-
-            case "P4":
-            invService.stockOutToProduce(userTeam,period,"R2",1,factoryNumber + productLineNumber + productLineType+"P4R2");
-            invService.stockOutToProduce(userTeam,period,"R3",1,factoryNumber + productLineNumber + productLineType+"P4R3");
-            invService.stockOutToProduce(userTeam,period,"R4",2,factoryNumber + productLineNumber + productLineType+"P4R4");
-            break;
-        }
-
-        //自动生成投入生产的会计凭证.借在制品1 贷现金
-        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCRGF", factoryNumber + productLineNumber + productLineType+myProduct);
     }
 
 
@@ -282,47 +310,44 @@ public class     ProductLineServiceImpl implements ProductLineService {
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         String factoryNumber = productLine.getFactoryNumber();
         String productLineNumber = productLine.getProductLineNumber();
-        String productLineType = productLine.getProductLineTypeId();
+
 
         ProductLine myRow = productLineRow(productLine);
 
-        BigDecimal value1= myRow.getDeviceValue(); //设备原值
-        BigDecimal value2= myRow.getDeprecationA(); //已提折旧
-        BigDecimal value3= value1.subtract(value2); //账面净值
-        BigDecimal value4= new BigDecimal(0);
+        BigDecimal value1 = myRow.getDeviceValue(); //设备原值
+        BigDecimal value2 = myRow.getDeprecationA(); //已提折旧
+        BigDecimal value3 = value1.subtract(value2); //账面净值
+        BigDecimal value4 = new BigDecimal(0);
+        String productLineType = myRow.getProductLineTypeId();
 
         myRow.setState(4); //状态码设置为4.表示这条生产线已卖掉。
         myRow.setEditFlag(1);
         BaseBeanHelper.edit(myRow);
-        Example example = new Example(ProductLine.class);
-        example.createCriteria().andEqualTo("id", myRow.getId());
-        ProductLineMapper.updateByExampleSelective(myRow, example);
+        ProductLineMapper.updateByPrimaryKey(myRow);
+
+        switch (productLineType) {
+            case "手工线":
+                //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
+                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SHCZ", factoryNumber + productLineNumber + productLineType + "收回残值");
+                value4 = value3.subtract(new BigDecimal(1));
+                break;
 
 
-        if(productLineType == "手工线")
-        {
-            //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
-            value4 = value3.subtract(new BigDecimal(1));
+            case "半自动":
+                //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
+                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "SHCZ", factoryNumber + productLineNumber + productLineType + "收回残值");
+                value4 = value3.subtract(new BigDecimal(2));
+                break;
 
-        }
-        if(productLineType == "半自动")
-        {
-            //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
-            value4 = value3.subtract(new BigDecimal(2));
-        }
-        if(productLineType == "全自动")
-        {
-            //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("3"), "SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
-            value4 = value3.subtract(new BigDecimal(3));
-        }
-        if(productLineType == "柔性线")
-        {
-            //自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("4"), "SHCZ", factoryNumber + productLineNumber + productLineType+"收回残值");
-            value4 = value3.subtract(new BigDecimal(4));
+            case "全自动"://自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
+                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("3"), "SHCZ", factoryNumber + productLineNumber + productLineType + "收回残值");
+                value4 = value3.subtract(new BigDecimal(3));
+                break;
+
+            case "柔性线"://自动生成收回生产线残值的会计凭证.借现金1 贷机器与设备
+                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("4"), "SHCZ", factoryNumber + productLineNumber + productLineType + "收回残值");
+                value4 = value3.subtract(new BigDecimal(4));
+                break;
         }
 
         if(value4.compareTo(new BigDecimal(0)) == 1)  //当未提折旧减去残值后的值大于零。
@@ -330,7 +355,6 @@ public class     ProductLineServiceImpl implements ProductLineService {
             //卖出生产线的损失的会计凭证.借其它支出贷机器与设备
             accountingVoucherService.voucherMaker(userTeam, period, value4,"SS", factoryNumber + productLineNumber + productLineType+"卖出生产线损失");
         }
-
 
     }
 
@@ -341,43 +365,57 @@ public class     ProductLineServiceImpl implements ProductLineService {
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         String factoryNumber = productLine.getFactoryNumber();
         String productLineNumber = productLine.getProductLineNumber();
-        String productLineType = productLine.getProductLineTypeId();
+        String productC=productLine.getProductC();
+
 
         ProductLine myRow = productLineRow(productLine);
+        String productLineType = myRow.getProductLineTypeId();
 
-        if(productLineType == "半自动")
-        {
-            myRow.setState(3);
-            myRow.setEditFlag(1);
-            myRow.setTransferredPeriodA(1);
-            myRow.setTransferFeeA(new BigDecimal(1));
-            BaseBeanHelper.edit(myRow);
-            Example example = new Example(ProductLine.class);
-            example.createCriteria().andEqualTo("id", myRow.getId());
-            ProductLineMapper.updateByExampleSelective(myRow, example);
+        switch (productLineType) {
 
-            //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCXZC", factoryNumber + productLineNumber + productLineType+"转产");
+            case "手工线":
+                myRow.setProductC(productC); //H 更新新的产品
+                BaseBeanHelper.edit(myRow);
+                ProductLineMapper.updateByPrimaryKey(myRow);
+                break;
+
+            case "柔性线":
+                myRow.setProductC(productC); //H 更新新的产品
+                BaseBeanHelper.edit(myRow);
+                ProductLineMapper.updateByPrimaryKey(myRow);
+                break;
+
+            case "半自动":
+                myRow.setState(3);
+                myRow.setEditFlag(1);
+                myRow.setProductC(productC); //H 更新新的产品
+                myRow.setTransferredPeriodA(1);
+                myRow.setTransferFeeA(new BigDecimal(1));
+                BaseBeanHelper.edit(myRow);
+           /* Example example = new Example(ProductLine.class);
+            example.createCriteria().andEqualTo("id", myRow.getId());*/
+                ProductLineMapper.updateByPrimaryKey(myRow);
+
+                //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
+                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCXZC", factoryNumber + productLineNumber + productLineType + "转产");
+                break;
 
 
+            case "全自动":
+                myRow.setState(3);
+                myRow.setEditFlag(1);
+                myRow.setProductC(productC); //H 更新新的产品
+                myRow.setTransferredPeriodA(1);
+                myRow.setTransferFeeA(new BigDecimal(2)); //全自动线的转产费用为每期2M
+                BaseBeanHelper.edit(myRow);
+          /*  Example example = new Example(ProductLine.class);
+            example.createCriteria().andEqualTo("id", myRow.getId());*/
+                ProductLineMapper.updateByPrimaryKey(myRow);
+                //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
+                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "SCXZC", factoryNumber + productLineNumber + productLineType + "转产");
+                break;
         }
 
-        if(productLineType == "全自动")
-        {
-            myRow.setState(3);
-            myRow.setEditFlag(1);
-            myRow.setTransferredPeriodA(1);
-            myRow.setTransferFeeA(new BigDecimal(2)); //全自动线的转产费用为每期2M
-            BaseBeanHelper.edit(myRow);
-            Example example = new Example(ProductLine.class);
-            example.createCriteria().andEqualTo("id", myRow.getId());
-            ProductLineMapper.updateByExampleSelective(myRow, example);
-
-            //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
-            accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "SCXZC", factoryNumber + productLineNumber + productLineType+"转产");
-
-
-        }
 
 
     }
