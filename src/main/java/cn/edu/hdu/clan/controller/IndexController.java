@@ -209,7 +209,8 @@ public class IndexController extends BaseController {
         accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("10"),"GLFY","管理费用");
         //H 折旧费用的会计凭证
         productLineService.voucherMakerOfDep(userTeam,period);
-        //H 维修费用的会计凭证
+       /* //H 维修费用的会计凭证
+        productLineService.*/
 
         //H 高利贷贷款利息的会计凭证,每期期末计
         usuryService.voucherMakerOfInterest(userTeam,period);

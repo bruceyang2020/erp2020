@@ -12,6 +12,7 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="period" property="period" jdbcType="INTEGER" />
     <result column="left_capacity" property="leftCapacity" jdbcType="INTEGER" />
+    <result column="rent" property="rent" jdbcType="INTEGER" />
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />

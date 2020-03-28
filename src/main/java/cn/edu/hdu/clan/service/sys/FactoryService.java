@@ -15,11 +15,19 @@ public interface FactoryService {
 
     void update(Factory Factory);
 
-    void sale(String userTeam ,int period,String number);
+    void sale(Factory Factory);
 
     List<Factory> list(String userTeam ,int period);
 
     Factory getById(String id);
 
     void  copyDataToNextPeriod(String userTeam ,int period ,int nextPeriod);
+
+    Factory FactoryType(int period,String userTeam, String factoryNumber);
+
+   void rent(Factory Factory);//H 租厂房
+
+   void leftCapacity(int period,String userTeam, String factoryNumber); //厂房容量
+
+    void numberOfProductLines(int period,String userTeam, String factoryNumber,int number);
 }

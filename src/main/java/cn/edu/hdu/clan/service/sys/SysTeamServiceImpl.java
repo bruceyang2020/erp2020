@@ -169,6 +169,9 @@ public class SysTeamServiceImpl implements SysTeamService {
         productLineService.adds(productLines);
         System.out.println(json);
 
+        //数数生产线
+        productLineService.countNumberOfProductLines(userTeam,period);
+
 
         //初始化应收账款。这里的应收账款也包括了出售厂房产生的应收账款
         String jsonStr2 = PropertiesUtils.readJsonFile("jsondata/initSalepayment.json");

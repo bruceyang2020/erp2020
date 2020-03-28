@@ -386,6 +386,10 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                 voucherMakerBase(teamCount,period,"应收账款","土地与建筑",amount,content);
                 break;
 
+            //租赁厂房，生成借综合费用（租金），贷现金的会计分录
+            case "CFZL": //租赁厂房的会计分录
+                voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
+                break;
 
             //购买厂房，生成借土地与建筑，贷现金的会计分录
            case "GMCF": //购买厂房的会计分录

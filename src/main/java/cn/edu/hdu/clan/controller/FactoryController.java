@@ -37,9 +37,17 @@ public class FactoryController extends BaseController {
 
     @RequestMapping("sale")
     public String sale(@RequestBody Factory Factory){
-        String userTeam = Jurisdiction.getUserTeam();
-        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-        FactoryService.sale(userTeam,period,Factory.getNumber());
+        /*String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());*/
+        FactoryService.sale(Factory);
+        return success();
+    }
+
+    @RequestMapping("rent")
+    public String rent(@RequestBody Factory Factory){
+        /*String userTeam = Jurisdiction.getUserTeam();
+        int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());*/
+        FactoryService.rent(Factory);
         return success();
     }
 

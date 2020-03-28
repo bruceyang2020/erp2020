@@ -50,6 +50,12 @@ public class Factory extends BaseBean {
     private Integer state;
 
     /**
+     * 租金
+     */
+    @Column(name = "rent")
+    private Integer rent;
+
+    /**
      * 创建人外键用户表
      */
     @Column(name = "create_user")
@@ -138,6 +144,26 @@ public class Factory extends BaseBean {
     public void setName(String name) {
         this.name = name;
     }
+
+    /**
+     * 获取厂房租金
+     *
+     * @return rent - 厂房租金
+     */
+    public Integer getRent() {
+        return rent;
+    }
+
+    /**
+     * 设置厂房名称
+     *
+     * @param rent 厂房名称
+     */
+    public void setRent(Integer rent) {
+        this.rent = rent;
+    }
+
+
 
     /**
      * 获取当前会计期间

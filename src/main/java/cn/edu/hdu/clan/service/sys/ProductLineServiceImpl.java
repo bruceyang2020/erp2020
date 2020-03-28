@@ -1,8 +1,10 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.BaseBean;
 import cn.edu.hdu.clan.entity.sys.Factory;
 import cn.edu.hdu.clan.entity.sys.ProductLine;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
+import cn.edu.hdu.clan.mapper.sys.FactoryMapper;
 import cn.edu.hdu.clan.mapper.sys.ProductLineMapper;
 import cn.edu.hdu.clan.util.Jurisdiction;
 import com.github.pagehelper.PageHelper;
@@ -31,6 +33,9 @@ public class ProductLineServiceImpl implements ProductLineService {
     @Resource
     private ProductLineService productLineService;
 
+    @Resource
+    private FactoryService factoryService;
+
 
 
     @Transactional
@@ -46,6 +51,7 @@ public class ProductLineServiceImpl implements ProductLineService {
         ProductLineMapper.insert(productLine);
     }
 
+
     public void adds(List<ProductLine>  productLines) {
         if(productLines.size() > 0) {
             for (int i = 0; i < productLines.size(); i++) {
@@ -58,6 +64,7 @@ public class ProductLineServiceImpl implements ProductLineService {
                 ProductLineMapper.insert(productLines.get(i));
             }
         }
+
     }
 
 
@@ -91,6 +98,7 @@ public class ProductLineServiceImpl implements ProductLineService {
             for(int i= 0 ;i<productLines.size();i++)
             {
                 ProductLine myRow =  productLines.get(i);
+                int process=myRow.getProcessingCycleB()+1;
                 myRow.setPeriod(nextPeriod);
                 //H 操作初始化
                 myRow.setEditFlag(0);
@@ -126,6 +134,9 @@ public class ProductLineServiceImpl implements ProductLineService {
 
                             }
                         }
+                        else{
+                            myRow.setProcessingCycleB(process);
+                        }
                         BaseBeanHelper.insert(myRow);
                         ProductLineMapper.insert(myRow);
                         break;
@@ -159,6 +170,7 @@ public class ProductLineServiceImpl implements ProductLineService {
     //通过一个生产线的信息，获得后台完整的生产线信息。productLineNumber取值范围为1-10
 
     public ProductLine productLineRow(ProductLine producptLine) {
+        String userTeam = Jurisdiction.getUserTeam();
         String factoryNumber = producptLine.getFactoryNumber();
         String productLineNumber = producptLine.getProductLineNumber();
         int period =  producptLine.getPeriod();
@@ -166,6 +178,7 @@ public class ProductLineServiceImpl implements ProductLineService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("factoryNumber", factoryNumber);
         criteria.andEqualTo("productLineNumber", productLineNumber);
+        criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period);
 
        return  ProductLineMapper.selectOneByExample(example);
@@ -181,8 +194,8 @@ public class ProductLineServiceImpl implements ProductLineService {
         String productLineType = productLine.getProductLineTypeId(); //产线类型编码
         String productC = productLine.getProductC(); //H 初始产线对应的产品编号
 
-
         ProductLine myRow = productLineRow(productLine);
+
         if(myRow == null)
         {  //全局变量 写入当前公司或小组ID
 
@@ -207,10 +220,10 @@ public class ProductLineServiceImpl implements ProductLineService {
             productLine.setProductC(productC);
 
 
-
             BaseBeanHelper.insert(productLine);
             ProductLineMapper.insert(productLine);
 
+            factoryService.leftCapacity(period,userTeam,factoryNumber);// 生产线数加一
 
         }else
         {
@@ -244,6 +257,7 @@ public class ProductLineServiceImpl implements ProductLineService {
         }
 
 
+
     }
 
 //投入产品到生产线
@@ -254,18 +268,24 @@ public class ProductLineServiceImpl implements ProductLineService {
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         String factoryNumber = productLine.getFactoryNumber();
         String productLineNumber = productLine.getProductLineNumber();
+        String productC=productLine.getProductC();
 
         ProductLine myRow = productLineRow(productLine);
 
-        int processingCycleB = myRow.getProcessingCycleB() + 1;//H 投产生产期间+1
         int processingCycleBe = myRow.getProcessingCycleB();
         String productLineType = myRow.getProductLineTypeId();
 
-        myRow.setProcessingCycleB(processingCycleB); //投入生产期间
+        //手工线柔性线投产直接转了，其他进不来
+        if(productLineType.equals("手工线")||productLineType.equals("柔性线")){
+            myRow.setProductC(productC);
+        }
+
+
+        myRow.setProcessingCycleB(1); //投入生产期间
 
         myRow.setEditFlag(1); //操作
 
-        if (myRow.getState() == 2 && processingCycleBe == 0)//H 停产转投产, 继续投产就不用支付成本
+        if (myRow.getState() == 2 && processingCycleBe == 0)//H 停产转投产
         {
 
                 myRow.setState(1);// 在产
@@ -482,23 +502,26 @@ public class ProductLineServiceImpl implements ProductLineService {
                     switch (productionLineType) {
                         case "手工线":
                             myList.get(i).setDepreciationC(new BigDecimal(1));
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDeprecationA()));//不知道是不是这样写 A=A+C？
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//不知道是不是这样写 A=A+C？
 
                             break;
                         case "半自动":
                             myList.get(i).setDepreciationC(new BigDecimal(1));
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDeprecationA()));
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));
                             break;
                         case "全自动":
                             myList.get(i).setDepreciationC(new BigDecimal(1));
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDeprecationA()));
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));
                             break;
                         case "柔性线":
                             myList.get(i).setDepreciationC(new BigDecimal(1));
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDeprecationA()));
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));
                             break;
 
                     }
+                    BaseBeanHelper.edit(myList.get(i));
+                    ProductLineMapper.updateByPrimaryKey(myList.get(i));
+
 
                 }
             }
@@ -517,12 +540,35 @@ public class ProductLineServiceImpl implements ProductLineService {
         BigDecimal sumDepreciation =new BigDecimal("0");
         productLineService.getDepreciation(userTeam,period);
 
-        if(period%4==0){
+        if(period%4==0)
+          {
             for (int i = 0; i < myList.size(); i++) {
-                sumDepreciation.add(myList.get(i).getDeprecationA());
+                sumDepreciation=sumDepreciation.add(myList.get(i).getDepreciationC());
             }
 
         }
         accountingVoucherService.voucherMaker(userTeam,period,sumDepreciation,"ZJFY","计提折旧费用");
+    }
+
+
+    public void countNumberOfProductLines(String userTeam, int period){
+
+        Example example= new Example(ProductLine.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("factoryNumber", "大厂房");
+        int count1= ProductLineMapper.selectCountByExample(example);
+
+        Example example2= new Example(ProductLine.class);
+        Example.Criteria criteria1 = example2.createCriteria();
+        criteria1.andEqualTo("teamCount",userTeam);
+        criteria1.andEqualTo("period", period);
+        criteria1.andEqualTo("factoryNumber", "小厂房");
+        int count2= ProductLineMapper.selectCountByExample(example2);
+
+        factoryService.numberOfProductLines(period,userTeam,"大厂房",count1);
+        factoryService.numberOfProductLines(period,userTeam,"小厂房",count2);
+
     }
 }

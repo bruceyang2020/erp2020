@@ -34,19 +34,23 @@ public class FactoryServiceImpl implements FactoryService {
     public void add(Factory Factory) {
         String userTeam = Jurisdiction.getUserTeam();
         int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        Factory.setTeamCount(userTeam);
+
+
+
         BigDecimal  myMoney = Factory.getMoneyTotal();
         String  number = Factory.getNumber();
-        Factory.setPeriod(period);
-        Factory.setTeamCount(userTeam);
-        Factory.setGroupId("1000");
-        BaseBeanHelper.insert(Factory);
-        FactoryMapper.insert(Factory);
+        Factory myFactory = FactoryType(period,userTeam,number);
+
+        myFactory.setState(1);
+        BaseBeanHelper.edit(myFactory);
+        FactoryMapper.updateByPrimaryKey(myFactory);
         //自动生成收款的会计凭证
         accountingVoucherService.voucherMaker(userTeam,period, myMoney,"GMCF",number+"购买");
     }
 
 
-    //购买厂房
+    //初始化
     @Transactional
     @Override
     public void adds(List<Factory>  factories) {
@@ -80,31 +84,69 @@ public class FactoryServiceImpl implements FactoryService {
 
     //出售厂房。
     @Override
-    public void sale(String userTeam ,int period,String number) {
-        Example example = new Example(Factory.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
-        criteria.andEqualTo("number", number);
-        criteria.andEqualTo("state", 1);//只有状态为1,自有的厂房才能卖掉。
-        List<Factory> factorys = FactoryMapper.selectByExample(example);
+    public void sale(Factory Factory) {
 
-        if(factorys.size() == 1)
+
+       int period= Factory.getPeriod();
+        String userTeam = Jurisdiction.getUserTeam();
+        String number = Factory.getNumber();
+        Factory myFactory= FactoryType(period,userTeam,number);
+        if(myFactory.getState() == 1)
         {
-            BigDecimal myMoney = factorys.get(0).getMoneyTotal();
+            BigDecimal myMoney = myFactory.getMoneyTotal();
 
             //出售厂房，得到对应原值的应收账款。
-            salepaymentService.addBySaleFactory(factorys.get(0));
+            salepaymentService.addBySaleFactory(myFactory);
 
             //自动生成收款的会计凭证
             accountingVoucherService.voucherMaker(userTeam,period, myMoney,"CSCF",number+"出售");
 
+            //记账：出售厂房，借应收款  贷土地与建筑
+
+            myFactory.setState(0);
+            BaseBeanHelper.edit(myFactory);
+            FactoryMapper.updateByPrimaryKey(myFactory);
+
+        }
+        else if(myFactory.getState()==2){  //H 租赁出售
+            myFactory.setState(0);
+            BaseBeanHelper.edit(myFactory);
+            FactoryMapper.updateByPrimaryKey(myFactory);
+
+        }
+
+    }
+
+    //租厂房。
+    @Override
+    public void rent(Factory Factory) {
+
+
+        int period= Factory.getPeriod();
+        String userTeam = Jurisdiction.getUserTeam();
+        String number = Factory.getNumber();
+        Factory myFactory= FactoryType(period, userTeam,number);
+        //H 买转租，加一个卖出的步骤
+        if(myFactory.getState()==1)
+        {
+            BigDecimal myMoney = myFactory.getMoneyTotal();
+
+            //出售厂房，得到对应原值的应收账款。
+            salepaymentService.addBySaleFactory(myFactory);
+
+            //自动生成收款的会计凭证
+            accountingVoucherService.voucherMaker(userTeam,period, myMoney,"CSCF",number+"买转租");
 
             //记账：出售厂房，借应收款  贷土地与建筑
 
-            FactoryMapper.selectByExample(example);
         }
 
+         //自动生成租金的会计凭证
+        accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal( myFactory.getRent()),"CFZL",number+"租赁");
+
+        myFactory.setState(2);
+        BaseBeanHelper.edit(myFactory);
+        FactoryMapper.updateByPrimaryKey(myFactory);
 
 
     }
@@ -155,5 +197,40 @@ public class FactoryServiceImpl implements FactoryService {
         Example example = new Example(Factory.class);
         example.createCriteria().andEqualTo("id", id);
         return FactoryMapper.selectOneByExample(example);
+    }
+
+
+    public Factory FactoryType(int period,String userTeam, String factoryNumber) {   //H 根据厂房信息查找厂房
+
+
+        Example example = new Example(Factory.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("number", factoryNumber);
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+
+        return  FactoryMapper.selectOneByExample(example);
+    }
+
+
+    //H 生产线建造时，厂房剩余容量-1
+    public void leftCapacity(int period,String userTeam, String factoryNumber){
+        Factory myfactory= FactoryType(period,userTeam,factoryNumber);
+        int leftCapacity = myfactory.getLeftCapacity();
+
+        myfactory.setLeftCapacity(leftCapacity+1);
+        BaseBeanHelper.edit(myfactory);
+        FactoryMapper.updateByPrimaryKey(myfactory);
+
+    }
+   //H 初始化时数一下有几条线
+    public void numberOfProductLines(int period,String userTeam, String factoryNumber,int number){
+
+        Factory myfactory= FactoryType(period,userTeam,factoryNumber);
+
+        myfactory.setLeftCapacity(number);
+        BaseBeanHelper.edit(myfactory);
+        FactoryMapper.updateByPrimaryKey(myfactory);
+
     }
 }
