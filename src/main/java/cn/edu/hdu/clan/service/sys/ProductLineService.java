@@ -34,4 +34,7 @@ public interface ProductLineService {
     void getDepreciation(String userTeam,int period);//H 计提折旧
 
     void voucherMakerOfDep(String userTeam,int period);//H 折旧记账
+
+    void countNumberOfProductLines(String userTeam, int period);//H 数数生产线
+
 }

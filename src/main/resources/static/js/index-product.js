@@ -2,8 +2,6 @@ $(document).ready(function () {
 
     var editFlag=new Array();
     for(i=0;i<11;i++){editFlag[i]=0;}// H 十条线今年的操作，第0条空着
-    var state=new Array();
-    for(i=0;i<11;i++){state[i]=0;}// H 十条线今年的操作，第0条空着
     var productc=new Array();
     for(i=0;i<11;i++){productc[i]="0";}// H 十条线今年的操作，第0条空着
 
@@ -30,8 +28,10 @@ $(document).ready(function () {
                 var productLineTypeId = data[i].productLineTypeId;
                 console.log('生产线编码：'+productLineNumber);
                 editFlag[productLineNumber]=Number(data[i].editFlag); //H 每条生产线这期是否发生行为
-                state[productLineNumber]=Number(data[i].state);
-                productc[productLineNumber]=data.productC;
+                productc[productLineNumber]=data[i].productC;
+                console.log( "第"+productLineNumber+"条生产线"+editFlag[productLineNumber]);
+                console.log( "第"+productLineNumber+"条生产线"+ productc[productLineNumber]);
+
                 switch (state) {
                     case 0:
                         statusByPln(productLineNumber,"在建");
@@ -316,15 +316,131 @@ $(document).ready(function () {
         var currentAp =  $('#currentAp').val();
         var currentTeam =   $('#currentTeam').val();
         var factoryNumber = myPlnValue<7? "大厂房":"小厂房";
-       /* if(Number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}*/
         var product= $("#productCList").find("option:selected").val();
-       /*var processingCycleB= parseInt($('#processingCycleB').text());*/
-        /*var processingCycle= parseInt($('#processingCycle').text());*/
+        var productLineType=$("#productLineTypeIdT").text();
 
         if(editFlag[myPlnValue]==0) {
             editFlag[myPlnValue]=1;
 
 
+            //H 原料库显示 P1=R1 P2=R2+R3 P3=2R2+R3 P4=R2+R3+2R4
+           switch(productLineType){
+    case "手工线":
+        //H 判断与当前生产线产品是否一致
+
+            switch (product) {
+                case "P1":
+                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    break;
+                case "P2":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    break;
+                case "P3":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    break;
+                case "P4":
+                    $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    break;
+
+
+            }
+
+        var ProductLine = {
+            teamCount: currentTeam,
+            period: currentAp,
+            productLineNumber: myPlnValue,
+            factoryNumber: factoryNumber,
+            productC: product
+        };
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/ProductLine/inputToProduce",
+            contentType: "application/json;charset=utf-8;",
+            data: JSON.stringify(ProductLine),
+            success: function (data) {
+                alert("投产成功");
+                statusByPln(myPlnValue, "生产");
+
+            }
+        })
+
+
+
+        break;
+
+    case "柔性线":
+        //H 判断与当前生产线产品是否一致
+
+            switch (product) {
+                case "P1":
+                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    break;
+                case "P2":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    break;
+                case "P3":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    break;
+                case "P4":
+                    $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    break;
+            }
+
+        var ProductLine = {
+            teamCount: currentTeam,
+            period: currentAp,
+            productLineNumber: myPlnValue,
+            factoryNumber: factoryNumber,
+            productC: product
+        };
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/ProductLine/inputToProduce",
+            contentType: "application/json;charset=utf-8;",
+            data: JSON.stringify(ProductLine),
+            success: function (data) {
+                alert("投产成功");
+                statusByPln(myPlnValue, "生产");
+
+            }
+        })
+
+
+        break;
+
+
+    case "全自动":
+        if(productc[myPlnValue]==product){
+            switch (productc[myPlnValue]) {
+                case "P1":
+                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    break;
+                case "P2":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    break;
+                case "P3":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    break;
+                case "P4":
+                    $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    break;
+            }
             var ProductLine = {
                 teamCount: currentTeam,
                 period: currentAp,
@@ -346,33 +462,81 @@ $(document).ready(function () {
                 }
             })
 
-            //H 原料库显示 P1=R1 P2=R2+R3 P3=2R2+R3 P4=R2+R3+2R4
-            if(state[myPlnValue]==2 && productc[myPlnValue]==product) {
-                switch (productc[myPlnValue]) {
-                    case "P1":
-                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
-                        break;
-                    case "P2":
-                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
-                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
-                        break;
-                    case "P3":
-                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
-                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
-                        break;
-                    case "P4":
-                        $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
-                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
-                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
-                        break;
+        }
+            else{alert("请先转产！")}
+            break;
 
+    case "半自动":
+        if(productc[myPlnValue]==product){
+            switch (productc[myPlnValue]) {
+                case "P1":
+                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    break;
+                case "P2":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    break;
+                case "P3":
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    break;
+                case "P4":
+                    $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    break;
+            }
+            var ProductLine = {
+                teamCount: currentTeam,
+                period: currentAp,
+                productLineNumber: myPlnValue,
+                factoryNumber: factoryNumber,
+                productC: product
+            };
+
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/ProductLine/inputToProduce",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(ProductLine),
+                success: function (data) {
+                    alert("投产成功");
+                    statusByPln(myPlnValue, "生产");
 
                 }
-            }
-        else{
-            alert("请刷新页面");// 这里有一个bug
-            }
+            })
+
+
         }
+        else{alert("请先转产！")}
+        break;
+
+}}
+/*
+
+            var ProductLine = {
+                teamCount: currentTeam,
+                period: currentAp,
+                productLineNumber: myPlnValue,
+                factoryNumber: factoryNumber,
+                productC: product
+            };
+
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/ProductLine/inputToProduce",
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(ProductLine),
+                success: function (data) {
+                    alert("投产成功");
+                    statusByPln(myPlnValue, "生产");
+
+                }
+            })
+*/
+
         $('.pop-pro').hide();
     });
 
