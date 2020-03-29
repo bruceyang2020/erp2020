@@ -92,9 +92,11 @@ public class IndexController extends BaseController {
     @RequestMapping("/")
      public String login_tologin() {
          return "login";}
-     /*public String index() {
-        return "index";
-    }*/
+
+/*    @RequestMapping("/")
+    public String login_tologin() {
+        return "loginlab";}*/
+
 
     @RequestMapping("/index")
      public String index() {
