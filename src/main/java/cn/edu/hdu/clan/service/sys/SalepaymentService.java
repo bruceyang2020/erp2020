@@ -26,4 +26,8 @@ public interface SalepaymentService {
     Salepayment getById(String id);
 
     void receivePayment(String userTeam ,int period);
+
+    List <Salepayment> listRec(String userTeam,int period);
+
+    void discountedMoney(int period, String teamCount,int amount);
 }

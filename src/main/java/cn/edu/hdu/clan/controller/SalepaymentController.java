@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.Salepayment;
 import cn.edu.hdu.clan.service.sys.SalepaymentService;
+import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,4 +43,20 @@ public class SalepaymentController extends BaseController {
     public String getById(@RequestBody Map<String,String> param) {
         return success(SalepaymentService.getById(param.get("id")));
     }
+
+    @RequestMapping("listReceivable")
+    public String listRec() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success(SalepaymentService.listRec(userTeam,period));
+    }
+
+
+    @RequestMapping("discountMoney")
+    public String discountedMoney() {
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        return success();
+    }
+
 }

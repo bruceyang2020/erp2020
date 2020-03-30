@@ -31,5 +31,11 @@ public interface AccountingVoucherService {
 
     List<AccountingVoucher> selectByPeriodAndUserTeam( String userTeam, Integer period);//H
 
+    List<BigDecimal> listForExpense( String userTeam,Integer period);//H
+
+    List<AccountingVoucher> selectByPeriodAndUserTeamAndContent( String userTeam,Integer period,String content,String acode);//H
+
+
+
 
 }

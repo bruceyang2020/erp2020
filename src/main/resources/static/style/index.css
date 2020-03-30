@@ -436,18 +436,44 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 #fin-1{
     left:640px;
     top: 740px;
+    background: #E95D81;
+    border: 0;
 }
 #fin-2{
     left:720px;
     top: 690px;
+    background: #E95D81;
+    border: 0;
 }
 #fin-3{
     left:670px;
     top: 665px;
+    background: #E95D81;
+    border: 0;
 }
 #fin-4{
     left:589px;
     top: 717px;
+    background: #E95D81;
+    border: 0;
+}
+
+.pop-f1-1,.pop-f2-1,.pop-f3-1,.pop-f4-1{
+    display: none;
+    width: 400px;
+    height:200px;
+    position: absolute;
+    top: 1330px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    padding: 25px;
+    z-index: 130;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+    text-align: center;
 }
 #fin-wx{
     left:355px;

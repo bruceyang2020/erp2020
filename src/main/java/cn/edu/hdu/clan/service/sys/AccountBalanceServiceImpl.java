@@ -200,7 +200,6 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     public void makeVoucherOfNI(String userTeam ,int period){
         BigDecimal tax=accountBalanceService.getByTeamcountAndPeriodAndacode(userTeam,period-1,"年度净利").get(0).getMoneyE();
         accountingVoucherService.voucherMaker(userTeam,period,tax,"LRLCE","转上年度年度净利");
-System.out.println("这是一次");
     }
 
  /*   @Override

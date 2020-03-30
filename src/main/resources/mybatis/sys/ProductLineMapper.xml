@@ -22,6 +22,7 @@
     <result column="transfer_fee_a" property="transferFeeA" jdbcType="DECIMAL" />
     <result column="investment_amount_a" property="investmentAmountA" jdbcType="DECIMAL" />
     <result column="maintenance_fee_a" property="maintenanceFeeA" jdbcType="DECIMAL" />
+    <result column="maintenance_fee_c" property="maintenanceFeeC" jdbcType="DECIMAL" />
     <result column="product_c" property="productC" jdbcType="VARCHAR" />
     <result column="processing_cycle" property="processingCycle" jdbcType="INTEGER" />
     <result column="processing_cycle_b" property="processingCycleB" jdbcType="INTEGER" />

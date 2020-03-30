@@ -92,6 +92,13 @@ public class ProductLine extends BaseBean {
     private BigDecimal investmentAmountA;
 
     /**
+     * 本期维修费
+     */
+    @Column(name = "maintenance_fee_c")
+    private BigDecimal maintenanceFeeC;
+
+
+    /**
      * 累计维修费
      */
     @Column(name = "maintenance_fee_a")
@@ -430,6 +437,26 @@ public class ProductLine extends BaseBean {
     public void setMaintenanceFeeA(BigDecimal maintenanceFeeA) {
         this.maintenanceFeeA = maintenanceFeeA;
     }
+
+
+    /**
+     * 获取本期维修费
+     *
+     * @return maintenance_fee_c - 累计维修费
+     */
+    public BigDecimal getMaintenanceFeeC() {
+        return maintenanceFeeC;
+    }
+
+    /**
+     * 设置本期维修费
+     *
+     * @param maintenanceFeeC 累计维修费
+     */
+    public void setMaintenanceFeeC(BigDecimal maintenanceFeeC) {
+        this.maintenanceFeeC = maintenanceFeeC;
+    }
+
 
     /**
      * 获取当前产品编号
