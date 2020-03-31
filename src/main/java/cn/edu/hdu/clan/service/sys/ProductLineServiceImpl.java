@@ -484,7 +484,7 @@ public class     ProductLineServiceImpl implements ProductLineService {
         return ProductLineMapper.selectOneByExample(example);
     }
 
-    //H 专门计算折旧 在建0 投产1 转产3 出售4 空闲2
+    //H 专门计算折旧+维修 在建0 投产1 转产3 出售4 空闲2
     public void getDepreciation(String userTeam,int period)
     {
         //选出
@@ -501,27 +501,33 @@ public class     ProductLineServiceImpl implements ProductLineService {
                     String productionLineType = myList.get(i).getProductLineTypeId();
                     switch (productionLineType) {
                         case "手工线":
-                            myList.get(i).setDepreciationC(new BigDecimal(1));
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//不知道是不是这样写 A=A+C？
-
+                            myList.get(i).setDepreciationC(new BigDecimal(1));//折旧
+                            myList.get(i).setMaintenanceFeeC(new BigDecimal(1));//维修费
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
+                            myList.get(i).setMaintenanceFeeA(myList.get(i).getMaintenanceFeeA().add(myList.get(i).getMaintenanceFeeC()));//累计维修费
                             break;
                         case "半自动":
-                            myList.get(i).setDepreciationC(new BigDecimal(1));
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));
+                            myList.get(i).setDepreciationC(new BigDecimal(1));//折旧
+                            myList.get(i).setMaintenanceFeeC(new BigDecimal(1));//维修费
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
+                            myList.get(i).setMaintenanceFeeA(myList.get(i).getMaintenanceFeeA().add(myList.get(i).getMaintenanceFeeC()));//累计维修费
                             break;
                         case "全自动":
-                            myList.get(i).setDepreciationC(new BigDecimal(1));
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));
+                            myList.get(i).setDepreciationC(new BigDecimal(1));//折旧
+                            myList.get(i).setMaintenanceFeeC(new BigDecimal(1));//维修费
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
+                            myList.get(i).setMaintenanceFeeA(myList.get(i).getMaintenanceFeeA().add(myList.get(i).getMaintenanceFeeC()));//累计维修费
                             break;
                         case "柔性线":
-                            myList.get(i).setDepreciationC(new BigDecimal(1));
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));
+                            myList.get(i).setDepreciationC(new BigDecimal(1)); //折旧
+                            myList.get(i).setMaintenanceFeeC(new BigDecimal(1));//维修费
+                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
+                            myList.get(i).setMaintenanceFeeA(myList.get(i).getMaintenanceFeeA().add(myList.get(i).getMaintenanceFeeC()));//累计维修费
                             break;
 
                     }
                     BaseBeanHelper.edit(myList.get(i));
                     ProductLineMapper.updateByPrimaryKey(myList.get(i));
-
 
                 }
             }
@@ -548,6 +554,27 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
         }
         accountingVoucherService.voucherMaker(userTeam,period,sumDepreciation,"ZJFY","计提折旧费用");
+    }
+
+    //H 维修费记账
+    public  void voucherMakerOfMT(String userTeam,int period){
+        Example example= new Example(ProductLine.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        criteria.andEqualTo("period", period);
+        List<ProductLine> myList = ProductLineMapper.selectByExample(example);
+
+        BigDecimal sumMaintenance =new BigDecimal("0");
+        productLineService.getDepreciation(userTeam,period);
+
+        if(period%4==0)
+        {
+            for (int i = 0; i < myList.size(); i++) {
+                sumMaintenance=sumMaintenance.add(myList.get(i).getMaintenanceFeeC());
+            }
+
+        }
+        accountingVoucherService.voucherMaker(userTeam,period,sumMaintenance,"WXFY","维修费用合计");
     }
 
 

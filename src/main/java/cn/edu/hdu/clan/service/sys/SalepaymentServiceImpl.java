@@ -101,6 +101,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         mySalePayment.setPeriod(period);
         mySalePayment.setNumber(factory.getNumber());
         mySalePayment.setSaleOrderId(factory.getName());
+        mySalePayment.setSurplusPeriod(4);  //H 出售厂房剩余还款期4
         mySalePayment.setMoney(factory.getMoneyTotal());
         mySalePayment.setPayPeriod(4);   //出售厂房生成4个账期的应收款
         mySalePayment.setState(0); //设置当前收款单的状态为0,表示没有收款（结算）
@@ -126,7 +127,6 @@ public class SalepaymentServiceImpl implements SalepaymentService {
             BigDecimal myMoney = BigDecimal.valueOf(0);
             int createPeriod = 0;
             int duePeriod = 0;
-
             for (int i = 0; i < oldRow.size(); i++)
             {
                 number = oldRow.get(i).getNumber();
@@ -142,13 +142,8 @@ public class SalepaymentServiceImpl implements SalepaymentService {
                         //自动生成收款的会计凭证
                         accountingVoucherService.voucherMaker(userTeam,period, myMoney,"XSSK",number+"收款");
 
-
                     }
-
-
-
             }
-
         }
     }
 
@@ -172,5 +167,19 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         Example example = new Example(Salepayment.class);
         example.createCriteria().andEqualTo("id", id);
         return SalepaymentMapper.selectOneByExample(example);
+    }
+   //H 应收账款显示
+    @Override
+    public List <Salepayment> listRec(String userTeam,int period){
+            Example example = new Example(Salepayment.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("teamCount", userTeam);
+            criteria.andEqualTo("period", period);
+            return SalepaymentMapper.selectByExample(example);
+    }
+
+    //H 应收款贴现
+    public void discountedMoney(int period, String teamCount,int amount){
+
     }
 }

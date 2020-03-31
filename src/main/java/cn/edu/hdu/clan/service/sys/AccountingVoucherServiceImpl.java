@@ -7,6 +7,7 @@ import cn.edu.hdu.clan.mapper.sys.AccountBalanceMapper;
 import cn.edu.hdu.clan.mapper.sys.AccountingVoucherMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -405,7 +406,10 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             case "ZJGCZC":
                 voucherMakerBase(teamCount,period,"机器与设备","在建工程",amount,content);
                 break;
-
+                //生产线维修费用合计记入综合费用
+            case "WXFY":
+                voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
+                break;
 
             //生产领料。
             case "SCCK":
@@ -506,6 +510,8 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         }
     }
 
+
+
     @Override
     public void deleteByTeamCount(String userTeam) {
 
@@ -529,6 +535,51 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         criteria.andEqualTo("period", period);
         return(AccountingVoucherMapper.selectByExample(example));
     }
+
+
+    @Override
+    public List<AccountingVoucher> selectByPeriodAndUserTeamAndContent( String userTeam,Integer period,String content,String acode) {
+
+        Example example = new Example(AccountingVoucher.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("substract",content);
+        criteria.andEqualTo("acode",acode);
+       List< AccountingVoucher> oldRow =AccountingVoucherMapper.selectByExample(example);
+        if(oldRow.size()>0){
+        return(oldRow);}
+        else{
+            return(null); }
+    }
+
+    @Override
+    public List<BigDecimal> listForExpense( String userTeam,Integer period) {
+
+       List<AccountingVoucher> myList=selectByPeriodAndUserTeam(userTeam,period);
+
+       String contentWX= "维修费用合计";String contentZJ="计提折旧费用";String contentBG="管理费用";String contentSDS="所得税费用";String contentGG="广告费";
+       String acodeWX="综合费用"; String acodeZJ="综合费用";String acodeBG="综合费用";String acodeSDS="所得税";String acodeGG="综合费用";
+
+
+
+
+       List<BigDecimal> list= new ArrayList<BigDecimal>();
+       list.add(new BigDecimal(0));
+
+       list.add(1,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX).get(0).getMoneyD());
+       list.add(2,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG).get(0).getMoneyD());
+       list.add(3,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG).get(0).getMoneyD());
+       list.add(4,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ).get(0).getMoneyD());
+       list.add(5,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS).get(0).getMoneyD());
+
+
+        return list;
+
+    }
+
+
+
 
 
 }

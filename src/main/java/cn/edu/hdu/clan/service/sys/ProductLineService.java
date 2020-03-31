@@ -31,10 +31,11 @@ public interface ProductLineService {
 
     void copyDataToNextPeriod(String userTeam ,int period ,int nextPeriod);
 
-    void getDepreciation(String userTeam,int period);//H 计提折旧
+    void getDepreciation(String userTeam,int period);//H 计提折旧和维修
 
     void voucherMakerOfDep(String userTeam,int period);//H 折旧记账
 
     void countNumberOfProductLines(String userTeam, int period);//H 数数生产线
 
+    void voucherMakerOfMT(String userTeam,int period);//H 维修记账
 }
