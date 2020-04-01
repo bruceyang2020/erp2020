@@ -447,6 +447,15 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             case "ZJFY":
                 voucherMakerBase(teamCount,period,"综合费用","折旧费用",amount,content);
                 break;
+                //H 应收账款贴现
+            case "YSZKTX":
+                voucherMakerBase(teamCount,period,"现金","应收账款",amount,content);
+                break;
+
+            case "YSZKTX2":
+                voucherMakerBase(teamCount,period,"财务支出","应收账款",amount,content);
+                break;
+
                 //H 利息费用结转
             case "LXFY":
                 voucherMakerBase(teamCount,period,"财务支出","现金",amount,content);

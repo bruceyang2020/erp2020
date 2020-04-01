@@ -42,6 +42,13 @@ public class Salepayment extends BaseBean {
      */
     private BigDecimal money;
 
+
+    /**
+     * 贴现金额
+     */
+    @Column(name = "amount")
+    private BigDecimal amount;
+
     /**
      * 累计账期
      */
@@ -186,6 +193,25 @@ public class Salepayment extends BaseBean {
     public void setMoney(BigDecimal money) {
         this.money = money;
     }
+
+    /**
+     * 获取金额
+     *
+     * @return amount - 贴现金额
+     */
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    /**
+     * 设置金额
+     *
+     * @param amount 金额
+     */
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
 
     /**
      * 获取累计账期
