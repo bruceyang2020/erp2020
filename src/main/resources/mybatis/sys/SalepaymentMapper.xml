@@ -13,6 +13,7 @@
     <result column="surplus_period" property="surplusPeriod" jdbcType="INTEGER" />
     <result column="sale_order_id" property="saleOrderId" jdbcType="INTEGER" />
     <result column="money" property="money" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
     <result column="pay_period" property="payPeriod" jdbcType="INTEGER" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />

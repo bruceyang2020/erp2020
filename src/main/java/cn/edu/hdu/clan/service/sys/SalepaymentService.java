@@ -4,6 +4,8 @@ import cn.edu.hdu.clan.entity.sys.Factory;
 import cn.edu.hdu.clan.entity.sys.OrderManagement;
 import cn.edu.hdu.clan.entity.sys.Salepayment;
 import com.github.pagehelper.PageInfo;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface SalepaymentService {
@@ -29,5 +31,5 @@ public interface SalepaymentService {
 
     List <Salepayment> listRec(String userTeam,int period);
 
-    void discountedMoney(int period, String teamCount,int amount);
+    void discountedMoney(int period, String teamCount, BigDecimal amount);
 }

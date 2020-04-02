@@ -35,19 +35,20 @@ $(document).ready(function () {
             for(var i=0; i<len;i++){
                 var surplusPeriod= data[i].surplusPeriod;
                 var money=data[i].money;
+                var amount=data[i].amount;
                 var moneySum1=0;var moneySum2=0;var moneySum3=0;var moneySum4=0;
                 switch (surplusPeriod) {
                     case 1:
-                        moneySum1=moneySum1+money;
+                        moneySum1=moneySum1+money-amount;
                         break;
                     case 2:
-                        moneySum2=moneySum2+money;
+                        moneySum2=moneySum2+money-amount;
                         break;
                     case 3:
-                        moneySum3=moneySum3+money;
+                        moneySum3=moneySum3+money-amount;
                         break;
                     case 4:
-                        moneySum4=moneySum4+money;
+                        moneySum4=moneySum4+money-amount;
                         break;
                 }
 
@@ -60,32 +61,22 @@ $(document).ready(function () {
     })
 
     //应收款贴现
-    $('#fin-1-ok').click(function() {
+    $('#fin-ok').click(function() {
 
-        var discountMoney = $('#cash-1').text();
+        var discountedAmount ={
+            amount: $('#cash-1').val()
+        };
+
+
         $.ajax({
             url: "/Salepayment/discountedMoney",
             type: "POST",
             dataType: "json",
             contentType: "application/json;charset=utf-8;",
-
-
+            data: JSON.stringify(discountedAmount),
+            success: function (data) {
+                alert("贴现成功");
+            }
         });
-
-        $('#fin-2-ok').click(function () {
-
-            var discountMoney = $('#cash2').text();
-        });
-
-        $('#fin-3-ok').click(function () {
-
-            var discountMoney = $('#cash-3').text();
-        });
-
-        $('#fin-4-ok').click(function () {
-
-            var discountMoney = $('#cash-4').text();
-        })
     })
-
 });

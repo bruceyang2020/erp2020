@@ -143,8 +143,11 @@ public class SalepaymentServiceImpl implements SalepaymentService {
                         accountingVoucherService.voucherMaker(userTeam,period, myMoney,"XSSK",number+"收款");
 
                     }
+                    oldRow.get(i).setSurplusPeriod(oldRow.get(i).getSurplusPeriod()-1);//H 剩余还款期减一
+                SalepaymentMapper.updateByPrimaryKey(oldRow.get(i));
             }
         }
+
     }
 
 
@@ -174,12 +177,46 @@ public class SalepaymentServiceImpl implements SalepaymentService {
             Example example = new Example(Salepayment.class);
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("teamCount", userTeam);
-            criteria.andEqualTo("period", period);
+            criteria.andEqualTo("state", 0);
             return SalepaymentMapper.selectByExample(example);
     }
 
     //H 应收款贴现
-    public void discountedMoney(int period, String teamCount,int amount){
+    public void discountedMoney(int period, String teamCount,BigDecimal amount){
+        Example example = new Example(Salepayment.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", teamCount);
+        criteria.andEqualTo("state", 0);
+        example.orderBy("surplusPeriod").desc().orderBy("amount").asc();
+        List<Salepayment> orderRow=SalepaymentMapper.selectByExample(example);
+        BigDecimal amountLeft=amount;
+
+        for(int i=0;i<orderRow.size();i++){
+            Salepayment myRow =orderRow.get(i);
+            BigDecimal moneyLeft=myRow.getMoney().subtract(myRow.getAmount());
+            /*if(myRow.getMoney().compareTo(myRow.getAmount())==1)*/
+                if(moneyLeft.compareTo(amountLeft)!=-1){
+
+                    myRow.setAmount(amountLeft.add(myRow.getAmount()));
+                    BaseBeanHelper.edit(myRow);
+                    SalepaymentMapper.updateByPrimaryKey(myRow);
+                }
+                else if(moneyLeft.compareTo(amountLeft)==-1){
+                    myRow.setAmount(myRow.getMoney());
+                    myRow.setState(1);
+                    BaseBeanHelper.edit(myRow);
+                    SalepaymentMapper.updateByPrimaryKey(myRow);
+                    amountLeft=amount.subtract(myRow.getMoney());
+                }
+
+        }
+
+
+
+    BigDecimal cash=amount.multiply(new BigDecimal(0.9)).setScale(0,BigDecimal.ROUND_DOWN); //贴息10%
+    BigDecimal financeCost=amount.subtract(cash);
+    accountingVoucherService.voucherMaker(teamCount, period,cash,"YSZKTX","应收账款贴现现金");
+    accountingVoucherService.voucherMaker(teamCount, period,financeCost,"YSZKTX2","应收账款贴现贴息");
 
     }
 }

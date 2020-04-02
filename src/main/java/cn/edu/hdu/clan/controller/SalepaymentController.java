@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 @RestController
@@ -52,10 +53,11 @@ public class SalepaymentController extends BaseController {
     }
 
 
-    @RequestMapping("discountMoney")
-    public String discountedMoney() {
+    @RequestMapping("discountedMoney")
+    public String discountedMoney(@RequestBody Map<String, Integer> discountedAmount) {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        SalepaymentService.discountedMoney(period,userTeam,new BigDecimal(discountedAmount.get("amount")));
         return success();
     }
 
