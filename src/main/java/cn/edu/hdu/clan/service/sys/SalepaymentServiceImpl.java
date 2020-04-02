@@ -144,6 +144,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
 
                     }
                     oldRow.get(i).setSurplusPeriod(oldRow.get(i).getSurplusPeriod()-1);//H 剩余还款期减一
+                SalepaymentMapper.updateByPrimaryKey(oldRow.get(i));
             }
         }
 
@@ -176,7 +177,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
             Example example = new Example(Salepayment.class);
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("teamCount", userTeam);
-            criteria.andEqualTo("period", period);
+            criteria.andEqualTo("state", 0);
             return SalepaymentMapper.selectByExample(example);
     }
 
@@ -185,27 +186,29 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         Example example = new Example(Salepayment.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", teamCount);
-        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("state", 0);
         example.orderBy("surplusPeriod").desc().orderBy("amount").asc();
         List<Salepayment> orderRow=SalepaymentMapper.selectByExample(example);
         BigDecimal amountLeft=amount;
 
         for(int i=0;i<orderRow.size();i++){
             Salepayment myRow =orderRow.get(i);
-            if(myRow.getMoney().compareTo(myRow.getAmount())==1){
-                if(myRow.getMoney().compareTo(amountLeft)!=-1){
-                    myRow.setAmount(amountLeft);
+            BigDecimal moneyLeft=myRow.getMoney().subtract(myRow.getAmount());
+            /*if(myRow.getMoney().compareTo(myRow.getAmount())==1)*/
+                if(moneyLeft.compareTo(amountLeft)!=-1){
+
+                    myRow.setAmount(amountLeft.add(myRow.getAmount()));
                     BaseBeanHelper.edit(myRow);
                     SalepaymentMapper.updateByPrimaryKey(myRow);
                 }
-                else if(myRow.getMoney().compareTo(amountLeft)==-1){
+                else if(moneyLeft.compareTo(amountLeft)==-1){
                     myRow.setAmount(myRow.getMoney());
                     myRow.setState(1);
                     BaseBeanHelper.edit(myRow);
                     SalepaymentMapper.updateByPrimaryKey(myRow);
                     amountLeft=amount.subtract(myRow.getMoney());
                 }
-            }
+
         }
 
 

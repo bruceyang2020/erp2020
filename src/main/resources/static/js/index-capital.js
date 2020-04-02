@@ -74,7 +74,7 @@ $(document).ready(function () {
             dataType: "json",
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(discountedAmount),
-            uccess: function (data) {
+            success: function (data) {
                 alert("贴现成功");
             }
         });
