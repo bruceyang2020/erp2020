@@ -93,7 +93,7 @@ public class IndexController extends BaseController {
      public String login_tologin() {
          return "login";}
 
-/*    @RequestMapping("/")
+  /*  @RequestMapping("/")
     public String login_tologin() {
         return "loginlab";}*/
 

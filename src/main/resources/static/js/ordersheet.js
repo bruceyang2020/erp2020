@@ -36,7 +36,7 @@ $(function(){
                             +"<td >"+data[i].isurgent+"</td>"
                             +"<td >"+data[i].iso+"</td>"
                             +"<td >"+"备选"+"</td>"
-                            +"<td ><button type='button' class='btn  btn-mini btn-select''  onclick=''>选择</button></td>"
+                            +"<td ><button type='button' class='btn  btn-mini btn-select  btn-p1'  onclick=''>选择</button></td>"
                             +"</tr>";
                     }
                     if(len==0){
@@ -48,7 +48,7 @@ $(function(){
                     //添加到div中
                     $("#listP1").html(tableStr);
 
-                    $("#listP1").delegate("button.btn-select", "click",
+                    $("#listP1").delegate("button.btn-p1", "click",
                         function(e) {
 
 
@@ -99,7 +99,7 @@ $(function(){
                             +"<td >"+data[i].isurgent+"</td>"
                             +"<td >"+data[i].iso+"</td>"
                             +"<td >"+"备选"+"</td>"
-                            +"<td ><button type='button' class='btn  btn-mini btn-select''  onclick=''>选择</button></td>"
+                            +"<td ><button type='button' class='btn  btn-mini btn-select btn-p2'  onclick=''>选择</button></td>"
                             +"</tr>";
                     }
                     if(len==0){
@@ -111,7 +111,7 @@ $(function(){
                     //添加到div中
                     $("#listP2").html(tableStr);
 
-                    $("#listP2").delegate("button.btn-select", "click",
+                    $("#listP2").delegate("button.btn-p2", "click",
                         function(e) {
                             var myOrderName = "xxx";
                             myOrderName = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -160,7 +160,7 @@ $(function(){
                             +"<td >"+data[i].isurgent+"</td>"
                             +"<td >"+data[i].iso+"</td>"
                             +"<td >"+"备选"+"</td>"
-                            +"<td ><button type='button' class='btn  btn-mini btn-select''  onclick=''>选择</button></td>"
+                            +"<td ><button type='button' class='btn  btn-mini btn-select btn-p3'  onclick=''>选择</button></td>"
                             +"</tr>";
                     }
                     if(len==0){
@@ -171,7 +171,7 @@ $(function(){
                     tableStr = tableStr + "</table>";
                     //添加到div中
                     $("#listP3").html(tableStr);
-                    $("#listP3").delegate("button.btn-select", "click",
+                    $("#listP3").delegate("button.btn-p3", "click",
                         function(e) {
                             var myOrderName = "xxx";
                             myOrderName = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -221,7 +221,7 @@ $(function(){
                             +"<td >"+data[i].isurgent+"</td>"
                             +"<td >"+data[i].iso+"</td>"
                             +"<td >"+"备选"+"</td>"
-                            +"<td ><button type='button' class='btn  btn-mini btn-select'  onclick=''>选择</button></td>"
+                            +"<td ><button type='button' class='btn  btn-mini btn-select btn-p4'  onclick=''>选择</button></td>"
                             +"</tr>";
                     }
                     if(len==0){
@@ -233,7 +233,7 @@ $(function(){
                     //添加到div中
                     $("#listP4").html(tableStr);
 
-                    $("#listP4").delegate("button.btn-select", "click",
+                    $("#listP4").delegate("button.btn-p4", "click",
                         function(e) {
                             var myOrderName = "xxx";
                             myOrderName = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
