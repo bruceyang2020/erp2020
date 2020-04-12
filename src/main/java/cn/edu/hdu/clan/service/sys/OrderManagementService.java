@@ -22,4 +22,7 @@ public interface OrderManagementService {
     List<OrderManagement> list(String productId);
 
     List<OrderManagement> listCurrentPeriodOrder();
-}
+
+    void deleteByTeamCount(String userTeam) ;
+
+    }

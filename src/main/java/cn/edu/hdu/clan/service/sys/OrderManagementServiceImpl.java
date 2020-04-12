@@ -29,6 +29,9 @@ public class OrderManagementServiceImpl implements OrderManagementService {
     @Resource
     private AccountingVoucherService accountingVoucherService;
 
+    @Resource
+    private InvService invService;
+
     @Transactional
     @Override
     public void add(OrderGroup  orderGroup) {
@@ -56,29 +59,37 @@ public class OrderManagementServiceImpl implements OrderManagementService {
     OrderManagementMapper.deleteByPrimaryKey(id);
     }
 
-
+    //H 出库
     @Override
     public void stockOut(String orderId) {
+
 
         Example example = new Example(OrderManagement.class);
         example.createCriteria().andEqualTo("orderId", orderId);
 
         OrderManagement myOrderManagement =  OrderManagementMapper.selectOneByExample(example);
-        myOrderManagement.setState(1);//将订单状态设置为0,表示已交付
-        OrderManagementMapper.updateByExampleSelective(myOrderManagement,example);
-
-        salepaymentService.addByOrderManagement(myOrderManagement);
 
         //全局变量 写入当前公司或小组ID
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         BigDecimal myMoney = myOrderManagement.getMoney();
 
+         BigDecimal myAmount = invService.amountByProductId(userTeam,period,myOrderManagement.getProductId());
+         //H 判断数量
+        if(myAmount.compareTo(myOrderManagement.getAmount())!=-1) {
+            myOrderManagement.setState(1);//将订单状态设置为0,表示已交付
+            OrderManagementMapper.updateByExampleSelective(myOrderManagement, example);
 
-        //自动生成交货的会计凭证
-        accountingVoucherService.voucherMaker(userTeam,period,myMoney,"JH",orderId);
+            //应收账款
+            salepaymentService.addByOrderManagement(myOrderManagement);
 
+            //产品出库
+            invService.stockOutToSale(userTeam, period, myOrderManagement.getProductId(), myOrderManagement.getAmount().intValue(), orderId + "销售");
 
+            //自动生成交货的会计凭证
+            accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JH", orderId);
+
+        }
 
     }
 
@@ -128,4 +139,13 @@ public class OrderManagementServiceImpl implements OrderManagementService {
     }
     public List<OrderManagement> list() {
         return OrderManagementMapper.selectAll();}
+
+    @Override
+    public void deleteByTeamCount(String userTeam) {
+        Example example = new Example(OrderManagement.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamId", userTeam);
+        OrderManagementMapper.deleteByExample(example);
+    }
+
 }

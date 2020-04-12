@@ -15,128 +15,158 @@
    </style>
     <script>
 
-        //市场订单下单，跟新订单数和材料数
-        $(function () {
-            initPageData();
 
-            });
 
-            //Y 提交广告费的操作。
-            $("#btn-reloade").click(function () {
-
+            //市场订单下单，跟新订单数和材料数
+            $(function () {
                 initPageData();
-            })
 
 
-            //Y 提交广告费的操作。
-            $("#btn-advertise").click(function () {
+                //Y 刷新。
+                $("#btn-reload").click(function () {
+                    initPageData();
 
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/OrderManagement/listCurrentPeriodOrder",
-                    contentType: "application/json;charset=utf-8;",
-                    data:JSON.stringify(adList),
-                    success: function (data) {
-                        var myrownumber = data['data'].length;
-                        if(myrownumber != null && myrownumber > 0)
-                        {
+                })
 
-                            alert("已存在本期的选单，广告费不可修改。");
-                            return;
+
+                //Y 提交广告费的操作。
+                $("#btn-advertise").click(function () {
+
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "/OrderManagement/listCurrentPeriodOrder",
+                        contentType: "application/json;charset=utf-8;",
+                        data: JSON.stringify(adList),
+                        success: function (data) {
+                            var myrownumber = data['data'].length;
+                            if (myrownumber != null && myrownumber > 0) {
+
+                                alert("已存在本期的选单，广告费不可修改。");
+                                return;
+                            }
+
+
                         }
+                    });
 
-
+                    var adList = new Array();   //广告费
+                    var var1 = $("#bd-p1").val();
+                    console.log(var1);
+                    if (var1 != "") {
+                        adList.push({productId: "P1", marketId: "本地", moneyI: var1});
                     }
+                    var var2 = $("#qy-p1").val();
+                    console.log(var2);
+                    if (var2 != "") {
+                        adList.push({productId: "P1", marketId: "区域", moneyI: var2});
+                    }
+                    var var3 = $("#gl-p1").val();
+                    if (var3 != "") {
+                        adList.push({productId: "P1", marketId: "国内", moneyI: var3});
+                    }
+                    var var4 = $("#yz-p1").val();
+                    if (var4 != "") {
+                        adList.push({productId: "P1", marketId: "亚洲", moneyI: var4});
+                    }
+                    var var5 = $("#gj-p1").val();
+                    if (var5 != "") {
+                        adList.push({productId: "P1", marketId: "国际", moneyI: var5});
+                    }
+                    var var6 = $("#bd-p2").val();
+                    if (var6 != "") {
+                        adList.push({productId: "P2", marketId: "本地", moneyI: var6});
+                    }
+                    var var7 = $("#qy-p3").val();
+                    if (var7 != "") {
+                        adList.push({productId: "P2", marketId: "区域", moneyI: var7});
+                    }
+                    var var8 = $("#gl-p2").val();
+                    if (var8 != "") {
+                        adList.push({productId: "P2", marketId: "国内", moneyI: var8});
+                    }
+                    var var9 = $("#yz-p2").val();
+                    if (var9 != "") {
+                        adList.push({productId: "P2", marketId: "亚洲", moneyI: var9});
+                    }
+                    var var10 = $("#gj-p2").val();
+                    if (var10 != "") {
+                        adList.push({productId: "P2", marketId: "国际", moneyI: var10});
+                    }
+                    var var11 = $("#bd-p3").val();
+                    if (var11 != "") {
+                        adList.push({productId: "P3", marketId: "本地", moneyI: var11});
+                    }
+                    var var12 = $("#qy-p3").val();
+                    if (var12 != "") {
+                        adList.push({productId: "P3", marketId: "区域", moneyI: var12});
+                    }
+                    var var13 = $("#gl-p3").val();
+                    if (var13 != "") {
+                        adList.push({productId: "P3", marketId: "国内", moneyI: var13});
+                    }
+                    var var14 = $("#yz-p3").val();
+                    if (var14 != "") {
+                        adList.push({productId: "P3", marketId: "亚洲", moneyI: var14});
+                    }
+                    var var15 = $("#gj-p3").val();
+                    if (var15 != "") {
+                        adList.push({productId: "P3", marketId: "国际", moneyI: var15});
+                    }
+                    var var16 = $("#bd-p4").val();
+                    if (var16 != "") {
+                        adList.push({productId: "P4", marketId: "本地", moneyI: var16});
+                    }
+                    var var17 = $("#qy-p4").val();
+                    if (var17 != "") {
+                        adList.push({productId: "P4", marketId: "区域", moneyI: var17});
+                    }
+                    var var18 = $("#gl-p4").val();
+                    if (var18 != "") {
+                        adList.push({productId: "P4", marketId: "国内", moneyI: var18});
+                    }
+                    var var19 = $("#yz-p4").val();
+                    if (var19 != "") {
+                        adList.push({productId: "P4", marketId: "亚洲", moneyI: var19});
+                    }
+                    var var20 = $("#gj-p4").val();
+                    if (var20 != "") {
+                        adList.push({productId: "P4", marketId: "国际", moneyI: var20});
+                    }
+
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "/Advertise/addList",
+                        contentType: "application/json;charset=utf-8;",
+                        data: JSON.stringify(adList),
+                        success: function (data) {
+                            alert("保存成功");
+
+                        }
+                    })
                 })
 
 
-                var adList = new Array();
-                var var1= $("#bd-p1").val();
-                console.log(var1);
-                if(var1 != "")
-                {   adList.push({ productId:"P1",marketId:"本地",moneyI: var1});}
-                var var2= $("#qy-p1").val();
-                console.log(var2);
-                if(var2 != "")
-                {   adList.push({ productId:"P1",marketId:"区域",moneyI: var2});}
-                var var3= $("#gl-p1").val();
-                if(var3 != "")
-                {   adList.push({ productId:"P1",marketId:"国内",moneyI: var3});}
-                var var4= $("#yz-p1").val();
-                if(var4 != "")
-                {   adList.push({ productId:"P1",marketId:"亚洲",moneyI: var4});}
-                var var5= $("#gj-p1").val();
-                if(var5 != "")
-                {   adList.push({ productId:"P1",marketId:"国际",moneyI: var5});}
-                var var6= $("#bd-p2").val();
-                if(var6 != "")
-                {   adList.push({ productId:"P2",marketId:"本地",moneyI: var6});}
-                var var7= $("#qy-p3").val();
-                if(var7 != "")
-                {   adList.push({ productId:"P2",marketId:"区域",moneyI: var7});}
-                var var8= $("#gl-p2").val();
-                if(var8 != "")
-                {   adList.push({ productId:"P2",marketId:"国内",moneyI: var8});}
-                var var9= $("#yz-p2").val();
-                if(var9 != "")
-                {   adList.push({ productId:"P2",marketId:"亚洲",moneyI: var9});}
-                var var10= $("#gj-p2").val();
-                if(var10 != "")
-                {   adList.push({ productId:"P2",marketId:"国际",moneyI: var10});}
-                var var11= $("#bd-p3").val();
-                if(var11 != "")
-                {   adList.push({ productId:"P3",marketId:"本地",moneyI: var11});}
-                var var12= $("#qy-p3").val();
-                if(var12 != "")
-                {   adList.push({ productId:"P3",marketId:"区域",moneyI: var12});}
-                var var13= $("#gl-p3").val();
-                if(var13 != "")
-                {   adList.push({ productId:"P3",marketId:"国内",moneyI: var13});}
-                var var14= $("#yz-p3").val();
-                if(var14 != "")
-                {   adList.push({ productId:"P3",marketId:"亚洲",moneyI: var14});}
-                var var15= $("#gj-p3").val();
-                if(var15 != "")
-                {   adList.push({ productId:"P3",marketId:"国际",moneyI: var15});}
-                var var16= $("#bd-p4").val();
-                if(var16 != "")
-                {   adList.push({ productId:"P4",marketId:"本地",moneyI: var16});}
-                var var17= $("#qy-p4").val();
-                if(var17 != "")
-                {   adList.push({ productId:"P4",marketId:"区域",moneyI: var17});}
-                var var18= $("#gl-p4").val();
-                if(var18 != "")
-                {   adList.push({ productId:"P4",marketId:"国内",moneyI: var18});}
-                var var19= $("#yz-p4").val();
-                if(var19!= "")
-                {   adList.push({ productId:"P4",marketId:"亚洲",moneyI: var19});}
-                var var20= $("#gj-p4").val();
-                if(var20 != "")
-                {   adList.push({ productId:"P4",marketId:"国际",moneyI: var20});}
+                    //Y  当输入框的内容发生变化时，统计合计金额
+                    $("#main-table").on('input propertychange', function()
+                    {
+                        SumMoney();
 
 
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/Advertise/addList",
-                    contentType: "application/json;charset=utf-8;",
-                    data:JSON.stringify(adList),
-                    success: function (data) {
-                        alert("保存成功");
+                    })
 
-                    }
-                })
-            })
+                });
 
 
-            //Y  当输入框的内容发生变化时，统计合计金额
-            $("#main-table").on('input propertychange', function()
-            {
-                SumMoney();
 
 
-            })
+
+
+
+
+
+
 
             function SumMoney() {
                 //定义一个变量并附初始值。
@@ -154,12 +184,12 @@
             }
 
             function initPageData() {
-                var mdata  ="";  //已开发市场
-                var pdata  =""; //已研发产品
+                var mdata = "";  //已开发市场
+                var pdata = ""; //已研发产品
 
                 var inputs = $("input");
-                inputs.each(function(){
-                    $(this).attr({"readonly":"readonly"});  //将所有的填写单元格锁定
+                inputs.each(function () {
+                    $(this).attr({"readonly": "readonly"});  //将所有的填写单元格锁定
                 });
 
 
@@ -184,57 +214,77 @@
 
                                 console.log(mdata);
                                 console.log(pdata);
-                                for ( var i = 0; i < mdata.length; i++) {
+                                for (var i = 0; i < mdata.length; i++) {
                                     console.log(mdata[i].marketId);
 
-                                    for ( var j = 0; j < pdata.length; j++) {
+                                    for (var j = 0; j < pdata.length; j++) {
                                         console.log(pdata[j].productId);
-                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "本地")
-                                        {  $("#bd-p1").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "本地")
-                                        {  $("#bd-p2").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "本地")
-                                        {  $("#bd-p3").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "本地")
-                                        {  $("#bd-p4").removeAttr("readonly");}
+                                        if (pdata[j].productId == "P1" && mdata[i].marketId == "本地") {
+                                            $("#bd-p1").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P2" && mdata[i].marketId == "本地") {
+                                            $("#bd-p2").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P3" && mdata[i].marketId == "本地") {
+                                            $("#bd-p3").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P4" && mdata[i].marketId == "本地") {
+                                            $("#bd-p4").removeAttr("readonly");
+                                        }
 
-                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "区域")
-                                        {  $("#qy-p1").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "区域")
-                                        {  $("#qy-p2").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "区域")
-                                        {  $("#qy-p3").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "区域")
-                                        {  $("#qy-p4").removeAttr("readonly");}
+                                        if (pdata[j].productId == "P1" && mdata[i].marketId == "区域") {
+                                            $("#qy-p1").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P2" && mdata[i].marketId == "区域") {
+                                            $("#qy-p2").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P3" && mdata[i].marketId == "区域") {
+                                            $("#qy-p3").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P4" && mdata[i].marketId == "区域") {
+                                            $("#qy-p4").removeAttr("readonly");
+                                        }
 
-                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "国内")
-                                        {  $("#gl-p1").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "国内")
-                                        {  $("#gl-p2").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "国内")
-                                        {  $("#gl-p3").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "国内")
-                                        {  $("#gl-p4").removeAttr("readonly");}
-
-
-                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "亚洲")
-                                        {  $("#yz-p1").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "亚洲")
-                                        {  $("#yz-p2").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "亚洲")
-                                        {  $("#yz-p3").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "亚洲")
-                                        {  $("#yz-p4").removeAttr("readonly");}
+                                        if (pdata[j].productId == "P1" && mdata[i].marketId == "国内") {
+                                            $("#gl-p1").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P2" && mdata[i].marketId == "国内") {
+                                            $("#gl-p2").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P3" && mdata[i].marketId == "国内") {
+                                            $("#gl-p3").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P4" && mdata[i].marketId == "国内") {
+                                            $("#gl-p4").removeAttr("readonly");
+                                        }
 
 
-                                        if(pdata[j].productId == "P1" && mdata[i].marketId == "国际")
-                                        {  $("#gj-p1").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P2" && mdata[i].marketId == "国际")
-                                        {  $("#gj-p2").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P3" && mdata[i].marketId == "国际")
-                                        {  $("#gj-p3").removeAttr("readonly");}
-                                        if(pdata[j].productId == "P4" && mdata[i].marketId == "国际")
-                                        {  $("#gj-p4").removeAttr("readonly");}
+                                        if (pdata[j].productId == "P1" && mdata[i].marketId == "亚洲") {
+                                            $("#yz-p1").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P2" && mdata[i].marketId == "亚洲") {
+                                            $("#yz-p2").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P3" && mdata[i].marketId == "亚洲") {
+                                            $("#yz-p3").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P4" && mdata[i].marketId == "亚洲") {
+                                            $("#yz-p4").removeAttr("readonly");
+                                        }
+
+
+                                        if (pdata[j].productId == "P1" && mdata[i].marketId == "国际") {
+                                            $("#gj-p1").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P2" && mdata[i].marketId == "国际") {
+                                            $("#gj-p2").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P3" && mdata[i].marketId == "国际") {
+                                            $("#gj-p3").removeAttr("readonly");
+                                        }
+                                        if (pdata[j].productId == "P4" && mdata[i].marketId == "国际") {
+                                            $("#gj-p4").removeAttr("readonly");
+                                        }
 
                                     }
                                 }
@@ -247,11 +297,6 @@
                 });
 
 
-
-
-
-
-
                 //Y 显示广告费。
                 $.ajax({
                     type: "get",
@@ -261,67 +306,83 @@
                     success: function (data) {
                         data = data['data'];
                         console.log(data);
-                        $.each(data,function(n,value){
-                            if(value.productId == "P1" && value.marketId == "本地")
-                            {  $("#bd-p1").val(value.moneyI);}
-                            if(value.productId == "P2" && value.marketId == "本地")
-                            {  $("#bd-p2").val(value.moneyI);}
-                            if(value.productId == "P3" && value.marketId == "本地")
-                            {  $("#bd-p3").val(value.moneyI);}
-                            if(value.productId == "P4" && value.marketId == "本地")
-                            {  $("#bd-p4").val(value.moneyI);}
+                        $.each(data, function (n, value) {
+                            if (value.productId == "P1" && value.marketId == "本地") {
+                                $("#bd-p1").val(value.moneyI);
+                            }
+                            if (value.productId == "P2" && value.marketId == "本地") {
+                                $("#bd-p2").val(value.moneyI);
+                            }
+                            if (value.productId == "P3" && value.marketId == "本地") {
+                                $("#bd-p3").val(value.moneyI);
+                            }
+                            if (value.productId == "P4" && value.marketId == "本地") {
+                                $("#bd-p4").val(value.moneyI);
+                            }
 
-                            if(value.productId == "P1" && value.marketId == "区域")
-                            {  $("#qy-p1").val(value.moneyI);}
-                            if(value.productId == "P2" && value.marketId == "区域")
-                            {  $("#qy-p2").val(value.moneyI);}
-                            if(value.productId == "P3" && value.marketId == "区域")
-                            {  $("#qy-p3").val(value.moneyI);}
-                            if(value.productId == "P4" && value.marketId == "区域")
-                            {  $("#qy-p4").val(value.moneyI);}
+                            if (value.productId == "P1" && value.marketId == "区域") {
+                                $("#qy-p1").val(value.moneyI);
+                            }
+                            if (value.productId == "P2" && value.marketId == "区域") {
+                                $("#qy-p2").val(value.moneyI);
+                            }
+                            if (value.productId == "P3" && value.marketId == "区域") {
+                                $("#qy-p3").val(value.moneyI);
+                            }
+                            if (value.productId == "P4" && value.marketId == "区域") {
+                                $("#qy-p4").val(value.moneyI);
+                            }
 
-                            if(value.productId == "P1" && value.marketId == "国内")
-                            {  $("#gl-p1").val(value.moneyI);}
-                            if(value.productId == "P2" && value.marketId == "国内")
-                            {  $("#gl-p2").val(value.moneyI);}
-                            if(value.productId == "P3" && value.marketId == "国内")
-                            {  $("#gl-p3").val(value.moneyI);}
-                            if(value.productId == "P4" && value.marketId == "国内")
-                            {  $("#gl-p4").val(value.moneyI);}
-
-
-                            if(value.productId == "P1" && value.marketId == "亚洲")
-                            {  $("#yz-p1").val(value.moneyI);}
-                            if(value.productId == "P2" && value.marketId == "亚洲")
-                            {  $("#yz-p2").val(value.moneyI);}
-                            if(value.productId == "P3" && value.marketId == "亚洲")
-                            {  $("#yz-p3").val(value.moneyI);}
-                            if(value.productId == "P4" && value.marketId == "亚洲")
-                            {  $("#yz-p4").val(value.moneyI);}
+                            if (value.productId == "P1" && value.marketId == "国内") {
+                                $("#gl-p1").val(value.moneyI);
+                            }
+                            if (value.productId == "P2" && value.marketId == "国内") {
+                                $("#gl-p2").val(value.moneyI);
+                            }
+                            if (value.productId == "P3" && value.marketId == "国内") {
+                                $("#gl-p3").val(value.moneyI);
+                            }
+                            if (value.productId == "P4" && value.marketId == "国内") {
+                                $("#gl-p4").val(value.moneyI);
+                            }
 
 
-                            if(value.productId == "P1" && value.marketId == "国际")
-                            {  $("#gj-p1").val(value.moneyI);}
-                            if(value.productId == "P2" && value.marketId == "国际")
-                            {  $("#gj-p2").val(value.moneyI);}
-                            if(value.productId == "P3" && value.marketId == "国际")
-                            {  $("#gj-p3").val(value.moneyI);}
-                            if(value.productId == "P4" && value.marketId == "国际")
-                            {  $("#gj-p4").val(value.moneyI);}
+                            if (value.productId == "P1" && value.marketId == "亚洲") {
+                                $("#yz-p1").val(value.moneyI);
+                            }
+                            if (value.productId == "P2" && value.marketId == "亚洲") {
+                                $("#yz-p2").val(value.moneyI);
+                            }
+                            if (value.productId == "P3" && value.marketId == "亚洲") {
+                                $("#yz-p3").val(value.moneyI);
+                            }
+                            if (value.productId == "P4" && value.marketId == "亚洲") {
+                                $("#yz-p4").val(value.moneyI);
+                            }
+
+
+                            if (value.productId == "P1" && value.marketId == "国际") {
+                                $("#gj-p1").val(value.moneyI);
+                            }
+                            if (value.productId == "P2" && value.marketId == "国际") {
+                                $("#gj-p2").val(value.moneyI);
+                            }
+                            if (value.productId == "P3" && value.marketId == "国际") {
+                                $("#gj-p3").val(value.moneyI);
+                            }
+                            if (value.productId == "P4" && value.marketId == "国际") {
+                                $("#gj-p4").val(value.moneyI);
+                            }
 
                         });
 
 
                         SumMoney();
                     }
-            })
+                })
 
+            }
 
-
-
-
-
-        }
     </script>
 
 </head>

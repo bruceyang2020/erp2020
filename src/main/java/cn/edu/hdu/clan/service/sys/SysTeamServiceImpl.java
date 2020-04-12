@@ -62,6 +62,9 @@ public class SysTeamServiceImpl implements SysTeamService {
     @Resource
     private MarketFeeService marketFeeService;
 
+    @Resource
+    private OrderManagementService orderManagementService;
+
 
 
 
@@ -145,6 +148,9 @@ public class SysTeamServiceImpl implements SysTeamService {
 
         //清空高利贷
         usuryService.deleteByTeamCount(userTeam);
+
+        //H 清空订单
+        orderManagementService.deleteByTeamCount(userTeam);
 
         //Y  清空广告费列表
         advertiseService.deleteByTeamCount(userTeam);

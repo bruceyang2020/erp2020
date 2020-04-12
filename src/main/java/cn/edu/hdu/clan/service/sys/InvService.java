@@ -2,6 +2,8 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.Inv;
 import com.github.pagehelper.PageInfo;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface InvService {
@@ -29,4 +31,6 @@ public interface InvService {
     Inv getById(String id);
 
     void goToPeriod(String userTeam,int period);// H 原材料结转和入库
+
+    BigDecimal amountByProductId(String userTeam, int period, String productId);
 }

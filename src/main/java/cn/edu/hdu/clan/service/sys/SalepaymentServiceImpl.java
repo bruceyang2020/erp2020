@@ -78,6 +78,8 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         mySalePayment.setPeriod(period);
         mySalePayment.setNumber(OrderManagement.getOrderId());
         mySalePayment.setSaleOrderId(OrderManagement.getOrderId());
+        mySalePayment.setAmount(BigDecimal.valueOf(0));
+        mySalePayment.setSurplusPeriod(OrderManagement.getPeriodPay());
         mySalePayment.setMoney(OrderManagement.getMoney());
         mySalePayment.setPayPeriod(OrderManagement.getPeriodPay());
         mySalePayment.setState(0); //设置当前收款单的状态为0,表示没有收款（结算）

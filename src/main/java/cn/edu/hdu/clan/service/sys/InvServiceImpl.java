@@ -8,6 +8,7 @@ import cn.edu.hdu.clan.mapper.sys.InvMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.sun.org.apache.bcel.internal.generic.NEW;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -337,14 +338,14 @@ public class InvServiceImpl implements InvService {
         Inv inv = InvMapper.selectOneByExample(example);
         BigDecimal amountOut = inv.getAmountO();
         BigDecimal moneyOut = inv.getMoneyO();
-        inv.setAmountO(amountOut.subtract(new BigDecimal(amount)));
-        inv.setMoneyO(moneyOut.subtract(new BigDecimal(amount)));
+        BigDecimal money=new BigDecimal(amount).multiply(inv.getCost());
+        inv.setAmountO(amountOut.add(new BigDecimal(amount)));
+        inv.setMoneyO(moneyOut.add(money));
         BaseBeanHelper.edit(inv);
         InvMapper.updateByPrimaryKey(inv);
 
-
         //自动生成出库对应应的会计凭证:借直接成本 贷成品
-        accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal(amount), "XSCK", content);
+        accountingVoucherService.voucherMaker(userTeam, period, money, "XSCK", content);
 
 
     }
@@ -357,6 +358,24 @@ public class InvServiceImpl implements InvService {
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period);
         return InvMapper.selectByExample(example);
+    }
+
+    @Override
+    public BigDecimal amountByProductId(String userTeam, int period, String productId) {
+
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("number",productId);
+        Inv myRow=InvMapper.selectOneByExample(example);
+        BigDecimal amount=BigDecimal.valueOf(0);
+        if(myRow!=null){
+        amount=myRow.getAmountB().add(myRow.getAmountI()).subtract(myRow.getAmountO());
+        }
+        return amount;
+
+
     }
 
 

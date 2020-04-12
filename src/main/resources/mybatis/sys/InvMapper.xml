@@ -16,6 +16,7 @@
     <result column="money_l" property="moneyL" jdbcType="DECIMAL" />
     <result column="amount_o" property="amountO" jdbcType="DECIMAL" />
     <result column="money_o" property="moneyO" jdbcType="DECIMAL" />
+    <result column="cost" property="cost" jdbcType="DECIMAL" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="edit_user" property="editUser" jdbcType="VARCHAR" />

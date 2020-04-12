@@ -10,7 +10,8 @@
     <result column="team_id" property="teamId" jdbcType="INTEGER" />
     <result column="order_id" property="orderId" jdbcType="INTEGER" />
     <result column="period" property="period" jdbcType="INTEGER" />
-    <result column="product_id" property="productId" jdbcType="INTEGER" />
+    <result column="market_id" property="marketId" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
     <result column="amount" property="amount" jdbcType="DECIMAL" />
     <result column="money" property="money" jdbcType="DECIMAL" />
     <result column="type" property="type" jdbcType="INTEGER" />

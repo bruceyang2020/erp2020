@@ -62,6 +62,13 @@ public class Inv extends BaseBean {
     private BigDecimal moneyO;
 
     /**
+     * 成本
+     */
+    @Column(name = "cost")
+    private BigDecimal cost;
+
+
+    /**
      * 创建人外键用户表
      */
     @Column(name = "create_user")
@@ -258,6 +265,25 @@ public class Inv extends BaseBean {
     public void setMoneyO(BigDecimal moneyO) {
         this.moneyO = moneyO;
     }
+
+    /**
+     * 获取成本
+     *
+     * @return cost - 成本
+     */
+    public BigDecimal getCost() {
+        return cost;
+    }
+
+    /**
+     * 设置期初数量
+     *
+     * @param cost
+     */
+    public void setCost(BigDecimal cost) {
+        this.cost = cost;
+    }
+
 
     /**
      * 获取创建人外键用户表
