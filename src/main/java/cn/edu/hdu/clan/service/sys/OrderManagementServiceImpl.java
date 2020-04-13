@@ -39,6 +39,19 @@ public class OrderManagementServiceImpl implements OrderManagementService {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
+        //H 删除当前相同订单Id的记录
+        Example example = new Example(OrderManagement.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamId",userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("orderId",orderGroup.getOrderId());
+        List<OrderManagement> oldRow = OrderManagementMapper.selectByExample(example);
+        if(oldRow.size() > 0)
+        {
+            OrderManagementMapper.deleteByExample(example);
+        }
+
+
         OrderManagement orderManagement = new OrderManagement();
         orderManagement.setGroupId("1000");
         orderManagement.setTeamId(userTeam);
