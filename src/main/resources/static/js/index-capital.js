@@ -32,17 +32,22 @@ $(document).ready(function () {
         success: function (data) {
             data = data['data'];
             var len = data.length;
+            var moneySum1=0;var moneySum2=0;var moneySum3=0;var moneySum4=0;
+
             for(var i=0; i<len;i++){
+                console.log(i+"???????????????????????????");
                 var surplusPeriod= data[i].surplusPeriod;
                 var money=data[i].money;
                 var amount=data[i].amount;
-                var moneySum1=0;var moneySum2=0;var moneySum3=0;var moneySum4=0;
+                console.log(surplusPeriod);
                 switch (surplusPeriod) {
                     case 1:
                         moneySum1=moneySum1+money-amount;
+                        console.log(moneySum1);
                         break;
                     case 2:
                         moneySum2=moneySum2+money-amount;
+                        console.log(moneySum2);
                         break;
                     case 3:
                         moneySum3=moneySum3+money-amount;

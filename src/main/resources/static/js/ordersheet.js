@@ -20,7 +20,7 @@ $(function(){
                 success:function(data){
                     data = data['data'];
                     console.log(data);
-                    var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
+                    var tableStr = "<table border='0' cellspacing=' ' cellpadding=' '>";
                     tableStr = tableStr
                         + "<tr>"
                         +"<td >编号</td>" +"<td >市场</td>" +"<td >数量</td>" +"<td >金额</td>" +"<td >账期</td>" +"<td >加急</td>"+"<td >认证</td>"+"<td >状态</td>"

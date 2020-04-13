@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.*;
 
+import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -19,6 +21,9 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
     @Autowired
     private AdvertiseMapper AdvertiseMapper;
+
+    @Resource
+    AccountingVoucherService accountingVoucherService;
 
     @Transactional
     @Override
@@ -68,14 +73,14 @@ public class AdvertiseServiceImpl implements AdvertiseService {
         {
             AdvertiseMapper.deleteByExample(example);
         }
-
+        BigDecimal moneyTotal=BigDecimal.valueOf(0);
         for(int i=0;i< Advertises.size();i++)
         {
             //补充相关字段的取值
             Advertises.get(i).setTeamCount(userTeam);
             Advertises.get(i).setGroupId("1000");
             Advertises.get(i).setPeriod(period);
-
+            moneyTotal=moneyTotal.add(Advertises.get(i).getMoneyI());
 
             //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
             BaseBeanHelper.insert(Advertises.get(i));
@@ -83,6 +88,8 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
 
         }
+        accountingVoucherService.voucherMaker(userTeam,period,moneyTotal,"GGF","本期广告费合计");
+
 
     }
 
