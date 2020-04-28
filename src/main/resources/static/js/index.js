@@ -262,8 +262,8 @@ $(document).ready(function () {
     });
     $('#ok-tomarketing').click(function () {
 
-        $('.pop-advertise').hide();
-        $('.pop-marketing').show();
+        $('.pop-advertise').hide(); //广告页面关闭
+        $('.pop-marketing').show(); //市场订单页面打开
 
 
     });

@@ -45,8 +45,6 @@ public class OrderGroupController extends BaseController {
     public String list(@RequestBody Map<String,String> param) {
         List<OrderGroup> myList = OrderGroupService.list(param.get("productId"));
         List<Map<String,String>> datas = new ArrayList<Map<String, String>>();
-
-
         return success(OrderGroupService.list(param.get("productId")));
     }
 

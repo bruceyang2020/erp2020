@@ -192,6 +192,8 @@
                     $(this).attr({"readonly": "readonly"});  //将所有的填写单元格锁定
                 });
 
+                $("#bd-p1").removeAttr("readonly");  //Y  本地P1默认就是已开发完成的。
+
 
                 //Y 根据产品研发及市场研发的数据，对广告费的填写单元构进行锁定或解锁。
                 $.ajax({
@@ -219,9 +221,9 @@
 
                                     for (var j = 0; j < pdata.length; j++) {
                                         console.log(pdata[j].productId);
-                                        if (pdata[j].productId == "P1" && mdata[i].marketId == "本地") {
+                                      /*  if (pdata[j].productId == "P1" && mdata[i].marketId == "本地") {
                                             $("#bd-p1").removeAttr("readonly");
-                                        }
+                                        }*/
                                         if (pdata[j].productId == "P2" && mdata[i].marketId == "本地") {
                                             $("#bd-p2").removeAttr("readonly");
                                         }
@@ -359,7 +361,6 @@
                             if (value.productId == "P4" && value.marketId == "亚洲") {
                                 $("#yz-p4").val(value.moneyI);
                             }
-
 
                             if (value.productId == "P1" && value.marketId == "国际") {
                                 $("#gj-p1").val(value.moneyI);
