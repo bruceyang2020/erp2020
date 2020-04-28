@@ -1,9 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
-import cn.edu.hdu.clan.entity.sys.Advertise;
-import cn.edu.hdu.clan.entity.sys.IsoFee;
-import cn.edu.hdu.clan.entity.sys.OrderGroup;
-import cn.edu.hdu.clan.entity.sys.OrderManagement;
+import cn.edu.hdu.clan.entity.sys.*;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.OrderGroupMapper;
 import cn.edu.hdu.clan.util.Jurisdiction;
@@ -16,6 +13,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class OrderGroupServiceImpl implements OrderGroupService {
@@ -31,6 +29,9 @@ public class OrderGroupServiceImpl implements OrderGroupService {
 
     @Resource
     private  IsoFeeService isoFeeService;
+
+    @Resource
+    private  MarketFeeService marketFeeService;
 
     @Transactional
     @Override
@@ -54,13 +55,25 @@ public class OrderGroupServiceImpl implements OrderGroupService {
 
     @Override
     public List<OrderGroup> list(String productId) {
+        //Y 按照广告费所在的市场，输出备选的订单列表
+
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        List<Advertise> advertises = advertiseService.getByUserTeamAndPeriod(userTeam,period);
+        List<String> values=new ArrayList<String>();
+        for(int i =1 ;i< advertises.size(); i++)
+        {
+           values.add(advertises.get(i).getMarketId());
+        }
+
 
         //全局变量 写入当前公司或小组ID
-        int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+
         Example example = new Example(OrderGroup.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("productId", productId);
-        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("period", period);  //当前会计期间
+        criteria.andIn("marketId",values); //当前市场
 
         return OrderGroupMapper.selectByExample(example);
     }
