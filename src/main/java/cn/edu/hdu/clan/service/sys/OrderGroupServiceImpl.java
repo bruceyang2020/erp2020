@@ -60,11 +60,15 @@ public class OrderGroupServiceImpl implements OrderGroupService {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         List<Advertise> advertises = advertiseService.getByUserTeamAndPeriod(userTeam,period);
+
+        //Y 定义一个字符串数组，把已投放广告的市场，逐一写入。
         List<String> values=new ArrayList<String>();
         for(int i =1 ;i< advertises.size(); i++)
         {
            values.add(advertises.get(i).getMarketId());
         }
+        //Y 本地市场已开拓完成。这样的硬编码实在不可以取。要考虑在数据库中初始化设计来解决。
+        values.add("本地");
 
 
         //全局变量 写入当前公司或小组ID
@@ -73,7 +77,7 @@ public class OrderGroupServiceImpl implements OrderGroupService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("productId", productId);
         criteria.andEqualTo("period", period);  //当前会计期间
-        criteria.andIn("marketId",values); //当前市场
+        criteria.andIn("marketId",values); //使用in方法，当前已完成开拓的市场
 
         return OrderGroupMapper.selectByExample(example);
     }

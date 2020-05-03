@@ -193,6 +193,8 @@
                 });
 
                 $("#bd-p1").removeAttr("readonly");  //Y  本地P1默认就是已开发完成的。
+                $("#bd-p1").css('background-color','#BFEFFF'); //Y把背景色改成浅蓝色，用于标识可填写项
+
 
 
                 //Y 根据产品研发及市场研发的数据，对广告费的填写单元构进行锁定或解锁。
@@ -226,66 +228,85 @@
                                         }*/
                                         if (pdata[j].productId == "P2" && mdata[i].marketId == "本地") {
                                             $("#bd-p2").removeAttr("readonly");
+                                            $("#bd-p1").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P3" && mdata[i].marketId == "本地") {
                                             $("#bd-p3").removeAttr("readonly");
+                                            $("#bd-p3").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P4" && mdata[i].marketId == "本地") {
                                             $("#bd-p4").removeAttr("readonly");
+                                            $("#bd-p4").css('background-color','#BFEFFF');
                                         }
 
                                         if (pdata[j].productId == "P1" && mdata[i].marketId == "区域") {
                                             $("#qy-p1").removeAttr("readonly");
+                                            $("#qy-p1").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P2" && mdata[i].marketId == "区域") {
                                             $("#qy-p2").removeAttr("readonly");
+                                            $("#qy-p2").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P3" && mdata[i].marketId == "区域") {
                                             $("#qy-p3").removeAttr("readonly");
+                                            $("#qy-p3").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P4" && mdata[i].marketId == "区域") {
                                             $("#qy-p4").removeAttr("readonly");
+                                            $("#qy-p4").css('background-color','#BFEFFF');
                                         }
 
                                         if (pdata[j].productId == "P1" && mdata[i].marketId == "国内") {
                                             $("#gl-p1").removeAttr("readonly");
+                                            $("#gl-p1").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P2" && mdata[i].marketId == "国内") {
                                             $("#gl-p2").removeAttr("readonly");
+                                            $("#gl-p2").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P3" && mdata[i].marketId == "国内") {
                                             $("#gl-p3").removeAttr("readonly");
+                                            $("#gl-p3").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P4" && mdata[i].marketId == "国内") {
                                             $("#gl-p4").removeAttr("readonly");
+                                            $("#gl-p4").css('background-color','#BFEFFF');
                                         }
 
 
                                         if (pdata[j].productId == "P1" && mdata[i].marketId == "亚洲") {
                                             $("#yz-p1").removeAttr("readonly");
+                                            $("#yz-p1").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P2" && mdata[i].marketId == "亚洲") {
                                             $("#yz-p2").removeAttr("readonly");
+                                            $("#yz-p2").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P3" && mdata[i].marketId == "亚洲") {
                                             $("#yz-p3").removeAttr("readonly");
+                                            $("#yz-p3").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P4" && mdata[i].marketId == "亚洲") {
                                             $("#yz-p4").removeAttr("readonly");
+                                            $("#yz-p4").css('background-color','#BFEFFF');
                                         }
 
 
                                         if (pdata[j].productId == "P1" && mdata[i].marketId == "国际") {
                                             $("#gj-p1").removeAttr("readonly");
+                                            $("#gj-p1").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P2" && mdata[i].marketId == "国际") {
                                             $("#gj-p2").removeAttr("readonly");
+                                            $("#gj-p2").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P3" && mdata[i].marketId == "国际") {
                                             $("#gj-p3").removeAttr("readonly");
+                                            $("#gj-p3").css('background-color','#BFEFFF');
                                         }
                                         if (pdata[j].productId == "P4" && mdata[i].marketId == "国际") {
                                             $("#gj-p4").removeAttr("readonly");
+                                            $("#gj-p4").css('background-color','#BFEFFF');
                                         }
 
                                     }
