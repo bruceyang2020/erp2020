@@ -19,6 +19,8 @@ public interface OrderManagementService {
 
     OrderManagement getById(String id);
 
+    OrderManagement getByTeamPeriodOrderId(String OrderId);
+
     List<OrderManagement> list(String productId);
 
     List<OrderManagement> listCurrentPeriodOrder();

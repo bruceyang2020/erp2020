@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.*;
 import java.util.ArrayList;
 
 @Service
@@ -80,6 +80,50 @@ public class OrderGroupServiceImpl implements OrderGroupService {
         criteria.andIn("marketId",values); //使用in方法，当前已完成开拓的市场
 
         return OrderGroupMapper.selectByExample(example);
+    }
+
+
+    @Override
+    public List<OrderGroup> listByUserTeamAndPeriod() {
+        //Y 按照广告费所在的市场，输出备选的订单列表
+
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        List<Advertise> advertises = advertiseService.getByUserTeamAndPeriod(userTeam,period);
+
+
+        //全局变量 写入当前公司或小组ID
+
+        List<OrderGroup> myOrderList = new ArrayList<OrderGroup>();
+
+        for(int i =0 ;i< advertises.size(); i++)
+        {
+            Example example = new Example(OrderGroup.class);
+            Example.Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("period", period);  //当前会计期间
+            criteria.andEqualTo("productId", advertises.get(i).getProductId());
+            criteria.andEqualTo("marketId",advertises.get(i).getMarketId());
+            example.orderBy("orderId");
+            myOrderList.addAll(OrderGroupMapper.selectByExample(example));
+        }
+
+        for(int i =0 ;i< myOrderList.size(); i++)
+        {
+
+           OrderManagement myRow =   orderManagementService.getByTeamPeriodOrderId(myOrderList.get(i).getOrderId());
+
+           if(myRow != null )
+           {
+               myOrderList.get(i).setIsSelected(1);
+           }else
+           {   myOrderList.get(i).setIsSelected(0);}
+
+        }
+
+
+
+
+        return myOrderList;
     }
 
     @Override

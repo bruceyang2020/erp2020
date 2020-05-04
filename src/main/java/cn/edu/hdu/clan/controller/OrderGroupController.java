@@ -37,7 +37,7 @@ public class OrderGroupController extends BaseController {
     }
 
     /**
-     * 列表显示备选订单。
+     * 列表显示备选订单-根据投放广告的信息，输出对应产品+市场的订单。
      * @param param
      * @return
      */
@@ -49,7 +49,18 @@ public class OrderGroupController extends BaseController {
     }
 
     /**
-     * Y 生成用于图表显示全部订单的数量状图
+     * 列表显示备选订单-根据投放广告的信息，输出对应产品+市场的订单。
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "listByUserTeamAndPeriod",produces = "application/json;charset=utf-8")
+    public String listByUserTeamAndPeriod() {
+
+        return success(OrderGroupService.listByUserTeamAndPeriod());
+    }
+
+    /**
+     * Y CEO办公室：生成用于图表显示全部订单的数量状图
      * @param param
      * @return
      */
@@ -138,7 +149,7 @@ public class OrderGroupController extends BaseController {
     }
 
     /**
-     * Y 生成用于图表显示全部订单的价格状图
+     * Y CEO办公室：生成用于图表显示全部订单的价格状图
      * @param param
      * @return
      */

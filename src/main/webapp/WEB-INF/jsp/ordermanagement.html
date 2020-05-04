@@ -9,11 +9,98 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="http://mockjs.com/dist/mock.js"></script>
-    <script src="js/ordersheet.js"></script>
+
     <script>
         $(function () {
 
 
+
+
+            //Y 刷新。
+            $("#btn-reload").click(function () {
+
+                // 列表显示可选订单-约束条件-已投放广告的市场+产品
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/OrderGroup/listByUserTeamAndPeriod",
+                    contentType: "application/json;charset=utf-8;",
+                    success:function(data){
+                        data = data['data'];
+                        console.log("查询备选订单==begin");
+                        console.log(data);
+                        console.log("查询备选订单==end");
+                        var tbody="";
+
+                        var len = data.length;
+                        for ( var i = 0; i < len; i++) {
+                            if(data[i].IsSelected == 1)
+                            {
+                                tbody = tbody + "<tr>"
+                                    +"<td>"+ data[i].orderName + "</td>"
+                                    + "<td>"+ data[i].marketId + "</td>"
+                                    + "<td>"+ data[i].amount + "</td>"
+                                    +"<td>"+data[i].priceTotal+"</td>"
+                                    +"<td class='purple'>"+data[i].periodPay+"</td>"
+                                    +"<td >"+data[i].isurgent+"</td>"
+                                    +"<td >"+data[i].iso+"</td>"
+                                    +"<td ><input type='checkbox' checked></td>"
+                                    +"</tr>";}
+                            else
+                            { tbody = tbody + "<tr>"
+                                +"<td>"+ data[i].orderName + "</td>"
+                                + "<td>"+ data[i].marketId + "</td>"
+                                + "<td>"+ data[i].amount + "</td>"
+                                +"<td>"+data[i].priceTotal+"</td>"
+                                +"<td class='purple'>"+data[i].periodPay+"</td>"
+                                +"<td >"+data[i].isurgent+"</td>"
+                                +"<td >"+data[i].iso+"</td>"
+                                +"<td ><input type='checkbox' ></td>"
+                                +"</tr>";}
+                        }
+                        if(len==0){
+                            tbody = tbody + "<tr style='text-align: center'>"
+                                +"<td colspan='6'><font color='#cd0a0a'>"+ '无可选的订单' + "</font></td>"
+                                +"</tr>";
+                        }
+                        //添加到table中
+                        $("#order-table").children("tbody").empty();
+                        $("#order-table").children("tbody").append(tbody);//显示数据
+
+/*
+                        $("#pop-content").delegate("button.btn-p1", "click",
+                            function(e) {
+
+
+                                var myOrderName = "xxx";
+                                myOrderName = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
+                                console.log(myOrderName);
+                                var myJson = { orderId : myOrderName} ;
+
+                                $.ajax({
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(myJson),
+                                    url: "/OrderManagement/add",
+                                    contentType: "application/json;charset=utf-8;",
+                                    success: function (data) {
+                                        alert("选单成功");
+                                    }
+                                });
+
+                            });*/
+                    }
+                })
+
+
+            })
+
+
+            //Y 提交订单列表。
+            $("#btn-order").click(function () {
+
+
+            })
 
         })
 
@@ -24,28 +111,28 @@
 <body style="overflow-x:hidden;overflow-y:auto">
 <h4>订单备选列表</h4>
 
-<div class="tab-contain">
-    <ul id="tabs">
-        <li class="current"><a href="#" title="tab1">P1</a></li>
-        <li><a href="#" title="tab2">P2</a></li>
-        <li><a href="#" title="tab3">P3</a></li>
-        <li><a href="#" title="tab4">P4</a></li>
-    </ul>
+
     <div id="pop-content">
-        <div id="tab1" class="item show">
-           <div  id="listP1">P1</div>
-        </div>
-        <div id="tab2" class="item">
-            <div id="listP2">P2</div>
-        </div>
-        <div id="tab3" class="item">
-            <div id="listP3">P3</div>
-        </div>
-        <div id="tab4" class="item">
-            <div id="listP4">P4</div>
-        </div>
+        <table class="table" id="order-table" >
+        <thead>
+        <tr>
+            <th data-field="orderName">编号</th>
+            <th data-field="marketId">市场</th>
+            <th data-field="amount">数量</th>
+            <th data-field="priceTotal">金额</th>
+            <th data-type="periodPay">账期</th>
+            <th data-field="isurgent">加急</th>
+            <th data-field="iso">认证</th>
+            <th data-type="CheckBox"></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+        </table>
+
+        <div class="card-bottom"><a href="#" class="btn btn-default btn-info" id="btn-reload">刷新</a><a href="#" class="btn btn-default btn-primary" id="btn-order">提交订单</a></div>
+
     </div>
-</div>
+
 
 
 </body>

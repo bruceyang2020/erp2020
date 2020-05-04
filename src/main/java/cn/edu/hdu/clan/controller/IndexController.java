@@ -124,6 +124,12 @@ public class IndexController extends BaseController {
     public String ordersheet() {
         return "ordersheet";
     }
+
+    @RequestMapping("/ordermanagement")
+    public String ordermanagement() {
+        return "ordermanagement";
+    }
+
     @RequestMapping("/advertise")
     public String advertise() {
         return "advertise";

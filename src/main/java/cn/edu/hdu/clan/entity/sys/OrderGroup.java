@@ -74,6 +74,10 @@ public class OrderGroup extends BaseBean {
     private Date editTime;
 
 
+    @Transient
+    private Integer IsSelected;
+
+
 
     /**
      * 获取群组编码
@@ -321,5 +325,20 @@ public class OrderGroup extends BaseBean {
      */
     public void setEditTime(Date editTime) {
         this.editTime = editTime;
+    }
+
+
+    /**
+     * @return period
+     */
+    public Integer getIsSelected() {
+        return IsSelected;
+    }
+
+    /**
+     * @param isSelected
+     */
+    public void setIsSelected(Integer isSelected) {
+        this.IsSelected = isSelected;
     }
 }
