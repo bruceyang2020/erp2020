@@ -2,7 +2,7 @@
 
 $(function(){
 
-    //Y 20200503  重写订单选择页面
+    //Y
     $('#tabs a').click(function(e) {
         e.preventDefault();
         $('#tabs li').removeClass("current").removeClass("hoverItem");

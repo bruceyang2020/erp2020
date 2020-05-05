@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.Map;
 import java.util.List;
-import cn.edu.hdu.clan.util.Jurisdiction;
 
 @RestController
 @RequestMapping("OrderManagement")

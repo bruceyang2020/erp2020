@@ -14,7 +14,7 @@ $(document).ready(function () {
             success:function(data){
                 data = data['data'];
                 console.log(data);
-                var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
+                var tableStr = "<table class='table'>";
                 tableStr = tableStr
                     + "<tr>"
                     +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"
@@ -26,7 +26,7 @@ $(document).ready(function () {
                         + "<td>"+ data[i].productId + "</td>"
                         + "<td>"+ data[i].amount + "</td>"
                         +"<td>"+data[i].money+"</td>"
-                        +"<td ><button type='button' class='btn  btn-mini btn-stockout''  onclick=''>交货</button></td>"
+                        +"<td ><button type='button' class='btn  btn-default btn-primary btn-stockout''  onclick=''>交货</button></td>"
                         +"</tr>";
                 }
                 if(len==0){
@@ -87,7 +87,7 @@ $(document).ready(function () {
                         + "<td>"+ data[i].productId + "</td>"
                         + "<td>"+ data[i].amount + "</td>"
                         +"<td>"+data[i].money+"</td>"
-                        +"<td ><button type='button' class='btn  btn-mini btn-stockout''  onclick=''>交货</button></td>"
+                        +"<td ><button type='button' class='btn  btn-default btn-primary btn-stockout''  onclick=''>交货</button></td>"
                         +"</tr>";
                 }
                 if(len==0){
@@ -147,7 +147,7 @@ $(document).ready(function () {
                         + "<td>"+ data[i].productId + "</td>"
                         + "<td>"+ data[i].amount + "</td>"
                         +"<td>"+data[i].money+"</td>"
-                        +"<td ><button type='button' class='btn  btn-mini btn-stockout''  onclick=''>交货</button></td>"
+                        +"<td ><button type='button' class='btn  btn-default btn-primary btn-stockout''  onclick=''>交货</button></td>"
                         +"</tr>";
                 }
                 if(len==0){
@@ -207,7 +207,7 @@ $(document).ready(function () {
                         + "<td>"+ data[i].productId + "</td>"
                         + "<td>"+ data[i].amount + "</td>"
                         +"<td>"+data[i].money+"</td>"
-                        +"<td ><button type='button' class='btn  btn-mini btn-stockout''  onclick=''>交货</button></td>"
+                        +"<td ><button type='button' class='btn  btn-default btn-primary btn-stockout''  onclick=''>交货</button></td>"
                         +"</tr>";
                 }
                 if(len==0){
