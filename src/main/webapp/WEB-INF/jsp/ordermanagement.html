@@ -12,13 +12,246 @@
     <script>
         $(function () {
 
-
+            initPageData();
 
 
             //Y 刷新。
             $("#btn-reload").click(function () {
+                initPageData();
+            })
 
-                // 列表显示可选订单-约束条件-已投放广告的市场+产品
+
+            //Y 提交订单列表。
+            $("#btn-order").click(function () {
+
+
+                var bdp1 = 0; var bdp2 = 0; var bdp3 = 0;   var bdp4 = 0;
+                var qyp1 = 0; var qyp2 = 0; var qyp3 = 0;   var qyp4 = 0;
+                var glp1 = 0; var glp2 = 0; var glp3 = 0;   var glp4 = 0;
+                var yzp1 = 0; var yzp2 = 0; var yzp3 = 0;   var yzp4 = 0;
+                var gjp1 = 0; var gjp2 = 0; var gjp3 = 0;   var gjp4 = 0;
+
+
+
+
+                var selects=$('#order-table').find(":checkbox:checked");  //获取打勾的订单
+                var orderList = new Array();   //定义一个订单的数组
+                var myOrderId = "xxx";
+                var productId = "";
+                var marketId ="";
+
+                selects.each(function(index, el) {
+                    myOrderId =$(this).parent("td").parent("tr").children("td:first-child").text(); //获取当前订单id。
+                    marketId= $(this).parent("td").parent("tr").children("td:eq(1)").text(); //获取当前市场。
+                    productId= $(this).parent("td").parent("tr").children("td:eq(2)").text(); //获取当前产品。
+                    orderList.push({ orderId : myOrderId});
+
+
+                   //#region 循环判断选择的订单，累计市场+产品的总订单数
+                    if (productId == "P1" && marketId == "本地") {
+                        bdp1= bdp1 +1;
+                    }
+                    if (productId == "P2" && marketId == "本地") {
+                        bdp2= bdp2 +1;
+                    }
+                    if (productId == "P3" && marketId == "本地") {
+                        bdp3=  bdp3+1;
+                    }
+                    if (productId == "P4" && marketId == "本地") {
+                        bdp4=  bdp4+1;
+                    }
+
+                    if (productId == "P1" && marketId == "区域") {
+                        qyp1=  qyp1+1;
+                    }
+                    if (productId == "P2" && marketId == "区域") {
+                        qyp2=  qyp2+1;
+                    }
+                    if (productId == "P3" && marketId == "区域") {
+                        qyp3=  qyp3+1;
+                    }
+                    if (productId == "P4" && marketId == "区域") {
+                        qyp4=  qyp4+1;
+                    }
+
+                    if (productId == "P1" && marketId == "国内") {
+                        glp1= glp1 +1;
+                    }
+                    if (productId == "P2" && marketId == "国内") {
+                        glp2=  glp2+1;
+                    }
+                    if (productId == "P3" && marketId == "国内") {
+                        glp3= glp3+1;
+                    }
+                    if (productId == "P4" && marketId == "国内") {
+                        glp4=  glp4+1;
+                    }
+
+
+                    if (productId == "P1" && marketId == "亚洲") {
+                        yzp1=  yzp1+1;
+                    }
+                    if (productId == "P2" && marketId == "亚洲") {
+                        yzp2=  +1;
+                    }
+                    if (productId == "P3" && marketId == "亚洲") {
+                        yzp3=  yzp3+1;
+                    }
+                    if (productId == "P4" && marketId == "亚洲") {
+                        yzp4=  yzp4+1;
+                    }
+
+                    if (productId == "P1" && marketId == "国际") {
+                        gjp1= gjp1 +1;
+                    }
+                    if (productId == "P2" && marketId == "国际") {
+                        gjp2=  +1;
+                    }
+                    if (productId == "P3" && marketId == "国际") {
+                        gjp3=  gjp3+1;
+                    }
+                    if (productId == "P4" && marketId == "国际") {
+                        gjp4=  gjp4+1;
+                    }
+                    //#endregion
+
+                });
+
+                var bdp1max = Number($("#bd-p1-max").val());
+                if(  bdp1 > bdp1max)
+                { alert("本地P1选单超过限制数。最大选单数："+bdp1max+";已选单数："+bdp1);   return;}
+                var bdp1max = Number($("#bd-p2-max").val());
+                if(  bdp1 > bdp1max)
+                { alert("本地P1选单超过限制数。最大选单数："+bdp1max+";已选单数："+bdp2);   return;}
+                var bdp1max = Number($("#bd-p2-max").val());
+                if(  bdp1 > bdp1max)
+                { alert("本地P1选单超过限制数。最大选单数："+bdp1max+";已选单数："+bdp3);   return;}
+                var bdp1max = Number($("#bd-p2-max").val());
+                if(  bdp1 > bdp1max)
+                { alert("本地P1选单超过限制数。最大选单数："+bdp1max+";已选单数："+bdp4);   return;}
+
+
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    data: JSON.stringify(orderList),
+                    url: "/OrderManagement/adds",
+                    contentType: "application/json;charset=utf-8;",
+                    success: function (data) {
+                        console.log(data);
+                        alert("保存订单成功");
+                    }
+                });
+
+
+            })
+
+
+
+            // Y 显示备选订单列表。
+            function initPageData() {
+
+
+                //Y 显示广告费。
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/Advertise/listbyteamperiod",  // Y  列表广告费清单。
+                    contentType: "application/json;charset=utf-8;",
+                    success: function (data) {
+                        data = data['data'];
+                        console.log(data);
+                        $.each(data, function (n, value) {
+                            var moneyi =value.moneyI;
+                            var ordreamount = Math.ceil(moneyi/2);
+                            console.log('以下输出可选单数');
+                            console.log(ordreamount);
+                            if (value.productId == "P1" && value.marketId == "本地") {
+                                $("#bd-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "本地") {
+                                $("#bd-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "本地") {
+                                $("#bd-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "本地") {
+                                $("#bd-p4-max").val(ordreamount);
+                            }
+
+                            if (value.productId == "P1" && value.marketId == "区域") {
+                                $("#qy-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "区域") {
+                                $("#qy-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "区域") {
+                                $("#qy-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "区域") {
+                                $("#qy-p4-max").val(ordreamount);
+                            }
+
+                            if (value.productId == "P1" && value.marketId == "国内") {
+                                $("#gl-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "国内") {
+                                $("#gl-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "国内") {
+                                $("#gl-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "国内") {
+                                $("#gl-p4-max").val(ordreamount);
+                            }
+
+
+                            if (value.productId == "P1" && value.marketId == "亚洲") {
+                                $("#yz-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "亚洲") {
+                                $("#yz-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "亚洲") {
+                                $("#yz-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "亚洲") {
+                                $("#yz-p4-max").val(ordreamount);
+                            }
+
+                            if (value.productId == "P1" && value.marketId == "国际") {
+                                $("#gj-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "国际") {
+                                $("#gj-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "国际") {
+                                $("#gj-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "国际") {
+                                $("#gj-p4-max").val(ordreamount);
+                            }
+
+                        });
+
+                    }
+                })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                // 列表显示可选订单-约束条件-已投放广告的市场+产品对应的订单列表
+
                 $.ajax({
                     type: "get",
                     dataType: "json",
@@ -38,6 +271,7 @@
                                 tbody = tbody + "<tr>"
                                     +"<td>"+ data[i].orderId + "</td>"
                                     + "<td>"+ data[i].marketId + "</td>"
+                                    + "<td>"+ data[i].productId + "</td>"
                                     + "<td>"+ data[i].amount + "</td>"
                                     +"<td>"+data[i].priceTotal+"</td>"
                                     +"<td class='purple'>"+data[i].periodPay+"</td>"
@@ -49,6 +283,7 @@
                             { tbody = tbody + "<tr>"
                                 +"<td>"+ data[i].orderId + "</td>"
                                 + "<td>"+ data[i].marketId + "</td>"
+                                + "<td>"+ data[i].productId + "</td>"
                                 + "<td>"+ data[i].amount + "</td>"
                                 +"<td>"+data[i].priceTotal+"</td>"
                                 +"<td class='purple'>"+data[i].periodPay+"</td>"
@@ -66,53 +301,41 @@
                         $("#order-table").children("tbody").empty();
                         $("#order-table").children("tbody").append(tbody);//显示数据
 
-/*
-                        $("#pop-content").delegate("button.btn-p1", "click",
+
+                        $("#order-table").delegate("input[type='checkbox']", "click",
                             function(e) {
-
-
                                 var myOrderName = "xxx";
                                 myOrderName = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
                                 console.log(myOrderName);
+                                var myJson = { orderId : myOrderName} ;
+
+                                $.ajax({
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(myJson),
+                                    url: "/OrderGroup/checkIsoRight",
+                                    contentType: "application/json;charset=utf-8;",
+                                    success: function (data) {
+                                        console.log(data);
+                                        var msg = data['msg'];
+                                        if(data['msg'] == 'ok')
+                                        {
+
+                                        }else
+                                        {
+                                        $(e.currentTarget).attr('checked',false);
+                                        alert(msg);
+                                        }
+                                    }
+                                });
+
+                            });
 
 
-                            });*/
                     }
                 })
 
-
-            })
-
-
-            //Y 提交订单列表。
-            $("#btn-order").click(function () {
-
-
-
-                var selects=$('#order-table').find(":checkbox:checked");  //获取打勾的订单
-                var orderList = new Array();   //定义一个订单的数组
-                var myOrderId = "xxx";
-                selects.each(function(index, el) {
-                    myOrderId =$(this).parent("td").parent("tr").children("td:first-child").text(); //获取当前订单id。
-                    orderList.push({ orderId : myOrderId});
-
-                });
-
-
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    data: JSON.stringify(orderList),
-                    url: "/OrderManagement/adds",
-                    contentType: "application/json;charset=utf-8;",
-                    success: function (data) {
-                        console.log(data);
-                        alert("保存订单成功");
-                    }
-                });
-
-
-            })
+            }
 
         })
 
@@ -125,11 +348,14 @@
 
 
     <div id="pop-content">
+        <div style="text-align: left;color:red"> 提醒：提交订单只可操作一次，不可撤回。请科学决策、慎重操作。</div>
+
         <table class="table" id="order-table" >
         <thead>
         <tr>
             <th data-field="orderName">编号</th>
             <th data-field="marketId">市场</th>
+            <th data-field="marketId">产品</th>
             <th data-field="amount">数量</th>
             <th data-field="priceTotal">金额</th>
             <th data-type="periodPay">账期</th>
@@ -145,6 +371,32 @@
 
     </div>
 
+
+<!--用于记录各市场及产品的最大选单数-->
+<input type="hidden" id = "bd-p1-max" name ="bd-p1-max" value="0">
+<input type="hidden" id = "bd-p2-max" name ="bd-p2-max" value="0">
+<input type="hidden" id = "bd-p3-max" name ="bd-p3-max" value="0">
+<input type="hidden" id = "bd-p4-max" name ="bd-p4-max" value="0">
+
+<input type="hidden" id = "qy-p1-max" name ="qy-p1-max" value="0">
+<input type="hidden" id = "qy-p2-max" name ="qyp2-max" value="0">
+<input type="hidden" id = "qy-p3-max" name ="qy-p3-max" value="0">
+<input type="hidden" id = "qy-p4-max" name ="qy-p4-max" value="0">
+
+<input type="hidden" id = "gl-p1-max" name ="gl-p1-max" value="0">
+<input type="hidden" id = "gl-p2-max" name ="gl-p2-max" value="0">
+<input type="hidden" id = "gl-p3-max" name ="gl-p3-max" value="0">
+<input type="hidden" id = "gl-p4-max" name ="gl-p4-max" value="0">
+
+<input type="hidden" id = "yz-p1-max" name ="yz-p1-max" value="0">
+<input type="hidden" id = "yz-p2-max" name ="yz-p2-max" value="0">
+<input type="hidden" id = "yz-p3-max" name ="yz-p3-max" value="0">
+<input type="hidden" id = "yz-p4-max" name ="yz-p4-max" value="0">
+
+<input type="hidden" id = "gj-p1-max" name ="gj-p1-max" value="0">
+<input type="hidden" id = "gj-p2-max" name ="gj-p2-max" value="0">
+<input type="hidden" id = "gj-p3-max" name ="gj-p3-max" value="0">
+<input type="hidden" id = "gj-p4-max" name ="gj-p4-max" value="0">
 
 
 </body>

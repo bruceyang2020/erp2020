@@ -22,4 +22,6 @@ public interface OrderGroupService {
     OrderGroup getByOrderId(String orderId);
 
     String checkOrderRight(String orderId);
+
+    String checkIsoRight(String orderId);
 }

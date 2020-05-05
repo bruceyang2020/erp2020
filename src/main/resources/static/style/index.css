@@ -110,15 +110,7 @@ html,body,#wrapper{
     height: 500px;
 }
 
-#advertise-wrap{
-    width: 420px;
-    height:500px;
-}
 
-#order-wrap{
-    width: 580px;
-    height:500px;
-}
 .tab-contain{padding:10px;	 width: 100%; }
 #tabs {overflow: hidden;width: 100%;margin: 0; padding: 0;list-style: none;	}
 #tabs li {float: left; margin: 0; padding:5px; padding-bottom: 0px;	}
@@ -243,8 +235,8 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 }
 .pop-advertise{
     display: none;
-    width: 420px;
-    height:550px;
+    width: 600px;
+    height:600px;
     position: absolute;
     top: 700px;
     left: 0;
@@ -257,6 +249,18 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
     background-color: #fff;
     box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
 }
+
+/* 广告费子页 */
+#advertise-wrap{
+    width: 580px;
+    height:500px;
+}
+/* 订单子页 */
+#order-wrap{
+    width: 580px;
+    height:500px;
+}
+
 .pop-s1> h3,.pop-s2> h3,.pop-s3> h3{
     text-align: center;
 }

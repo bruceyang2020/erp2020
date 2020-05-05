@@ -256,4 +256,15 @@ public class OrderGroupController extends BaseController {
     }
 
 
+    /**
+     * Y 检查当前的产品订单是否可以选择-ISO认证
+     * @param param
+     * @return
+     */
+    @RequestMapping(value = "checkIsoRight")
+    public String checkIsoRight(@RequestBody Map<String,String> param) {
+        return success(OrderGroupService.checkIsoRight(param.get("orderId")));
+    }
+
+
 }
