@@ -62,7 +62,7 @@ $(document).ready(function () {
     });
 
 
-    //已获取的订单弹窗-P1
+    //已获取的订单弹窗-P2
     $('#p2-list').click(function () {
         $('.pop-p2').show();
         var myquery1 = { productId : "P2"} ;
@@ -75,7 +75,7 @@ $(document).ready(function () {
             success:function(data){
                 data = data['data'];
                 console.log(data);
-                var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
+                var tableStr = "<table class='table'>";
                 tableStr = tableStr
                     + "<tr>"
                     +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"
@@ -122,7 +122,7 @@ $(document).ready(function () {
 
     });
 
-    //已获取的订单弹窗-P2
+    //已获取的订单弹窗-P3
     $('#p3-list').click(function () {
         $('.pop-p3').show();
         var myquery1 = { productId : "P3"} ;
@@ -182,7 +182,7 @@ $(document).ready(function () {
 
     });
 
-    //已获取的订单弹窗-P1
+    //已获取的订单弹窗-P4
     $('#p4-list').click(function () {
         $('.pop-p4').show();
         var myquery1 = { productId : "P4"} ;

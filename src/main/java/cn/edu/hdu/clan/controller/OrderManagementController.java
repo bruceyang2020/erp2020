@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Map;
+import java.util.List;
+import cn.edu.hdu.clan.util.Jurisdiction;
 
 @RestController
 @RequestMapping("OrderManagement")
@@ -26,8 +28,23 @@ public class OrderManagementController extends BaseController {
     @RequestMapping("add")
     public String add(@RequestBody Map<String,String> param) {
 
+        //先根据前端传过来的订单号，查询订单完整信息。然后插入到公司订单列表。
        OrderGroup orderGroup =  OrderGroupService.getByOrderId(param.get("orderId"));
+       //然后插入到公司订单列表。
         OrderManagementService.add(orderGroup);
+        return success();
+    }
+
+    @RequestMapping("adds")
+    public String adds(@RequestBody List<OrderGroup> orderGroupList) {
+
+        for(int i=0 ;i< orderGroupList.size();i++)
+        {
+            //先根据前端传过来的订单号，查询订单完整信息。然后插入到公司订单列表。
+            OrderGroup orderGroup = OrderGroupService.getByOrderId(orderGroupList.get(i).getOrderId());
+            //然后插入到公司订单列表。
+            OrderManagementService.add(orderGroup);
+        }
         return success();
     }
 
