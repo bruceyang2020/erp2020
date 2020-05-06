@@ -150,6 +150,23 @@ public class OrderManagementServiceImpl implements OrderManagementService {
         example.createCriteria().andEqualTo("id", id);
         return OrderManagementMapper.selectOneByExample(example);
     }
+
+    @Override
+    public OrderManagement getByTeamPeriodOrderId(String OrderId) {
+        //全局变量 写入当前公司或小组ID
+        int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        String userTeam = Jurisdiction.getUserTeam();
+        Example example = new Example(OrderManagement.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamId", userTeam);
+        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("orderId", OrderId);
+        return OrderManagementMapper.selectOneByExample(example);
+    }
+
+
+
+
     public List<OrderManagement> list() {
         return OrderManagementMapper.selectAll();}
 

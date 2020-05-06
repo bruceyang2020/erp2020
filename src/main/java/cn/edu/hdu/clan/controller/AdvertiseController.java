@@ -59,7 +59,7 @@ public class AdvertiseController extends BaseController {
      * @param
      * @return
      */
-    @RequestMapping("listbyteamperiod")
+    @RequestMapping( value = "listbyteamperiod",produces = "application/json;charset=utf-8")
     public String getByUserTeamAndPeriod() {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());

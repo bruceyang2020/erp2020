@@ -2,18 +2,411 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>OrderSheet</title>
+    <title>订货会页面</title>
     <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
     <link href="style/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="style/index.css">
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="http://mockjs.com/dist/mock.js"></script>
-    <script src="js/ordersheet.js"></script>
+
     <script>
         $(function () {
 
+            initPageData();
 
+
+            //Y 刷新。
+            $("#btn-reload").click(function () {
+                initPageData();
+            })
+
+
+            //Y 提交订单列表。
+            $("#btn-order").click(function () {
+
+
+
+                var myrownumber = 0;
+                 // Y 需要判断是否已存在当前期间的用户订单。如果存在，就不能重复提交保存订单。
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/OrderManagement/listCurrentPeriodOrder",
+                    contentType: "application/json;charset=utf-8;",
+                    success: function (data) {
+                        myrownumber = data['data'].length;
+
+                        if (myrownumber != null && myrownumber > 0) {
+
+                            alert("已存在本期的选单,不可重复选单。");
+                            return;
+                        }else {
+
+                            var bdp1 = 0; var bdp2 = 0; var bdp3 = 0;   var bdp4 = 0;
+                            var qyp1 = 0; var qyp2 = 0; var qyp3 = 0;   var qyp4 = 0;
+                            var glp1 = 0; var glp2 = 0; var glp3 = 0;   var glp4 = 0;
+                            var yzp1 = 0; var yzp2 = 0; var yzp3 = 0;   var yzp4 = 0;
+                            var gjp1 = 0; var gjp2 = 0; var gjp3 = 0;   var gjp4 = 0;
+
+
+
+                            // 提取已选中的订单，做循环赋值：订单编码、产品编码、市场编码
+                            var selects=$('#order-table').find(":checkbox:checked");  //获取打勾的订单
+                            var orderList = new Array();   //定义一个订单的数组
+                            var myOrderId = "xxx";
+                            var productId = "";
+                            var marketId ="";
+
+                            selects.each(function(index, el) {
+                                myOrderId =$(this).parent("td").parent("tr").children("td:first-child").text(); //获取当前订单id。
+                                marketId= $(this).parent("td").parent("tr").children("td:eq(1)").text(); //获取当前市场。
+                                productId= $(this).parent("td").parent("tr").children("td:eq(2)").text(); //获取当前产品。
+                                orderList.push({ orderId : myOrderId});
+
+
+                                //#region 代码块注：循环判断选择的订单，累计市场+产品的总订单数
+                                if (productId == "P1" && marketId == "本地") {
+                                    bdp1= bdp1 +1;
+                                }
+                                if (productId == "P2" && marketId == "本地") {
+                                    bdp2= bdp2 +1;
+                                }
+                                if (productId == "P3" && marketId == "本地") {
+                                    bdp3=  bdp3+1;
+                                }
+                                if (productId == "P4" && marketId == "本地") {
+                                    bdp4=  bdp4+1;
+                                }
+
+                                if (productId == "P1" && marketId == "区域") {
+                                    qyp1=  qyp1+1;
+                                }
+                                if (productId == "P2" && marketId == "区域") {
+                                    qyp2=  qyp2+1;
+                                }
+                                if (productId == "P3" && marketId == "区域") {
+                                    qyp3=  qyp3+1;
+                                }
+                                if (productId == "P4" && marketId == "区域") {
+                                    qyp4=  qyp4+1;
+                                }
+
+                                if (productId == "P1" && marketId == "国内") {
+                                    glp1= glp1 +1;
+                                }
+                                if (productId == "P2" && marketId == "国内") {
+                                    glp2=  glp2+1;
+                                }
+                                if (productId == "P3" && marketId == "国内") {
+                                    glp3= glp3+1;
+                                }
+                                if (productId == "P4" && marketId == "国内") {
+                                    glp4=  glp4+1;
+                                }
+
+
+                                if (productId == "P1" && marketId == "亚洲") {
+                                    yzp1=  yzp1+1;
+                                }
+                                if (productId == "P2" && marketId == "亚洲") {
+                                    yzp2=  yzp2+1;
+                                }
+                                if (productId == "P3" && marketId == "亚洲") {
+                                    yzp3=  yzp3+1;
+                                }
+                                if (productId == "P4" && marketId == "亚洲") {
+                                    yzp4=  yzp4+1;
+                                }
+
+                                if (productId == "P1" && marketId == "国际") {
+                                    gjp1= gjp1 +1;
+                                }
+                                if (productId == "P2" && marketId == "国际") {
+                                    gjp2=  gjp2+1;
+                                }
+                                if (productId == "P3" && marketId == "国际") {
+                                    gjp3=  gjp3+1;
+                                }
+                                if (productId == "P4" && marketId == "国际") {
+                                    gjp4=  gjp4+1;
+                                }
+                                //#endregion
+
+                            });
+
+                            //#region 代码块注：判断选择的订单是否超过最大订单数。超过则提醒并退出保存。
+
+                            var bdp1max = Number($("#bd-p1-max").val());
+                            if(  bdp1 > bdp1max)
+                            { alert("本地P1选单超过限制数。最大选单数："+bdp1max+";已选单数："+bdp1);   return;}
+                            var bdp2max = Number($("#bd-p2-max").val());
+                            if(  bdp2 > bdp2max)
+                            { alert("本地P2选单超过限制数。最大选单数："+bdp2max+";已选单数："+bdp2);   return;}
+                            var bdp3max = Number($("#bd-p3-max").val());
+                            if(  bdp3 > bdp3max)
+                            { alert("本地P3选单超过限制数。最大选单数："+bdp3max+";已选单数："+bdp3);   return;}
+                            var bdp4max = Number($("#bd-p4-max").val());
+                            if(  bdp4 > bdp4max)
+                            { alert("本地P4选单超过限制数。最大选单数："+bdp4max+";已选单数："+bdp4);   return;}
+
+                            var qyp1max = Number($("#qy-p1-max").val());
+                            if(  qyp1 > qyp1max)
+                            { alert("区域P1选单超过限制数。最大选单数："+qyp1max+";已选单数："+qyp1);   return;}
+                            var qyp2max = Number($("#qy-p2-max").val());
+                            if(  qyp2 > qyp2max)
+                            { alert("区域P2选单超过限制数。最大选单数："+qyp2max+";已选单数："+qyp2);   return;}
+                            var qyp3max = Number($("#qy-p3-max").val());
+                            if(  qyp3 > qyp3max)
+                            { alert("区域P3选单超过限制数。最大选单数："+qyp3max+";已选单数："+qyp3);   return;}
+                            var qyp4max = Number($("#qy-p4-max").val());
+                            if(  qyp4 > qyp4max)
+                            { alert("区域P4选单超过限制数。最大选单数："+qyp4max+";已选单数："+qyp4);   return;}
+
+                            var glp1max = Number($("#gl-p1-max").val());
+                            if(  glp1 > glp1max)
+                            { alert("国内P1选单超过限制数。最大选单数："+glp1max+";已选单数："+glp1);   return;}
+                            var glp2max = Number($("#gl-p2-max").val());
+                            if(  glp2 > glp2max)
+                            { alert("国内P2选单超过限制数。最大选单数："+glp2max+";已选单数："+glp2);   return;}
+                            var glp3max = Number($("#gl-p3-max").val());
+                            if(  glp3 > glp3max)
+                            { alert("国内P3选单超过限制数。最大选单数："+glp3max+";已选单数："+glp3);   return;}
+                            var glp4max = Number($("#gl-p4-max").val());
+                            if(  glp4 > glp4max)
+                            { alert("国内P4选单超过限制数。最大选单数："+glp4max+";已选单数："+glp4);   return;}
+
+                            var yzp1max = Number($("#yz-p1-max").val());
+                            if(  yzp1 > yzp1max)
+                            { alert("亚洲P1选单超过限制数。最大选单数："+yzp1max+";已选单数："+yzp1);   return;}
+                            var yzp2max = Number($("#yz-p2-max").val());
+                            if(  yzp2 > yzp2max)
+                            { alert("亚洲P2选单超过限制数。最大选单数："+byzp2max+";已选单数："+yzp2);   return;}
+                            var yzp3max = Number($("#yz-p3-max").val());
+                            if(  yzp3 > yzp3max)
+                            { alert("亚洲P3选单超过限制数。最大选单数："+yzp3max+";已选单数："+yzp3);   return;}
+                            var yzp4max = Number($("#yz-p4-max").val());
+                            if(  yzp4 > yzp4max)
+                            { alert("亚洲P4选单超过限制数。最大选单数："+yzp4max+";已选单数："+yzp4);   return;}
+
+                            var gjp1max = Number($("#gj-p1-max").val());
+                            if(  gjp1 > gjp1max)
+                            { alert("国际P1选单超过限制数。最大选单数："+gjp1max+";已选单数："+gjp1);   return;}
+                            var gjp2max = Number($("#gj-p2-max").val());
+                            if(  gjp2 > gjp2max)
+                            { alert("国际P2选单超过限制数。最大选单数："+gjp2max+";已选单数："+gjp2);   return;}
+                            var gjp3max = Number($("#gj-p3-max").val());
+                            if(  gjp3 > gjp3max)
+                            { alert("国际P3选单超过限制数。最大选单数："+gjp3max+";已选单数："+gjp3);   return;}
+                            var gjp4max = Number($("#gj-p4-max").val());
+                            if(  gjp4 > gjp4max)
+                            { alert("国际P4选单超过限制数。最大选单数："+gjp4max+";已选单数："+gjp4);   return;}
+
+
+
+                            //#endregion
+
+
+                            $.ajax({
+                                type: "post",
+                                dataType: "json",
+                                data: JSON.stringify(orderList),
+                                url: "/OrderManagement/adds",
+                                contentType: "application/json;charset=utf-8;",
+                                success: function (data) {
+                                    console.log(data);
+                                    alert("保存订单成功");
+                                }
+                            });
+
+                        }
+
+                    }
+                });
+
+
+
+
+
+            })
+
+
+
+            // Y 显示备选订单列表。
+            function initPageData() {
+
+
+                //Y 根据广告费的信息，填写“市场+产品”对应的最大可选单数。
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/Advertise/listbyteamperiod",  // Y  列表广告费清单。
+                    contentType: "application/json;charset=utf-8;",
+                    success: function (data) {
+                        data = data['data'];
+                        console.log(data);
+                        $.each(data, function (n, value) {
+                            var moneyi =value.moneyI;
+                            var ordreamount = Math.ceil(moneyi/2);   //金额用2整除，向上取整
+                            console.log('订货会页面-以下输出可选单数');
+                            console.log(ordreamount);
+                            if (value.productId == "P1" && value.marketId == "本地") {
+                                $("#bd-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "本地") {
+                                $("#bd-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "本地") {
+                                $("#bd-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "本地") {
+                                $("#bd-p4-max").val(ordreamount);
+                            }
+
+                            if (value.productId == "P1" && value.marketId == "区域") {
+                                $("#qy-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "区域") {
+                                $("#qy-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "区域") {
+                                $("#qy-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "区域") {
+                                $("#qy-p4-max").val(ordreamount);
+                            }
+
+                            if (value.productId == "P1" && value.marketId == "国内") {
+                                $("#gl-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "国内") {
+                                $("#gl-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "国内") {
+                                $("#gl-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "国内") {
+                                $("#gl-p4-max").val(ordreamount);
+                            }
+
+
+                            if (value.productId == "P1" && value.marketId == "亚洲") {
+                                $("#yz-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "亚洲") {
+                                $("#yz-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "亚洲") {
+                                $("#yz-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "亚洲") {
+                                $("#yz-p4-max").val(ordreamount);
+                            }
+
+                            if (value.productId == "P1" && value.marketId == "国际") {
+                                $("#gj-p1-max").val(ordreamount);
+                            }
+                            if (value.productId == "P2" && value.marketId == "国际") {
+                                $("#gj-p2-max").val(ordreamount);
+                            }
+                            if (value.productId == "P3" && value.marketId == "国际") {
+                                $("#gj-p3-max").val(ordreamount);
+                            }
+                            if (value.productId == "P4" && value.marketId == "国际") {
+                                $("#gj-p4-max").val(ordreamount);
+                            }
+
+                        });
+
+                    }
+                })
+
+
+                // 列表显示可选订单-约束条件-已投放广告的市场+产品对应的订单列表
+
+                $.ajax({
+                    type: "get",
+                    dataType: "json",
+                    url: "/OrderGroup/listByUserTeamAndPeriod",
+                    contentType: "application/json;charset=utf-8;",
+                    success:function(data){
+                        data = data['data'];
+                        console.log("查询备选订单==begin");
+                        console.log(data);
+                        console.log("查询备选订单==end");
+                        var tbody="";
+
+                        var len = data.length;
+                        for ( var i = 0; i < len; i++) {
+                            if(data[i].IsSelected == 1)
+                            {
+                                tbody = tbody + "<tr>"
+                                    +"<td>"+ data[i].orderId + "</td>"
+                                    + "<td>"+ data[i].marketId + "</td>"
+                                    + "<td>"+ data[i].productId + "</td>"
+                                    + "<td>"+ data[i].amount + "</td>"
+                                    +"<td>"+data[i].priceTotal+"</td>"
+                                    +"<td class='purple'>"+data[i].periodPay+"</td>"
+                                    +"<td >"+data[i].isurgent+"</td>"
+                                    +"<td >"+data[i].iso+"</td>"
+                                    +"<td ><input type='checkbox' checked></td>"
+                                    +"</tr>";}
+                            else
+                            { tbody = tbody + "<tr>"
+                                +"<td>"+ data[i].orderId + "</td>"
+                                + "<td>"+ data[i].marketId + "</td>"
+                                + "<td>"+ data[i].productId + "</td>"
+                                + "<td>"+ data[i].amount + "</td>"
+                                +"<td>"+data[i].priceTotal+"</td>"
+                                +"<td class='purple'>"+data[i].periodPay+"</td>"
+                                +"<td >"+data[i].isurgent+"</td>"
+                                +"<td >"+data[i].iso+"</td>"
+                                +"<td ><input type='checkbox' ></td>"
+                                +"</tr>";}
+                        }
+                        if(len==0){
+                            tbody = tbody + "<tr style='text-align: center'>"
+                                +"<td colspan='6'><font color='#cd0a0a'>"+ '无可选的订单' + "</font></td>"
+                                +"</tr>";
+                        }
+                        //添加到table中
+                        $("#order-table").children("tbody").empty();
+                        $("#order-table").children("tbody").append(tbody);//显示数据
+
+
+                        $("#order-table").delegate("input[type='checkbox']", "click",
+                            function(e) {
+                                var myOrderName = "xxx";
+                                myOrderName = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
+                                console.log(myOrderName);
+                                var myJson = { orderId : myOrderName} ;
+
+                                $.ajax({
+                                    type: "post",
+                                    dataType: "json",
+                                    data: JSON.stringify(myJson),
+                                    url: "/OrderGroup/checkIsoRight",
+                                    contentType: "application/json;charset=utf-8;",
+                                    success: function (data) {
+                                        console.log(data);
+                                        var msg = data['msg'];
+                                        if(data['msg'] == 'ok')
+                                        {
+
+                                        }else
+                                        {
+                                        $(e.currentTarget).attr('checked',false);
+                                        alert(msg);
+                                        }
+                                    }
+                                });
+
+                            });
+
+
+                    }
+                })
+
+            }
 
         })
 
@@ -24,28 +417,57 @@
 <body style="overflow-x:hidden;overflow-y:auto">
 <h4>订单备选列表</h4>
 
-<div class="tab-contain">
-    <ul id="tabs">
-        <li class="current"><a href="#" title="tab1">P1</a></li>
-        <li><a href="#" title="tab2">P2</a></li>
-        <li><a href="#" title="tab3">P3</a></li>
-        <li><a href="#" title="tab4">P4</a></li>
-    </ul>
+
     <div id="pop-content">
-        <div id="tab1" class="item show">
-           <div  id="listP1">P1</div>
-        </div>
-        <div id="tab2" class="item">
-            <div id="listP2">P2</div>
-        </div>
-        <div id="tab3" class="item">
-            <div id="listP3">P3</div>
-        </div>
-        <div id="tab4" class="item">
-            <div id="listP4">P4</div>
-        </div>
+        <div style="text-align: left;color:red"> 提醒：提交订单只可操作一次，不可撤回。请科学决策、慎重操作。</div>
+
+        <table class="table" id="order-table" >
+        <thead>
+        <tr>
+            <th data-field="orderName">编号</th>
+            <th data-field="marketId">市场</th>
+            <th data-field="marketId">产品</th>
+            <th data-field="amount">数量</th>
+            <th data-field="priceTotal">金额</th>
+            <th data-type="periodPay">账期</th>
+            <th data-field="isurgent">加急</th>
+            <th data-field="iso">认证</th>
+            <th data-type="CheckBox"></th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+        </table>
+
+        <div class="card-bottom"><a href="#" class="btn btn-default btn-info" id="btn-reload">刷新</a><a href="#" class="btn btn-default btn-primary" id="btn-order">提交订单</a></div>
+
     </div>
-</div>
+
+
+<!--用于记录各市场及产品的最大选单数-->
+<input type="hidden" id = "bd-p1-max" name ="bd-p1-max" value="0">
+<input type="hidden" id = "bd-p2-max" name ="bd-p2-max" value="0">
+<input type="hidden" id = "bd-p3-max" name ="bd-p3-max" value="0">
+<input type="hidden" id = "bd-p4-max" name ="bd-p4-max" value="0">
+
+<input type="hidden" id = "qy-p1-max" name ="qy-p1-max" value="0">
+<input type="hidden" id = "qy-p2-max" name ="qyp2-max" value="0">
+<input type="hidden" id = "qy-p3-max" name ="qy-p3-max" value="0">
+<input type="hidden" id = "qy-p4-max" name ="qy-p4-max" value="0">
+
+<input type="hidden" id = "gl-p1-max" name ="gl-p1-max" value="0">
+<input type="hidden" id = "gl-p2-max" name ="gl-p2-max" value="0">
+<input type="hidden" id = "gl-p3-max" name ="gl-p3-max" value="0">
+<input type="hidden" id = "gl-p4-max" name ="gl-p4-max" value="0">
+
+<input type="hidden" id = "yz-p1-max" name ="yz-p1-max" value="0">
+<input type="hidden" id = "yz-p2-max" name ="yz-p2-max" value="0">
+<input type="hidden" id = "yz-p3-max" name ="yz-p3-max" value="0">
+<input type="hidden" id = "yz-p4-max" name ="yz-p4-max" value="0">
+
+<input type="hidden" id = "gj-p1-max" name ="gj-p1-max" value="0">
+<input type="hidden" id = "gj-p2-max" name ="gj-p2-max" value="0">
+<input type="hidden" id = "gj-p3-max" name ="gj-p3-max" value="0">
+<input type="hidden" id = "gj-p4-max" name ="gj-p4-max" value="0">
 
 
 </body>

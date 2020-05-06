@@ -2,7 +2,7 @@
 <!--suppress ALL -->
 <html lang="en">
 <head>
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/select2.js"></script>
@@ -16,6 +16,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style/index.css">
     <link rel="stylesheet" type="text/css" href="style/select2.css">
+    <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
     <title>杭州电子科技大学ERP财务虚拟仿真沙盘系统</title>
     <script>
         //获取当前用户、当前会计期间、公司ID，初始化前端对应的全局参数
@@ -272,7 +273,7 @@
                     <h4 id="ceo-tz-iso14k" class="tz-text">ISO14000</h4>
                 </div>
                 <div id="financial">
-                    <h2 id="cash" class="text">1234</h2>
+                    <h2 id="cash" class="text">0</h2>
 
                     <!--<h4 id="fin-1" class="text">111</h4>-->
                     <!--  <h4 id="fin-2" class="text">222</h4>
@@ -301,42 +302,9 @@
                 <div id="marketing">
                     <input name="order" id="order" type="button" />
 
-                    <div id="orderlist1" class="orderlist"><h5 id="p1-list">查看详情</h5></div>
-                    <div class="pop-p1">
-                        <div>P1列表</div>
-                        <div  id="ordermanagement1"></div>
-                        <div class="pop-foot">
-                            <input type="button" value="关闭" class="pop-cancel pop-close">
-                        </div>
-                    </div>
-                    <div id="orderlist2" class="orderlist"><h5 id="p2-list">查看详情</h5></div>
-                    <div class="pop-p2">
-                        <div>P2列表</div>
-                        <div  id="ordermanagement2"></div>
-                        <div class="pop-foot">
-                            <input type="button" value="关闭" class="pop-cancel pop-close">
-                        </div>
-                    </div>
-                    <div id="orderlist3" class="orderlist"><h5 id="p3-list">查看详情</h5></div>
-                    <div class="pop-p3">
-                        <div>P3列表</div>
-                        <div  id="ordermanagement3"></div>
-                        <div class="pop-foot">
-                            <input type="button" value="关闭" class="pop-cancel pop-close">
-                        </div>
-                    </div>
-                    <div id="orderlist4" class="orderlist"><h5 id="p4-list">查看详情</h5></div>
-                    <div class="pop-p4">
-                        <div>P4列表</div>
-                        <div  id="ordermanagement4"></div>
-                        <div class="pop-foot">
-                            <input type="button" value="关闭" class="pop-cancel pop-close">
-                        </div>
-                    </div>
-
 
                     <div class="pop-marketing">
-                        <iframe src="ordersheet.html" id="order-wrap" frameborder="0"  onload="reinitIframe()"></iframe>
+                        <iframe src="ordermanagement.html" id="order-wrap" frameborder="0"  onload="reinitIframe()"></iframe>
                         <div class="pop-foot">
                             <input type="button" value="关闭" class="pop-cancel pop-close">
                         </div>
@@ -348,6 +316,43 @@
                             <input type="button" value="参加订货会" id="ok-tomarketing" class="pop-ok">
                         </div>
                     </div>
+
+
+
+                    <div id="orderlist1" class="orderlist"><h5 id="p1-list">查看详情</h5></div>
+                    <div class="pop-p1">
+                        <h4>P1列表</h4>
+                        <div  id="ordermanagement1"></div>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                    <div id="orderlist2" class="orderlist"><h5 id="p2-list">查看详情</h5></div>
+                    <div class="pop-p2">
+                        <h4>P2列表</h4>
+                        <div  id="ordermanagement2"></div>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                    <div id="orderlist3" class="orderlist"><h5 id="p3-list">查看详情</h5></div>
+                    <div class="pop-p3">
+                        <h4>P3列表</h4>
+                        <div  id="ordermanagement3"></div>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+                    <div id="orderlist4" class="orderlist"><h5 id="p4-list">查看详情</h5></div>
+                    <div class="pop-p4">
+                        <h4>P4列表</h4>
+                        <div  id="ordermanagement4"></div>
+                        <div class="pop-foot">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
+                    </div>
+
+
                 </div>
 
                 <div id="management">

@@ -88,12 +88,11 @@ public class IndexController extends BaseController {
 
 
 
-
     @RequestMapping("/")
      public String login_tologin() {
          return "login";}
 
-  /*  @RequestMapping("/")
+/*    @RequestMapping("/")
     public String login_tologin() {
         return "loginlab";}*/
 
@@ -124,6 +123,12 @@ public class IndexController extends BaseController {
     public String ordersheet() {
         return "ordersheet";
     }
+
+    @RequestMapping("/ordermanagement")
+    public String ordermanagement() {
+        return "ordermanagement";
+    }
+
     @RequestMapping("/advertise")
     public String advertise() {
         return "advertise";
@@ -304,7 +309,7 @@ public class IndexController extends BaseController {
     }
 
 
-
+      //定位到实验空间的控制器
     @RequestMapping("loginlab")
     public String loginlab() {
         return "loginlab";

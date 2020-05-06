@@ -70,6 +70,8 @@ public class Advertise extends BaseBean {
 
 
 
+
+
     /**
      * @return group_id
      */

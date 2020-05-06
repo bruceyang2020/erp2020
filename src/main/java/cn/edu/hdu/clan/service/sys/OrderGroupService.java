@@ -13,6 +13,8 @@ public interface OrderGroupService {
 
     List<OrderGroup> list(String productId);
 
+    List<OrderGroup> listByUserTeamAndPeriod();
+
     List<OrderGroup> listAll();
 
     OrderGroup getById(String id);
@@ -20,4 +22,6 @@ public interface OrderGroupService {
     OrderGroup getByOrderId(String orderId);
 
     String checkOrderRight(String orderId);
+
+    String checkIsoRight(String orderId);
 }

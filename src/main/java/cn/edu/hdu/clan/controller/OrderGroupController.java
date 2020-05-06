@@ -37,7 +37,7 @@ public class OrderGroupController extends BaseController {
     }
 
     /**
-     * 列表显示备选订单。
+     * 列表显示备选订单-根据投放广告的信息，输出对应产品+市场的订单。
      * @param param
      * @return
      */
@@ -45,13 +45,22 @@ public class OrderGroupController extends BaseController {
     public String list(@RequestBody Map<String,String> param) {
         List<OrderGroup> myList = OrderGroupService.list(param.get("productId"));
         List<Map<String,String>> datas = new ArrayList<Map<String, String>>();
-
-
         return success(OrderGroupService.list(param.get("productId")));
     }
 
     /**
-     * Y 生成用于图表显示全部订单的数量状图
+     * 列表显示备选订单-根据投放广告的信息，输出对应产品+市场的订单。
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "listByUserTeamAndPeriod",produces = "application/json;charset=utf-8")
+    public String listByUserTeamAndPeriod() {
+
+        return success(OrderGroupService.listByUserTeamAndPeriod());
+    }
+
+    /**
+     * Y CEO办公室：生成用于图表显示全部订单的数量状图
      * @param param
      * @return
      */
@@ -140,7 +149,7 @@ public class OrderGroupController extends BaseController {
     }
 
     /**
-     * Y 生成用于图表显示全部订单的价格状图
+     * Y CEO办公室：生成用于图表显示全部订单的价格状图
      * @param param
      * @return
      */
@@ -244,6 +253,17 @@ public class OrderGroupController extends BaseController {
     @RequestMapping(value = "checkOrderRight")
     public String checkOrderRight(@RequestBody Map<String,String> param) {
         return success(OrderGroupService.checkOrderRight(param.get("orderId")));
+    }
+
+
+    /**
+     * Y 检查当前的产品订单是否可以选择-ISO认证
+     * @param param
+     * @return
+     */
+    @RequestMapping(value = "checkIsoRight")
+    public String checkIsoRight(@RequestBody Map<String,String> param) {
+        return success(OrderGroupService.checkIsoRight(param.get("orderId")));
     }
 
 
