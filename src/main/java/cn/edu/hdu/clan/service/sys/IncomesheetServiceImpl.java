@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.sys.Balancesheet;
 import cn.edu.hdu.clan.entity.sys.Incomesheet;
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
 
@@ -13,6 +14,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.*;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -88,11 +92,41 @@ public class IncomesheetServiceImpl implements IncomesheetService {
 
     @Override
     public Incomesheet getByUserTeamAndPeriod(String userTeam,int period) {
-        Example example = new Example(Incomesheet.class);
-        Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
-        return IncomesheetMapper.selectOneByExample(example);
+
+       Incomesheet sum= new Incomesheet();
+
+       //H 初始化
+        sum.setIncomeSale(BigDecimal.valueOf(0));
+        sum.setMoneyCost(BigDecimal.valueOf(0));
+        sum.setMoneyFee(BigDecimal.valueOf(0));
+        sum.setMoneyDepr(BigDecimal.valueOf(0));
+        sum.setMoneyInterest(BigDecimal.valueOf(0));
+        sum.setMoneyOther(BigDecimal.valueOf(0));
+        sum.setMoneyTax(BigDecimal.valueOf(0));
+
+        for(int i=1;i<=4;i++) {
+            Example example = new Example(Incomesheet.class);
+            Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("teamCount", userTeam);
+            criteria.andEqualTo("period", period-i);
+            Incomesheet myRow=IncomesheetMapper.selectOneByExample(example);
+
+            if(myRow!=null) {
+                //H 累计值
+                sum.setIncomeSale(sum.getIncomeSale().add(myRow.getIncomeSale()==null?BigDecimal.valueOf(0):myRow.getIncomeSale()));
+                sum.setMoneyCost(sum.getMoneyCost().add(myRow.getMoneyCost()==null?BigDecimal.valueOf(0):myRow.getMoneyCost()));
+                sum.setMoneyFee(sum.getMoneyFee().add(myRow.getMoneyFee()==null?BigDecimal.valueOf(0):myRow.getMoneyFee()));
+                sum.setMoneyDepr(sum.getMoneyDepr().add(myRow.getMoneyDepr()==null?BigDecimal.valueOf(0):myRow.getMoneyDepr()));
+                sum.setMoneyInterest(sum.getMoneyInterest().add(myRow.getMoneyInterest()==null?BigDecimal.valueOf(0):myRow.getMoneyInterest()));
+                sum.setMoneyOther(sum.getMoneyOther().add(myRow.getMoneyOther()==null?BigDecimal.valueOf(0):myRow.getMoneyOther()));
+                sum.setMoneyTax(sum.getMoneyTax().add(myRow.getMoneyTax()==null?BigDecimal.valueOf(0):myRow.getMoneyTax()));
+            }
+            else{
+                continue;
+            }
+
+        }
+        return sum;
     }
 
     @Override
@@ -119,13 +153,13 @@ public class IncomesheetServiceImpl implements IncomesheetService {
                //H 利润表表示本期发生额，应该由科目余额表借贷方显示
             for (int i = 1; i < accountBalances.size(); i++) {
                 acode = accountBalances.get(i).getAcode();
-                if("销售收入".equals(acode)){incomesheet.setIncomeSale(accountBalances.get(i).getMoneyC());}
-                if("直接成本".equals(acode)){incomesheet.setMoneyCost(accountBalances.get(i).getMoneyD());}
-                if("折旧".equals(acode)){incomesheet.setMoneyDepr(accountBalances.get(i).getMoneyD());}
-                if("综合费用".equals(acode)){incomesheet.setMoneyFee(accountBalances.get(i).getMoneyD());}
-                if("财务支出".equals(acode)){incomesheet.setMoneyInterest(accountBalances.get(i).getMoneyD());}
-                if("其它支出".equals(acode)){incomesheet.setMoneyOther(accountBalances.get(i).getMoneyD());}
-                if("所得税".equals(acode)){incomesheet.setMoneyTax(accountBalances.get(i).getMoneyD());}
+                if("销售收入".equals(acode)){incomesheet.setIncomeSale(accountBalances.get(i).getMoneyC()==null?BigDecimal.valueOf(0):accountBalances.get(i).getMoneyC());}
+                if("直接成本".equals(acode)){incomesheet.setMoneyCost(accountBalances.get(i).getMoneyD()==null?BigDecimal.valueOf(0):accountBalances.get(i).getMoneyD());}
+                if("折旧费用".equals(acode)){incomesheet.setMoneyDepr(accountBalances.get(i).getMoneyD()==null?BigDecimal.valueOf(0):accountBalances.get(i).getMoneyD());}
+                if("综合费用".equals(acode)){incomesheet.setMoneyFee(accountBalances.get(i).getMoneyD()==null?BigDecimal.valueOf(0):accountBalances.get(i).getMoneyD());}
+                if("财务支出".equals(acode)){incomesheet.setMoneyInterest(accountBalances.get(i).getMoneyD()==null?BigDecimal.valueOf(0):accountBalances.get(i).getMoneyD());}
+                if("其它支出".equals(acode)){incomesheet.setMoneyOther(accountBalances.get(i).getMoneyD()==null?BigDecimal.valueOf(0):accountBalances.get(i).getMoneyD());}
+                if("所得税".equals(acode)){incomesheet.setMoneyTax(accountBalances.get(i).getMoneyD()==null?BigDecimal.valueOf(0):accountBalances.get(i).getMoneyD());}
             }
         }
         incomesheet.setTeamCount(userTeam);

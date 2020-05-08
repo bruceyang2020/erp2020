@@ -13,10 +13,12 @@
 
 
         function showBs(period) {
-            var BalanceSheet = {period :period};
-            var BalanceSheet2 = {period :period-1};
-            /*var myYear = parseInt(period/4);*/
-            var myYear = parseInt(period);
+            // 1 5 9 13
+            var BalanceSheet = {period :period};//本年
+           /* var BalanceSheet2 = {period :period==1?0:period-1}; //上个年度*/
+            var BalanceSheet2 = {period :period-4};
+            var myYear = parseInt(period/4);
+           /* var myYear = parseInt(period);*/
             $.ajax({
                 type: "post",
                 dataType: "json",
@@ -38,7 +40,7 @@
                     $("#money_flow").text(data.moneyFlow);
                     $("#long_term_loan").text(data.longTermLoan);
                     $("#short_term_loan").text(data.shortTermLoan);
-                    $("#long_term_loan_year").text(data.longTermLoanYear);
+                    $("#long_term_loan_year").text(data.longTermLoanYear==null?0:data.longTermLoanYear);
                     $("#money_loan").text(data.moneyLoan);
                     $("#money_j").text(data.moneyJ);
                     $("#money_incomel").text(data.moneyIncomel);
@@ -77,7 +79,7 @@
                     $("#money_flow1").text(data.moneyFlow);
                     $("#long_term_loan1").text(data.longTermLoan);
                     $("#short_term_loan1").text(data.shortTermLoan);
-                    $("#long_term_loan_year1").text(data.longTermLoanYear);
+                    $("#long_term_loan_year1").text(data.longTermLoanYear==null?0:data.longTermLoanYear);
                     $("#money_loan1").text(data.moneyLoan);
                     $("#money_j1").text(data.moneyJ);
                     $("#money_incomel1").text(data.moneyIncomel);
@@ -104,11 +106,11 @@
 </head>
 <body>
 
-<p>  <button type="button" class="btn btn-default btn-sm" onclick="showBs(0)">初始</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showBs(1)">1年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showBs(2)">2年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showBs(3)">3年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showBs(4)">4年</button>
+<p>  <button type="button" class="btn btn-default btn-sm" onclick="showBs(1)">初始</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showBs(5)">1年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showBs(9)">2年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showBs(13)">3年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showBs(17)">4年</button>
     <button type="button" class="btn btn-default btn-sm" onclick="showBs(21)">5年</button>
     <button type="button" class="btn btn-default btn-sm" onclick="showBs(25)">6年</button>
 </p>

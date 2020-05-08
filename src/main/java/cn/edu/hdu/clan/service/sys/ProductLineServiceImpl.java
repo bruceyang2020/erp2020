@@ -149,12 +149,24 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
 
                     case 3:   //转产
-                            //H 转产一期，转产周期重置
+
+
+                        if(myRow.getProductLineTypeId().equals("全自动")&&myRow.getTransferredPeriodA()!=2){
+
+                            //H  自动线转产两期
+                            myRow.setState(3);
+                            BaseBeanHelper.insert(myRow);
+                            ProductLineMapper.insert(myRow);
+                        }
+                        //H 转产一期，转产周期重置
+                        else{
                             myRow.setTransferredPeriodA(0);
+                            myRow.setTransferFeeA(BigDecimal.valueOf(0));
                             //H 状态转为停产
                             myRow.setState(2);
                             BaseBeanHelper.insert(myRow);
                             ProductLineMapper.insert(myRow);
+                        }
                             break;
 
                     case 4: //出售
@@ -236,8 +248,8 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
         }
         ProductLine myRow2 = productLineRow(productLine);
-        BigDecimal value1= myRow2.getDeviceValue();
-        BigDecimal value2= myRow2.getInvestmentAmountA();
+        BigDecimal value1= myRow2.getDeviceValue(); //设备原值
+        BigDecimal value2= myRow2.getInvestmentAmountA();//总投资额 每期投5
         if(value1.compareTo(value2) ==0) {
 
             //自动生成在建工程对应的会计凭证
@@ -422,14 +434,24 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
 
             case "全自动":
-                myRow.setState(3);
-                myRow.setEditFlag(1);
-                myRow.setProductC(productC); //H 更新新的产品
-                myRow.setTransferredPeriodA(1);
-                myRow.setTransferFeeA(new BigDecimal(2)); //全自动线的转产费用为每期2M
+
+                if(listDetail(productLine).get(0).getTransferredPeriodA()==1) {
+                    //H 第二次转产
+                    myRow.setState(3);
+                    myRow.setEditFlag(1);
+                    /*myRow.setProductC(productC); //H 更新新的产品*/
+                    myRow.setTransferredPeriodA(2);
+                    myRow.setTransferFeeA(new BigDecimal(4)); //全自动线的转产费用为每期2M
+                }
+                else{
+                    //H 第一次转产
+                    myRow.setState(3);
+                    myRow.setEditFlag(1);
+                    myRow.setProductC(productC); //H 更新新的产品
+                    myRow.setTransferredPeriodA(1);
+                    myRow.setTransferFeeA(new BigDecimal(2)); //全自动线的转产费用为每期2M
+                }
                 BaseBeanHelper.edit(myRow);
-          /*  Example example = new Example(ProductLine.class);
-            example.createCriteria().andEqualTo("id", myRow.getId());*/
                 ProductLineMapper.updateByPrimaryKey(myRow);
                 //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
                 accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "SCXZC", factoryNumber + productLineNumber + productLineType + "转产");
@@ -501,27 +523,41 @@ public class     ProductLineServiceImpl implements ProductLineService {
                     String productionLineType = myList.get(i).getProductLineTypeId();
                     switch (productionLineType) {
                         case "手工线":
-                            myList.get(i).setDepreciationC(new BigDecimal(1));//折旧
+                            //H 只有当累计折旧大于残值时继续折旧
+                            if (myList.get(i).getDeprecationA().compareTo(new BigDecimal(1))==1){
+                                myList.get(i).setDepreciationC(new BigDecimal(1));//折旧
+                                myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
+                            }
                             myList.get(i).setMaintenanceFeeC(new BigDecimal(1));//维修费
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
                             myList.get(i).setMaintenanceFeeA(myList.get(i).getMaintenanceFeeA().add(myList.get(i).getMaintenanceFeeC()));//累计维修费
+
                             break;
                         case "半自动":
-                            myList.get(i).setDepreciationC(new BigDecimal(1));//折旧
+                            //H 只有当累计折旧大于残值时继续折旧
+                            if (myList.get(i).getDeprecationA().compareTo(new BigDecimal(2))==1){
+                                myList.get(i).setDepreciationC(new BigDecimal(2));//折旧
+                                myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
+                            }
+
                             myList.get(i).setMaintenanceFeeC(new BigDecimal(1));//维修费
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
                             myList.get(i).setMaintenanceFeeA(myList.get(i).getMaintenanceFeeA().add(myList.get(i).getMaintenanceFeeC()));//累计维修费
                             break;
                         case "全自动":
-                            myList.get(i).setDepreciationC(new BigDecimal(1));//折旧
+                            //H 只有当累计折旧大于残值时继续折旧
+                            if (myList.get(i).getDeprecationA().compareTo(new BigDecimal(3))==1){
+                                myList.get(i).setDepreciationC(new BigDecimal(3));//折旧
+                                myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
+                            }
                             myList.get(i).setMaintenanceFeeC(new BigDecimal(1));//维修费
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
                             myList.get(i).setMaintenanceFeeA(myList.get(i).getMaintenanceFeeA().add(myList.get(i).getMaintenanceFeeC()));//累计维修费
                             break;
                         case "柔性线":
-                            myList.get(i).setDepreciationC(new BigDecimal(1)); //折旧
+                            //H 只有当累计折旧大于残值时继续折旧
+                            if (myList.get(i).getDeprecationA().compareTo(new BigDecimal(4))==1){
+                                myList.get(i).setDepreciationC(new BigDecimal(4));//折旧
+                                myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
+                            }
                             myList.get(i).setMaintenanceFeeC(new BigDecimal(1));//维修费
-                            myList.get(i).setDeprecationA(myList.get(i).getDeprecationA().add(myList.get(i).getDepreciationC()));//累计折旧
                             myList.get(i).setMaintenanceFeeA(myList.get(i).getMaintenanceFeeA().add(myList.get(i).getMaintenanceFeeC()));//累计维修费
                             break;
 
