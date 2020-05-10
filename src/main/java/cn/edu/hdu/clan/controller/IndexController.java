@@ -190,7 +190,8 @@ public class IndexController extends BaseController {
     @ResponseBody
     @RequestMapping(value = "reloaddata",produces = "application/json;charset=utf-8")
     public String reloaddata(@RequestBody Map<String, String> params) {
-        String userTeam = params.get("userTeam");
+        //Y 没有用前端传过来的参数，而是直接用了当前session里的参数。
+        String userTeam = Jurisdiction.getUserTeam();
 
         //Y 需要将当前session中保存的会计期间重置为1。
         Session session = Jurisdiction.getSession();
