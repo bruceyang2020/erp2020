@@ -185,19 +185,19 @@ $(document).ready(function () {
           var deviceValue = 0;
           var processingCycle = 0;
           if (productLineTypeId == "手工线") {
-              deviceValue = 10;//设备原值
+              deviceValue = 5;//设备原值
               processingCycle = 3;//所需加工时间
           }
           if (productLineTypeId == "半自动") {
-              deviceValue = 5;
+              deviceValue = 10;
               processingCycle = 3;
           }
           if (productLineTypeId == "全自动") {
-              deviceValue = 5;
+              deviceValue = 15;
               processingCycle = 3;
           }
           if (productLineTypeId == "柔性线") {
-              deviceValue = 5;
+              deviceValue = 20;
               processingCycle = 3;
           }
           var ProductLine = {

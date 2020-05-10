@@ -56,7 +56,7 @@ public class AccountingVoucherController extends BaseController {
 
         //Y 定义一个初始值为0的金额变量。
         BigDecimal zj= new BigDecimal(0);
-       BigDecimal sds= new BigDecimal(0);
+        BigDecimal sds= new BigDecimal(0);
         BigDecimal wx= new BigDecimal(0);
         BigDecimal bg= new BigDecimal(0);
         BigDecimal gg= new BigDecimal(0);

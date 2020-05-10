@@ -13,9 +13,9 @@
 
         function showIs(period) {
             var Incomesheet = {period :period};
-            var Incomesheet2 = {period :period-1};
-            /*var myYear = parseInt(period/4);*/
-            var myYear = parseInt(period);
+            var Incomesheet2 = {period :period==1?0:period-4};
+            var myYear = parseInt(period/4);
+
             $.ajax({
                 type: "post",
                 dataType: "json",
@@ -92,11 +92,11 @@
 
 </head>
 <body>
-<p>  <button type="button" class="btn btn-default btn-sm" onclick="showIs(0)">初始</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showIs(1)">1年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showIs(2)">2年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showIs(3)">3年</button>
-    <button type="button" class="btn btn-default btn-sm" onclick="showIs(4)">4年</button>
+<p>  <button type="button" class="btn btn-default btn-sm" onclick="showIs(1)">初始</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(5)">1年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(9)">2年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(13)">3年</button>
+    <button type="button" class="btn btn-default btn-sm" onclick="showIs(17)">4年</button>
     <button type="button" class="btn btn-default btn-sm" onclick="showIs(21)">5年</button>
     <button type="button" class="btn btn-default btn-sm" onclick="showIs(25)">6年</button>
 </p>

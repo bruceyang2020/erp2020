@@ -245,6 +245,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
 
     @Override
+    // 本期借贷合计数
     public BigDecimal sumMoney(String userTeam ,int period,String acode,String aType) {
         BigDecimal myMoney = BigDecimal.valueOf(0);
 
@@ -329,42 +330,42 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         Example.Criteria criteria = example.createCriteria();
         switch (voucherType)
         {
-           case "CHANGDAI":  //长贷的自动会计分录
+           case "CHANGDAI":  //长贷的自动会计分录 借现金 贷长期负债
                voucherMakerBase(teamCount,period,"现金","长期负债",amount,content);
                break;
 
-           case "CHCD":  //还长贷的自动会计分录
+           case "CHCD":  //还长贷的自动会计分录 借长期负债 贷现金
                 voucherMakerBase(teamCount,period,"长期负债","现金",amount,content);
                 break;
 
-           case "DUANDAI":  //短贷的会计分录
+           case "DUANDAI":  //短贷的会计分录  借现金 贷长期负债
                voucherMakerBase(teamCount,period,"现金","短期负债",amount,content);
                break;
 
-           case "CHDD":  //还短贷的自动会计分录
+           case "CHDD":  //还短贷的自动会计分录  借短期负债 贷现金
                voucherMakerBase(teamCount,period,"短期负债","现金",amount,content);
                 break;
-           case "GAOLIDAI":  //高利贷的会计分录
+           case "GAOLIDAI":  //高利贷的会计分录 借现金 贷应付
                 voucherMakerBase(teamCount,period,"现金","应付账款",amount,content);
                 break;
 
-           case "CHGLD":  //高利贷的会计分录
+           case "CHGLD":  //高利贷的会计分录 借应付 贷现金
                 voucherMakerBase(teamCount,period,"应付账款","现金",amount,content);
                 break;
 
-           case "CPYF": //产品研发的
+           case "CPYF": //产品研发的会计分录 借综合费用（研发费用） 贷现金
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                  break;
-           case "SCKF":  //市场研发的会计分录
+           case "SCKF":  //市场研发的会计分录 借综合费用（研发费用） 贷现金
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                 break;
-           case "ISOZZ": //ISO认证的会计分录
+           case "ISOZZ": //ISO认证的会计分录  借综合费用（研发费用） 贷现金
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                break;
 
             //产品交货，生成主营业务收入，应收账款的会计分录
            case "JH": //交货的会计分录
-                voucherMakerBase(teamCount,period,"应收款","销售收入",amount,content);
+                voucherMakerBase(teamCount,period,"应收账款","销售收入",amount,content);
                 break;
             //原材料入库，生成借原料，贷现金的会计分录
            case "CLRK": //材料入库的会计分录
@@ -376,13 +377,13 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
            case "XSSK":
                 voucherMakerBase(teamCount,period,"现金","应收账款",amount,content);
                 break;
-            //销售出库。
+            //销售出库。 借直接成本 贷成品
            case "XSCK":
                 voucherMakerBase(teamCount,period,"直接成本","成品",amount,content);
                 break;
 
 
-            //出售厂房，生成借应收款，贷应收款的会计分录
+            //出售厂房，生成借应收款，贷土地与建筑的会计分录
            case "CSCF": //出售厂房的会计分录
                 voucherMakerBase(teamCount,period,"应收账款","土地与建筑",amount,content);
                 break;
@@ -406,26 +407,26 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             case "ZJGCZC":
                 voucherMakerBase(teamCount,period,"机器与设备","在建工程",amount,content);
                 break;
-                //生产线维修费用合计记入综合费用
+                //生产线维修费用合计记入综合费用（维修费用）
             case "WXFY":
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                 break;
 
-            //生产领料。
+            //生产领料。借在制品 贷原材
             case "SCCK":
                 voucherMakerBase(teamCount,period,"在制品","原料",amount,content);
 
                 break;
-            //生产人工费。
+            //生产人工费。借在制品 贷现金
             case "SCRGF":
                 voucherMakerBase(teamCount,period,"在制品","现金",amount,content);
                 break;
-            //产品入库。
+            //产品入库。借成品 贷在制品
             case "CPRK":
                 voucherMakerBase(teamCount,period,"成品","在制品",amount,content);
                 break;
 
-            //卖生产线收回残值。
+            //卖生产线收回残值。借现金 贷机器与设备
             case "SHCZ":
                 voucherMakerBase(teamCount,period,"现金","机器与设备",amount,content);
                 break;
@@ -435,19 +436,19 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                 voucherMakerBase(teamCount,period,"其它支出","机器与设备",amount,content);
                 break;
 
-             //自动生成转产费用的凭证。借综合费用 贷现金
+             //自动生成转产费用的凭证。借综合费用（转产费） 贷现金
             case "SCXZC":
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                 break;
-                //H 管理费用结转
+                //H 管理费用结转 借综合费用（管理费用） 贷现金
             case "GLFY":
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                 break;
-                //H 折旧费用结转
+                //H 折旧费用结转 借折旧费用 贷机器与设备
             case "ZJFY":
-                voucherMakerBase(teamCount,period,"综合费用","折旧费用",amount,content);
+                voucherMakerBase(teamCount,period,"折旧费用","机器与设备",amount,content);
                 break;
-                //H 应收账款贴现
+                //H 应收账款贴现 借现金，财务支出（贴息）  贷应收账款
             case "YSZKTX":
                 voucherMakerBase(teamCount,period,"现金","应收账款",amount,content);
                 break;
@@ -455,19 +456,19 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             case "YSZKTX2":
                 voucherMakerBase(teamCount,period,"财务支出","应收账款",amount,content);
                 break;
-            //H 广告费
+            //H 广告费 借综合费用（广告费） 贷现金
             case "GGF":
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                 break;
-                //H 利息费用结转
+                //H 利息费用结转 借 财务支出（利息） 贷现金
             case "LXFY":
                 voucherMakerBase(teamCount,period,"财务支出","现金",amount,content);
                 break;
-                //交税
+                //交税 借应交税金 贷现金
             case "JS":
                 voucherMakerBase(teamCount,period,"应交税金","现金",amount,content);
                 break;
-                //H 所得税结转
+                //H 所得税结转 借所得税 贷应交税金
             case "SDS":
                 voucherMakerBase(teamCount,period,"所得税","应交税金",amount,content);
                 break;
@@ -550,19 +551,29 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
 
     @Override
-    public List<AccountingVoucher> selectByPeriodAndUserTeamAndContent( String userTeam,Integer period,String content,String acode) {
+    public BigDecimal selectByPeriodAndUserTeamAndContent( String userTeam,Integer period,String content,String acode) {
 
+        Integer periodS=period%4!=0?period/4*4+1:(period/4-1)*4+1;
         Example example = new Example(AccountingVoucher.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount",userTeam);
-        criteria.andEqualTo("period", period);
+        /*criteria.andEqualTo("period", period); //上一个周期*/
+
+        criteria.andBetween("period",periodS,period); //查询区间，计算本年度到目前为止的发生额
         criteria.andEqualTo("substract",content);
         criteria.andEqualTo("acode",acode);
        List< AccountingVoucher> oldRow =AccountingVoucherMapper.selectByExample(example);
-        if(oldRow.size()>0){
-        return(oldRow);}
-        else{
-            return(null); }
+       BigDecimal sum=BigDecimal.valueOf(0);
+
+           if (oldRow.size() > 0) {
+               for (int i = 0; i <= period -periodS; i++) {
+                   sum=sum.add(oldRow.get(i).getMoneyD());
+               }
+               return (sum); //返回合计值
+           }
+           else{
+               return (null);
+           }
     }
 
     @Override
@@ -570,8 +581,8 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
        List<AccountingVoucher> myList=selectByPeriodAndUserTeam(userTeam,period);
 
-       String contentWX= "维修费用合计";String contentZJ="计提折旧费用";String contentBG="管理费用";String contentSDS="所得税费用";String contentGG="广告费";
-       String acodeWX="综合费用"; String acodeZJ="综合费用";String acodeBG="综合费用";String acodeSDS="所得税";String acodeGG="综合费用";
+       String contentWX= "维修费用合计";String contentZJ="计提折旧费用";String contentBG="管理费用";String contentSDS="所得税费用";String contentGG="本期广告费合计";
+       String acodeWX="综合费用"; String acodeZJ="折旧费用";String acodeBG="综合费用";String acodeSDS="所得税";String acodeGG="综合费用";
 
 
 
@@ -579,11 +590,11 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
        List<BigDecimal> list= new ArrayList<BigDecimal>();
        list.add(new BigDecimal(0));
 
-       list.add(1,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX).get(0).getMoneyD());
-       list.add(2,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG).get(0).getMoneyD());
-       list.add(3,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG).get(0).getMoneyD());
-       list.add(4,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ).get(0).getMoneyD());
-       list.add(5,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS).get(0).getMoneyD());
+       list.add(1,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX));
+       list.add(2,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG));
+       list.add(3,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG));
+       list.add(4,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ));
+       list.add(5,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS));
 
 
         return list;

@@ -7,6 +7,7 @@ import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.BalancesheetMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import tk.mybatis.mapper.entity.Example.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -105,11 +107,20 @@ public class BalancesheetServiceImpl implements BalancesheetService {
 
     @Override
     public Balancesheet getByUserTeamAndPeriod(String userTeam,int period) {
-        Example example = new Example(Balancesheet.class);
-        Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
-        return BalancesheetMapper.selectOneByExample(example);
+        //H period: 1 5 9 13 17
+        // 0 4 8 12 16  找不到4 找3
+
+        for(int i=1;i<=4;i++) {
+            Example example = new Example(Balancesheet.class);
+            Criteria criteria = example.createCriteria();
+            criteria.andEqualTo("teamCount", userTeam);
+            criteria.andEqualTo("period", period-i);
+            Balancesheet oldRow = BalancesheetMapper.selectOneByExample(example);
+            if (oldRow!=null) {
+                return oldRow;
+            }
+        }
+        return null;
     }
 
 
@@ -133,7 +144,7 @@ public class BalancesheetServiceImpl implements BalancesheetService {
                     case "现金":
                         balancesheet.setMoneyNow(moneye);
                         break;
-                    case "应收款":
+                    case "应收账款":
                         balancesheet.setMoneyGet(moneye);
                         break;
                     case "在制品":
@@ -205,7 +216,7 @@ public class BalancesheetServiceImpl implements BalancesheetService {
 
             System.out.print("begin");
             System.out.print("现金"+moneyNow);
-            System.out.print("应收"+moneyGet);
+            System.out.print("应收款"+moneyGet);
             System.out.print("在制品"+moneyMaking);
             System.out.print("成品"+moneySale);
             System.out.print("材料"+moneyBuy);
