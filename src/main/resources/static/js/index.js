@@ -399,32 +399,36 @@ $(function(){
         }}, function(){
         $(this).parent().removeClass("hoverItem");
     });
+
+
+    function reinitIframe() {
+        var iframe = document.getElementById("marketingpre-wrap");
+        try {
+            var bHeight = iframe.contentWindow.document.body.scrollHeight;
+
+            iframe.height = bHeight;
+        } catch (ex) { };
+
+        var iframe = document.getElementById("marketingprePriceTotal-wrap");
+        try {
+            var bHeight = iframe.contentWindow.document.body.scrollHeight;
+
+            iframe.height = bHeight;
+        } catch (ex) { };
+
+
+
+        var iframe = document.getElementById("advertise-wrap");
+        try {
+            var bHeight = iframe.contentWindow.document.body.scrollHeight;
+            iframe.height = bHeight;
+        } catch (ex) { }
+
+
+    }})
 });
-function reinitIframe() {
-    var iframe = document.getElementById("marketingpre-wrap");
-    try {
-        var bHeight = iframe.contentWindow.document.body.scrollHeight;
-
-        iframe.height = bHeight;
-    } catch (ex) { };
-
-    var iframe = document.getElementById("marketingprePriceTotal-wrap");
-    try {
-        var bHeight = iframe.contentWindow.document.body.scrollHeight;
-
-        iframe.height = bHeight;
-    } catch (ex) { };
 
 
-
-    var iframe = document.getElementById("advertise-wrap");
-    try {
-        var bHeight = iframe.contentWindow.document.body.scrollHeight;
-           iframe.height = bHeight;
-    } catch (ex) { }
-
-
-}});
 
 
 /*  function ChangeStyle(StID)
