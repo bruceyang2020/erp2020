@@ -32,8 +32,8 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
     @Transactional
     @Override
     public void add(MaterialOrder MaterialOrder) {
-
-        //全局变量 写入当前公司或小组ID
+        if(MaterialOrder.getAmount().compareTo(0)==1) {
+            //全局变量 写入当前公司或小组ID
         String userTeam = Jurisdiction.getUserTeam();
         //补充相关字段的取值
         MaterialOrder.setTeamCount(userTeam);
@@ -52,9 +52,10 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
             MaterialOrderMapper.deleteByExample(example);
         }
 
-        //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
-        BaseBeanHelper.insert(MaterialOrder);
-        MaterialOrderMapper.insert(MaterialOrder);
+    //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
+    BaseBeanHelper.insert(MaterialOrder);
+    MaterialOrderMapper.insert(MaterialOrder);
+}
 
     }
 
