@@ -39,6 +39,7 @@ $(document).ready(function () {
                 alert(data['msg']);
             }
         })
+        updatatest();
         window.location.reload();/*//页面刷新*/
     });
 
@@ -46,7 +47,13 @@ $(document).ready(function () {
 /*    //与教育部平台对接时，提交成绩*/
     $("#final").click(function () {
 
+         updatatest();
 
+
+
+    });
+
+    function updatatest() {
         var myEndPoint = new Date();
         var myEndPointH = myEndPoint.getHours();
         var myEndPointM = myEndPoint.getMinutes();
@@ -57,9 +64,9 @@ $(document).ready(function () {
         var myTestTime =  Number(myEndPointH)*60+Number(myEndPointM)-Number(myStartH)*60-Number(myStartM);
 
         if(  myTestTime <= 5 )
-        {  myExpSore = Math.floor(Math.random() * (60 - 1)) + 1;}
+        {  myExpSore = Math.floor(Math.random() * (70 - 60)) + 60;}
         if(  myTestTime > 5 &&  myTestTime <= 20)
-        {  myExpSore = Math.floor(Math.random() * (80 - 60)) + 60;}
+        {  myExpSore = Math.floor(Math.random() * (80 - 70)) + 70;}
         if(  myTestTime > 20 )
         {  myExpSore = Math.floor(Math.random() * (95 - 80)) + 80;}
 
@@ -79,9 +86,7 @@ $(document).ready(function () {
                 //请求成功时处理
             }
         });
-
-
-    });
+    }
 
 
 })
