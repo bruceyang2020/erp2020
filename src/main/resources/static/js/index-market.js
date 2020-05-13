@@ -9,7 +9,7 @@ $(document).ready(function () {
             type: "post",
             dataType: "json",
             data: JSON.stringify(myquery1),
-            url: "/OrderManagement/list",
+            url: "/OrderManagement/listCurrentPeriodOrder",
             contentType: "application/json;charset=utf-8;",
             success:function(data){
                 data = data['data'];
@@ -70,7 +70,7 @@ $(document).ready(function () {
             type: "post",
             dataType: "json",
             data: JSON.stringify(myquery1),
-            url: "/OrderManagement/list",
+            url: "/OrderManagement/listCurrentPeriodOrder",
             contentType: "application/json;charset=utf-8;",
             success:function(data){
                 data = data['data'];
@@ -130,7 +130,7 @@ $(document).ready(function () {
             type: "post",
             dataType: "json",
             data: JSON.stringify(myquery1),
-            url: "/OrderManagement/list",
+            url: "/OrderManagement/listCurrentPeriodOrder",
             contentType: "application/json;charset=utf-8;",
             success:function(data){
                 data = data['data'];
@@ -190,7 +190,7 @@ $(document).ready(function () {
             type: "post",
             dataType: "json",
             data: JSON.stringify(myquery1),
-            url: "/OrderManagement/list",
+            url: "/OrderManagement/listCurrentPeriodOrder",
             contentType: "application/json;charset=utf-8;",
             success:function(data){
                 data = data['data'];

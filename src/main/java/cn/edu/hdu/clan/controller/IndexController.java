@@ -353,7 +353,7 @@ public class IndexController extends BaseController {
 
                 SysUser userNew = new SysUser();
                 userNew.setUsername(userName);
-                userNew.setTeamId(userTeam.getId());
+                userNew.setTeamId(userName);
                 userNew.setPassword("123456");
                 userNew.setRegistrationTime(new Date());
                 userNew.setTelephome(800);
@@ -366,8 +366,11 @@ public class IndexController extends BaseController {
                 session.setAttribute(Const.SESSION_USERPERIOD,userTeam.getState().toString());  //当前的会计期间
 
 
+                //初始化到第一个会计期间。
+                sysTeamService.reloadData(userName,1);
+
             }else{
-                SysTeam  sysTeam2 = sysTeamService.getById(sysUser2.getTeamId());
+                SysTeam  sysTeam2 = sysTeamService.getById(userName);
                 session.setAttribute(Const.SESSION_USER,sysUser2);
                 session.setAttribute(Const.SESSION_USERID,sysUser2.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser2.getTeamId());
