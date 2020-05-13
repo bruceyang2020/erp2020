@@ -30,7 +30,7 @@
                 $("#currentUser").val(data.currentUser);  //获取当前用户名
                 $("#currentTeam").val(data.currentTeam);  //获取当前的群组ID
                 $("#userset-period").html(data.currentAp);  //获取当前会计期间
-                $("#userset-user").html(data.currentUser);  //获取当前用户名
+                $("#userset-user").html(data.currentTeam);  //获取当前用户名
 
                 var period = data.currentAp;
                 var str = "第"+Math.ceil(period/4)+"年"+(period%4==0?4:period%4)+"季";
@@ -520,7 +520,7 @@
 <div class="pop-userset">
     <table>
         <tr>
-            <td>用户编码：</td><td><div id="userset-user"></div></td>
+            <td>用户识别码：</td><td><div id="userset-user"></div></td>
         </tr>
         <tr>
             <td>会计期间：</td><td><div id="userset-period"></div></td>
