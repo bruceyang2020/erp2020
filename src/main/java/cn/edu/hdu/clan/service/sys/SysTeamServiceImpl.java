@@ -134,11 +134,11 @@ public class SysTeamServiceImpl implements SysTeamService {
 
         //Y 0322,根据userTeam　找到当前这个用户组的ID,将state写入1。这个STATE是用来保存当前的会计期间的。
         Example example = new Example(SysTeam.class);
-        example.createCriteria().andEqualTo("id", userTeam);
+        example.createCriteria().andEqualTo("name", userTeam);
         SysTeam sysTeam = SysTeamMapper.selectOneByExample(example);
         sysTeam.setState(period);
-        BaseBeanHelper.edit(sysTeam);
-        SysTeamMapper.updateByPrimaryKey(sysTeam);
+      //  BaseBeanHelper.edit(sysTeam);
+        SysTeamMapper.updateByPrimaryKeySelective(sysTeam);
 
         // 清空会计凭证
         accountingVoucherService.deleteByTeamCount(userTeam);
@@ -173,14 +173,14 @@ public class SysTeamServiceImpl implements SysTeamService {
         List<ProductLine> productLines= (List<ProductLine>)JSONArray.toCollection(json1, ProductLine.class);
         productLineService.deleteByTeamCount(userTeam);
         productLineService.adds(productLines);
-        System.out.println(json);
+        System.out.println(json1);
 
         //数数生产线
         productLineService.countNumberOfProductLines(userTeam,period);
 
 
         //初始化应收账款。这里的应收账款也包括了出售厂房产生的应收账款
-        String jsonStr2 = PropertiesUtils.readJsonFile("jsondata/initSalepayment.json");
+        String jsonStr2 = PropertiesUtils.readJsonFile("jsondata/initSalePayment.json");
         JSONArray json2 = JSONArray.fromObject(jsonStr2);
         List<Salepayment> salepayments= (List<Salepayment>)JSONArray.toCollection(json2, Salepayment.class);
         salepaymentService.deleteByTeamCount(userTeam);
@@ -233,7 +233,7 @@ public class SysTeamServiceImpl implements SysTeamService {
         System.out.println(json7);
 
         //资产负债表这里不使用List.初始化一个会计期间只有一条数据
-        String jsonStr8 = PropertiesUtils.readJsonFile("jsondata/initBalancesheet.json");
+        String jsonStr8 = PropertiesUtils.readJsonFile("jsondata/initBalanceSheet.json");
         JSONObject json8= JSONObject.fromObject(jsonStr8);
         Balancesheet balancesheet= (Balancesheet) JSONObject.toBean(json8, Balancesheet.class);
         balancesheetService.deleteByTeamCount(userTeam);

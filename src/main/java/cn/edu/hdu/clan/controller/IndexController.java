@@ -322,10 +322,11 @@ public class IndexController extends BaseController {
     public String loginlabTo(@RequestBody Map<String, String> params) {
         String userName = params.get("username");
         Subject subject = SecurityUtils.getSubject();
+
         try{
             // 调用安全认证框架的登录方法
-            subject.login(new UsernamePasswordToken("yang", "1")); //用默认的用户先登录
-            Session session = Jurisdiction.getSession();
+        /*    subject.login(new UsernamePasswordToken("yang", "1")); //用默认的用户先登录
+
 
             SysUser sysUser  = userService.findByUsername("yang");
             SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
@@ -333,7 +334,7 @@ public class IndexController extends BaseController {
             session.setAttribute(Const.SESSION_USER,sysUser);
             session.setAttribute(Const.SESSION_USERID,sysUser.getId());
             session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
-            session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
+            session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间*/
 
 
 
@@ -360,6 +361,9 @@ public class IndexController extends BaseController {
                 sysUserService.add(userNew);
 
                 SysUser sysUser3  = userService.findByUsername(userName);
+
+                subject.login(new UsernamePasswordToken(userName, "123456"));
+                Session session = Jurisdiction.getSession();
                 session.setAttribute(Const.SESSION_USER,sysUser3);
                 session.setAttribute(Const.SESSION_USERID,sysUser3.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser3.getTeamId());
@@ -368,9 +372,14 @@ public class IndexController extends BaseController {
 
                 //初始化到第一个会计期间。
                 sysTeamService.reloadData(userName,1);
+                //Y 需要将当前session中保存的会计期间重置为1。
+                session.setAttribute(Const.SESSION_USERPERIOD,1);  //当前的会计期间
 
             }else{
                 SysTeam  sysTeam2 = sysTeamService.getById(userName);
+
+                subject.login(new UsernamePasswordToken(sysUser2.getUsername(), sysUser2.getPassword()));
+                Session session = Jurisdiction.getSession();
                 session.setAttribute(Const.SESSION_USER,sysUser2);
                 session.setAttribute(Const.SESSION_USERID,sysUser2.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser2.getTeamId());
