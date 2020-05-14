@@ -255,7 +255,7 @@ $(document).ready(function () {
             alert("当前会计期间不能参加订货会。");
             return;
         }
-        $('#advertise-wrap').attr('src', $('#order-wrap').attr('src'));  //需要刷新iframe的子页面-广告页。
+        $('#advertise-wrap').attr('src', $('#advertise-wrap').attr('src'));  //需要刷新iframe的子页面-广告页。
        $('.pop-advertise').show();
 
 
