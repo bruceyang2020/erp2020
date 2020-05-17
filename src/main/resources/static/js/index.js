@@ -255,17 +255,19 @@ $(document).ready(function () {
             alert("当前会计期间不能参加订货会。");
             return;
         }
-        $('#advertise-wrap').attr('src', $('#order-wrap').attr('src'));  //需要刷新iframe的子页面-广告页。
        $('.pop-advertise').show();
+        $('#advertise-wrap').attr('src', $('#advertise-wrap').attr('src'));  //需要刷新iframe的子页面-广告页。
+
 
 
     });
     $('#ok-tomarketing').click(function () {
 
         $('.pop-advertise').hide(); //广告页面关闭
-        $('#advertise-wrap').attr('src', $('#advertise-wrap').attr('src'));  //需要刷新iframe的子页面-广告页。
-        $('#order-wrap').attr('src', $('#order-wrap').attr('src'));  //需要刷新iframe的子页面-订货会页面。
         $('.pop-marketing').show(); //市场订单页面打开
+        $('#order-wrap').attr('src', $('#order-wrap').attr('src'));  //需要刷新iframe的子页面-订货会页面。
+
+
 
 
     });
