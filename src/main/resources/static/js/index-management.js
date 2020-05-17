@@ -69,7 +69,7 @@ $(document).ready(function () {
     //原材料采购的点击事件：R1、R2、R3、R4
     $("#ok-r1-1").click(function () {
         var amount = $('#buy-r1-1').val();
-        if(amount<0||amount==null){
+        if(amount<0||amount==null||amount%1!=0){
             alert("请输入正确的数值");
             return;
         }
@@ -94,7 +94,7 @@ $(document).ready(function () {
 
     $("#ok-r2-1").click(function () {
         var amount = $('#buy-r2-1').val();
-        if(amount<0||amount==null){
+        if(amount<0||amount==null||amount%1!=0){
             alert("请输入正确的数值");
             return;
         }
@@ -119,7 +119,7 @@ $(document).ready(function () {
 
     $("#ok-r3-2").click(function () {
         var amount = $('#buy-r3-2').val();
-        if(amount<0||amount==null){
+        if(amount<0||amount==null||amount%1!=0){
             alert("请输入正确的数值");
             return;
         }
@@ -146,7 +146,7 @@ $(document).ready(function () {
 
     $("#ok-r4-2").click(function () {
         var amount = $('#buy-r4-2').val();
-        if(amount<0||amount==null){
+        if(amount<0||amount==null||amount%1!=0){
             alert("请输入正确的数值");
             return;
         }

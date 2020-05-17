@@ -35,7 +35,7 @@ $(document).ready(function () {
             var moneySum1=0;var moneySum2=0;var moneySum3=0;var moneySum4=0;
 
             for(var i=0; i<len;i++){
-                console.log(i+"???????????????????????????");
+
                 var surplusPeriod= data[i].surplusPeriod;
                 var money=data[i].money;
                 var amount=data[i].amount;
