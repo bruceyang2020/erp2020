@@ -18,7 +18,7 @@ $(document).ready(function () {
                 alert(data['msg']);
             }
         })
-        window.location.reload();
+        window.location.href = "/index";//页面刷新*/
     });
 
 
@@ -37,10 +37,11 @@ $(document).ready(function () {
                 var myMsg = data['msg'];
                 console.log(myMsg);
                 alert(data['msg']);
+
             }
         })
         updatatest();
-        window.location.reload();/*//页面刷新*/
+        window.location.href = "/index";//页面刷新*/
     });
 
 

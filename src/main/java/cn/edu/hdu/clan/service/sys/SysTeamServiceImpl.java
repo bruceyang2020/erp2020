@@ -137,7 +137,7 @@ public class SysTeamServiceImpl implements SysTeamService {
         example.createCriteria().andEqualTo("name", userTeam);
         SysTeam sysTeam = SysTeamMapper.selectOneByExample(example);
         sysTeam.setState(period);
-      //  BaseBeanHelper.edit(sysTeam);
+        BaseBeanHelper.edit(sysTeam);
         SysTeamMapper.updateByPrimaryKeySelective(sysTeam);
 
         // 清空会计凭证
