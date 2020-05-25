@@ -45,6 +45,36 @@
 
                 }
             });
+
+
+
+            //Y timer处理函数-更新现金流的数据显示-暂时先显示时间，等后台接口完成，删除时间显示
+            function SetCash() {
+
+
+                //财务部现金
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: "/AccountBalance/moneyTotal",
+                    contentType: "application/json;charset=utf-8;",
+                    success: function (data) {
+                        data = data['data'];
+                        console.log(data);
+                        $('#cash').text(parseInt(data['moneytotal']));
+                        /* if(data['moneytotal']<0){
+                             /!*alert("啊哦，破产了");*!/
+                         }*/
+
+                        console.log('财务部资金数据');
+                    }
+                })
+
+            }
+
+            //Y 计时器，每3秒触发一次。
+            setInterval(SetCash, 5000);
+
         })
 
 
@@ -52,32 +82,6 @@
 
 
 
-        //Y timer处理函数-更新现金流的数据显示-暂时先显示时间，等后台接口完成，删除时间显示
-        function SetCash() {
-
-
-                //财务部现金
-                  $.ajax({
-                      type: "post",
-                      dataType: "json",
-                      url: "/AccountBalance/moneyTotal",
-                      contentType: "application/json;charset=utf-8;",
-                      success: function (data) {
-                          data = data['data'];
-                          console.log(data);
-                          $('#cash').text(parseInt(data['moneytotal']));
-                         /* if(data['moneytotal']<0){
-                              /!*alert("啊哦，破产了");*!/
-                          }*/
-
-                          console.log('财务部资金数据');
-                      }
-                  })
-
-        }
-
-        //Y 计时器，每3秒触发一次。
-        setInterval(SetCash, 5000);
 
 
 
