@@ -1,6 +1,8 @@
 package cn.edu.hdu.clan.controller;
 
+import cn.edu.hdu.clan.entity.sys.SysTeam;
 import cn.edu.hdu.clan.entity.sys.SysUser;
+import cn.edu.hdu.clan.service.sys.SysTeamService;
 import cn.edu.hdu.clan.service.sys.SysUserService;
 import cn.edu.hdu.clan.util.Jurisdiction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +20,9 @@ public class SysUserController extends BaseController {
 
     @Autowired
     private SysUserService SysUserService;
+    @Resource
+    private SysTeamService sysTeamService;
+
     @RequestMapping("add")
     public String add(@RequestBody SysUser SysUser) {
         SysUserService.add(SysUser);
@@ -48,9 +54,12 @@ public class SysUserController extends BaseController {
 
     @RequestMapping("getCurrentInfo")
     public String getCurrentInfo() {
-        String currentAp = Jurisdiction.getUserTeamintPeriod();
+      //Y  当前会计期间从后台数据库中去取值  String currentAp = Jurisdiction.getUserTeamintPeriod();
         String currentUser = Jurisdiction.getUserId();
         String currentTeam = Jurisdiction.getUserTeam();
+
+        SysTeam sysTeam = sysTeamService.getByName(currentTeam);
+        String currentAp = sysTeam.getState().toString();
         Map map = new HashMap();
         map.put("currentAp",currentAp);
         map.put("currentUser",currentUser);

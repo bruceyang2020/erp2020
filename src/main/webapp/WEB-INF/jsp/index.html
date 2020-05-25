@@ -19,29 +19,35 @@
     <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
     <title>杭州电子科技大学ERP财务虚拟仿真沙盘系统</title>
     <script>
-        //获取当前用户、当前会计期间、公司ID，初始化前端对应的全局参数
-        $.ajax({
-            type: "get",
-            dataType: "json",
-            url: "/SysUser/getCurrentInfo",
-            contentType: "application/json;charset=utf-8;",
-            success: function (data) {
-                data = data['data'];
-                console.log(data);
-                $("#currentAp").val(data.currentAp);  //获取当前会计期间
-                $("#currentUser").val(data.currentUser);  //获取当前用户名
-                $("#currentTeam").val(data.currentTeam);  //获取当前的群组ID
-                $("#userset-period").html(data.currentAp);  //获取当前会计期间
-                $("#userset-user").html(data.currentTeam);  //获取当前用户名
+        $(document).ready(function () {
 
-                var period = data.currentAp;
-                var str = "第"+Math.ceil(period/4)+"年"+(period%4==0?4:period%4)+"季";
-                $("#tip-period").html(str);  //在系统设置按钮上显示当前的会计期间。
-                console.log(data.currentAp);
-                console.log($("#currentAp").val()+"全局会计期间");
 
-            }
-        });
+            //获取当前用户、当前会计期间、公司ID，初始化前端对应的全局参数
+            $.ajax({
+                type: "get",
+                dataType: "json",
+                url: "/SysUser/getCurrentInfo",
+                contentType: "application/json;charset=utf-8;",
+                success: function (data) {
+                    data = data['data'];
+                    console.log(data);
+                    $("#currentAp").val(data.currentAp);  //获取当前会计期间
+                    $("#currentUser").val(data.currentUser);  //获取当前用户名
+                    $("#currentTeam").val(data.currentTeam);  //获取当前的群组ID
+                    $("#userset-period").html(data.currentAp);  //获取当前会计期间
+                    $("#userset-user").html(data.currentTeam);  //获取当前用户名
+
+                    var period = data.currentAp;
+                    var str = "第"+Math.ceil(period/4)+"年"+(period%4==0?4:period%4)+"季";
+                    $("#tip-period").html(str);  //在系统设置按钮上显示当前的会计期间。
+                    console.log(data.currentAp);
+                    console.log($("#currentAp").val()+"全局会计期间");
+
+                }
+            });
+        })
+
+
 
 
 
