@@ -26,22 +26,26 @@ $(document).ready(function () {
         var currentAp = $("#currentAp").val();
         var currentTeam = $("#currentTeam").val();
         var mydata ={userTeam:currentTeam,period:currentAp};
-        //会计结账处理
+
+
         $.ajax({
             type: "post",
             dataType: "json",
-            url: "/closing",
+            url: "/closing?tm="+new Date().getTime(),
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(mydata),
             success: function (data) {
                 var myMsg = data['msg'];
-                console.log(myMsg);
-                alert(data['msg']);
+                window.location.href = "/index";
 
             }
-        })
+        });
+
         updatatest();
-        window.location.href = "/index";//页面刷新*/
+
+
+
+
     });
 
 

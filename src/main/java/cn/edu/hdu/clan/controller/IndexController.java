@@ -205,7 +205,7 @@ public class IndexController extends BaseController {
 
 
     @ResponseBody
-    @RequestMapping("closing")
+    @RequestMapping(value = "closing",produces = "application/json;charset=utf-8")
     public String closing(@RequestBody Map<String, String> params){
         //Y 没有用前端传过来的参数，而是直接用了当前session里的参数。
         String userTeam = Jurisdiction.getUserTeam();
@@ -306,7 +306,7 @@ public class IndexController extends BaseController {
 
 
 
-        return success();
+        return success("结转成功");
     }
 
 

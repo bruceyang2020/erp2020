@@ -53,7 +53,7 @@ public class SysUserController extends BaseController {
 
 
     @RequestMapping("getCurrentInfo")
-    public String getCurrentInfo() {
+    public String getCurrentInfo(@RequestBody Map<String, Integer> param) {
       //Y  当前会计期间从后台数据库中去取值  String currentAp = Jurisdiction.getUserTeamintPeriod();
         String currentUser = Jurisdiction.getUserId();
         String currentTeam = Jurisdiction.getUserTeam();
