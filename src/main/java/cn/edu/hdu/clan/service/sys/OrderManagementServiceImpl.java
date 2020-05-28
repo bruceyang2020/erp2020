@@ -76,14 +76,17 @@ public class OrderManagementServiceImpl implements OrderManagementService {
     @Override
     public void stockOut(String orderId) {
 
+        //全局变量 写入当前公司或小组ID
+        String userTeam = Jurisdiction.getUserTeam();
 
         Example example = new Example(OrderManagement.class);
-        example.createCriteria().andEqualTo("orderId", orderId);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("orderId", orderId);
+        criteria.andEqualTo("teamId", userTeam);  //
 
         OrderManagement myOrderManagement =  OrderManagementMapper.selectOneByExample(example);
 
-        //全局变量 写入当前公司或小组ID
-        String userTeam = Jurisdiction.getUserTeam();
+
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         BigDecimal myMoney = myOrderManagement.getMoney();
 
@@ -116,10 +119,14 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 
     @Override
     public List<OrderManagement> list(String productId) {
+
+
         //全局变量 写入当前公司或小组ID
+        String userTeam = Jurisdiction.getUserTeam();
         int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         Example example = new Example(OrderManagement.class);
         Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamId", userTeam);  //
         criteria.andEqualTo("productId", productId);
         criteria.andEqualTo("state", 0);  //列出未交付的订单
 

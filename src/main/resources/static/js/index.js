@@ -25,8 +25,9 @@ $(document).ready(function () {
         $('.pop-userset').hide();
     });
 
-
-
+    $('.pop-close').click(function () {
+        $('.pop-rule').hide();
+    });
 
     $('.pop-close').click(function () {
         $('.pop').hide();
@@ -106,6 +107,10 @@ $(document).ready(function () {
     });
     $('.pop-cancel').click(function () {
         $('.pop-s4').hide();
+    });
+
+    $('.pop-cancel').click(function () {
+        $('.pop-rule').hide();
     });
 
     $('#ceo-tz-ma2').click(function () {

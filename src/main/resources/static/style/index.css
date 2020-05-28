@@ -68,6 +68,30 @@ html,body,#wrapper{
 
 }
 
+.pop-rule{
+    display: none;
+    width: 750px;
+    height:1100px;
+    position: absolute;
+    top:300px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    z-index: 130;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
+
+}
+
+#rule-content{
+    width: 720px;
+    height: 1000px;
+    position: relative;
+    background: url(rule.png) no-repeat;
+}
+
 
 .pop-userset{
     display: none;

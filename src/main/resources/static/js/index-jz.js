@@ -58,6 +58,13 @@ $(document).ready(function () {
 
     });
 
+/*显示经营规则*/
+    $("#showrule").click(function () {
+        $('.pop-jz').hide();
+        $('.pop-rule').show();
+
+    });
+
     function updatatest() {
         var myEndPoint = new Date();
         var myEndPointH = myEndPoint.getHours();

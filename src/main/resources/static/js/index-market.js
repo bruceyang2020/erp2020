@@ -37,7 +37,7 @@ $(document).ready(function () {
                 tableStr = tableStr + "</table>";
                 //添加到div中
                 $("#ordermanagement1").html(tableStr);
-                $("#ordermanagement1").delegate("button.btn-stockout", "click",
+                $("#ordermanagement1").delegate("button .btn-stockout", "click",
                     function(e) {
                         var myOrderName = "xxx";
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -52,6 +52,7 @@ $(document).ready(function () {
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
                                 alert("交货成功");
+                                window.location.href = "/index";
                             }
                         });
 
@@ -98,7 +99,7 @@ $(document).ready(function () {
                 tableStr = tableStr + "</table>";
                 //添加到div中
                 $("#ordermanagement2").html(tableStr);
-                $("#ordermanagement2").delegate("button.btn-stockout", "click",
+                $("#ordermanagement2").delegate("button .btn-stockout", "click",
                     function(e) {
                         var myOrderName = "xxx";
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -113,6 +114,7 @@ $(document).ready(function () {
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
                                 alert("交货成功");
+                                window.location.href = "/index";
                             }
                         });
 
@@ -158,7 +160,7 @@ $(document).ready(function () {
                 tableStr = tableStr + "</table>";
                 //添加到div中
                 $("#ordermanagement3").html(tableStr);
-                $("#ordermanagement3").delegate("button.btn-stockout", "click",
+                $("#ordermanagement3").delegate("button .btn-stockout", "click",
                     function(e) {
                         var myOrderName = "xxx";
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -173,6 +175,7 @@ $(document).ready(function () {
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
                                 alert("交货成功");
+                                window.location.href = "/index";
                             }
                         });
 
@@ -218,7 +221,7 @@ $(document).ready(function () {
                 tableStr = tableStr + "</table>";
                 //添加到div中
                 $("#ordermanagement4").html(tableStr);
-                $("#ordermanagement4").delegate("button.btn-stockout", "click",
+                $("#ordermanagement4").delegate("button .btn-stockout", "click",
                     function(e) {
                         var myOrderName = "xxx";
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -233,6 +236,7 @@ $(document).ready(function () {
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
                                 alert("交货成功");
+                                window.location.href = "/index";
                             }
                         });
 
