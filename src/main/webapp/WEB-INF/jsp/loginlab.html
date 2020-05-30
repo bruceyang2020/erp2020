@@ -1,4 +1,4 @@
-﻿﻿<!doctype html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -23,7 +23,8 @@
 
                     var token= this.GetQueryString();
                     if(token==null){
-                        console.log('token值为空')
+                        console.log('token值为空');
+                        toIndexPage();
                     }else{
                         this.Ajax({
                             url: host + "outer/getMessageByToken",
@@ -42,6 +43,8 @@
                                 $("#username").attr("value",JsonData.eId);
                                 console.log("解析成功："+JsonData);
                                 console.log("解析eid成功："+JsonData.eId);
+                                toIndexPage();
+
 
 
                                 window.postMessage(jsonStr,'*');
@@ -96,51 +99,70 @@
             GetLabInfo._GetUserInfo();
 
 
-            if($('#username').val() != "") {
-                var str = {
-                    "username": $('#username').val(),
-                    "password": $('#password').val()
-                };
 
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/loginlabTo",
-                    contentType: "application/json;charset=utf-8;",
-                    data:JSON.stringify(str),
-                    success: function (data) {
-                        console.log(data);
-                        window.location.href = "/index";
 
-                    }
+            function guid() {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                    return v.toString(16);
                 });
             }
-            else{
-          /* //////    随机生成一个新的账号。暂时不需要使用。如果教育部的平台没有正确的获取账号。你
-             就使用默认的账号。yang 密码1 。*/
-              var str = {
-                    "username": "ERP"+rand(10),
-                    "password": "1"
-                };
 
-              /*  var str = {
-                    "username": "default",
-                    "password": "123456"
-                };*/
-
-                $.ajax({
-                    type: "post",
-                    dataType: "json",
-                    url: "/loginlabTo",
-                    contentType: "application/json;charset=utf-8;",
-                    data:JSON.stringify(str),
-                    success: function (data) {
-                        console.log(data);
-                        window.location.href = "/index";
-
-                    }
-                });
+            function rand(n)
+            {
+                var str = '';
+                for(var i=0;i<n;i++)
+                {
+                    str += Math.floor(Math.random()*10)
                 }
+                return str
+            }
+
+            function toIndexPage() {
+
+                if($('#username').val() != "") {
+                    var str = {
+                        "username": $('#username').val(),
+                        "password": $('#password').val()
+                    };
+
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "/loginlabTo",
+                        contentType: "application/json;charset=utf-8;",
+                        data:JSON.stringify(str),
+                        success: function (data) {
+                            console.log(data);
+                            window.location.href = "/index";
+
+                        }
+                    });
+                }
+                else{
+                    /* //////    随机生成一个新的账号。暂时不需要使用。如果教育部的平台没有正确的获取账号。你
+                       就使用默认的账号。yang 密码1 。*/
+                    var str = {
+                        "username": "ERP"+rand(10),
+                        "password": "1"
+                    };
+
+
+                    $.ajax({
+                        type: "post",
+                        dataType: "json",
+                        url: "/loginlabTo",
+                        contentType: "application/json;charset=utf-8;",
+                        data:JSON.stringify(str),
+                        success: function (data) {
+                            console.log(data);
+                            window.location.href = "/index";
+
+                        }
+                    });
+                }
+            }
+
 
 
 
@@ -149,22 +171,6 @@
 
         })
 
-        function guid() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-                return v.toString(16);
-            });
-        }
-
-        function rand(n)
-        {
-            var str = '';
-            for(var i=0;i<n;i++)
-            {
-                str += Math.floor(Math.random()*10)
-            }
-            return str
-        }
 
 
 

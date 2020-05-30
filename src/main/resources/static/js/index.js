@@ -33,6 +33,7 @@ $(document).ready(function () {
         $('.pop').hide();
     });
     $('#ceo-sc').click(function () {
+
         $('.pop2').show();
     });
     $('.pop-close').click(function () {
