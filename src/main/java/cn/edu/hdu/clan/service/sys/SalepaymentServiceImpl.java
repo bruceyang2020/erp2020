@@ -40,7 +40,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
             for (int i = 0; i < salepayments.size(); i++) {
                 String userTeam = Jurisdiction.getUserTeam();
                 int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-                salepayments.get(i).setPeriod(period);
+                /*salepayments.get(i).setPeriod(period);*/
                 salepayments.get(i).setTeamCount(userTeam);
                 salepayments.get(i).setGroupId("1000");
                 BaseBeanHelper.insert(salepayments.get(i));
