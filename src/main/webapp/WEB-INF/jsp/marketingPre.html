@@ -22,16 +22,16 @@
                    var  mydata = data['data'];
                     console.log(mydata);
                     console.log(mydata["P1"]);
-                    console.log('获取市场订单的数量合计');
+                    console.log('市场预测弹窗：获取市场订单的数量合计');
                     $('#container').highcharts({
                         chart: {
                             renderTo: "container",
                             type: "column"
                         },
+                        colors:["#000000", "#3398db", "#6aa84f", "#f7a35c"],
                         title: {
                             text: '市场订单总数量预测'
                         },
-                        //x轴
                         xAxis: { categories:
                                 [{
                                     name:"本地",

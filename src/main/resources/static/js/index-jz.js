@@ -1,7 +1,12 @@
 $(document).ready(function () {
 
+
+
  /*   //初始化公司或群组的数据*/
     $("#reloaddata").click(function () {
+
+
+
         var currentAp = $("#currentAp").val();
         var currentTeam = $("#currentTeam").val();
         var mydata ={userTeam:currentTeam,period:currentAp};
@@ -19,6 +24,7 @@ $(document).ready(function () {
             }
         })
         window.location.href = "/index";
+        updatatest();
     });
 
 
@@ -60,6 +66,7 @@ $(document).ready(function () {
 
 /*显示经营规则*/
     $("#showrule").click(function () {
+        updatatest();
         $('.pop-jz').hide();
         $('.pop-rule').show();
 
@@ -84,8 +91,10 @@ $(document).ready(function () {
 
 
 
-        var myeId =  $("#eId").val();
+        var myeId =  $("#currentTeam").val();
         var param='{"eid":"'+myeId+'","expScore":"'+myExpSore+'"}';
+
+
 
         $.ajax({
             url:"http://139.224.197.21:8081/openlab/outer/intelligent/!expScoreSave",   
@@ -94,6 +103,8 @@ $(document).ready(function () {
             data:{"param":param},   
             type:"POST",   
             success:function(req){
+                console.log("当前用户eid："+myeId);
+                console.log("当前用户成绩："+myExpSore);
                 console.log(req)
 
             }

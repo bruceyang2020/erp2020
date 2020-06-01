@@ -171,63 +171,101 @@ $(document).ready(function () {
 
     //当新建生产线按钮被点击
     $('#ok-pro-newBuild').click(function () {
-        var myPlnValue =    $('#plnValue').val();
-        var currentAp =  $('#currentAp').val();
-        var currentTeam =   $('#currentTeam').val();
-        var factoryNumber ="";
-        if(Number(myPlnValue) <7) { factoryNumber ="大厂房";}else{factoryNumber ="小厂房";}
-        var productLineTypeId =  $("#productLineTypeIdList").find("option:selected").val();
-        var productLineCType = $("#productCTypeList").find("option:selected").val(); // H 产品类型
-        console.log("新建生产线：");
-        console.log(productLineTypeId);
-        console.log(productLineCType);
-      if(editFlag[myPlnValue]==0) {
-          var deviceValue = 0;
-          var processingCycle = 0;
-          if (productLineTypeId == "手工线") {
-              deviceValue = 5;//设备原值
-              processingCycle = 3;//所需加工时间
-          }
-          if (productLineTypeId == "半自动") {
-              deviceValue = 10;
-              processingCycle = 3;
-          }
-          if (productLineTypeId == "全自动") {
-              deviceValue = 15;
-              processingCycle = 3;
-          }
-          if (productLineTypeId == "柔性线") {
-              deviceValue = 20;
-              processingCycle = 3;
-          }
-          var ProductLine = {
-              teamCount: currentTeam,
-              period: currentAp,
-              productLineNumber: myPlnValue,
-              factoryNumber: factoryNumber,
-              productLineTypeId: productLineTypeId,
-              deviceValue: deviceValue,
-              productC: productLineCType,
-              processingCycle: processingCycle
-          };
-          console.log(ProductLine)
+        console.log("???????????????????????????");
 
-          $.ajax({
-              type: "post",
-              dataType: "json",
-              url: "/ProductLine/build",
-              contentType: "application/json;charset=utf-8;",
-              data: JSON.stringify(ProductLine),
-              success: function (data) {
-                  alert("投资成功");
-                  statusByPln(myPlnValue, "在建");
-                  showPLByPln(myPlnValue, productLineTypeId);
+        var m = 0;
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: {pageSize: 100, pageNum: 0},
+            url: "/Factory/list",
+            async :false,
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
 
-              }
-          })
-          editFlag[myPlnValue] = 1;//H 已完成操作
-      }
-        $('.pop-pro').hide();
+                $.each(data, function (n, value) {
+                    var mynumber = value.number;
+                    var myState = value.state;
+                    if (mynumber == "大厂房" && Number(myState) == 0) {
+                        m = 1;
+                        alert("您没有厂房哦")
+
+                    }
+                    if (mynumber == "小厂房" && Number(myState) == 0) {
+                        m = 1;
+                        alert("您没有厂房哦")
+                    }
+
+                });
+                return m;
+        }})
+
+     if(m==0) {
+
+
+         var myPlnValue = $('#plnValue').val();
+         var currentAp = $('#currentAp').val();
+         var currentTeam = $('#currentTeam').val();
+         var factoryNumber = "";
+         if (Number(myPlnValue) < 7) {
+             factoryNumber = "大厂房";
+         } else {
+             factoryNumber = "小厂房";
+         }
+         var productLineTypeId = $("#productLineTypeIdList").find("option:selected").val();
+         var productLineCType = $("#productCTypeList").find("option:selected").val(); // H 产品类型
+         console.log("新建生产线：");
+         console.log(productLineTypeId);
+         console.log(productLineCType);
+         if (editFlag[myPlnValue] == 0) {
+             var deviceValue = 0;
+             var processingCycle = 0;
+             if (productLineTypeId == "手工线") {
+                 deviceValue = 5;//设备原值
+                 processingCycle = 3;//所需加工时间
+             }
+             if (productLineTypeId == "半自动") {
+                 deviceValue = 10;
+                 processingCycle = 3;
+             }
+             if (productLineTypeId == "全自动") {
+                 deviceValue = 15;
+                 processingCycle = 3;
+             }
+             if (productLineTypeId == "柔性线") {
+                 deviceValue = 20;
+                 processingCycle = 3;
+             }
+             var ProductLine = {
+                 teamCount: currentTeam,
+                 period: currentAp,
+                 productLineNumber: myPlnValue,
+                 factoryNumber: factoryNumber,
+                 productLineTypeId: productLineTypeId,
+                 deviceValue: deviceValue,
+                 productC: productLineCType,
+                 processingCycle: processingCycle
+             };
+             console.log(ProductLine)
+
+             $.ajax({
+                 type: "post",
+                 dataType: "json",
+                 url: "/ProductLine/build",
+                 contentType: "application/json;charset=utf-8;",
+                 data: JSON.stringify(ProductLine),
+                 success: function (data) {
+                     alert("投资成功");
+                     statusByPln(myPlnValue, "在建");
+                     showPLByPln(myPlnValue, productLineTypeId);
+
+                 }
+             })
+             editFlag[myPlnValue] = 1;//H 已完成操作
+         }}
+         $('.pop-pro').hide();
+
     });
 
 
@@ -732,65 +770,66 @@ function statusByPln(pln,status) {
 
     //根据生产线参数显示生产线
 function showPLByPln(pln,productLineTypeId) {
-        var myProductLineNumber = pln;
-        var myProductLineTypeId = productLineTypeId;
-        var myObjId = "";
-        switch (Number(myProductLineNumber)) {
-            case 1:
-                myObjId = "#pro-l-1";
+    var myProductLineNumber = pln;
+    var myProductLineTypeId = productLineTypeId;
+    var myObjId = "";
+    switch (Number(myProductLineNumber)) {
+        case 1:
+            myObjId = "#pro-l-1";
 
-                break
-            case 2:
-                myObjId = "#pro-l-2";
-                break
-            case 3:
-                myObjId = "#pro-l-3";
-                break
-            case 4:
-                myObjId = "#pro-l-4";
-                break
-            case 5:
-                myObjId = "#pro-l-5";
-                break
-            case 6:
-                myObjId = "#pro-l-6";
-                break
-            case 7:
-                myObjId = "#pro-r-1";
-                break
-            case 8:
-                myObjId = "#pro-r-2";
-                break
-            case 9:
-                myObjId = "#pro-r-3";
-                break
-            case 10:
-                myObjId = "#pro-r-4";
-                break
+            break
+        case 2:
+            myObjId = "#pro-l-2";
+            break
+        case 3:
+            myObjId = "#pro-l-3";
+            break
+        case 4:
+            myObjId = "#pro-l-4";
+            break
+        case 5:
+            myObjId = "#pro-l-5";
+            break
+        case 6:
+            myObjId = "#pro-l-6";
+            break
+        case 7:
+            myObjId = "#pro-r-1";
+            break
+        case 8:
+            myObjId = "#pro-r-2";
+            break
+        case 9:
+            myObjId = "#pro-r-3";
+            break
+        case 10:
+            myObjId = "#pro-r-4";
+            break
 
-        }
-        switch (myProductLineTypeId) {
-            case "手工线":
-                myObjId =myObjId+"-sg";
-                console.log("手工线："+myObjId);
-                $(myObjId).addClass('show');
-                break
-            case "半自动":
-                myObjId =myObjId+"-bzd";
-                $(myObjId).addClass('show');
-                break
-            case "全自动":
-                myObjId =myObjId+"-zd";
-                $(myObjId).addClass('show');
-                break
-            case "柔性线":
-                myObjId =myObjId+"-rx";
-                $(myObjId).addClass('show');
-                break
+    }
+    switch (myProductLineTypeId) {
+        case "手工线":
+            myObjId = myObjId + "-sg";
+            console.log("手工线：" + myObjId);
+            $(myObjId).addClass('show');
+            break
+        case "半自动":
+            myObjId = myObjId + "-bzd";
+            $(myObjId).addClass('show');
+            break
+        case "全自动":
+            myObjId = myObjId + "-zd";
+            $(myObjId).addClass('show');
+            break
+        case "柔性线":
+            myObjId = myObjId + "-rx";
+            $(myObjId).addClass('show');
+            break
 
 
-        }
-    
+    }
+
 }
+
 
 
