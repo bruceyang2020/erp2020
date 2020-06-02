@@ -310,12 +310,12 @@ public class IndexController extends BaseController {
     }
 
 
-      //定位到实验空间的控制器
+/*      //定位到实验空间的控制器
     @RequestMapping("loginlab")
     public String loginlab() {
         return "loginlab";
 
-    }
+    }*/
 
     @ResponseBody
     @RequestMapping("/loginlabTo")
