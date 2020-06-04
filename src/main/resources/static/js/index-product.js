@@ -171,100 +171,111 @@ $(document).ready(function () {
 
     //当新建生产线按钮被点击
     $('#ok-pro-newBuild').click(function () {
-        console.log("???????????????????????????");
 
-        var m = 0;
+
+        var m = 'false';  //用于判断是否在有效厂房
         $.ajax({
             type: "post",
             dataType: "json",
             data: {pageSize: 100, pageNum: 0},
             url: "/Factory/list",
-            async :false,
             contentType: "application/json;charset=utf-8;",
             success: function (data) {
                 data = data['data'];
+                console.log(data);
 
-                $.each(data, function (n, value) {
-                    var mynumber = value.number;
-                    var myState = value.state;
-                    if (mynumber == "大厂房" && Number(myState) == 0) {
-                        m = 1;
-                        alert("您没有厂房哦")
-
+                var myPlnValue = $('#plnValue').val(); //获取当前生产线编号
+                console.log("新建：当前生产线值："+myPlnValue);
+                var len = data.length;
+                for(var i=0; i<len;i++){
+                    var mynumber = data[i].number;
+                    var myState = data[i].state;
+                    if (mynumber == "大厂房" && Number(myState) == 1 && myPlnValue< 7) {
+                        console.log(myPlnValue< 7);
+                        m = 'true';
                     }
-                    if (mynumber == "小厂房" && Number(myState) == 0) {
-                        m = 1;
-                        alert("您没有厂房哦")
+                    if (mynumber == "小厂房" && Number(myState) == 1 && myPlnValue > 6) {
+                        m = 'true';
                     }
 
-                });
-                return m;
-        }})
-
-     if(m==0) {
+                }
 
 
-         var myPlnValue = $('#plnValue').val();
-         var currentAp = $('#currentAp').val();
-         var currentTeam = $('#currentTeam').val();
-         var factoryNumber = "";
-         if (Number(myPlnValue) < 7) {
-             factoryNumber = "大厂房";
-         } else {
-             factoryNumber = "小厂房";
-         }
-         var productLineTypeId = $("#productLineTypeIdList").find("option:selected").val();
-         var productLineCType = $("#productCTypeList").find("option:selected").val(); // H 产品类型
-         console.log("新建生产线：");
-         console.log(productLineTypeId);
-         console.log(productLineCType);
-         if (editFlag[myPlnValue] == 0) {
-             var deviceValue = 0;
-             var processingCycle = 0;
-             if (productLineTypeId == "手工线") {
-                 deviceValue = 5;//设备原值
-                 processingCycle = 3;//所需加工时间
-             }
-             if (productLineTypeId == "半自动") {
-                 deviceValue = 10;
-                 processingCycle = 3;
-             }
-             if (productLineTypeId == "全自动") {
-                 deviceValue = 15;
-                 processingCycle = 3;
-             }
-             if (productLineTypeId == "柔性线") {
-                 deviceValue = 20;
-                 processingCycle = 3;
-             }
-             var ProductLine = {
-                 teamCount: currentTeam,
-                 period: currentAp,
-                 productLineNumber: myPlnValue,
-                 factoryNumber: factoryNumber,
-                 productLineTypeId: productLineTypeId,
-                 deviceValue: deviceValue,
-                 productC: productLineCType,
-                 processingCycle: processingCycle
-             };
-             console.log(ProductLine)
+                if(m == 'true') {
 
-             $.ajax({
-                 type: "post",
-                 dataType: "json",
-                 url: "/ProductLine/build",
-                 contentType: "application/json;charset=utf-8;",
-                 data: JSON.stringify(ProductLine),
-                 success: function (data) {
-                     alert("投资成功");
-                     statusByPln(myPlnValue, "在建");
-                     showPLByPln(myPlnValue, productLineTypeId);
 
-                 }
-             })
-             editFlag[myPlnValue] = 1;//H 已完成操作
-         }}
-         $('.pop-pro').hide();
+                    var myPlnValue = $('#plnValue').val();
+                    var currentAp = $('#currentAp').val();
+                    var currentTeam = $('#currentTeam').val();
+                    var factoryNumber = "";
+                    if (Number(myPlnValue) < 7) {
+                        factoryNumber = "大厂房";
+                    } else {
+                        factoryNumber = "小厂房";
+                    }
+                    var productLineTypeId = $("#productLineTypeIdList").find("option:selected").val();
+                    var productLineCType = $("#productCTypeList").find("option:selected").val(); // H 产品类型
+                    console.log("新建生产线：");
+                    console.log(productLineTypeId);
+                    console.log(productLineCType);
+                    if (editFlag[myPlnValue] == 0) {
+                        var deviceValue = 0;
+                        var processingCycle = 0;
+                        if (productLineTypeId == "手工线") {
+                            deviceValue = 5;//设备原值
+                            processingCycle = 3;//所需加工时间
+                        }
+                        if (productLineTypeId == "半自动") {
+                            deviceValue = 10;
+                            processingCycle = 2;
+                        }
+                        if (productLineTypeId == "全自动") {
+                            deviceValue = 15;
+                            processingCycle = 1;
+                        }
+                        if (productLineTypeId == "柔性线") {
+                            deviceValue = 20;
+                            processingCycle = 1;
+                        }
+                        var ProductLine = {
+                            teamCount: currentTeam,
+                            period: currentAp,
+                            productLineNumber: myPlnValue,
+                            factoryNumber: factoryNumber,
+                            productLineTypeId: productLineTypeId,
+                            deviceValue: deviceValue,
+                            productC: productLineCType,
+                            processingCycle: processingCycle
+                        };
+                        console.log(ProductLine)
+
+                        $.ajax({
+                            type: "post",
+                            dataType: "json",
+                            url: "/ProductLine/build",
+                            contentType: "application/json;charset=utf-8;",
+                            data: JSON.stringify(ProductLine),
+                            success: function (data) {
+                                alert("投资成功");
+                                statusByPln(myPlnValue, "在建");
+                                showPLByPln(myPlnValue, productLineTypeId);
+
+                            }
+                        })
+                        editFlag[myPlnValue] = 1;//H 已完成操作
+                    }}
+                else if(m == 'false'){
+                    console.log("新建判断标准结果："+m);
+                    alert("您当前所在的厂房未购买或租赁。");}
+                $('.pop-pro').hide();
+
+        }});
+
+
+
+
+
+
 
     });
 
