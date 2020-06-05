@@ -53,7 +53,7 @@ html,body,#wrapper{
 .pop-jz{
     display: none;
     width: 400px;
-    height:300px;
+    height:400px;
     position: absolute;
     top: 200px;
     left: 0;
@@ -66,6 +66,15 @@ html,body,#wrapper{
     background-color: #fff;
     box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
 
+}
+
+.jz-timeg{
+    width: 400px;
+    height:100px;
+    text-align: center;
+    background: url(timg.gif) ;
+    background-size: 400px 100px;
+    visibility: hidden;
 }
 
 .pop-rule{
@@ -234,6 +243,7 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 .pop-cancel,
 .pop-ok {  padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
 .pop-cancel {  background-color: #FFF;  border:1px #CECECE solid;  color: #000;  }
+.pop-btn-closing {   padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
 #ceo-sc{
      left: 480px;
      top: 150px;

@@ -33,7 +33,7 @@ $(document).ready(function () {
         var currentTeam = $("#currentTeam").val();
         var mydata ={userTeam:currentTeam,period:currentAp};
 
-
+        $('.jz-timeg').addClass('show');
         $.ajax({
             type: "post",
             dataType: "json",

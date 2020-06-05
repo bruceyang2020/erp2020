@@ -17,7 +17,7 @@ $(document).ready(function () {
 
 
 
-    $('.pop-close').click(function () {
+    $('.pop-cancel').click(function () {
         $('.pop-jz').hide();
     });
 

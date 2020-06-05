@@ -521,14 +521,16 @@
 
 
 <div class="pop-jz">
+
     <h3>结转本季内容包括：</h3>
     1.生产线的生产进度刷新，产品入库。<br/>
     2.物料管理部库存刷新，订单交付。<br/>
     3.财务部“现金池”刷新，扣减当期费用，自动计算现金余额。 <br/>
-    <h3>是否结转本季?</h3>
+    4.注意：结转过程计算耗时较长，沙盘左上角“系统设置”的季度跳转，表示结转完成。
+    <h3>是否结转本季?</h3><div class="jz-timeg"></div>
     <div class="pop-foot">
         <input type="button" value="取消" class="pop-cancel pop-close">
-        <input type="button" name="closing" value="确定" class="pop-cancel pop-close " id="closing">
+        <input type="button" name="closing" value="确定" class="pop-btn-closing" id="closing">
     </div>
 </div>
 
@@ -552,7 +554,7 @@
 </div>
 
 
-<!--//弹窗-规则-->
+<!--//弹窗-经营推演规则-->
 <div class="pop-rule">
     <table>
         <tr><td>  <div id="rule-content"></div></td></tr>
