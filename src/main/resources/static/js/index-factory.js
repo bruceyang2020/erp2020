@@ -103,6 +103,7 @@ $(document).ready(function () {
                 data = data['data'];
 
                 alert("成功购买大厂房");
+                SetCash();
 
             }
         });
@@ -126,6 +127,7 @@ $(document).ready(function () {
             success: function (data) {
 
                 alert("成功出售大厂房");
+                SetCash();
 
             }
         });
@@ -149,6 +151,7 @@ $(document).ready(function () {
             success: function (data) {
 
                 alert("成功租入大厂房");
+                SetCash();
 
             }
         });
@@ -181,6 +184,7 @@ $(document).ready(function () {
                 data = data['data'];
 
                 alert("成功购买小厂房");
+                SetCash();
             }
         });
         $('.pop-factory').hide();
@@ -204,6 +208,7 @@ $(document).ready(function () {
             success: function (data) {
 
                 alert("成功出售小厂房");
+                SetCash();
 
             }
         });
@@ -228,6 +233,7 @@ $(document).ready(function () {
             success: function (data) {
 
                 alert("成功租入小厂房");
+                SetCash();
 
             }
         });

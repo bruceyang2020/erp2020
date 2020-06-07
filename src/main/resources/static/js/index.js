@@ -51,7 +51,7 @@ $(document).ready(function () {
     });
 
 
-    //长贷
+
     $('#ceo-cz-c').click(function () {
         var period = $('#currentAp').val();
         if(Number(period)%4 != 1  )
@@ -68,7 +68,7 @@ $(document).ready(function () {
         $('.pop-s1').hide();
     });
 
-    //短贷
+
     $('#ceo-cz-d').click(function () {
         $('.pop-s2').show();
     });
@@ -80,7 +80,7 @@ $(document).ready(function () {
     });
 
 
-    //高利贷
+
     $('#ceo-cz-gl').click(function () {
 
         $('.pop-s3').show();
@@ -208,7 +208,7 @@ $(document).ready(function () {
     });
 
 
-  // H ISO认证-ISO9K
+
     $('#ceo-tz-iso1').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -229,7 +229,7 @@ $(document).ready(function () {
 
 
 
-    //H ISO认证-ISO14K
+
     $('#ceo-tz-iso2').click(function () {
         var period = $('#currentAp').val();
         //H 年末
@@ -262,20 +262,18 @@ $(document).ready(function () {
             return;
         }
        $('.pop-advertise').show();
-        $('#advertise-wrap').attr('src', $('#advertise-wrap').attr('src'));  //需要刷新iframe的子页面-广告页。
+        $('#advertise-wrap').attr('src', $('#advertise-wrap').attr('src'));
 
 
 
     });
+
     $('#ok-tomarketing').click(function () {
 
-        $('.pop-advertise').hide(); //广告页面关闭
-        $('.pop-marketing').show(); //市场订单页面打开
-        $('#order-wrap').attr('src', $('#order-wrap').attr('src'));  //需要刷新iframe的子页面-订货会页面。
-
-
-
-
+        $('.pop-advertise').hide();
+        $('.pop-marketing').show();
+        $('#order-wrap').attr('src', $('#order-wrap').attr('src'));
+        SetCash();
     });
 
 

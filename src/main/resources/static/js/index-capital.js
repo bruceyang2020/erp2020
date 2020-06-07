@@ -80,6 +80,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(discountedAmount),
             success: function (data) {
+                SetCash();
                 alert("贴现成功");
             }
         });

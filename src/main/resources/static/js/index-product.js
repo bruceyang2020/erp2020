@@ -259,6 +259,7 @@ $(document).ready(function () {
                                 alert("投资成功");
                                 statusByPln(myPlnValue, "在建");
                                 showPLByPln(myPlnValue, productLineTypeId);
+                                SetCash();
 
                             }
                         })
@@ -309,6 +310,7 @@ $(document).ready(function () {
         success: function (data) {
             alert("投资成功");
             statusByPln(myPlnValue, "在建");
+            SetCash();
         }
 
     })
@@ -348,6 +350,7 @@ $(document).ready(function () {
                 success: function (data) {
                     alert("转产成功");
                     statusByPln(myPlnValue, "转产");
+                    SetCash();
 
                 }
             })
@@ -415,6 +418,7 @@ $(document).ready(function () {
             success: function (data) {
                 alert("投产成功");
                 statusByPln(myPlnValue, "生产");
+                SetCash();
 
             }
         })
@@ -462,6 +466,7 @@ $(document).ready(function () {
             success: function (data) {
                 alert("投产成功");
                 statusByPln(myPlnValue, "生产");
+                SetCash();
 
             }
         })
@@ -507,6 +512,7 @@ $(document).ready(function () {
                 success: function (data) {
                     alert("投产成功");
                     statusByPln(myPlnValue, "生产");
+                    SetCash();
 
                 }
             })
@@ -552,6 +558,7 @@ $(document).ready(function () {
                 success: function (data) {
                     alert("投产成功");
                     statusByPln(myPlnValue, "生产");
+                    SetCash();
 
                 }
             })
@@ -617,6 +624,7 @@ $(document).ready(function () {
             success: function (data) {
                 alert("出售生产线成功");
                 statusByPln(myPlnValue,"生产");
+                SetCash();
 
             }
         })

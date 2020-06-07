@@ -84,7 +84,7 @@ $(document).ready(function () {
     $("#pop-ok").click(function () {
         var LongTermLoans = {
           moneyTotal: $('#load-c').val(),
-          period: currentAp
+            period: $('#currentAp').val()
         };
         //可输入负数的bug
         if(parseInt($('#load-c').val())<0){
@@ -100,6 +100,7 @@ $(document).ready(function () {
              success: function (data) {
             alert("长期贷款成功");
                  $("#ceo-cz-c1").val($('#load-c').val());
+                 SetCash();
             }
         })
 
@@ -129,6 +130,7 @@ $(document).ready(function () {
                 alert("短期贷款成功");
                 daikuan = parseInt(daikuan) + parseInt($('#load-d').val());//记录贷款数
                 $("#ceo-cz-d1").val($('#load-d').val());
+                SetCash();
             }
         })
 
@@ -150,6 +152,7 @@ $(document).ready(function () {
             success: function (data) {
                 if($('#load-g').val()>=0){alert("高利贷借款成功")}
                 else{alert("高利贷还款成功")};
+                SetCash();
 
             }
 
@@ -200,6 +203,8 @@ $(document).ready(function () {
                         stategj=value.state;
                         break;
                 }
+
+
 
             });
 
@@ -293,6 +298,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 alert("区域市场开拓成功");
+                SetCash();
             }
         })
 
@@ -329,6 +335,7 @@ $(document).ready(function () {
                     data: JSON.stringify(MarketFee),
                     success: function (data) {
                         alert("区域市场开拓取消成功");
+                        SetCash();
                     }
                 });
                 var battery = ["tz1", "tz5"];
@@ -363,6 +370,7 @@ $(document).ready(function () {
                     data: JSON.stringify(MarketFee),
                     success: function (data) {
                         alert("国内市场开拓成功");
+                        SetCash();
                     }
                 });
                 touzi = parseInt(touzi) + parseInt("40");//记录扣款数
@@ -398,6 +406,7 @@ $(document).ready(function () {
                     data: JSON.stringify(MarketFee),
                     success: function (data) {
                         alert("国内市场开拓取消成功");
+                        SetCash();
                     }
                 });
 
@@ -437,6 +446,7 @@ $(document).ready(function () {
                 data: JSON.stringify(MarketFee),
                 success: function (data) {
                     alert("亚洲市场开拓成功");
+                    SetCash();
                 }
             })
             touzi = parseInt(touzi) + parseInt("60");//记录扣款数
@@ -471,6 +481,7 @@ $(document).ready(function () {
                     data: JSON.stringify(MarketFee),
                     success: function (data) {
                         alert("亚洲市场开拓取消成功");
+                        SetCash();
                     }
                 });
 
@@ -509,6 +520,7 @@ $(document).ready(function () {
                 data: JSON.stringify(MarketFee),
                 success: function (data) {
                     alert("国际市场开拓成功");
+                    SetCash();
                 }
             })
             touzi = parseInt(touzi) + parseInt("80");//记录扣款数
@@ -545,6 +557,7 @@ $(document).ready(function () {
                     data: JSON.stringify(MarketFee),
                     success: function (data) {
                         alert("国际市场开拓取消成功");
+                        SetCash();
                     }
                 });
 
@@ -584,6 +597,7 @@ $(document).ready(function () {
                 data: JSON.stringify(ResearchFee),
                 success: function (data) {
                     alert("P1研发成功");
+                    SetCash();
                 }
             });
             //H 前端battery显示变化
@@ -620,6 +634,7 @@ $(document).ready(function () {
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
                         alert("P1产品研发取消成功");
+                        SetCash();
                     }
                 });
                 //H 前端battery显示变化
@@ -657,6 +672,7 @@ $(document).ready(function () {
                 data: JSON.stringify(ResearchFee),
                 success: function (data) {
                     alert("P2研发成功");
+                    SetCash();
                 }
             });
             touzi = parseInt(touzi) + parseInt("20");//记录扣款数
@@ -693,6 +709,7 @@ $(document).ready(function () {
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
                         alert("P2产品研发取消成功");
+                        SetCash();
                     }
                 });
 
@@ -731,6 +748,7 @@ $(document).ready(function () {
                 data: JSON.stringify(ResearchFee),
                 success: function (data) {
                     alert("P3研发成功");
+                    SetCash();
                 }
             })
             touzi = parseInt(touzi) + parseInt("20");//记录扣款数
@@ -767,6 +785,7 @@ $(document).ready(function () {
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
                         alert("P3产品研发取消成功");
+                        SetCash();
                     }
                 });
                 //H 前端battery显示变化
@@ -802,6 +821,7 @@ $(document).ready(function () {
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
                         alert("P4研发成功");
+                        SetCash();
                     }
                 })
 
@@ -838,6 +858,7 @@ $(document).ready(function () {
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
                         alert("P4产品研发取消成功");
+                        SetCash();
                     }
                 });
                 //H 前端battery显示变化
@@ -878,6 +899,7 @@ $(document).ready(function () {
                     alert("ISO9K研发成功");
                     console.log(data);
                     console.log("*************ISO9K");
+                    SetCash();
                 }
             });
 
@@ -914,6 +936,7 @@ $(document).ready(function () {
             data: JSON.stringify(IsoFee),
             success: function (data) {
                 alert("ISO9K认证取消成功");
+                SetCash();
             }
 
         });
@@ -952,7 +975,8 @@ $(document).ready(function () {
                 success: function (data) {
                     alert("ISO14K研发成功");
                     console.log(data);
-                    console.log("**********************ISO14K")
+                    console.log("**********************ISO14K");
+                    SetCash();
                 }
 
             });
@@ -990,6 +1014,7 @@ $(document).ready(function () {
                 data: JSON.stringify(IsoFee),
                 success: function (data) {
                     alert("ISO14K认证取消成功");
+                    SetCash();
                 }
             });
             //H 前端battery显示变化
