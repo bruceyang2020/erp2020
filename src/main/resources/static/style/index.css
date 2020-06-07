@@ -493,26 +493,26 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
     transform: rotateY(35deg) rotateX(0deg) rotateZ(-5deg);
 }
 #fin-1{
-    left:640px;
-    top: 740px;
+    left:650px;
+    top: 735px;
     background: #E95D81;
     border: 0;
 }
 #fin-2{
-    left:720px;
-    top: 690px;
+    left:725px;
+    top: 685px;
     background: #E95D81;
     border: 0;
 }
 #fin-3{
-    left:670px;
-    top: 665px;
+    left:680px;
+    top: 660px;
     background: #E95D81;
     border: 0;
 }
 #fin-4{
-    left:589px;
-    top: 717px;
+    left:598px;
+    top: 712px;
     background: #E95D81;
     border: 0;
 }
@@ -535,24 +535,24 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
     text-align: center;
 }
 #fin-wx{
-    left:355px;
-    top: 660px;
+    left:363px;
+    top: 655px;
 }
 #fin-gg{
-    left:305px;
-    top: 630px;
+    left:313px;
+    top: 625px;
 }
 #fin-bg{
-    left:255px;
-    top: 600px;
+    left:263px;
+    top: 595px;
 }
 #fin-zj{
-    left:210px;
-    top: 570px;
+    left:215px;
+    top: 565px;
 }
 #fin-sds{
-    left:158px;
-    top: 545px;
+    left:165px;
+    top: 540px;
 }
 /*市场*/
 #order{
@@ -594,7 +594,7 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 }
 #mag-p2{
     left: 870px;
-    top:1000px;
+    top: 1000px;
     color: #b942dd;
 }
 #mag-p3{

@@ -133,10 +133,7 @@ public class IndexController extends BaseController {
     public String advertise() {
         return "advertise";
     }
-    @RequestMapping("/productionsheet")
-    public String productionsheet() {
-        return "productionsheet";
-    }
+
 
     @ResponseBody
     @RequestMapping("/login")
