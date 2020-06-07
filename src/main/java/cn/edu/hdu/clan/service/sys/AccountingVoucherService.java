@@ -21,6 +21,8 @@ public interface AccountingVoucherService {
 
     BigDecimal sumMoney(String teamCount, int period,String acode,String aType);
 
+    BigDecimal sumCash(String teamCount, int period);
+
  /*   void transferProfitAndLoss(String teamCount, int period);*/
 
     void deleteByPeriodAndContent(String userTeam,Integer period,String content);

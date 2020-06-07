@@ -274,6 +274,40 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         return myMoney;
     }
 
+
+    @Override
+    // 本期借贷合计数
+    public BigDecimal sumCash(String userTeam ,int period) {
+        BigDecimal myMoney = BigDecimal.valueOf(0);
+        BigDecimal moneyD = BigDecimal.valueOf(0);
+        BigDecimal moneyC = BigDecimal.valueOf(0);
+
+
+        Example example = new Example(AccountingVoucher.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("acode", "现金");
+        criteria.andEqualTo("period", period);
+        List<AccountingVoucher> oldRow = AccountingVoucherMapper.selectByExample( example);
+        for(int i=0;i<oldRow.size();i++)
+        {
+
+            if( null !=oldRow.get(i).getMoneyD())
+            {
+                moneyD =moneyD.add(oldRow.get(i).getMoneyD());
+            }
+            if(null !=oldRow.get(i).getMoneyC())
+            {
+                moneyC =moneyC.add(oldRow.get(i).getMoneyC());
+            }
+
+
+        }
+         myMoney =moneyD.subtract(moneyC);//借方-贷方
+
+        return myMoney;
+    }
+
     @Override
     public PageInfo<AccountingVoucher> list(int pageNum, int pageSize) {
         PageHelper.startPage(pageNum, pageSize);
@@ -578,26 +612,95 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
     @Override
     public List<BigDecimal> listForExpense( String userTeam,Integer period) {
-
-       List<AccountingVoucher> myList=selectByPeriodAndUserTeam(userTeam,period);
-
-       String contentWX= "维修费用合计";String contentZJ="计提折旧费用";String contentBG="管理费用";String contentSDS="所得税费用";String contentGG="本期广告费合计";
-       String acodeWX="综合费用"; String acodeZJ="折旧费用";String acodeBG="综合费用";String acodeSDS="所得税";String acodeGG="综合费用";
+        //得到当前期间对应的年度第1季到当前季的前一季度。
+        Integer periodE = period-1;
+        Integer periodS=periodE%4!=0?periodE/4*4+1:(periodE/4-1)*4+1;
 
 
+        String contentWX= "维修费用合计";
+        String contentZJ="计提折旧费用";
+        String contentBG="管理费用";
+        String contentSDS="所得税费用";
+        String contentGG="本期广告费合计";
+        String acodeWX="综合费用";
+        String acodeZJ="折旧费用";
+        String acodeBG="综合费用";
+        String acodeSDS="所得税";
+        String acodeGG="综合费用";
+        BigDecimal sumWX=BigDecimal.valueOf(0);
+        BigDecimal sumZJ=BigDecimal.valueOf(0);
+        BigDecimal sumBG=BigDecimal.valueOf(0);
+        BigDecimal sumSDS=BigDecimal.valueOf(0);
+        BigDecimal sumGG=BigDecimal.valueOf(0);
+
+        Example example = new Example(AccountingVoucher.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount",userTeam);
+        criteria.andBetween("period",periodS,period); //查询区间，计算本年度到目前为止的发生额
+
+        List< AccountingVoucher> myRows =AccountingVoucherMapper.selectByExample(example);
+
+        if (myRows.size() > 0) {
+            for (int i = 0; i < myRows.size(); i++) {
+               if(contentWX.equals(myRows.get(i).getSubstract()) && acodeWX.equals(myRows.get(i).getAcode()))
+               {sumWX = sumWX.add(myRows.get(i).getMoneyD()); }
+
+                if(contentGG.equals(myRows.get(i).getSubstract()) && acodeGG.equals(myRows.get(i).getAcode()))
+                {sumGG = sumGG.add(myRows.get(i).getMoneyD()); }
+
+                if(contentBG.equals(myRows.get(i).getSubstract()) && acodeBG.equals(myRows.get(i).getAcode()))
+                {sumBG = sumBG.add(myRows.get(i).getMoneyD()); }
+
+                if(contentZJ.equals(myRows.get(i).getSubstract()) && acodeZJ.equals(myRows.get(i).getAcode()))
+                {sumZJ = sumZJ.add(myRows.get(i).getMoneyD()); }
+
+                if(contentSDS.equals(myRows.get(i).getSubstract()) && acodeSDS.equals(myRows.get(i).getAcode()))
+                {sumSDS = sumSDS.add(myRows.get(i).getMoneyD()); }
 
 
-       List<BigDecimal> list= new ArrayList<BigDecimal>();
-       list.add(new BigDecimal(0));
+            }
 
-       list.add(1,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX));
-       list.add(2,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG));
-       list.add(3,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG));
-       list.add(4,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ));
-       list.add(5,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS));
+        }
 
 
+        List<BigDecimal> list= new ArrayList<BigDecimal>();
+        list.add(new BigDecimal(0));
+
+        list.add(1,sumWX);
+        list.add(2,sumGG);
+        list.add(3,sumBG);
+        list.add(4,sumZJ);
+        list.add(5,sumSDS);
         return list;
+
+      //Y 以下算法，执行效率非常低，不要了。
+      /*  List<AccountingVoucher> myList=selectByPeriodAndUserTeam(userTeam,period);
+
+        String contentWX= "维修费用合计";
+        String contentZJ="计提折旧费用";
+        String contentBG="管理费用";
+        String contentSDS="所得税费用";
+        String contentGG="本期广告费合计";
+        String acodeWX="综合费用";
+        String acodeZJ="折旧费用";
+        String acodeBG="综合费用";
+        String acodeSDS="所得税";
+        String acodeGG="综合费用";
+
+
+
+
+        List<BigDecimal> list= new ArrayList<BigDecimal>();
+        list.add(new BigDecimal(0));
+
+        list.add(1,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX));
+        list.add(2,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG));
+        list.add(3,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG));
+        list.add(4,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ));
+        list.add(5,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS));
+
+
+        return list;*/
 
     }
 

@@ -140,8 +140,7 @@ $(document).ready(function () {
                 alert("R3订单成功");
             }
         })
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-        touzi = parseInt(touzi) + parseInt("400");//记录扣款数
+
     })
 
     $("#ok-r4-2").click(function () {
@@ -167,8 +166,7 @@ $(document).ready(function () {
                 alert("R4订单成功");
             }
         })
-        $("#cash").text(parseInt($('#cash').text()) - parseInt("400"));//ISO2扣400
-        touzi = parseInt(touzi) + parseInt("400");//记录扣款数
+
     })
 
 })

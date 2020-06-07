@@ -128,13 +128,10 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
 
 
     }
-    //H
+    //H Y算法优化
     public BigDecimal moneyAsFar(String userTeam ,int period){
-        BigDecimal moneyD;
-        BigDecimal moneyC;
-        moneyD = accountingVoucherService.sumMoney(userTeam,period,"现金","借");
-        moneyC = accountingVoucherService.sumMoney(userTeam,period,"现金","贷");
-        BigDecimal money=moneyD.subtract(moneyC);//借方-贷方
+
+        BigDecimal money= accountingVoucherService.sumCash(userTeam,period);//借方-贷方
         Example example = new Example(AccountBalance.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
