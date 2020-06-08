@@ -2,7 +2,7 @@ body{
 	height: 100%;
 	margin:0;
 	color:#6a6f8c;
-	background:#000000;
+	background:#0e1e2f;
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
 canvas {
@@ -30,6 +30,7 @@ input, button {
 	max-width:400px;
 	min-height:500px;
 	position:relative;
+	background-color: #0e1e2f;
 	opacity: 70%;
 	box-shadow:0 12px 15px 0 rgba(0,0,0,.24),0 17px 50px 0 rgba(0,0,0,.19);
 }
@@ -41,6 +42,24 @@ input, button {
 	background:rgba(40,57,101,.9);
 	border-radius: 50px;
 }
+
+.loginlab-wrap{
+	padding-top: 50px;
+	width:100%;
+	margin:auto;
+	max-width:400px;
+	min-height:300px;
+	position:relative;
+	background-color: #0e1e2f;
+}
+.loginlab-timeg{
+	width: 400px;
+	height:300px;
+	text-align: center;
+	background: url(loginlab-timg.gif) ;
+	background-size: 400px 300px;
+}
+
 .login-html .sign-in-htm,
 .login-html .sign-up-htm{
 	top:0;
