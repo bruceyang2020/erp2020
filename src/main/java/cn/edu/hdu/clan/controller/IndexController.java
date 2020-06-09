@@ -88,13 +88,13 @@ public class IndexController extends BaseController {
 
 
 
-/*    @RequestMapping("/")
-     public String login_tologin() {
-         return "login";}*/
-
     @RequestMapping("/")
+     public String login_tologin() {
+         return "login";}
+
+ /*   @RequestMapping("/")
     public String login_tologin() {
-        return "loginlab";}
+        return "loginlab";}*/
 
 
     @RequestMapping("/index")
@@ -151,7 +151,7 @@ public class IndexController extends BaseController {
             session.setAttribute(Const.SESSION_USERID,sysUser.getId());
             session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
             session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
-
+            session.setAttribute(Const.SESSION_EID,"888"); //将教育部平台传过来的实验ID保持，
 
 
 

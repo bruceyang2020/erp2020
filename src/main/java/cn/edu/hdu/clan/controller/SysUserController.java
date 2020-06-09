@@ -59,7 +59,7 @@ public class SysUserController extends BaseController {
         String currentTeam = Jurisdiction.getUserTeam();
         String currentEId = Jurisdiction.getUserEID();
 
-        SysTeam sysTeam = sysTeamService.getByName(currentTeam);
+        SysTeam sysTeam = sysTeamService.getById(currentTeam);
         String currentAp = sysTeam.getState().toString();
         Map map = new HashMap();
         map.put("currentAp",currentAp);
