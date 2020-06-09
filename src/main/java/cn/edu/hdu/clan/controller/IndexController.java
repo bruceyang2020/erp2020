@@ -27,6 +27,7 @@ import net.sf.json.JSONObject;
 import cn.edu.hdu.clan.util.Jurisdiction;
 import cn.edu.hdu.clan.util.PropertiesUtils;
 import tk.mybatis.mapper.util.StringUtil;
+import java.text.SimpleDateFormat;
 
 
 /**
@@ -208,21 +209,29 @@ public class IndexController extends BaseController {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
+        SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss");//只有bai时分秒
 
-
+        System.out.print("核算过程1开始："+sdf.format(new Date()));
         //H 扣减行政管理费用会计凭证
         accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("10"),"GLFY","管理费用");
+
+        System.out.print("核算过程2开始："+sdf.format(new Date()));
         //H 折旧费用的会计凭证
         productLineService.voucherMakerOfDep(userTeam,period);
+
+        System.out.print("核算过程3始："+sdf.format(new Date()));
        //H 维修费用的会计凭证
         productLineService.voucherMakerOfMT(userTeam,period);
 
+        System.out.print("核算过程4开始："+sdf.format(new Date()));
         //H 高利贷贷款利息的会计凭证,每期期末计
         usuryService.voucherMakerOfInterest(userTeam,period);
 
+        System.out.print("核算过程5开始："+sdf.format(new Date()));
        //H 缴纳上年度所得税
         accountBalanceService.makeVoucherOfTax(userTeam,period);
 
+        System.out.print("核算过程6开始："+sdf.format(new Date()));
         //H 转上年度年度净利
         accountBalanceService.makeVoucherOfNI(userTeam,period);
 
@@ -232,14 +241,16 @@ public class IndexController extends BaseController {
         //清除本期的科目余额表
         accountBalanceService.deleteByPeriod(userTeam,period);*/
 
+        System.out.print("期末损益："+sdf.format(new Date()));
         //期末损益结转
         accountingVoucherService.transferToProfitAndLoss(userTeam,period);
 
+        System.out.print("科目余额表："+sdf.format(new Date()));
         //从会计凭证表汇总本期的发生额到科目余额表
         accountBalanceService.sumFromVoucher(userTeam,period);
 
 
-
+        System.out.print("生成报表："+sdf.format(new Date()));
         //获取当前会计期间的科目余额表
         List<AccountBalance> accountBalances = accountBalanceService.getByTeamcountAndPeriod(userTeam,period);
         //根据科目余额表，生成本期的资产负债表。
@@ -250,7 +261,7 @@ public class IndexController extends BaseController {
 
        /*------------------------------------------------下一期发生的动态-----------------------------------------------------------------*/
 
-
+        System.out.print("跳转会计期间："+sdf.format(new Date()));
         int nextPeriod = Integer.parseInt(Jurisdiction.getUserTeamintPeriod())+1;  //注意：结账的时候，会计期间要跳转到下一期。+1
         //Y 将当前用户组的state值修改成下一个会计期间。
         sysTeamService.nextPeriod(userTeam,nextPeriod);
@@ -259,26 +270,33 @@ public class IndexController extends BaseController {
         Session session = Jurisdiction.getSession();
         session.setAttribute(Const.SESSION_USERPERIOD,nextPeriod);  //当前的会计期间
 
+        System.out.print("核算过程7："+sdf.format(new Date()));
         //原材料订单到期，会计账务处理：现金减少
         materialOrderService.payment(userTeam,nextPeriod);
 
+        System.out.print("核算过程8："+sdf.format(new Date()));
         //H 原材料订单到期，材料入库
         invService.goToPeriod(userTeam,nextPeriod);
 
+        System.out.print("核算过程9："+sdf.format(new Date()));
         //应收账款到期，会计账务处理：现金增加
         salepaymentService.receivePayment(userTeam,nextPeriod);
+
+        System.out.print("核算过程10："+sdf.format(new Date()));
 
         //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
         longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
 
+        System.out.print("核算过程11："+sdf.format(new Date()));
         //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
         shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
 
 
+        System.out.print("核算过程12："+sdf.format(new Date()));
         //复制厂房信息到下一会计期间。
         factoryService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-
+        System.out.print("核算过程13："+sdf.format(new Date()));
         //复制生产线信息到下一会计期间。
         productLineService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
@@ -291,12 +309,15 @@ public class IndexController extends BaseController {
        /* //复制利润表到下一期
         incomesheetService.copyDataToNextPeriod(userTeam,period,nextPeriod);*/
 
+        System.out.print("核算过程14："+sdf.format(new Date()));
         //复制市场开拓信息到下一期
         marketFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
+        System.out.print("核算过程15："+sdf.format(new Date()));
         //复制产品研发信息到下一期
         researchFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
+        System.out.print("核算过程16："+sdf.format(new Date()));
         //复制ISO认证到信息到下一期
         isoFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
