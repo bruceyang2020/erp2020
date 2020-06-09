@@ -57,6 +57,7 @@ public class SysUserController extends BaseController {
       //Y  当前会计期间从后台数据库中去取值  String currentAp = Jurisdiction.getUserTeamintPeriod();
         String currentUser = Jurisdiction.getUserId();
         String currentTeam = Jurisdiction.getUserTeam();
+        String currentEId = Jurisdiction.getUserEID();
 
         SysTeam sysTeam = sysTeamService.getByName(currentTeam);
         String currentAp = sysTeam.getState().toString();
@@ -64,6 +65,7 @@ public class SysUserController extends BaseController {
         map.put("currentAp",currentAp);
         map.put("currentUser",currentUser);
         map.put("currentTeam",currentTeam);
+        map.put("currentEId",currentEId);
         return success("ok",map);
     }
 

@@ -40,9 +40,11 @@
                                 var JsonData = JSON.parse(window.atob(jsonStr));
                                 console.log(JsonData.eId);
 
-                                $("#username").attr("value",JsonData.eId);
-                                console.log("解析成功："+JsonData);
+                                $("#eid").attr("value",JsonData.eId);
+                                $("#username").attr("value",JsonData.userId);
+                                console.log("解析成功："+JSON.stringify(JsonData));
                                 console.log("解析eid成功："+JsonData.eId);
+                                console.log("解析userid成功："+JsonData.userId);
                                 toIndexPage();
 
 
@@ -122,6 +124,7 @@
 
                 if($('#username').val() != "") {
                     var str = {
+                        "eid": $('#eid').val(),
                         "username": $('#username').val(),
                         "password": $('#password').val()
                     };
@@ -179,7 +182,7 @@
 </head>
 <body>
 <div class="waves"></div>
-
+    <input id="eid" type="hidden" class="input">
      <input id="username" type="hidden" class="input">
     <input id="password" type="hidden" class="input" data-type="password">
 

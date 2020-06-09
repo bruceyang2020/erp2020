@@ -60,4 +60,12 @@ public class Jurisdiction {
 	}
 
 
+	/**获取当前登录的用户的EID
+	 * @return
+	 */
+	public static String  getUserEID(){
+		return getSession().getAttribute(Const.SESSION_EID).toString();
+	}
+
+
 }

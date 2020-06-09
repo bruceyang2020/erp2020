@@ -91,7 +91,7 @@ $(document).ready(function () {
 
 
 
-        var myeId =  $("#currentTeam").val();
+        var myeId =  $("#eId").val();
         var param='{"eid":"'+myeId+'","expScore":"'+myExpSore+'"}';
 
 

@@ -318,21 +318,11 @@ public class IndexController extends BaseController {
     @RequestMapping("/loginlabTo")
     public String loginlabTo(@RequestBody Map<String, String> params) {
         String userName = params.get("username");
+        String eId = params.get("eid");
         Subject subject = SecurityUtils.getSubject();
 
         try{
-            // 调用安全认证框架的登录方法
-        /*    subject.login(new UsernamePasswordToken("yang", "1")); //用默认的用户先登录
-
-
-            SysUser sysUser  = userService.findByUsername("yang");
-            SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
-
-            session.setAttribute(Const.SESSION_USER,sysUser);
-            session.setAttribute(Const.SESSION_USERID,sysUser.getId());
-            session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
-            session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间*/
-
+      
 
 
             SysUser sysUser2  = userService.findByUsername(userName);
@@ -365,6 +355,7 @@ public class IndexController extends BaseController {
                 session.setAttribute(Const.SESSION_USERID,sysUser3.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser3.getTeamId());
                 session.setAttribute(Const.SESSION_USERPERIOD,userTeam.getState().toString());  //当前的会计期间
+                session.setAttribute(Const.SESSION_EID,eId); //将教育部平台传过来的实验ID保持，用于提交成绩
 
 
                 //初始化到第一个会计期间。
@@ -381,6 +372,7 @@ public class IndexController extends BaseController {
                 session.setAttribute(Const.SESSION_USERID,sysUser2.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser2.getTeamId());
                 session.setAttribute(Const.SESSION_USERPERIOD,sysTeam2.getState().toString());  //当前的会计期间
+                session.setAttribute(Const.SESSION_EID,eId); //将教育部平台传过来的实验ID保持，用于提交成绩
             }
 
 
