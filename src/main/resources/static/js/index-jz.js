@@ -73,6 +73,8 @@ $(document).ready(function () {
     });
 
     function updatatest() {
+
+
         var myEndPoint = new Date();
         var myEndPointH = myEndPoint.getHours();
         var myEndPointM = myEndPoint.getMinutes();
@@ -82,12 +84,12 @@ $(document).ready(function () {
         var myExpSore = 0;
         var myTestTime =  Number(myEndPointH)*60+Number(myEndPointM)-Number(myStartH)*60-Number(myStartM);
 
-        if(  myTestTime <= 5 )
-        {  myExpSore = Math.floor(Math.random() * (70 - 60)) + 60;}
-        if(  myTestTime > 5 &&  myTestTime <= 20)
-        {  myExpSore = Math.floor(Math.random() * (80 - 70)) + 70;}
-        if(  myTestTime > 20 )
-        {  myExpSore = Math.floor(Math.random() * (95 - 80)) + 80;}
+        if(  myTestTime <= 1 )
+        {  myExpSore = Math.floor(Math.random() * (80 - 60)) + 60;}
+        if(  myTestTime > 1 &&  myTestTime <= 5)
+        {  myExpSore = Math.floor(Math.random() * (90 - 80)) + 80;}
+        if(  myTestTime > 5 )
+        {  myExpSore = Math.floor(Math.random() * (95 - 90)) + 90;}
 
 
 
