@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
+import tk.mybatis.mapper.genid.GenId;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -606,7 +607,9 @@ public class     ProductLineServiceImpl implements ProductLineService {
         if(period%4==0)
         {
             for (int i = 0; i < myList.size(); i++) {
-                sumMaintenance=sumMaintenance.add(myList.get(i).getMaintenanceFeeC());
+                if( myList.get(i).getMaintenanceFeeC() != null) {
+                    sumMaintenance = sumMaintenance.add(myList.get(i).getMaintenanceFeeC());
+                }
             }
 
         }
