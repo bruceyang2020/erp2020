@@ -44,7 +44,7 @@ $(document).ready(function () {
             data = data['data'];
             $.each(data, function (n, value) {
                 var currentAp = $("#currentAp").val();
-                var i = 1 + currentAp * 1 - value.period;
+                var i = 6- value.surplusPeriod;
                 console.log(i);
                 $("#ceo-cz-d" + i).val(value.moneyTotal);
             });
