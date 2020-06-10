@@ -248,8 +248,6 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
     // 本期借贷合计数
     public BigDecimal sumMoney(String userTeam ,int period,String acode,String aType) {
         BigDecimal myMoney = BigDecimal.valueOf(0);
-
-
         Example example = new Example(AccountingVoucher.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);

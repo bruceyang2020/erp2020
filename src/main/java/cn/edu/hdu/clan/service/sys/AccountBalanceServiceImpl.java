@@ -1,6 +1,7 @@
 package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
+import cn.edu.hdu.clan.entity.sys.AccountingVoucher;
 import cn.edu.hdu.clan.entity.sys.MaterialOrder;
 import cn.edu.hdu.clan.util.Jurisdiction;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
@@ -77,12 +78,20 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     }
     //从当期会计凭证汇总科目发生额，填充到本期的科目余额表中
     @Override
-    public void sumFromVoucher(String userTeam ,int period) {
+    public void sumFromVoucher(String userTeam ,int period) {//
+
+        // 清除本期的科目余额表
+        accountBalanceService.deleteByPeriod(userTeam,period);
+
         Example example = new Example(AccountBalance.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andEqualTo("period", period-1); //查询上一会计期间。period-1
         List<AccountBalance> oldRow = AccountBalanceMapper.selectByExample(example);
+
+
+        List<AccountingVoucher> myVoucherList = accountingVoucherService.selectByPeriodAndUserTeam(userTeam,period);
+
         if(oldRow.size() > 0) {
 
 
@@ -93,8 +102,20 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 BigDecimal moneyC = BigDecimal.valueOf(0);
                 String aType = oldRow.get(i).getName();  //这个字段用来标识科目的余额方向。
                 BigDecimal moneyB = oldRow.get(i).getMoneyE();//H 期初取上一期期末！！！
-                moneyD = accountingVoucherService.sumMoney(userTeam,period,acode,"借");
-                moneyC = accountingVoucherService.sumMoney(userTeam,period,acode,"贷");
+                for(int j=0;j<myVoucherList.size();j++)
+                {
+
+                    if( null !=myVoucherList.get(j).getMoneyD())
+                    {
+                        moneyD =moneyD.add(myVoucherList.get(j).getMoneyD());
+                    }
+                    if(null !=myVoucherList.get(j).getMoneyC())
+                    {
+                        moneyC =moneyC.add(myVoucherList.get(j).getMoneyC());
+                    }
+
+
+                }
 
                 AccountBalance newRow = new AccountBalance();
                 newRow.setGroupId("1000");

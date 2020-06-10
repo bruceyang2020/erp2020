@@ -237,9 +237,6 @@ public class IndexController extends BaseController {
 
 
 
-/*
-        //清除本期的科目余额表
-        accountBalanceService.deleteByPeriod(userTeam,period);*/
 
         System.out.print("期末损益："+sdf.format(new Date()));
         //期末损益结转
