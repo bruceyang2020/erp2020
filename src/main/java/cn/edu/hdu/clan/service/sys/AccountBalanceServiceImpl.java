@@ -80,8 +80,8 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     @Override
     public void sumFromVoucher(String userTeam ,int period) {//
 
-        // 清除本期的科目余额表
-        accountBalanceService.deleteByPeriod(userTeam,period);
+      /*  // 清除本期的科目余额表
+        accountBalanceService.deleteByPeriod(userTeam,period);*/
 
         Example example = new Example(AccountBalance.class);
         Example.Criteria criteria = example.createCriteria();
@@ -95,28 +95,23 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         if(oldRow.size() > 0) {
 
 
-            for (int i = 0; i < oldRow.size(); i++)
-            {
+            for (int i = 0; i < oldRow.size(); i++) {
                 String acode = oldRow.get(i).getAcode();
                 BigDecimal moneyD = BigDecimal.valueOf(0);
                 BigDecimal moneyC = BigDecimal.valueOf(0);
                 String aType = oldRow.get(i).getName();  //这个字段用来标识科目的余额方向。
                 BigDecimal moneyB = oldRow.get(i).getMoneyE();//H 期初取上一期期末！！！
-                for(int j=0;j<myVoucherList.size();j++)
-                {
+                for (int j = 0; j < myVoucherList.size(); j++) {
+                    if (acode.equals( myVoucherList.get(j).getAcode())==true) {
+                        if (null != myVoucherList.get(j).getMoneyD()) {
+                            moneyD = moneyD.add(myVoucherList.get(j).getMoneyD());
+                        }
+                        if (null != myVoucherList.get(j).getMoneyC()) {
+                            moneyC = moneyC.add(myVoucherList.get(j).getMoneyC());
+                        }
 
-                    if( null !=myVoucherList.get(j).getMoneyD())
-                    {
-                        moneyD =moneyD.add(myVoucherList.get(j).getMoneyD());
                     }
-                    if(null !=myVoucherList.get(j).getMoneyC())
-                    {
-                        moneyC =moneyC.add(myVoucherList.get(j).getMoneyC());
-                    }
-
-
                 }
-
                 AccountBalance newRow = new AccountBalance();
                 newRow.setGroupId("1000");
                 newRow.setTeamCount(userTeam);
@@ -126,27 +121,27 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 newRow.setMoneyD(moneyD);
                 newRow.setMoneyC(moneyC);
 
-                if("借".equals(aType)){newRow.setMoneyE(moneyB.add(moneyD.subtract(moneyC)));}  //科目余额在借方的，期初+借方-贷方
-                if("贷".equals(aType)){newRow.setMoneyE(moneyB.add(moneyC.subtract(moneyD)));}//科目余额在贷方的，期初-借方+贷方
-               switch (aType){
+                if ("借".equals(aType)) {
+                    newRow.setMoneyE(moneyB.add(moneyD.subtract(moneyC)));
+                }  //科目余额在借方的，期初+借方-贷方
+                if ("贷".equals(aType)) {
+                    newRow.setMoneyE(moneyB.add(moneyC.subtract(moneyD)));
+                }//科目余额在贷方的，期初-借方+贷方
+
+                switch (aType) {
                     case "借":
                         newRow.setName("借");
                         break;
-                   case "贷":
-                       newRow.setName("贷");
-                       break;
-
-
-               }
+                    case "贷":
+                        newRow.setName("贷");
+                        break;
+                }
                 newRow.setPeriod(period); //设置当前会计期间。
 
                 BaseBeanHelper.insert(newRow);
                 AccountBalanceMapper.insert(newRow);
-
-
             }
         }
-
 
     }
     //H Y算法优化
