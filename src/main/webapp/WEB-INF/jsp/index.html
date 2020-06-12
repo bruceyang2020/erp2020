@@ -36,11 +36,7 @@
                     data = data['data'];
                     console.log(data);
                     $('#cash').text(parseInt(data['moneytotal']));
-                    /* if(data['moneytotal']<0){
-                         /!*alert("啊哦，破产了");*!/
-                     }*/
 
-                    console.log('财务部资金数据');
                 }
             })
 
@@ -502,11 +498,7 @@
             </div>
         </div>
     </div>
-    <!--    <div id="vue_det">
-            <h1>site : {{site}}</h1>
-            <h1>url : {{url}}</h1>
-            <h1>{{details()}}</h1>
-        </div>-->
+
 </div>
 
 <!--//以下都是弹窗部分
@@ -698,7 +690,7 @@
     $("#startPointH").val(myStartPoint.getHours());
     $("#startPointM").val(myStartPoint.getMinutes());
 
-    console.log(myStartPoint.getHours()+'时-'+myStartPoint.getMinutes()+'分');
+    console.log('加载完成时间：'+myStartPoint.getHours()+'时-'+myStartPoint.getMinutes()+'分');
 
 
 

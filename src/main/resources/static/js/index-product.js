@@ -376,8 +376,8 @@ $(document).ready(function () {
 
 
             //H 原料库显示 P1=R1 P2=R2+R3 P3=2R2+R3 P4=R2+R3+2R4
-           switch(productLineType){
-    case "手工线":
+     switch(productLineType){
+       case "手工线":
         //H 判断与当前生产线产品是否一致
 
             switch (product) {
@@ -569,29 +569,7 @@ $(document).ready(function () {
         break;
 
 }}
-/*
 
-            var ProductLine = {
-                teamCount: currentTeam,
-                period: currentAp,
-                productLineNumber: myPlnValue,
-                factoryNumber: factoryNumber,
-                productC: product
-            };
-
-            $.ajax({
-                type: "post",
-                dataType: "json",
-                url: "/ProductLine/inputToProduce",
-                contentType: "application/json;charset=utf-8;",
-                data: JSON.stringify(ProductLine),
-                success: function (data) {
-                    alert("投产成功");
-                    statusByPln(myPlnValue, "生产");
-
-                }
-            })
-*/
 
         $('.pop-pro').hide();
     });
@@ -627,228 +605,231 @@ $(document).ready(function () {
                 SetCash();
 
             }
-        })
+        });
         $('.pop-pro').hide();
     });
 
 
 
 
+     //不同状态下的弹窗
+    function showProductPop(ProductLine) {
+
+        $('.pro-status').hide();  //
+        $('.newBuild').hide();   //新建生产线
+        $('.pro-build').hide();
+        $('.pro-produce').hide(); //投产
+        $('.pro-status').hide();
+
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/ProductLine/listDetail",
+            contentType: "application/json;charset=utf-8;",
+            data: JSON.stringify(ProductLine),
+            success: function (data) {
+                var data = data['data'];
+                console.log("弹窗生产状态");
+                console.log(data[0]);
+                if(data.length == 1)  //如果生产线存在
+                { console.log("弹窗生产状态2");
+                    console.log(data[0].state);
+
+                    if( data[0].state == "0" ) //生产线为在建
+                    {
+                        console.log("弹窗建设工程状态3");
+                        $('#productLineTypeId-build').html(data[0].productLineTypeId);
+                        $('#deviceValue').html(data[0].deviceValue);
+                        $('#investmentAmountA').html(data[0].investmentAmountA);
+
+                        $('.pro-build').show();
+                    }
+
+                    if( data[0].state == "1" )  //生产线为在产
+                    {
+                        console.log("弹窗生产状态3");
+                        $('#productLineTypeId').html(data[0].productLineTypeId);
+                        $('#productC').html(data[0].productC);
+                        $('#processingCycle').html(data[0].processingCycle);
+                        $('#processingCycleB').html(data[0].processingCycleB);
+                        $('.pro-status').show();
+                    }
+
+
+                    if( data[0].state == "2" ) //生产线为停产
+                    {
+                        $('#productLineTypeIdT').html(data[0].productLineTypeId);
+
+                        $('.pro-produce').show();
+                    }
+
+                    if( data[0].state == "3" ) //生产线为转产
+                    {
+                        $('.pro-produce').show();
+                    }
+
+
+                }
+                if($.isEmptyObject(data) == true)
+                {    console.log("弹窗新建生产线4");
+
+                    $('.newBuild').show();
+                }
+            }
+        })
+    }
+
+     //将生产线的状态设置为指定值
+    function statusByPln(pln,status) {
+        var myProductLineNumber = pln;
+        var myStatus = status;
+        var myObjId = "";
+        switch (Number(myProductLineNumber))
+        {
+            case 1:
+                myObjId = "#pro-l-1";
+
+                break;
+            case 2:
+                myObjId = "#pro-l-2";
+                break;
+            case 3:
+                myObjId = "#pro-l-3";
+                break;
+            case 4:
+                myObjId = "#pro-l-4";
+                break;
+            case 5:
+                myObjId = "#pro-l-5";
+                break;
+            case 6:
+                myObjId = "#pro-l-6";
+                break;
+            case 7:
+                myObjId = "#pro-r-1";
+                break;
+            case 8:
+                myObjId = "#pro-r-2";
+                break;
+            case 9:
+                myObjId = "#pro-r-3";
+                break;
+            case 10:
+                myObjId = "#pro-r-4";
+                break;
+
+        }
+        switch (myStatus) {
+            case "生产":
+                if (Number(pln) < 7) {
+                    $(myObjId).addClass('sclsc-l');
+                } else {
+                    $(myObjId).addClass('sclsc-r');
+                }
+
+                break;
+            case "停产":
+                if (Number(pln) < 7) {
+                    $(myObjId).addClass('scltc-l');
+                } else {
+                    $(myObjId).addClass('scltc-r');
+                }
+                break;
+            case "转产":
+                if (Number(pln) < 7) {
+                    $(myObjId).addClass('sclzc-l');
+                } else {
+                    $(myObjId).addClass('sclzc-r');
+                }
+                break;
+            case "在建":
+                if (Number(pln) < 7) {
+                    $(myObjId).addClass('sclzj-l');
+                } else {
+                    $(myObjId).addClass('sclzj-r');
+                }
+                break;
+            case "出售":
+                if (Number(pln) < 7) {
+                    $(myObjId).removeClass();
+                } else {
+                    $(myObjId).removeClass();
+                }
+                break;
+
+
+        }
+    }
+
+
+     //根据生产线参数显示生产线图标
+    function showPLByPln(pln,productLineTypeId) {
+        var myProductLineNumber = pln;
+        var myProductLineTypeId = productLineTypeId;
+        var myObjId = "";
+        switch (Number(myProductLineNumber)) {
+            case 1:
+                myObjId = "#pro-l-1";
+
+                break;
+            case 2:
+                myObjId = "#pro-l-2";
+                break;
+            case 3:
+                myObjId = "#pro-l-3";
+                break;
+            case 4:
+                myObjId = "#pro-l-4";
+                break;
+            case 5:
+                myObjId = "#pro-l-5";
+                break;
+            case 6:
+                myObjId = "#pro-l-6";
+                break;
+            case 7:
+                myObjId = "#pro-r-1";
+                break;
+            case 8:
+                myObjId = "#pro-r-2";
+                break;
+            case 9:
+                myObjId = "#pro-r-3";
+                break;
+            case 10:
+                myObjId = "#pro-r-4";
+                break
+
+        }
+        switch (myProductLineTypeId) {
+            case "手工线":
+                myObjId = myObjId + "-sg";
+                console.log("手工线：" + myObjId);
+                $(myObjId).addClass('show');
+                break;
+            case "半自动":
+                myObjId = myObjId + "-bzd";
+                $(myObjId).addClass('show');
+                break;
+            case "全自动":
+                myObjId = myObjId + "-zd";
+                $(myObjId).addClass('show');
+                break;
+            case "柔性线":
+                myObjId = myObjId + "-rx";
+                $(myObjId).addClass('show');
+                break;
+
+
+        }
+
+    }
+
+
 
 })
 
-//不同状态下的弹窗
-function showProductPop(ProductLine) {
 
-    $('.pro-status').hide();  //
-    $('.newBuild').hide();   //新建生产线
-    $('.pro-build').hide();
-    $('.pro-produce').hide(); //投产
-    $('.pro-status').hide();
-
-    $.ajax({
-        type: "post",
-        dataType: "json",
-        url: "/ProductLine/listDetail",
-        contentType: "application/json;charset=utf-8;",
-        data: JSON.stringify(ProductLine),
-        success: function (data) {
-            var data = data['data'];
-            console.log("弹窗生产状态");
-            console.log(data[0]);
-            if(data.length == 1)  //如果生产线存在
-            { console.log("弹窗生产状态2");
-                console.log(data[0].state);
-
-                if( data[0].state == "0" ) //生产线为在建
-                {
-                    console.log("弹窗建设工程状态3");
-                    $('#productLineTypeId-build').html(data[0].productLineTypeId);
-                    $('#deviceValue').html(data[0].deviceValue);
-                    $('#investmentAmountA').html(data[0].investmentAmountA);
-
-                    $('.pro-build').show();
-                }
-
-                if( data[0].state == "1" )  //生产线为在产
-                {
-                    console.log("弹窗生产状态3");
-                    $('#productLineTypeId').html(data[0].productLineTypeId);
-                    $('#productC').html(data[0].productC);
-                    $('#processingCycle').html(data[0].processingCycle);
-                    $('#processingCycleB').html(data[0].processingCycleB);
-                    $('.pro-status').show();
-                }
-
-
-                if( data[0].state == "2" ) //生产线为停产
-                {
-                    $('#productLineTypeIdT').html(data[0].productLineTypeId);
-
-                    $('.pro-produce').show();
-                }
-
-                if( data[0].state == "3" ) //生产线为转产
-                {
-                    $('.pro-produce').show();
-                }
-
-
-            }
-            if($.isEmptyObject(data) == true)
-            {    console.log("弹窗新建生产线4");
-
-                $('.newBuild').show();
-            }
-        }
-    })
-}
-
-//将生产线的状态设置为指定值
-function statusByPln(pln,status) {
-    var myProductLineNumber = pln;
-    var myStatus = status;
-    var myObjId = "";
-    switch (Number(myProductLineNumber))
-    {
-        case 1:
-            myObjId = "#pro-l-1";
-
-            break
-        case 2:
-            myObjId = "#pro-l-2";
-            break
-        case 3:
-            myObjId = "#pro-l-3";
-            break
-        case 4:
-            myObjId = "#pro-l-4";
-            break
-        case 5:
-            myObjId = "#pro-l-5";
-            break
-        case 6:
-            myObjId = "#pro-l-6";
-            break
-        case 7:
-            myObjId = "#pro-r-1";
-            break
-        case 8:
-            myObjId = "#pro-r-2";
-            break
-        case 9:
-            myObjId = "#pro-r-3";
-            break
-        case 10:
-            myObjId = "#pro-r-4";
-            break
-
-    }
-    switch (myStatus) {
-        case "生产":
-            if (Number(pln) < 7) {
-                $(myObjId).addClass('sclsc-l');
-            } else {
-                $(myObjId).addClass('sclsc-r');
-            }
-
-            break
-        case "停产":
-            if (Number(pln) < 7) {
-                $(myObjId).addClass('scltc-l');
-            } else {
-                $(myObjId).addClass('scltc-r');
-            }
-            break
-        case "转产":
-            if (Number(pln) < 7) {
-                $(myObjId).addClass('sclzc-l');
-            } else {
-                $(myObjId).addClass('sclzc-r');
-            }
-            break
-        case "在建":
-            if (Number(pln) < 7) {
-                $(myObjId).addClass('sclzj-l');
-            } else {
-                $(myObjId).addClass('sclzj-r');
-            }
-            break
-        case "出售":
-            if (Number(pln) < 7) {
-                $(myObjId).removeClass();
-            } else {
-                $(myObjId).removeClass();
-            }
-            break
-
-
-    }
-}
-
-
-    //根据生产线参数显示生产线
-function showPLByPln(pln,productLineTypeId) {
-    var myProductLineNumber = pln;
-    var myProductLineTypeId = productLineTypeId;
-    var myObjId = "";
-    switch (Number(myProductLineNumber)) {
-        case 1:
-            myObjId = "#pro-l-1";
-
-            break
-        case 2:
-            myObjId = "#pro-l-2";
-            break
-        case 3:
-            myObjId = "#pro-l-3";
-            break
-        case 4:
-            myObjId = "#pro-l-4";
-            break
-        case 5:
-            myObjId = "#pro-l-5";
-            break
-        case 6:
-            myObjId = "#pro-l-6";
-            break
-        case 7:
-            myObjId = "#pro-r-1";
-            break
-        case 8:
-            myObjId = "#pro-r-2";
-            break
-        case 9:
-            myObjId = "#pro-r-3";
-            break
-        case 10:
-            myObjId = "#pro-r-4";
-            break
-
-    }
-    switch (myProductLineTypeId) {
-        case "手工线":
-            myObjId = myObjId + "-sg";
-            console.log("手工线：" + myObjId);
-            $(myObjId).addClass('show');
-            break
-        case "半自动":
-            myObjId = myObjId + "-bzd";
-            $(myObjId).addClass('show');
-            break
-        case "全自动":
-            myObjId = myObjId + "-zd";
-            $(myObjId).addClass('show');
-            break
-        case "柔性线":
-            myObjId = myObjId + "-rx";
-            $(myObjId).addClass('show');
-            break
-
-
-    }
-
-}
 
 
 
