@@ -133,6 +133,7 @@ public class InvServiceImpl implements InvService {
         inv1.setAmountI(r1Ai);
         inv1.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
         inv1.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv1.setCost(new BigDecimal(1));
         BaseBeanHelper.insert(inv1);
         InvMapper.insert(inv1);
 
@@ -146,6 +147,7 @@ public class InvServiceImpl implements InvService {
         inv2.setAmountI(r2Ai);
         inv2.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
         inv2.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv2.setCost(new BigDecimal(1));
         BaseBeanHelper.insert(inv2);
         InvMapper.insert(inv2);
 
@@ -159,6 +161,7 @@ public class InvServiceImpl implements InvService {
         inv3.setAmountI(r3Ai);
         inv3.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
         inv3.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv3.setCost(new BigDecimal(1));
         BaseBeanHelper.insert(inv3);
         InvMapper.insert(inv3);
 
@@ -172,6 +175,7 @@ public class InvServiceImpl implements InvService {
         inv4.setAmountI(r4Ai);
         inv4.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
         inv4.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv4.setCost(new BigDecimal(1));
         BaseBeanHelper.insert(inv4);
         InvMapper.insert(inv4);
 
@@ -189,6 +193,7 @@ public class InvServiceImpl implements InvService {
         invP1.setAmountI(BigDecimal.valueOf(0));
         invP1.setAmountO(BigDecimal.valueOf(0));
         invP1.setMoneyO(BigDecimal.valueOf(0));
+        invP1.setCost(new BigDecimal(2));
         BaseBeanHelper.insert(invP1);
         InvMapper.insert(invP1);
 
@@ -202,6 +207,7 @@ public class InvServiceImpl implements InvService {
         invP2.setAmountI(BigDecimal.valueOf(0));
         invP2.setAmountO(BigDecimal.valueOf(0));
         invP2.setMoneyO(BigDecimal.valueOf(0));
+        invP2.setCost(new BigDecimal(3));
         BaseBeanHelper.insert(invP2);
         InvMapper.insert(invP2);
 
@@ -215,6 +221,7 @@ public class InvServiceImpl implements InvService {
         invP3.setAmountI(BigDecimal.valueOf(0));
         invP3.setAmountO(BigDecimal.valueOf(0));
         invP3.setMoneyO(BigDecimal.valueOf(0));
+        invP3.setCost(new BigDecimal(4));
         BaseBeanHelper.insert(invP3);
         InvMapper.insert(invP3);
 
@@ -228,6 +235,7 @@ public class InvServiceImpl implements InvService {
         invP4.setAmountI(BigDecimal.valueOf(0));
         invP4.setAmountO(BigDecimal.valueOf(0));
         invP4.setMoneyO(BigDecimal.valueOf(0));
+        invP4.setCost(new BigDecimal(5));
         BaseBeanHelper.insert(invP4);
         InvMapper.insert(invP4);
 
@@ -339,8 +347,11 @@ public class InvServiceImpl implements InvService {
         BigDecimal amountOut = inv.getAmountO();
         BigDecimal moneyOut = inv.getMoneyO();
         BigDecimal money=new BigDecimal(amount).multiply(inv.getCost());
-        inv.setAmountO(amountOut.add(new BigDecimal(amount)));
-        inv.setMoneyO(moneyOut.add(money));
+        BigDecimal amountEdit=amountOut.add(new BigDecimal(amount));
+        BigDecimal moneyEdit=moneyOut.add(money);
+        inv.setAmountO(amountEdit);
+        inv.setMoneyO(moneyEdit);
+
         BaseBeanHelper.edit(inv);
         InvMapper.updateByPrimaryKey(inv);
 
