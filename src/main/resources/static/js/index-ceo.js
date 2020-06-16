@@ -74,8 +74,7 @@ $(document).ready(function () {
             $("#ceo-cz-g").val(gaolidai);
             console.log(data);
             console.log('******高利贷数据');
-            // $('#year').text(Math.floor(data.period / 4))
-            // $('#money_flow').text(data.money_flow)
+
         }
     });
 
