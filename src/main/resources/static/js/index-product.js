@@ -615,10 +615,10 @@ $(document).ready(function () {
      //不同状态下的弹窗
     function showProductPop(ProductLine) {
 
-        $('.pro-status').hide();  //
-        $('.newBuild').hide();   //新建生产线
+        $('.pro-status').hide();
+        $('.newBuild').hide();
         $('.pro-build').hide();
-        $('.pro-produce').hide(); //投产
+        $('.pro-produce').hide();
         $('.pro-status').hide();
 
         $.ajax({
@@ -637,7 +637,7 @@ $(document).ready(function () {
 
                     if( data[0].state == "0" ) //生产线为在建
                     {
-                        console.log("弹窗建设工程状态3");
+
                         $('#productLineTypeId-build').html(data[0].productLineTypeId);
                         $('#deviceValue').html(data[0].deviceValue);
                         $('#investmentAmountA').html(data[0].investmentAmountA);
@@ -645,9 +645,9 @@ $(document).ready(function () {
                         $('.pro-build').show();
                     }
 
-                    if( data[0].state == "1" )  //生产线为在产
+                    if( data[0].state == "1" )  //生产线=在产
                     {
-                        console.log("弹窗生产状态3");
+
                         $('#productLineTypeId').html(data[0].productLineTypeId);
                         $('#productC').html(data[0].productC);
                         $('#processingCycle').html(data[0].processingCycle);
@@ -656,14 +656,14 @@ $(document).ready(function () {
                     }
 
 
-                    if( data[0].state == "2" ) //生产线为停产
+                    if( data[0].state == "2" ) //生产线=停产
                     {
                         $('#productLineTypeIdT').html(data[0].productLineTypeId);
 
                         $('.pro-produce').show();
                     }
 
-                    if( data[0].state == "3" ) //生产线为转产
+                    if( data[0].state == "3" ) //生产线=转产
                     {
                         $('.pro-produce').show();
                     }
@@ -671,7 +671,7 @@ $(document).ready(function () {
 
                 }
                 if($.isEmptyObject(data) == true)
-                {    console.log("弹窗新建生产线4");
+                {
 
                     $('.newBuild').show();
                 }
