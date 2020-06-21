@@ -190,11 +190,11 @@ $(document).ready(function () {
                 for(var i=0; i<len;i++){
                     var mynumber = data[i].number;
                     var myState = data[i].state;
-                    if (mynumber == "大厂房" && Number(myState) == 1 && myPlnValue< 7) {
+                    if (mynumber == "大厂房" && (Number(myState) == 1 ||Number(myState)==2 ) && myPlnValue< 7) {
                         console.log(myPlnValue< 7);
                         m = 'true';
                     }
-                    if (mynumber == "小厂房" && Number(myState) == 1 && myPlnValue > 6) {
+                    if (mynumber == "小厂房" && (Number(myState) == 1 ||Number(myState)==2) && myPlnValue > 6) {
                         m = 'true';
                     }
 
