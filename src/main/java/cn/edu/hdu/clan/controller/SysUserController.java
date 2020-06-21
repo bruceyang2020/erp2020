@@ -103,6 +103,11 @@ public class SysUserController extends BaseController {
             myScore = (int)(Math.random()*10 + 60);
         }
 
+        if( currentAp > 12)
+        {
+            myScore = (int)(Math.random()*15 + 80);
+        }
+
 
 
 
