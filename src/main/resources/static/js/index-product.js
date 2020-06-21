@@ -389,8 +389,8 @@ $(document).ready(function () {
                     $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
                     break;
                 case "P2":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
                     $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
                     break;
                 case "P3":
                     $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
@@ -439,7 +439,7 @@ $(document).ready(function () {
                     $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
                     break;
                 case "P2":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
                     $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
                     break;
                 case "P3":
@@ -486,7 +486,7 @@ $(document).ready(function () {
                     $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
                     break;
                 case "P2":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
                     $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
                     break;
                 case "P3":
@@ -532,7 +532,7 @@ $(document).ready(function () {
                     $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
                     break;
                 case "P2":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
                     $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
                     break;
                 case "P3":

@@ -310,7 +310,7 @@ public class     ProductLineServiceImpl implements ProductLineService {
                         break;
 
                     case "P2":
-                        invService.stockOutToProduce(userTeam, period, "R2", 1, factoryNumber + productLineNumber + productLineType + "P2R2");
+                        invService.stockOutToProduce(userTeam, period, "R1", 1, factoryNumber + productLineNumber + productLineType + "P2R1");
                         invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P2R3");
                         break;
 
