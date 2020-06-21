@@ -1,9 +1,12 @@
 $(document).ready(function () {
 
+    // H 十条线今年的操作，第0条空着
     var editFlag=new Array();
-    for(i=0;i<11;i++){editFlag[i]=0;}// H 十条线今年的操作，第0条空着
+    for(var i=0;i<11;i++){editFlag[i]=0;}
+
+    // H 十条线今年的操作，第0条空着
     var productc=new Array();
-    for(i=0;i<11;i++){productc[i]="0";}// H 十条线今年的操作，第0条空着
+    for(var j=0;j<11;j++){productc[j]="0";}
 
 
 
@@ -313,7 +316,7 @@ $(document).ready(function () {
             SetCash();
         }
 
-    })
+    });
         editFlag[myPlnValue]=1;
     }
         $('.pop-pro').hide();
@@ -830,7 +833,7 @@ $(document).ready(function () {
 
 
 
-})
+});
 
 
 
