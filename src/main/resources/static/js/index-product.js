@@ -69,7 +69,6 @@ $(document).ready(function () {
 
     //生产线1-10号的点击弹窗功能，传递生产线编号参数。
     $('#pro-l-1').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "1"
         };
@@ -77,8 +76,8 @@ $(document).ready(function () {
         showProductPop(ProductLine);
         $('.pop-pro').show();
     });
+
     $('#pro-l-2').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "2"
         };
@@ -86,8 +85,8 @@ $(document).ready(function () {
         showProductPop(ProductLine);
         $('.pop-pro').show();
     });
+
     $('#pro-l-3').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "3"
         };
@@ -95,8 +94,8 @@ $(document).ready(function () {
         showProductPop(ProductLine);
         $('.pop-pro').show();
     });
+
     $('#pro-l-4').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "4"
         };
@@ -104,8 +103,8 @@ $(document).ready(function () {
         showProductPop(ProductLine);
         $('.pop-pro').show();
     });
+
     $('#pro-l-5').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "5"
         };
@@ -113,8 +112,8 @@ $(document).ready(function () {
         showProductPop(ProductLine);
         $('.pop-pro').show();
     });
+
     $('#pro-l-6').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "6"
         };
@@ -125,7 +124,6 @@ $(document).ready(function () {
 
 
     $('#pro-r-1').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "7"
         };
@@ -133,8 +131,8 @@ $(document).ready(function () {
         showProductPop(ProductLine);
         $('.pop-pro').show();
     });
+
     $('#pro-r-2').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "8"
         };
@@ -142,8 +140,8 @@ $(document).ready(function () {
         showProductPop(ProductLine);
         $('.pop-pro').show();
     });
+
     $('#pro-r-3').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "9"
         };
@@ -151,8 +149,8 @@ $(document).ready(function () {
         showProductPop(ProductLine);
         $('.pop-pro').show();
     });
+
     $('#pro-r-4').click(function () {
-        //获取第一条生产线的信息。
         var ProductLine = {
             productLineNumber: "10"
         };
@@ -167,6 +165,7 @@ $(document).ready(function () {
     $('.pop-cancel').click(function () {
         $('.pop-pro').hide();
     });
+
     $('#ok-pop-pro').click(function () {
 
         $('.pop-pro').hide();
@@ -188,7 +187,7 @@ $(document).ready(function () {
                 console.log(data);
 
                 var myPlnValue = $('#plnValue').val(); //获取当前生产线编号
-                console.log("新建：当前生产线值："+myPlnValue);
+                console.log("新建，当前生产线的编号："+myPlnValue);
                 var len = data.length;
                 for(var i=0; i<len;i++){
                     var mynumber = data[i].number;
@@ -250,7 +249,7 @@ $(document).ready(function () {
                             productC: productLineCType,
                             processingCycle: processingCycle
                         };
-                        console.log(ProductLine)
+
 
                         $.ajax({
                             type: "post",
@@ -268,9 +267,11 @@ $(document).ready(function () {
                         })
                         editFlag[myPlnValue] = 1;//H 已完成操作
                     }}
-                else if(m == 'false'){
-                    console.log("新建判断标准结果："+m);
-                    alert("您当前所在的厂房未购买或租赁。");}
+                else if(m == 'false')
+                {
+                    alert("您当前所在的厂房未购买或租赁。");
+                }
+
                 $('.pop-pro').hide();
 
         }});
