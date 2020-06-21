@@ -93,24 +93,39 @@ $(document).ready(function () {
 
 
 
-        var myeId =  $("#eId").val();
-        var param='{"eid":"'+myeId+'","expScore":"'+myExpSore+'"}';
-
-
-
         $.ajax({
-            url:"http://139.224.197.21:8081/openlab/outer/intelligent/!expScoreSave",   
-            dataType:"json",  
-            async:true,
-            data:{"param":param},   
-            type:"POST",   
-            success:function(req){
-                console.log("当前用户eid："+myeId);
-                console.log("当前用户成绩："+myExpSore);
-                console.log(req)
+            type: "post",
+            dataType: "json",
+            url: "/SysUser/getCurrentScore",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                data = data['data'];
+
+                myExpSore = data['score'];
+                var myeId =  $("#eId").val();
+                var param='{"eid":"'+myeId+'","expScore":"'+myExpSore+'"}';
+
+
+
+                $.ajax({
+                    url:"http://139.224.197.21:8081/openlab/outer/intelligent/!expScoreSave",
+                    dataType:"json",
+                    async:true,
+                    data:{"param":param},
+                    type:"POST",
+                    success:function(req){
+                        console.log("当前用户eid："+myeId);
+                        console.log("当前用户成绩："+myExpSore);
+                        console.log(req)
+
+                    }
+                });
 
             }
-        });
+        })
+
+
+
     }
 
 

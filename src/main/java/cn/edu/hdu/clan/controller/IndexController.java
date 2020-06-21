@@ -88,14 +88,14 @@ public class IndexController extends BaseController {
 
 
 
-
-    @RequestMapping("/")
-     public String login_tologin() {
+     //Y 把登录入口改了一个路由，这样就不跟教育部平台接口冲突了
+    @RequestMapping("/toLogin")
+     public String tologin() {
          return "login";}
 
- /*   @RequestMapping("/")
+    @RequestMapping("/")
     public String login_tologin() {
-        return "loginlab";}*/
+        return "loginlab";}
 
 
     @RequestMapping("/index")
@@ -325,12 +325,7 @@ public class IndexController extends BaseController {
     }
 
 
-/*      //定位到实验空间的控制器
-    @RequestMapping("loginlab")
-    public String loginlab() {
-        return "loginlab";
 
-    }*/
 
     @ResponseBody
     @RequestMapping("/loginlabTo")

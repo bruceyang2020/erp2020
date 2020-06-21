@@ -56,7 +56,7 @@ $(document).ready(function () {
         var period = $('#currentAp').val();
         if(Number(period)%4 != 1  )
         {
-            alert("当前会计期间不可执行长贷筹资。");
+            alert("只能在每年的第4季度进行长贷筹资。");
             return;
         }
         $('.pop-s1').show();
@@ -98,7 +98,7 @@ $(document).ready(function () {
         //H 年末
         if(Number(period)%4 != 0  )
         {
-            alert("当前会计期间不可市场开拓哦。");
+            alert("只能在每年的第4季度进行市场开拓。");
             return;
         }
         $('.pop-s4').show();
@@ -119,7 +119,7 @@ $(document).ready(function () {
         //H 年末
         if(Number(period)%4 != 0  )
         {
-            alert("当前会计期间不可市场开拓哦。");
+            alert("只能在每年的第4季度进行市场开拓。");
             return;
         }
         $('.pop-s5').show();
@@ -136,7 +136,7 @@ $(document).ready(function () {
         //H 年末
         if(Number(period)%4 != 0  )
         {
-            alert("当前会计期间不可市场开拓哦。");
+            alert("只能在每年的第4季度进行市场开拓。");
             return;
         }
         $('.pop-s6').show();
@@ -153,7 +153,7 @@ $(document).ready(function () {
         //H 年末
         if(Number(period)%4 != 0  )
         {
-            alert("当前会计期间不可市场开拓哦。");
+            alert("只能在每年的第4季度进行市场开拓。");
             return;
         }
         $('.pop-s7').show();
@@ -214,7 +214,7 @@ $(document).ready(function () {
         //H 年末
         if(Number(period)%4 != 0  )
         {
-            alert("当前会计期间不可获得证书哦。");
+            alert("只能在每年的第4季进行ISO认证。");
             return;
         }
         $('.pop-s12').show();
@@ -235,7 +235,7 @@ $(document).ready(function () {
         //H 年末
         if(Number(period)%4 != 0  )
         {
-            alert("当前会计期间不可获得证书哦。");
+            alert("只能在每年的第4季进行ISO认证。");
             return;
         }
         $('.pop-s13').show()
@@ -258,7 +258,7 @@ $(document).ready(function () {
         //H 年末
         if(Number(period)%4 != 1  )
         {
-            alert("当前会计期间不能参加订货会。");
+            alert("只能在每年的第1季参加订货会。");
             return;
         }
        $('.pop-advertise').show();
@@ -437,19 +437,3 @@ $(function(){
 
 
 
-
-/*  function ChangeStyle(StID)
-    {
-        var div1 = $("#ceo-tz-ma1");
-        for (var i = 0; i < sts.length; i++) {
-            if (sts[i]!=StID)
-            {
-                if (div1.hasClass(sts[i]))
-                {
-                    div1.addClass(sts[i+1]);
-                }
-            }
-        }
-        div1.addClass(StID);
-        //div1.toggleClass(StID);
-    }*/

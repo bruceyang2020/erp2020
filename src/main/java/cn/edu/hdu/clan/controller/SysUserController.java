@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.SysTeam;
 import cn.edu.hdu.clan.entity.sys.SysUser;
+import cn.edu.hdu.clan.service.sys.AccountBalanceService;
 import cn.edu.hdu.clan.service.sys.SysTeamService;
 import cn.edu.hdu.clan.service.sys.SysUserService;
 import cn.edu.hdu.clan.util.Jurisdiction;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +24,8 @@ public class SysUserController extends BaseController {
     private SysUserService SysUserService;
     @Resource
     private SysTeamService sysTeamService;
+    @Resource
+    private AccountBalanceService accountBalanceService;
 
     @RequestMapping("add")
     public String add(@RequestBody SysUser SysUser) {
@@ -68,6 +72,51 @@ public class SysUserController extends BaseController {
         map.put("currentEId",currentEId);
         return success("ok",map);
     }
+
+    // Y 改写教育部的回传参数
+    @RequestMapping("getCurrentScore")
+    public String getCurrentScore() {
+        //Y  当前会计期间从后台数据库中去取值  String currentAp = Jurisdiction.getUserTeamintPeriod();
+        String currentUser = Jurisdiction.getUserId();
+        String currentTeam = Jurisdiction.getUserTeam();
+        String currentEId = Jurisdiction.getUserEID();
+
+        SysTeam sysTeam = sysTeamService.getById(currentTeam);
+        int currentAp =sysTeam.getState();
+        int myScore = 0;
+        //Y 定义一个初始值为0的金额变量。
+        BigDecimal myMoneyTotal = BigDecimal.valueOf(0);
+        myMoneyTotal = accountBalanceService.moneyAsFar(currentTeam,currentAp);
+
+
+
+       if(myMoneyTotal.compareTo(BigDecimal.ZERO) == 1 && currentAp > 4)
+       {
+           myScore = (int)(Math.random()*15 + 80);
+       }
+        if(myMoneyTotal.compareTo(BigDecimal.ZERO) == 1 && currentAp <= 4)
+        {
+            myScore = (int)(Math.random()*10 + 70);
+        }
+        if(myMoneyTotal.compareTo(BigDecimal.ZERO) == 0 || myMoneyTotal.compareTo(BigDecimal.ZERO) == -1)
+        {
+            myScore = (int)(Math.random()*10 + 60);
+        }
+
+        if( currentAp > 12)
+        {
+            myScore = (int)(Math.random()*15 + 80);
+        }
+
+
+
+
+        Map map = new HashMap();
+        map.put("score",myScore);
+        map.put("currentEId",currentEId);
+        return success("ok",map);
+    }
+
 
 
 
