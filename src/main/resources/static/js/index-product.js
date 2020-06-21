@@ -719,6 +719,9 @@ $(document).ready(function () {
                 break;
 
         }
+
+        $(myObjId).attr('class','pro-line');
+
         switch (myStatus) {
             case "生产":
                 if (Number(pln) < 7) {
