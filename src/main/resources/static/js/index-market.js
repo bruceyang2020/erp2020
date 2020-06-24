@@ -32,7 +32,7 @@ $(document).ready(function () {
                             + "<td>" + data[i].amount + "</td>"
                             + "<td>" + data[i].money + "</td>"
                             + "<td>" + data[i].periodPay + "</td>"
-                            + "<td ><input type='button' class='btn  btn-sm  btn-danger '  onclick='' value='交货'></td>"
+                            + "<td ><input type='button' class='pop-btn-stockout'   onclick='' value='交货'></td>"
                             + "</tr>";
                     }
                 }
@@ -62,7 +62,7 @@ $(document).ready(function () {
                             url: "/OrderManagement/stockout",
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
-                                alert("交货成功");
+                                alert("交货完成");
                                 window.location.href = "/index";
                             }
                         });
@@ -104,7 +104,7 @@ $(document).ready(function () {
                             + "<td>" + data[i].amount + "</td>"
                             + "<td>" + data[i].money + "</td>"
                             + "<td>" + data[i].periodPay + "</td>"
-                            + "<td ><input type='button' class='btn   btn-sm btn-danger '  onclick='' value='交货'></td>"
+                            + "<td ><input type='button' class='pop-btn-stockout'   onclick='' value='交货'></td>"
                             + "</tr>";
                     }
                 }
@@ -130,7 +130,7 @@ $(document).ready(function () {
                             url: "/OrderManagement/stockout",
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
-                                alert("交货成功");
+                                alert("交货完成");
                                 window.location.href = "/index";
                             }
                         });
@@ -170,7 +170,7 @@ $(document).ready(function () {
                         + "<td>"+ data[i].amount + "</td>"
                         +"<td>"+data[i].money+"</td>"
                         + "<td>" + data[i].periodPay + "</td>"
-                        +"<td ><input type='button' class='btn  btn-sm  btn-danger '  onclick=''  value='交货'></td>"
+                        +"<td ><input type='button' class='pop-btn-stockout'   onclick=''  value='交货'></td>"
                         +"</tr>";
                 }}
                 if(lenP3==0){
@@ -195,7 +195,7 @@ $(document).ready(function () {
                             url: "/OrderManagement/stockout",
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
-                                alert("交货成功");
+                                alert("交货完成");
                                 window.location.href = "/index";
                             }
                         });
@@ -235,7 +235,7 @@ $(document).ready(function () {
                             + "<td>" + data[i].amount + "</td>"
                             + "<td>" + data[i].money + "</td>"
                             + "<td>" + data[i].periodPay + "</td>"
-                            + "<td ><input type='button' class='btn  btn-sm   btn-danger '  onclick=''  value='交货'></td>"
+                            + "<td ><input type='button' class='pop-btn-stockout'  onclick=''  value='交货'></td>"
                             + "</tr>";
                     }
                 }
@@ -261,7 +261,7 @@ $(document).ready(function () {
                             url: "/OrderManagement/stockout",
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
-                                alert("交货成功");
+                                alert("交货完成");
                                 window.location.href = "/index";
                             }
                         });
@@ -273,4 +273,4 @@ $(document).ready(function () {
     });
 
 
-})
+});

@@ -21,10 +21,12 @@ $(document).ready(function () {
                 var myMsg = data['msg'];
                 console.log(myMsg);
                 alert(data['msg']);
+                window.location.href = "/index";
+
             }
         })
-        window.location.href = "/index";
-        updatatest();
+
+
     });
 
 

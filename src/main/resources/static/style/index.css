@@ -244,6 +244,7 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 .pop-ok {  padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
 .pop-cancel {  background-color: #FFF;  border:1px #CECECE solid;  color: #000;  }
 .pop-btn-closing {   padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
+.pop-btn-stockout {   padding:5px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
 #ceo-sc{
      left: 480px;
      top: 150px;
