@@ -19,7 +19,7 @@ $(document).ready(function () {
                 var tableStr = "<table class='table'>";
                 tableStr = tableStr
                     + "<tr>"
-                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"
+                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"+"<td >账期</td>"
                     +"<td >操作</td>"+"</tr>";
                 var len = data.length;
                 var lenP1=0;
@@ -31,7 +31,8 @@ $(document).ready(function () {
                             + "<td>" + data[i].productId + "</td>"
                             + "<td>" + data[i].amount + "</td>"
                             + "<td>" + data[i].money + "</td>"
-                            + "<td ><button type='button' class='btn  btn-default btn-primary '  onclick=''>交货</button></td>"
+                            + "<td>" + data[i].periodPay + "</td>"
+                            + "<td ><input type='button' class='btn  btn-sm  btn-danger '  onclick='' value='交货'></td>"
                             + "</tr>";
                     }
                 }
@@ -47,7 +48,7 @@ $(document).ready(function () {
                 tableStr = tableStr + "</table>";
                 //添加到div中
                 $("#ordermanagement1").html(tableStr);
-                $("#ordermanagement1").delegate("button", "click",
+                $("#ordermanagement1").delegate("input", "click",
                     function(e) {
                         var myOrderName = "xxx";
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -90,7 +91,7 @@ $(document).ready(function () {
                 var tableStr = "<table class='table'>";
                 tableStr = tableStr
                     + "<tr>"
-                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"
+                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"+"<td >账期</td>"
                     +"<td >操作</td>"+"</tr>";
                 var len = data.length;
                 var lenP2=0;
@@ -102,7 +103,8 @@ $(document).ready(function () {
                             + "<td>" + data[i].productId + "</td>"
                             + "<td>" + data[i].amount + "</td>"
                             + "<td>" + data[i].money + "</td>"
-                            + "<td ><button type='button' class='btn  btn-default btn-primary'  onclick=''>交货</button></td>"
+                            + "<td>" + data[i].periodPay + "</td>"
+                            + "<td ><input type='button' class='btn   btn-sm btn-danger '  onclick='' value='交货'></td>"
                             + "</tr>";
                     }
                 }
@@ -114,7 +116,7 @@ $(document).ready(function () {
                 tableStr = tableStr + "</table>";
                 //添加到div中
                 $("#ordermanagement2").html(tableStr);
-                $("#ordermanagement2").delegate("button", "click",
+                $("#ordermanagement2").delegate("input", "click",
                     function(e) {
                         var myOrderName = "xxx";
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -155,7 +157,7 @@ $(document).ready(function () {
                 var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
                 tableStr = tableStr
                     + "<tr>"
-                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"
+                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"+"<td >账期</td>"
                     +"<td >操作</td>"+"</tr>";
                 var len = data.length;
                 var lenP3 =0;
@@ -167,7 +169,8 @@ $(document).ready(function () {
                         + "<td>"+ data[i].productId + "</td>"
                         + "<td>"+ data[i].amount + "</td>"
                         +"<td>"+data[i].money+"</td>"
-                        +"<td ><button type='button' class='btn  btn-default btn-primary'  onclick=''>交货</button></td>"
+                        + "<td>" + data[i].periodPay + "</td>"
+                        +"<td ><input type='button' class='btn  btn-sm  btn-danger '  onclick=''  value='交货'></td>"
                         +"</tr>";
                 }}
                 if(lenP3==0){
@@ -178,7 +181,7 @@ $(document).ready(function () {
                 tableStr = tableStr + "</table>";
                 //添加到div中
                 $("#ordermanagement3").html(tableStr);
-                $("#ordermanagement3").delegate("button", "click",
+                $("#ordermanagement3").delegate("input", "click",
                     function(e) {
                         var myOrderName = "xxx";
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -219,7 +222,7 @@ $(document).ready(function () {
                 var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
                 tableStr = tableStr
                     + "<tr>"
-                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"
+                    +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"+"<td >账期</td>"
                     +"<td >操作</td>"+"</tr>";
                 var len = data.length;
                 var lenP4=0;
@@ -231,7 +234,8 @@ $(document).ready(function () {
                             + "<td>" + data[i].productId + "</td>"
                             + "<td>" + data[i].amount + "</td>"
                             + "<td>" + data[i].money + "</td>"
-                            + "<td ><button type='button' class='btn  btn-default btn-primary'  onclick=''>交货</button></td>"
+                            + "<td>" + data[i].periodPay + "</td>"
+                            + "<td ><input type='button' class='btn  btn-sm   btn-danger '  onclick=''  value='交货'></td>"
                             + "</tr>";
                     }
                 }
@@ -243,7 +247,7 @@ $(document).ready(function () {
                 tableStr = tableStr + "</table>";
                 //添加到div中
                 $("#ordermanagement4").html(tableStr);
-                $("#ordermanagement4").delegate("button", "click",
+                $("#ordermanagement4").delegate("input", "click",
                     function(e) {
                         var myOrderName = "xxx";
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();

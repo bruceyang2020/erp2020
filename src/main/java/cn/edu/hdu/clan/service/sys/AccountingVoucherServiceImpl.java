@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.PageData;
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
 import cn.edu.hdu.clan.entity.sys.AccountingVoucher;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
@@ -199,7 +200,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
     }*/
 
     @Override
-    // H  所得税和结转期末损益会计凭证记录
+    // H  所得税和结转期末损益会计凭证记录  Y 性能优化，不使用sumMonye。将查询加载到内存后，再计算，并将查询条件数据范围缩小
     public void transferToProfitAndLoss(String teamCount, int period){
 
         BigDecimal netMoney = BigDecimal.valueOf(0);
@@ -210,14 +211,55 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         BigDecimal dep=BigDecimal.valueOf(0);
         BigDecimal otherCost=BigDecimal.valueOf(0);
         BigDecimal interest=BigDecimal.valueOf(0);
+
+
        // 一般不可能出现例如销售收入贷方为负值，所以没有考虑特殊情况
-        revenue=revenue.add(accountingVoucherService.sumMoney(teamCount,period,"销售收入","贷").subtract(accountingVoucherService.sumMoney(teamCount,period,"销售收入","借")));
-        cost=cost.add(accountingVoucherService.sumMoney(teamCount,period,"直接成本","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"直接成本","贷")));
-        variableCost=variableCost.add(accountingVoucherService.sumMoney(teamCount,period,"综合费用","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"综合费用","贷")));
-        dep=dep.add(accountingVoucherService.sumMoney(teamCount,period,"折旧费用","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"折旧费用","贷")));
-        otherCost=otherCost.add(accountingVoucherService.sumMoney(teamCount,period,"财务支出","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"财务支出","贷")));
-        interest=interest.add(accountingVoucherService.sumMoney(teamCount,period,"其他支出","借").subtract(accountingVoucherService.sumMoney(teamCount,period,"其他支出","贷")));
+
+
+        Example example = new Example(AccountingVoucher.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", teamCount);
+        criteria.andEqualTo("period", period);
+        List<String> values=new ArrayList<String>();
+        values.add("销售收入");
+        values.add("直接成本");
+        values.add("综合费用");
+        values.add("折旧费用");
+        values.add("财务支出");
+        values.add("其他支出");
+        criteria.andIn("acode",values);
+        List<AccountingVoucher> oldRow = AccountingVoucherMapper.selectByExample( example);
+        for(int i=0;i<oldRow.size();i++)
+        {
+
+            if( null !=oldRow.get(i).getMoneyD() && "销售收入".equals(oldRow.get(i).getAcode())) {  revenue = revenue.subtract(oldRow.get(i).getMoneyD()); }
+            if( null !=oldRow.get(i).getMoneyC() && "销售收入".equals(oldRow.get(i).getAcode())) {  revenue = revenue.add(oldRow.get(i).getMoneyC()); }
+
+            if( null !=oldRow.get(i).getMoneyD() && "直接成本".equals(oldRow.get(i).getAcode())) {  cost = cost.add(oldRow.get(i).getMoneyD()); }
+            if( null !=oldRow.get(i).getMoneyC() && "直接成本".equals(oldRow.get(i).getAcode())) {  cost = cost.subtract(oldRow.get(i).getMoneyC()); }
+
+            if( null !=oldRow.get(i).getMoneyD() && "综合费用".equals(oldRow.get(i).getAcode())) {  variableCost = variableCost.add(oldRow.get(i).getMoneyD()); }
+            if( null !=oldRow.get(i).getMoneyC() && "综合费用".equals(oldRow.get(i).getAcode())) {  variableCost = variableCost.subtract(oldRow.get(i).getMoneyC()); }
+
+            if( null !=oldRow.get(i).getMoneyD() && "折旧费用".equals(oldRow.get(i).getAcode())) {  dep = dep.add(oldRow.get(i).getMoneyD()); }
+            if( null !=oldRow.get(i).getMoneyC() && "折旧费用".equals(oldRow.get(i).getAcode())) {  dep = dep.subtract(oldRow.get(i).getMoneyC()); }
+
+            if( null !=oldRow.get(i).getMoneyD() && "财务支出".equals(oldRow.get(i).getAcode())) {  otherCost = otherCost.add(oldRow.get(i).getMoneyD()); }
+            if( null !=oldRow.get(i).getMoneyC() && "财务支出".equals(oldRow.get(i).getAcode())) {  otherCost = otherCost.subtract(oldRow.get(i).getMoneyC()); }
+
+            if( null !=oldRow.get(i).getMoneyD() && "其他支出".equals(oldRow.get(i).getAcode())) {  interest = interest.add(oldRow.get(i).getMoneyD()); }
+            if( null !=oldRow.get(i).getMoneyC() && "其他支出".equals(oldRow.get(i).getAcode())) {  interest = interest.subtract(oldRow.get(i).getMoneyC()); }
+
+
+
+
+
+        }
+
         netMoney=netMoney.add(revenue.subtract(cost.add(variableCost.add(dep.add(otherCost.add(interest))))));
+
+
+
         if (netMoney.compareTo(BigDecimal.valueOf(0)) == 1) //当毛利大于零的时候
         {
             taxMoney = netMoney.multiply(BigDecimal.valueOf(0.25)).setScale(0, BigDecimal.ROUND_DOWN);  //所得税0.25,向下取整。这个BIGDECIMAL的语法真的是够烦的！
@@ -245,7 +287,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
 
     @Override
-    // 本期借贷合计数
+    // 本期借贷合计数,Y 这个算法调用过于频繁，以至于影响数据库交互性能，后面尽量不用了。
     public BigDecimal sumMoney(String userTeam ,int period,String acode,String aType) {
         BigDecimal myMoney = BigDecimal.valueOf(0);
         Example example = new Example(AccountingVoucher.class);
@@ -302,6 +344,16 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
         }
          myMoney =moneyD.subtract(moneyC);//借方-贷方
+
+        PageData pd = new PageData();
+        pd.put("teamcount",userTeam);
+        pd.put("period",period);
+        int mymount =  AccountingVoucherMapper.mycount(pd);
+        System.out.print("测试一个自定义查询begin；");
+        System.out.print(userTeam);
+        System.out.print(mymount);
+        System.out.print(period);
+        System.out.print("测试一个自定义查询end；");
 
         return myMoney;
     }
