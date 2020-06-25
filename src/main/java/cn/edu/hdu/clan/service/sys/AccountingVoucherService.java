@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.PageData;
 import cn.edu.hdu.clan.entity.sys.AccountingVoucher;
 import com.github.pagehelper.PageInfo;
 
@@ -36,6 +37,8 @@ public interface AccountingVoucherService {
     List<BigDecimal> listForExpense( String userTeam,Integer period);//H
 
     BigDecimal selectByPeriodAndUserTeamAndContent( String userTeam,Integer period,String content,String acode);//H
+
+    List<PageData> sumDAndCByCode(String userTeam , int period); //Y
 
 
 

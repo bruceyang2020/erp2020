@@ -72,6 +72,18 @@ public class PageData extends HashMap<Object, Object> implements Map<Object, Obj
 		return (String) get(key);
 	}
 
+	public String getObjectToString(Object key) {
+		/*return (String)get(key);*/
+		String My = "";
+		if(get(key) == null){
+			return My;
+		}else{
+			return get(key).toString();
+		}
+
+	}
+
+
 	@Override
 	public Object put(Object key, Object value) {
 		if (value instanceof ClobProxyImpl) { // 读取oracle Clob类型数据

@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.PageData;
 import cn.edu.hdu.clan.entity.sys.AccountBalance;
 import cn.edu.hdu.clan.entity.sys.AccountingVoucher;
 import cn.edu.hdu.clan.entity.sys.MaterialOrder;
@@ -70,8 +71,9 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     @Override
     public void deleteByPeriod(String userTeam ,int period) {
         Example example = new Example(AccountBalance.class);
-        example.createCriteria().andEqualTo("teamCount", userTeam);
-        example.createCriteria().andEqualTo("period", period);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
 
         AccountBalanceMapper.deleteByExample(example);
 
@@ -90,11 +92,9 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         List<AccountBalance> oldRow = AccountBalanceMapper.selectByExample(example);
 
 
-        List<AccountingVoucher> myVoucherList = accountingVoucherService.selectByPeriodAndUserTeam(userTeam,period);
+        List<PageData> myVoucherList = accountingVoucherService.sumDAndCByCode(userTeam,period);
 
         if(oldRow.size() > 0) {
-
-
             for (int i = 0; i < oldRow.size(); i++) {
                 String acode = oldRow.get(i).getAcode();
                 BigDecimal moneyD = BigDecimal.valueOf(0);
@@ -102,13 +102,15 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
                 String aType = oldRow.get(i).getName();  //这个字段用来标识科目的余额方向。
                 BigDecimal moneyB = oldRow.get(i).getMoneyE();//H 期初取上一期期末！！！
                 for (int j = 0; j < myVoucherList.size(); j++) {
-                    if (acode.equals( myVoucherList.get(j).getAcode())==true) {
-                        if (null != myVoucherList.get(j).getMoneyD()) {
-                            moneyD = moneyD.add(myVoucherList.get(j).getMoneyD());
-                        }
-                        if (null != myVoucherList.get(j).getMoneyC()) {
-                            moneyC = moneyC.add(myVoucherList.get(j).getMoneyC());
-                        }
+                    if (acode.equals( myVoucherList.get(j).getString("acode"))==true) {
+
+
+
+                            moneyD = new BigDecimal(myVoucherList.get(j).getObjectToString("moneyD")) ;
+
+
+                            moneyC = new  BigDecimal(myVoucherList.get(j).getObjectToString("moneyC")) ;
+
 
                     }
                 }
@@ -205,14 +207,29 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     }
     //H 缴纳上年度所得税
     public void makeVoucherOfTax(String userTeam ,int period){
-        BigDecimal tax=accountBalanceService.getByTeamcountAndPeriodAndacode(userTeam,period-1,"应交税金").get(0).getMoneyE();
-        accountingVoucherService.voucherMaker(userTeam,period,tax,"JS","缴纳上年度所得税");
+        List<AccountBalance> myList = accountBalanceService.getByTeamcountAndPeriodAndacode(userTeam,period-1,"应交税金");
+
+        //Y 增加一个判断条件，需要先判断这个项目是否存在。尽管逻辑是肯定存在的，但实际中可能资产负债表异常，没有数据
+        if(myList.size() > 0)
+        {
+            BigDecimal tax= myList.get(0).getMoneyE();
+            accountingVoucherService.voucherMaker(userTeam,period,tax,"JS","缴纳上年度所得税");
+        }
+
 
     }
    //H 上年度年度净利转利润留存
     public void makeVoucherOfNI(String userTeam ,int period){
-        BigDecimal tax=accountBalanceService.getByTeamcountAndPeriodAndacode(userTeam,period-1,"年度净利").get(0).getMoneyE();
-        accountingVoucherService.voucherMaker(userTeam,period,tax,"LRLCE","转上年度年度净利");
+        List<AccountBalance> myList = accountBalanceService.getByTeamcountAndPeriodAndacode(userTeam,period-1,"年度净利");
+
+        //Y 增加一个判断条件，需要先判断这个项目是否存在。尽管逻辑是肯定存在的，但实际中可能资产负债表异常，没有数据
+        if(myList.size() > 0)
+        {
+            BigDecimal tax= myList.get(0).getMoneyE();
+            accountingVoucherService.voucherMaker(userTeam,period,tax,"LRLCE","转上年度年度净利");
+        }
+
+
     }
 
  /*   @Override
