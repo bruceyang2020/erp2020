@@ -80,8 +80,8 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
     @Override
     public void sumFromVoucher(String userTeam ,int period) {//
 
-      /*  // 清除本期的科目余额表
-        accountBalanceService.deleteByPeriod(userTeam,period);*/
+        // 清除本期的科目余额表
+        accountBalanceService.deleteByPeriod(userTeam,period);
 
         Example example = new Example(AccountBalance.class);
         Example.Criteria criteria = example.createCriteria();

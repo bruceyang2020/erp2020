@@ -209,11 +209,11 @@ public class IndexController extends BaseController {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
-        SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss");//只有bai时分秒
+        SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss SSS");//只有bai时分秒
 
         System.out.print("核算过程1开始："+sdf.format(new Date()));
-        //H 扣减行政管理费用会计凭证
-        accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("10"),"GLFY","管理费用");
+        //H 扣减行政管理费用会计凭证：这里默认为1
+        accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("1"),"GLFY","管理费用");
 
         System.out.print("核算过程2开始："+sdf.format(new Date()));
         //H 折旧费用的会计凭证
