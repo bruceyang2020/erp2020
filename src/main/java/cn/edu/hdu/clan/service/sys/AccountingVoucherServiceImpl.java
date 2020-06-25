@@ -199,15 +199,6 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         }
          myMoney =moneyD.subtract(moneyC);//借方-贷方
 
-        PageData pd = new PageData();
-        pd.put("teamcount",userTeam);
-        pd.put("period",period);
-        int mymount =  AccountingVoucherMapper.mycount(pd);
-        System.out.print("测试一个自定义查询begin；");
-        System.out.print(userTeam);
-        System.out.print(mymount);
-        System.out.print(period);
-        System.out.print("测试一个自定义查询end；");
 
         return myMoney;
     }
@@ -219,7 +210,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         PageData pd = new PageData();
         pd.put("teamcount",userTeam);
         pd.put("period",period);
-        return AccountingVoucherMapper.sumDAndCByCode(pd);
+        return AccountingVoucherMapper.sumDAndCByCode(pd);  //通过自定义SQL查询各会计科目的借、贷方合计金额。
     }
 
     @Override
