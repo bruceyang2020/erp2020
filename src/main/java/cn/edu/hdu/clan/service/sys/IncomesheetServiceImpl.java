@@ -139,11 +139,12 @@ public class IncomesheetServiceImpl implements IncomesheetService {
 
         //Y 修改利润表的字段取值。
 
-        /*//删除已存在的利润表
+        //删除已存在的利润表
         Example example = new Example(Incomesheet.class);
-        example.createCriteria().andEqualTo("teamCount", userTeam);
-        example.createCriteria().andEqualTo("period", period);
-        IncomesheetMapper.deleteByExample(example);*/
+        Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        IncomesheetMapper.deleteByExample(example);
 
         Incomesheet incomesheet = new Incomesheet();
         String acode ="";

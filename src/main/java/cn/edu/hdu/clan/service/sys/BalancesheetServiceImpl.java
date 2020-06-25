@@ -127,6 +127,12 @@ public class BalancesheetServiceImpl implements BalancesheetService {
     @Override
     public void createBalanceSheet(List<AccountBalance> accountBalances,String userTeam ,int period) {
 
+        //Y 删除已存在的
+        Example example = new Example(Balancesheet.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        BalancesheetMapper.deleteByExample(example);
 
         Balancesheet balancesheet = new Balancesheet();
         String acode = "";
