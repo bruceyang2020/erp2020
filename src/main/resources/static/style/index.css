@@ -163,7 +163,7 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 .current a{	 outline: 0;background: #fff; z-index: 4;	}
 .hoverItem a{background: #c3aedf;	}
 #pop-content {background: #fff;	 padding: 10px; height: 320px;	position: relative;	 border-radius: 0 5px 5px 5px; box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);	}
-#pop-content2 {background: #fff;	 padding: 10px; height: 470px;	position: relative;	 border-radius: 0 5px 5px 5px; box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);	}
+
 .item{display: none;	}
 .show{display: block;	}
 
@@ -259,6 +259,7 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
     top:2500px;
 }
 .pop-top{  height:40px;  width:100%;  border-bottom: 1px #E5E5E5 solid;  }
+.pop-head{  height:30px;  width:100%;  border: 0px;  text-align: right;  }
 .pop-foot{  height:50px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: right;  }
 .pop-foot-rule{  height:50px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: center;  }
 .pop-foot-advertise{  height:30px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: right;  }

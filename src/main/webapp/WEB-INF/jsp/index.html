@@ -93,6 +93,9 @@
                     <input name="financial-report" id="ceo-cw" type="button"/>
                     <!--财务弹出框资产负债表-利润表-->
                     <div class="pop">
+                        <div class="pop-head">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
                         <div class="tab-contain">
                             <ul id="tabs">
                                 <li class="current"><a href="#" title="tab1">资产负债表</a></li>
@@ -107,19 +110,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pop-foot">
-                            <input type="button" value="关闭" class="pop-cancel pop-close">
-                        </div>
+
                     </div>
                     <input name="market-report" id="ceo-sc" type="button"/>
                     <!--市场预测弹出框-->
                     <div class="pop2">
+                        <div class="pop-head">
+                            <input type="button" value="关闭" class="pop-cancel pop-close">
+                        </div>
                         <div class="tab-contain">
                         <ul id="tabs">
                             <li class="current"><a href="#" title="tab3">数量预测</a></li>
                             <li><a href="#" title="tab4">金额预测</a></li>
                         </ul>
-                            <div id="pop-content2">
+                            <div id="pop-content">
                             <div id="tab3" class="item show">
                                 <iframe src="marketingPre.html" id="marketingpre-wrap" frameborder="0"
                                 ></iframe>
@@ -131,9 +135,7 @@
                            </div>
                         </div>
 
-                        <div class="pop-foot">
-                            <input type="button" value="关闭" class="pop-cancel pop-close">
-                        </div>
+
                     </div>
                     <!--长期贷款-->
                     <input name="ceo-cz-c" id="ceo-cz-c" class="cz-btn" type="button"/>
