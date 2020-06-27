@@ -79,14 +79,15 @@ html,body,#wrapper{
 
 .pop-rule{
     display: none;
-    width: 750px;
-    height:1100px;
+    width: 720px;
+    height:600px;
     position: absolute;
-    top:300px;
+    top: 100px;
     left: 0;
     bottom: 0;
     right: 0;
     margin: auto;
+    padding: 15px;
     z-index: 130;
     border-radius: 10px;
     background-color: #fff;
@@ -94,9 +95,20 @@ html,body,#wrapper{
 
 }
 
+.rule-scrollbox{
+    position:absolute;
+    width: 705px;
+    height:550px;
+    overflow:auto
+}
+
 #rule-content{
-    width: 720px;
-    height: 1000px;
+    width: 701px;
+    height: 1019px;
+    top:5px;
+    left: 0;
+    bottom: auto;
+    right: 0;
     position: relative;
     background: url(rule.png) no-repeat;
 }
@@ -136,7 +148,7 @@ html,body,#wrapper{
 }
 #balance-wrap,#income-wrap,#pro-wrap{
     width: 100%;
-    height: 400px;
+    height: 320px;
 }
 #marketingpre-wrap,#marketingprePriceTotal-wrap{
     width: 100%;
@@ -150,16 +162,17 @@ html,body,#wrapper{
 li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-decoration: none; color: #444;text-shadow: 0 1px 0 rgba(255, 255, 255, .8);border-radius: 20px 20px 0 0; box-shadow: 0 2px 2px rgba(0, 0, 0, .4);	}
 .current a{	 outline: 0;background: #fff; z-index: 4;	}
 .hoverItem a{background: #c3aedf;	}
-#pop-content {background: #fff;	 padding: 10px; height: 470px;	position: relative;	 border-radius: 0 5px 5px 5px; box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);	}
+#pop-content {background: #fff;	 padding: 10px; height: 320px;	position: relative;	 border-radius: 0 5px 5px 5px; box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);	}
+#pop-content2 {background: #fff;	 padding: 10px; height: 470px;	position: relative;	 border-radius: 0 5px 5px 5px; box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);	}
 .item{display: none;	}
 .show{display: block;	}
 
 .pop{
     display: none;
     width: 600px;
-    min-height: 400px;
-    max-height: 600px;
-    height:600px;
+    min-height: 450px;
+    max-height: 450px;
+    height:450px;
     position: absolute;
     top: 700px;
     left: 0;
@@ -230,6 +243,14 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
     background-color: #fff;
     box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
 }
+.pop-p-scroll
+{
+    position:absolute;
+    width: 390px;
+    height:480px;
+    overflow:auto
+
+}
 
 .pop3,.pop-p1,.pop-p2,.pop-p3,.pop-p4{
     top:2000px;
@@ -239,12 +260,13 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 }
 .pop-top{  height:40px;  width:100%;  border-bottom: 1px #E5E5E5 solid;  }
 .pop-foot{  height:50px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: right;  }
+.pop-foot-rule{  height:50px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: center;  }
 .pop-foot-advertise{  height:30px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: right;  }
 .pop-cancel,
 .pop-ok {  padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
 .pop-cancel {  background-color: #FFF;  border:1px #CECECE solid;  color: #000;  }
 .pop-btn-closing {   padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
-.pop-btn-stockout {   padding:5px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
+.pop-btn-stockout {   padding:5px 15px;   border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
 #ceo-sc{
      left: 480px;
      top: 150px;

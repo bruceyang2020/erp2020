@@ -16,7 +16,7 @@ $(document).ready(function () {
                 console.log(data);
 
 
-                var tableStr = "<table class='table'>";
+                var tableStr = "<table style ='width: 385px;'>";
                 tableStr = tableStr
                     + "<tr>"
                     +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"+"<td >账期</td>"
@@ -88,7 +88,7 @@ $(document).ready(function () {
             success:function(data){
                 data = data['data'];
                 console.log(data);
-                var tableStr = "<table class='table'>";
+                var tableStr = "<table style ='width: 385px;'>";
                 tableStr = tableStr
                     + "<tr>"
                     +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"+"<td >账期</td>"
@@ -154,7 +154,7 @@ $(document).ready(function () {
             success:function(data){
                 data = data['data'];
                 console.log(data);
-                var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
+                var tableStr = "<table style ='width: 385px;'>";
                 tableStr = tableStr
                     + "<tr>"
                     +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"+"<td >账期</td>"
@@ -219,7 +219,7 @@ $(document).ready(function () {
             success:function(data){
                 data = data['data'];
                 console.log(data);
-                var tableStr = "<table border='0' cellspacing='' cellpadding=''>";
+                var tableStr = "<table style ='width: 385px;'>";
                 tableStr = tableStr
                     + "<tr>"
                     +"<td >编号</td>" +"<td >产品</td>" +"<td >数量</td>" +"<td >金额</td>"+"<td >账期</td>"

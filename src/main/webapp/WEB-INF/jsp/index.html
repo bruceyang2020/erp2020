@@ -13,7 +13,7 @@
     <script src="js/index-product.js"></script> <!-- //生产线相关显示及操作-->
     <script src="js/index-factory.js"></script> <!--//厂房相关显示及操作-->
     <script src="js/index-capital.js"></script> <!--//应收账款相关显示及操作-->
-    <meta charset="UTF-8">
+      <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style/index.css">
     <link rel="stylesheet" type="text/css" href="style/select2.css">
     <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
@@ -67,7 +67,6 @@
                     var period = data.currentAp;
                     var str = "第"+Math.ceil(period/4)+"年"+(period%4==0?4:period%4)+"季";
                     $("#tip-period").html(str);  //在系统设置按钮上显示当前的会计期间。
-                    console.log(data.currentAp);
                     console.log($("#currentAp").val()+"全局会计期间");
 
                 }
@@ -120,7 +119,7 @@
                             <li class="current"><a href="#" title="tab3">数量预测</a></li>
                             <li><a href="#" title="tab4">金额预测</a></li>
                         </ul>
-                            <div id="pop-content">
+                            <div id="pop-content2">
                             <div id="tab3" class="item show">
                                 <iframe src="marketingPre.html" id="marketingpre-wrap" frameborder="0"
                                 ></iframe>
@@ -139,7 +138,7 @@
                     <!--长期贷款-->
                     <input name="ceo-cz-c" id="ceo-cz-c" class="cz-btn" type="button"/>
                     <div class="pop-s1">
-                        <h3>请输入借款金额</h3>
+                        <h3>请输入借款金额(5年到期)</h3>
                         <input name="" id="load-c"/>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
@@ -155,7 +154,7 @@
                     <!--短期贷款-->
                     <input name="ceo-cz-d" id="ceo-cz-d" class="cz-btn" type="button"/>
                     <div class="pop-s2">
-                        <h3>请输入借款金额</h3>
+                        <h3>请输入借款金额(1年到期)</h3>
                         <input name="" id="load-d"/>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
@@ -169,7 +168,7 @@
                     <!--高利贷-->
                     <input name="ceo-cz-gl" id="ceo-cz-gl" class="cz-btn" type="button"/>
                     <div class="pop-s3">
-                        <h3>请输入借(+)还(-)款金额</h3>
+                        <h3>请输入借(+)还(-)款金额(无到期日，每季结息)</h3>
                         <input name="" id="load-g"/>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
@@ -324,35 +323,39 @@
 
                     <div id="orderlist1" class="orderlist"><h5 id="p1-list">查看详情</h5></div>
                     <div class="pop-p1">
-                        <h4>P1列表</h4>
-                        <div  id="ordermanagement1"></div>
                         <div class="pop-foot">
                             <input type="button" value="关闭" class="pop-cancel pop-close">
                         </div>
+                        <h4>P1列表</h4>
+                        <div  id="ordermanagement1"  class="pop-p-scroll"></div>
+
                     </div>
                     <div id="orderlist2" class="orderlist"><h5 id="p2-list">查看详情</h5></div>
                     <div class="pop-p2">
-                        <h4>P2列表</h4>
-                        <div  id="ordermanagement2"></div>
                         <div class="pop-foot">
                             <input type="button" value="关闭" class="pop-cancel pop-close">
                         </div>
+                        <h4>P2列表</h4>
+                        <div  id="ordermanagement2"  class="pop-p-scroll"></div>
+
                     </div>
                     <div id="orderlist3" class="orderlist"><h5 id="p3-list">查看详情</h5></div>
                     <div class="pop-p3">
-                        <h4>P3列表</h4>
-                        <div  id="ordermanagement3"></div>
                         <div class="pop-foot">
                             <input type="button" value="关闭" class="pop-cancel pop-close">
                         </div>
+                        <h4>P3列表</h4>
+                        <div  id="ordermanagement3"  class="pop-p-scroll"></div>
+
                     </div>
                     <div id="orderlist4" class="orderlist"><h5 id="p4-list">查看详情</h5></div>
                     <div class="pop-p4">
-                        <h4>P4列表</h4>
-                        <div  id="ordermanagement4"></div>
                         <div class="pop-foot">
                             <input type="button" value="关闭" class="pop-cancel pop-close">
                         </div>
+                        <h4>P4列表</h4>
+                        <div  id="ordermanagement4" class="pop-p-scroll"></div>
+
                     </div>
 
 
@@ -509,8 +512,8 @@
 
     <h3>结转本季内容包括：</h3>
     1.生产线的生产进度刷新，产品入库。<br/>
-    2.物料管理部库存刷新，订单交付。<br/>
-    3.财务部“现金池”刷新，扣减当期费用，自动计算现金余额。 <br/>
+    2.物料管理部采购订单交付，库存刷新。<br/>
+    3.财务部“现金池”刷新，扣减当期费用，自动计算现金余额及财务报表。 <br/>
     4.注意：结转过程计算耗时较长，沙盘左上角“系统设置”的季度跳转，表示结转完成。
     <h3>是否结转本季?</h3><div class="jz-timeg"></div>
     <div class="pop-foot">
@@ -521,7 +524,7 @@
 
 
 <div class="pop-userset">
-    <table>
+    <table  style ='width: 385px;'>
         <tr>
             <td>用户识别码：</td><td><div id="userset-user"></div></td>
         </tr>
@@ -541,30 +544,30 @@
 
 <!--//弹窗-经营推演规则-->
 <div class="pop-rule">
-    <table>
-        <tr><td>  <div id="rule-content"></div></td></tr>
-    </table>
-
-    <div class="pop-foot">
-        <input type="button" value="关闭" class="pop-cancel pop-close">
+    <div class="rule-scrollbox">
+       <div id="rule-content"></div>
+        <div class="pop-foot-rule">
+            <input type="button" value="关闭" class="pop-cancel pop-close">
+        </div>
     </div>
+
 </div>
 
 <!--//弹窗-厂房的操作-->
 <div class="pop-factory">
-    <table>
+    <table style ='width: 385px;'>
         <tr>
             <td>类型</td><td>状态</td>
             <td>操作</td>
         </tr>
         <tr>
-            <td>大厂房</td><td><div id="factory-1-state"></div></td>
+            <td>大厂房（买价40M，租金5M/Q）</td><td><div id="factory-1-state"></div></td>
             <td> <input type="button" value="购买" class="pop-ok" id="ok-factory1-buy">
                 <input type="button" value="出售" class="pop-ok" id="ok-factory1-sale">
                 <input type="button" value="租赁" class="pop-ok" id="ok-factory1-rent"> </td>
         </tr>
         <tr>
-            <td>小厂房</td><td><div id="factory-2-state"></div></td>
+            <td>小厂房（买价3M，租金3M/Q）</td><td><div id="factory-2-state"></div></td>
             <td> <input type="button" value="购买" class="pop-ok" id="ok-factory2-buy">
                 <input type="button" value="出售" class="pop-ok" id="ok-factory2-sale">
                 <input type="button" value="租赁" class="pop-ok" id="ok-factory2-rent"> </td>
@@ -580,7 +583,7 @@
 <div class="pop-pro">
     <input type="hidden" name="plnValue" id="plnValue" value="0">
     <div class ="pro-status">
-        <table>
+        <table style ='width: 385px;'>
             <tr><td>  <div>生产线类型：</div></td>
                 <td><div name ="productLineTypeId" id="productLineTypeId" ></div></td>
                 <td>    <div>在产产品类型：</div></td>
@@ -599,14 +602,14 @@
     </div>
 
     <div class ="newBuild">
-        <table>
+        <table style ='width: 385px;'>
             <tr>
                 <td>生产线类型：</td>
                 <td>  <select id="productLineTypeIdList" name="productLineTypeIdList" class="select2">
-                    <option value="手工线">手工线</option>
-                    <option value="半自动">半自动</option>
-                    <option value="全自动">全自动</option>
-                    <option value="柔性线">柔性线</option>
+                    <option value="手工线">手工线(每季投资5M，安装周期1)</option>
+                    <option value="半自动">半自动(每季投资5M，安装周期2)</option>
+                    <option value="全自动">全自动(每季投资5M，安装周期3)</option>
+                    <option value="柔性线">柔性线(每季投资5M，安装周期4)</option>
                 </select></td>
             </tr>
             <tr>
@@ -625,7 +628,7 @@
         </div>
     </div>
     <div class ="pro-build">
-        <table>
+        <table style ='width: 385px;'>
             <tr>
                 <td>     <div> 生产线类型：</div></td>
                 <td>        <div name ="productLineTypeId-build" id="productLineTypeId-build" ></div></td>
@@ -644,7 +647,7 @@
     </div>
 
     <div class ="pro-produce">
-        <table>
+        <table style ='width: 385px;'>
             <tr>
                 <td>     <div> 生产线类型：</div></td>
                 <td>        <div name ="productLineTypeIdT" id="productLineTypeIdT" ></div></td>
