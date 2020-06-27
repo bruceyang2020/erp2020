@@ -20,9 +20,7 @@
                 contentType: "application/json;charset=utf-8;",
                 success: function (data) {
                    var  mydata = data['data'];
-                    console.log(mydata);
-                    console.log(mydata["P1"]);
-                    console.log('市场预测弹窗：获取市场订单的数量合计');
+
                     $('#container').highcharts({
                         chart: {
                             renderTo: "container",

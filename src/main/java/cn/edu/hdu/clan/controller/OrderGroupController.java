@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.controller;
 
+import cn.edu.hdu.clan.entity.PageData;
 import cn.edu.hdu.clan.entity.sys.OrderGroup;
 import cn.edu.hdu.clan.service.sys.OrderGroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -219,6 +220,96 @@ public class OrderGroupController extends BaseController {
                         case "P2":myAmountListP2[myPeriod/4+24] = myAmountListP2[myPeriod/4+24] +myAmount; break;
                         case "P3":myAmountListP3[myPeriod/4+24] = myAmountListP3[myPeriod/4+24] +myAmount; break;
                         case "P4":myAmountListP4[myPeriod/4+24] = myAmountListP4[myPeriod/4+24] +myAmount; break;
+                    }
+                    break;
+
+            }
+
+
+        }
+
+        dataMap.put("P1",myAmountListP1);
+        dataMap.put("P2",myAmountListP2);
+        dataMap.put("P3",myAmountListP3);
+        dataMap.put("P4",myAmountListP4);
+
+
+
+        return success(dataMap);
+    }
+
+
+    /**
+     * Y CEO办公室：生成用于图表显示全部订单的平均单价状图，采用新的算法逻辑。
+     * @param param
+     * @return
+     */
+    @RequestMapping(value = "listAllAvgPrice",produces = "application/json;charset=utf-8")
+    public String listAllAvgPrice(@RequestBody Map<String,String> param) {
+        List<PageData> myList = OrderGroupService.listAllAvgPrice();
+        Map<String,Object> dataMap = new HashMap<String,Object>();
+        // 数组大小
+        int size = 30;
+        // 定义数组
+        double[] myAmountListP1 = new double[size];
+        double[] myAmountListP2 = new double[size];
+        double[] myAmountListP3 = new double[size];
+        double[] myAmountListP4 = new double[size];
+        // 计算所有元素的总和
+        double total = 0;
+        for (int j = 0; j < size; j++) {
+            myAmountListP1[j] = 0;
+            myAmountListP2[j] = 0;
+            myAmountListP3[j] = 0;
+            myAmountListP4[j] = 0;
+        }
+
+        for(int i=0;i< myList.size();i++)
+        {
+            String myMarketId = myList.get(i).getString("marketId");
+            double  myPrice = Double.valueOf(myList.get(i).getObjectToString("myPrice"));
+            String myProductid = myList.get(i).getString("productId");
+            int  myPeriod  = Integer.valueOf(myList.get(i).getObjectToString("period"));
+            switch (myMarketId)
+            {
+                case "本地":
+                    switch (myProductid)
+                    {   case "P1":myAmountListP1[myPeriod/4] =myPrice; break;
+                        case "P2":myAmountListP2[myPeriod/4] = myPrice; break;
+                        case "P3":myAmountListP3[myPeriod/4] = myPrice; break;
+                        case "P4":myAmountListP4[myPeriod/4] = myPrice; break;
+                    }
+                    break;
+                case "区域":
+                    switch (myProductid)
+                    {   case "P1":myAmountListP1[myPeriod/4+6] = myPrice; break;
+                        case "P2":myAmountListP2[myPeriod/4+6] = myPrice; break;
+                        case "P3":myAmountListP3[myPeriod/4+6] = myPrice; break;
+                        case "P4":myAmountListP4[myPeriod/4+6] = myPrice; break;
+                    }
+                    break;
+                case "国内":
+                    switch (myProductid)
+                    {   case "P1":myAmountListP1[myPeriod/4+12] = myPrice; break;
+                        case "P2":myAmountListP2[myPeriod/4+12] = myPrice; break;
+                        case "P3":myAmountListP3[myPeriod/4+12] = myPrice; break;
+                        case "P4":myAmountListP4[myPeriod/4+12] = myPrice; break;
+                    }
+                    break;
+                case "亚洲":
+                    switch (myProductid)
+                    {   case "P1":myAmountListP1[myPeriod/4+18] = myPrice; break;
+                        case "P2":myAmountListP2[myPeriod/4+18] = myPrice; break;
+                        case "P3":myAmountListP3[myPeriod/4+18] = myPrice; break;
+                        case "P4":myAmountListP4[myPeriod/4+18] = myPrice; break;
+                    }
+                    break;
+                case "国际":
+                    switch (myProductid)
+                    {   case "P1":myAmountListP1[myPeriod/4+24] = myPrice; break;
+                        case "P2":myAmountListP2[myPeriod/4+24] = myPrice; break;
+                        case "P3":myAmountListP3[myPeriod/4+24] = myPrice; break;
+                        case "P4":myAmountListP4[myPeriod/4+24] = myPrice; break;
                     }
                     break;
 

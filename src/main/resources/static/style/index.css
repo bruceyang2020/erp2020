@@ -150,7 +150,7 @@ html,body,#wrapper{
     width: 100%;
     height: 320px;
 }
-#marketingpre-wrap,#marketingprePriceTotal-wrap{
+#marketingpre-wrap,#marketingprePriceTotal-wrap,#marketingprePrice-wrap{
     width: 100%;
     height: 500px;
 }

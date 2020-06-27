@@ -399,6 +399,9 @@ $(function(){
         if($(this).attr('title')=="tab4"){
             //打开第四页操作
         }
+        if($(this).attr('title')=="tab5"){
+            //打开第五页操作
+        }
     });
     $('#tabs a').hover(function(){
         if(!$(this).parent().hasClass("current")){
@@ -423,6 +426,13 @@ $(function(){
             iframe.height = bHeight;
         } catch (ex) { };
 
+
+        var iframe = document.getElementById("marketingprePrice-wrap");
+        try {
+            var bHeight = iframe.contentWindow.document.body.scrollHeight;
+
+            iframe.height = bHeight;
+        } catch (ex) { };
 
 
         var iframe = document.getElementById("advertise-wrap");

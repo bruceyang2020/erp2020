@@ -120,6 +120,12 @@ public class IndexController extends BaseController {
     public String marketingPrePriceTotal() {
         return "marketingPrePriceTotal";
     }
+
+    @RequestMapping("/marketingPrePrice")
+    public String marketingPrePrice() {
+        return "marketingPrePrice";
+    }
+
     @RequestMapping("/ordersheet")
     public String ordersheet() {
         return "ordersheet";

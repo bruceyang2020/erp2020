@@ -11,24 +11,23 @@
         $(function () {
 
              var mydata = {pageSize: 100, pageNum: 0};
-            /*//获取市场订单的金额合计*/
+            /*//获取市场订单的平均单价*/
             $.ajax({
                 type: "post",
                 dataType: "json",
                 data: JSON.stringify(mydata),
-                url: "/OrderGroup/listAllPriceTotal",
+                url: "/OrderGroup/listAllAvgPrice",
                 contentType: "application/json;charset=utf-8;",
                 success: function (data) {
                    var  mydata = data['data'];
-
-                    $('#containerPriceTotal').highcharts({
+                    $('#containerAvgPrice').highcharts({
                         chart: {
-                            renderTo: "containerPriceTotal",
+                            renderTo: "containerAvgPrice",
                             type: "column"
                         },
                         colors:["#000000", "#3398db", "#6aa84f", "#f7a35c"],
                         title: {
-                            text: '市场订单总金额预测'
+                            text: '市场订单平均单价预测'
                         },
                         xAxis: { categories:
                                 [{
@@ -68,7 +67,7 @@
     </script>
 </head>
 <body>
-<div id="containerPriceTotal" style="width:100%;height:480px;margin:0 auto">
+<div id="containerAvgPrice" style="width:100%;height:480px;margin:0 auto">
 </div>
 </body>
 </html>

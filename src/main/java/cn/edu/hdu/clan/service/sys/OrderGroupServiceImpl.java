@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.PageData;
 import cn.edu.hdu.clan.entity.sys.*;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.OrderGroupMapper;
@@ -135,6 +136,16 @@ public class OrderGroupServiceImpl implements OrderGroupService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("groupId", "1000");
         return OrderGroupMapper.selectByExample(example);
+    }
+
+
+
+    public List<PageData> listAllAvgPrice() {
+        PageData pd = new PageData();
+        pd.put("group_id","1000");
+
+
+        return OrderGroupMapper.listAllAvgPrice(pd);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
+import cn.edu.hdu.clan.entity.PageData;
 import cn.edu.hdu.clan.entity.sys.OrderGroup;
 import com.github.pagehelper.PageInfo;
 import java.util.List;
@@ -16,6 +17,8 @@ public interface OrderGroupService {
     List<OrderGroup> listByUserTeamAndPeriod();
 
     List<OrderGroup> listAll();
+
+    List<PageData> listAllAvgPrice();
 
     OrderGroup getById(String id);
 
