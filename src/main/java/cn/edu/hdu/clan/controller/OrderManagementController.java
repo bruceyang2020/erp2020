@@ -68,9 +68,8 @@ public class OrderManagementController extends BaseController {
     //
     @RequestMapping(value = "stockout",produces = "application/json;charset=utf-8")
     public String stockout(@RequestBody Map<String,String> param) {
-        OrderManagementService.stockOut(param.get("orderId"));
 
-        return success();
+        return success(OrderManagementService.stockOut(param.get("orderId")));
     }
 
     @RequestMapping("getById")

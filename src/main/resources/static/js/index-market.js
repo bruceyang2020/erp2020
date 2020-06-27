@@ -62,7 +62,8 @@ $(document).ready(function () {
                             url: "/OrderManagement/stockout",
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
-                                alert("交货完成");
+                                var myMsg = data['msg'];
+                                alert(data['msg']);
                                 window.location.href = "/index";
                             }
                         });
@@ -130,7 +131,8 @@ $(document).ready(function () {
                             url: "/OrderManagement/stockout",
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
-                                alert("交货完成");
+                                var myMsg = data['msg'];
+                                alert(data['msg']);
                                 window.location.href = "/index";
                             }
                         });
@@ -195,7 +197,8 @@ $(document).ready(function () {
                             url: "/OrderManagement/stockout",
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
-                                alert("交货完成");
+                                var myMsg = data['msg'];
+                                alert(data['msg']);
                                 window.location.href = "/index";
                             }
                         });
@@ -261,7 +264,8 @@ $(document).ready(function () {
                             url: "/OrderManagement/stockout",
                             contentType: "application/json;charset=utf-8;",
                             success: function (data) {
-                                alert("交货完成");
+                                var myMsg = data['msg'];
+                                alert(data['msg']);
                                 window.location.href = "/index";
                             }
                         });

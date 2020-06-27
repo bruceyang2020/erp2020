@@ -578,34 +578,6 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         list.add(5,sumSDS);
         return list;
 
-      //Y 以下算法，执行效率非常低，不要了。
-      /*  List<AccountingVoucher> myList=selectByPeriodAndUserTeam(userTeam,period);
-
-        String contentWX= "维修费用合计";
-        String contentZJ="计提折旧费用";
-        String contentBG="管理费用";
-        String contentSDS="所得税费用";
-        String contentGG="本期广告费合计";
-        String acodeWX="综合费用";
-        String acodeZJ="折旧费用";
-        String acodeBG="综合费用";
-        String acodeSDS="所得税";
-        String acodeGG="综合费用";
-
-
-
-
-        List<BigDecimal> list= new ArrayList<BigDecimal>();
-        list.add(new BigDecimal(0));
-
-        list.add(1,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentWX,acodeWX));
-        list.add(2,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentGG,acodeGG));
-        list.add(3,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentBG,acodeBG));
-        list.add(4,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentZJ,acodeZJ));
-        list.add(5,selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS)== null?new BigDecimal(0):selectByPeriodAndUserTeamAndContent(userTeam,period-1,contentSDS,acodeSDS));
-
-
-        return list;*/
 
     }
 

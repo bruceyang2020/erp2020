@@ -74,7 +74,9 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 
     //H 出库
     @Override
-    public void stockOut(String orderId) {
+    public String stockOut(String orderId) {
+
+        String myMsg = "OK";
 
         //全局变量 写入当前公司或小组ID
         String userTeam = Jurisdiction.getUserTeam();
@@ -105,7 +107,13 @@ public class OrderManagementServiceImpl implements OrderManagementService {
             //自动生成交货的会计凭证
             accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JH", orderId);
 
+            myMsg = "交货成功";
+
+        }else
+        {
+            myMsg = "库存不足";
         }
+        return  myMsg;
 
     }
 

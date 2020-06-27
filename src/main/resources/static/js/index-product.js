@@ -636,8 +636,7 @@ $(document).ready(function () {
                 console.log("弹窗生产状态");
                 console.log(data[0]);
                 if(data.length == 1)  //如果生产线存在
-                { console.log("弹窗生产状态2");
-                    console.log(data[0].state);
+                {
 
                     if( data[0].state == "0" ) //生产线为在建
                     {

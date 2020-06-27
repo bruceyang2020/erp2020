@@ -12,7 +12,7 @@ public interface OrderManagementService {
 
     void delete(String id);
 
-    void stockOut(String orderId);
+    String stockOut(String orderId);
 
     void update(OrderManagement OrderManagement);
 
