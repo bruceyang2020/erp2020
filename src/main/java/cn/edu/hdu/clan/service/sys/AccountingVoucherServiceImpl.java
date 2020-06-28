@@ -182,9 +182,10 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         pd.put("period",period);
         pd.put("acode","现金");
 
-        PageData myResult =  AccountingVoucherMapper.sumCashDAndC(pd);
+        PageData myResult = new PageData();
+        myResult =  AccountingVoucherMapper.sumCashDAndC(pd);
 
-        if(myResult.size() > 0) {
+        if(myResult != null) {
             moneyD = BigDecimal.valueOf(Double.valueOf(myResult.getObjectToString("moneyD")));
             moneyC = BigDecimal.valueOf(Double.valueOf(myResult.getObjectToString("moneyC")));
             myMoney = moneyD.subtract(moneyC);//借方-贷方

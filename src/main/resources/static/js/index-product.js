@@ -605,7 +605,8 @@ $(document).ready(function () {
             data: JSON.stringify(ProductLine),
             success: function (data) {
                 alert("出售生产线成功");
-                statusByPln(myPlnValue,"生产");
+                statusByPln(myPlnValue,"出售");
+                showPLByPln(myPlnValue,"空白");
                 SetCash();
 
             }
@@ -624,6 +625,7 @@ $(document).ready(function () {
         $('.pro-build').hide();
         $('.pro-produce').hide();
         $('.pro-status').hide();
+        $('.pro-sale').hide();
 
         $.ajax({
             type: "post",
@@ -669,6 +671,12 @@ $(document).ready(function () {
                     if( data[0].state == "3" ) //生产线=转产
                     {
                         $('.pro-produce').show();
+                    }
+
+                    if( data[0].state == "4" ) //生产线=已出售
+                    {
+                        $('.pro-sale').show();
+
                     }
 
 
@@ -757,9 +765,9 @@ $(document).ready(function () {
                 break;
             case "出售":
                 if (Number(pln) < 7) {
-                    $(myObjId).removeClass();
+                    $(myObjId).addClass('scltc-l');
                 } else {
-                    $(myObjId).removeClass();
+                    $(myObjId).addClass('scltc-r');
                 }
                 break;
 
@@ -824,6 +832,16 @@ $(document).ready(function () {
             case "柔性线":
                 myObjId = myObjId + "-rx";
                 $(myObjId).addClass('show');
+                break;
+            case "空白":
+                var   myObjId1 = myObjId + "-sg";
+                var   myObjId2 = myObjId + "-bzd";
+                var   myObjId3 = myObjId + "-zd";
+                var   myObjId4 = myObjId + "-rx";
+                $(myObjId1).attr('class','noshow');
+                $(myObjId2).attr('class','noshow');
+                $(myObjId3).attr('class','noshow');
+                $(myObjId4).attr('class','noshow');
                 break;
 
 
