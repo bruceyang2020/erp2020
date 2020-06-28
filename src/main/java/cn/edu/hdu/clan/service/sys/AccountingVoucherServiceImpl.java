@@ -177,28 +177,18 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         BigDecimal moneyC = BigDecimal.valueOf(0);
 
 
-        Example example = new Example(AccountingVoucher.class);
-        Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("acode", "现金");
-        criteria.andEqualTo("period", period);
-        List<AccountingVoucher> oldRow = AccountingVoucherMapper.selectByExample( example);
-        for(int i=0;i<oldRow.size();i++)
-        {
+        PageData pd = new PageData();
+        pd.put("teamcount",userTeam);
+        pd.put("period",period);
+        pd.put("acode","现金");
 
-            if( null !=oldRow.get(i).getMoneyD())
-            {
-                moneyD =moneyD.add(oldRow.get(i).getMoneyD());
-            }
-            if(null !=oldRow.get(i).getMoneyC())
-            {
-                moneyC =moneyC.add(oldRow.get(i).getMoneyC());
-            }
+        PageData myResult =  AccountingVoucherMapper.sumCashDAndC(pd);
 
-
+        if(myResult.size() > 0) {
+            moneyD = BigDecimal.valueOf(Double.valueOf(myResult.getObjectToString("moneyD")));
+            moneyC = BigDecimal.valueOf(Double.valueOf(myResult.getObjectToString("moneyC")));
+            myMoney = moneyD.subtract(moneyC);//借方-贷方
         }
-         myMoney =moneyD.subtract(moneyC);//借方-贷方
-
 
         return myMoney;
     }
@@ -538,13 +528,21 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         BigDecimal sumSDS=BigDecimal.valueOf(0);
         BigDecimal sumGG=BigDecimal.valueOf(0);
 
-        Example example = new Example(AccountingVoucher.class);
+        PageData pd = new PageData();
+        pd.put("teamcount",userTeam);
+        pd.put("periodS",periodS);
+        pd.put("period",period);
+
+        List<PageData> myResult = AccountingVoucherMapper.sumExpenseBySubAndCode(pd);
+
+
+    /*  以下算法效率不高，弃用  Example example = new Example(AccountingVoucher.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount",userTeam);
         criteria.andBetween("period",periodS,period); //查询区间，计算本年度到目前为止的发生额
 
-        List< AccountingVoucher> myRows =AccountingVoucherMapper.selectByExample(example);
-
+        List< AccountingVoucher> myRows =AccountingVoucherMapper.selectByExample(example);*/
+/*
         if (myRows.size() > 0) {
             for (int i = 0; i < myRows.size(); i++) {
                if(contentWX.equals(myRows.get(i).getSubstract()) && acodeWX.equals(myRows.get(i).getAcode()))
@@ -565,7 +563,30 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
             }
 
+        }*/
+
+        if (myResult.size() > 0) {
+            for (int i = 0; i < myResult.size(); i++) {
+                if(contentWX.equals(myResult.get(i).getString("substract")) && acodeWX.equals(myResult.get(i).getString("acode")))
+                {sumWX = BigDecimal.valueOf(Double.valueOf(myResult.get(i).getObjectToString("moneyD"))); }
+
+                if(contentGG.equals(myResult.get(i).getString("substract")) && acodeGG.equals(myResult.get(i).getString("acode")))
+                {sumGG = BigDecimal.valueOf(Double.valueOf(myResult.get(i).getObjectToString("moneyD"))); }
+
+                if(contentBG.equals(myResult.get(i).getString("substract")) && acodeBG.equals(myResult.get(i).getString("acode")))
+                {sumBG = BigDecimal.valueOf(Double.valueOf(myResult.get(i).getObjectToString("moneyD"))); }
+
+                if(contentZJ.equals(myResult.get(i).getString("substract")) && acodeZJ.equals(myResult.get(i).getString("acode")))
+                {sumZJ = BigDecimal.valueOf(Double.valueOf(myResult.get(i).getObjectToString("moneyD"))); }
+
+                if(contentSDS.equals(myResult.get(i).getString("substract")) && acodeSDS.equals(myResult.get(i).getString("acode")))
+                {sumSDS = BigDecimal.valueOf(Double.valueOf(myResult.get(i).getObjectToString("moneyD"))); }
+
+
+            }
+
         }
+
 
 
         List<BigDecimal> list= new ArrayList<BigDecimal>();
