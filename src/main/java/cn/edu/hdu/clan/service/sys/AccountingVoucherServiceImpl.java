@@ -362,7 +362,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
             //卖出生产线的损失的会计凭证.借其它支出贷机器与设备
             case "SS":
-                voucherMakerBase(teamCount,period,"其它支出","机器与设备",amount,content);
+                voucherMakerBase(teamCount,period,"其他支出","机器与设备",amount,content);
                 break;
 
              //自动生成转产费用的凭证。借综合费用（转产费） 贷现金
