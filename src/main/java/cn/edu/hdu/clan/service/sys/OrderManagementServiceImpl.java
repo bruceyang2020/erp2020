@@ -107,7 +107,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
             //自动生成交货的会计凭证
             accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JH", orderId);
 
-            myMsg = "交货成功";
+            myMsg = orderId+"交货成功";
 
         }else
         {
