@@ -236,7 +236,7 @@
 
                     <input name="ceo_tz_p2" id="ceo-tz-pr2" class="tz1" type="button" title="点击投入P2研发"/>
                     <div class="pop-s9">
-                        <h3>确认投资？（1M/Q）</h3>
+                        <h3>确认投资？（1M/Q,总周期6Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" id="cancel-p2" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-p2" class="pop-ok">
@@ -246,7 +246,7 @@
 
                     <input name="ceo_tz_p3" id="ceo-tz-pr3" class="tz1" type="button" title="点击投入P3研发"/>
                     <div class="pop-s10">
-                        <h3>确认投资？（2M/Q）</h3>
+                        <h3>确认投资？（2M/Q,总周期6Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" id="cancel-p3" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-p3" class="pop-ok">
@@ -256,7 +256,7 @@
 
                     <input name="ceo_tz_p4" id="ceo-tz-pr4" class="tz1" type="button" title="点击投入P4研发"/>
                     <div class="pop-s11">
-                        <h3>确认投资？（3M/Q）</h3>
+                        <h3>确认投资？（3M/Q,总周期6Q）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" id="cancel-p4" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-p4" class="pop-ok">
@@ -266,7 +266,7 @@
 
                     <input name="ceo_tz_iso1" id="ceo-tz-iso1" class="tz1" type="button" title="点击投入ISO9K认证"/>
                     <div class="pop-s12">
-                        <h3>确认投资？（1M/Y）</h3>
+                        <h3>确认投资？（1M/年，总周期2年）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" id="cancel-9k" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-9k" class="pop-ok">
@@ -276,7 +276,7 @@
 
                     <input name="ceo_tz_iso2" id="ceo-tz-iso2" class="tz1" type="button" title="点击投入ISO14K认证"/>
                     <div class="pop-s13">
-                        <h3>确认投资？（1M/Y）</h3>
+                        <h3>确认投资？（1M/年，总周期3年）</h3>
                         <div class="pop-foot">
                             <input type="button" value="取消" id="cancel-14k" class="pop-cancel pop-close">
                             <input type="button" value="确认" id="ok-14k" class="pop-ok">
@@ -381,7 +381,7 @@
 
                     <input name="r1_1" id="r1-1" class= "van" type="button" value="" title="点击下R1订单"/>
                     <div class="pop-r1-1">
-                        <h3>请输入R1购买数量</h3>
+                        <h3>请输入R1购买数量(每单位价值为1M，货到付款)</h3>
                         <input name="" id="buy-r1-1"/>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
@@ -390,7 +390,7 @@
                     </div>
                     <input name="r2_1" id="r2-1" class= "van" type="button" value="" title="点击下R2订单"/>
                     <div class="pop-r2-1">
-                        <h3>请输入R2购买数量(每单位价值为1M)</h3>
+                        <h3>请输入R2购买数量(每单位价值为1M，货到付款)</h3>
                         <input name="" id="buy-r2-1"/>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
@@ -408,7 +408,7 @@
                     </div>
                     <input name="r3_2" id="r3-2" class= "van" type="button" value="" title="点击下R3订单"/>
                     <div class="pop-r3-2">
-                        <h3>请输入R3购买数量(每单位价值为1M)</h3>
+                        <h3>请输入R3购买数量(每单位价值为1M，货到付款)</h3>
                         <input name="" id="buy-r3-2"/>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
@@ -426,7 +426,7 @@
                     </div>
                     <input name="r4_2" id="r4-2" class= "van" type="button" value="" title="点击下R4订单"/>
                     <div class="pop-r4-2">
-                        <h3>请输入购买数量</h3>
+                        <h3>请输入购买数量(每单位价值为1M，货到付款)</h3>
                         <input name="" id="buy-r4-2"/>
                         <div class="pop-foot">
                             <input type="button" value="取消" class="pop-cancel pop-close">
@@ -540,9 +540,10 @@
         </tr>
 
     </table>
+    <div class="jz-timeg"></div>
     <div class="pop-foot">
         <input name="showrule" id="showrule"  type="button" value="规则说明" class="pop-cancel pop-close">
-        <input name="reloaddata" id="reloaddata"  type="button" value="初始化" class="pop-cancel pop-close">
+        <input name="reloaddata" id="reloaddata" title="将经营状态重置为第1年第1季" type="button" value="初始化" class="pop-btn-closing">
         <input name="final" id="final"  type="button" value="结束推演" class="pop-cancel pop-close">
         <input type="button" value="关闭" class="pop-cancel pop-close">
     </div>

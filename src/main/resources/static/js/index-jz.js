@@ -10,6 +10,9 @@ $(document).ready(function () {
         var currentAp = $("#currentAp").val();
         var currentTeam = $("#currentTeam").val();
         var mydata ={userTeam:currentTeam,period:currentAp};
+
+        $('.jz-timeg').addClass('show');
+
    /*     //初始化数据到指定的小组或是公司*/
         $.ajax({
             type: "post",
@@ -19,7 +22,6 @@ $(document).ready(function () {
             data: JSON.stringify(mydata),
             success: function (data) {
                 var myMsg = data['msg'];
-                console.log(myMsg);
                 alert(data['msg']);
                 window.location.href = "/index";
 
