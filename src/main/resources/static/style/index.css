@@ -77,6 +77,15 @@ html,body,#wrapper{
     visibility: hidden;
 }
 
+.reload-timeg{
+    width: 400px;
+    height:60px;
+    text-align: center;
+    background: url(timg.gif) ;
+    background-size: 400px 60px;
+    visibility: hidden;
+}
+
 .pop-rule{
     display: none;
     width: 720px;

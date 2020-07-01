@@ -11,7 +11,7 @@ $(document).ready(function () {
         var currentTeam = $("#currentTeam").val();
         var mydata ={userTeam:currentTeam,period:currentAp};
 
-        $('.jz-timeg').addClass('show');
+        $('.reload-timeg').addClass('show');
 
    /*     //初始化数据到指定的小组或是公司*/
         $.ajax({
