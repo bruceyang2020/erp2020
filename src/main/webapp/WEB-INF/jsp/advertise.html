@@ -9,7 +9,7 @@
     <script src="js/jquery-3.1.1.min.js"></script>
 
    <style>
-       input {width:80px;border: 0px;text-align: center;}
+       input {width:60px;border: 0px;text-align: center;}
    </style>
     <script>
 
@@ -406,53 +406,60 @@
 <body style="overflow-x:hidden;overflow-y:auto">
 <h4>广告信息单</h4>
 <div id="pop-content">
-   <div style="text-align: left;color: red;">提醒：广告费为1、3、5、7、9...的等差金额，填写其他金额向下适配最大可选单数。</div>
+   <div style="text-align: left;color: red;">提示1：请在有背景色的输入框填入广告费金额。</div>
+    <div style="text-align: left;color: red;">提示2：广告费为1、3、5、7、9...的等差金额，填写其他金额向下适配最大可选单数。</div>
+  <div>
   <table class="table" id="main-table">
-      <thead>
-      <td style="width: 50px;">市场</td>
-      <td style="width: 50px;">产品</td>
-      <td style="width: 100px;">广告费</td>
-      <td style="width: 50px;">市场</td>
-      <td style="width: 50px;">产品</td>
-      <td style="width: 100px;">广告费</td>
-      </thead>
-      <tbody>
-      <tr>
-          <td>本地</td><td>P1</td><td><input  name ="bd-p1"  id="bd-p1" value=""></td>  <td>本地</td><td>P3</td><td><input  name ="bd-p3"  id="bd-p3" value="">  </td>
-      </tr>
-      <tr>
-          <td>区域</td><td>P1</td><td><input  name ="qy-p1"  id="qy-p1" value=""></td> <td>区域</td><td>P3</td><td><input  name ="qy-p3"  id="qy-p3" value=""></td>
-      </tr>
-      <tr>
-          <td>国内</td><td>P1</td><td><input  name ="gl-p1"  id="gl-p1" value=""></td>  <td>国内</td><td>P3</td><td><input  name ="gl-p3"  id="gl-p3" value=""></td>
-      </tr>
-      <tr>
-          <td>亚洲</td><td>P1</td><td><input  name ="yz-p1"  id="yz-p1" value=""></td>   <td>亚洲</td><td>P3</td><td><input  name ="yz-p3"  id="yz-p3" value=""></td>
+   <tr>
+      <td style="width: 90px;text-align: center">产品\市场</td>
+      <td style="width: 70px;text-align: center">本地</td>
+      <td style="width: 70px;text-align: center">区域</td>
+      <td style="width: 70px;text-align: center">国内</td>
+      <td style="width: 70px;text-align: center">亚洲</td>
+      <td style="width: 70px;text-align: center">国际</td>
 
-      </tr>
-      <tr>
-          <td>国际</td><td>P1</td><td><input  name ="gj-p4"  id="gj-p1" value=""></td>   <td>国际</td><td>P3</td><td><input  name ="gj-p3"  id="gj-p3" value=""></td>
-      </tr>
-      <tr>
-          <td>本地</td><td>P2</td><td><input  name ="bd-p2"  id="bd-p2" value=""></td>    <td>本地</td><td>P4</td><td><input  name ="bd-p4"  id="bd-p4" value=""></td>
-      </tr>
-      <tr>
-          <td>区域</td><td>P2</td><td><input  name ="qy-p2"  id="qy-p2" value=""></td>    <td>区域</td><td>P4</td><td><input  name ="qy-p4"  id="qy-p4" value=""></td>
-      </tr>
-      <tr>
-          <td>国内</td><td>P2</td><td><input  name ="gl-p2"  id="gl-p2" value=""></td>     <td>国内</td><td>P4</td><td><input  name ="gl-p4"  id="gl-p4" value=""></td>
+   </tr>
+     <tr>
+         <td style="text-align: center;">P1</td>
+         <td><input  name ="bd-p1"  id="bd-p1" value=""></td>
+         <td><input  name ="qy-p1"  id="qy-p1" value=""></td>
+         <td><input  name ="gl-p1"  id="gl-p1" value=""></td>
+         <td><input  name ="yz-p1"  id="yz-p1" value=""></td>
+         <td><input  name ="gj-p1"  id="gj-p1" value=""></td>
 
-      </tr>
-      <tr>
-          <td>亚洲</td><td>P2</td><td><input  name ="yz-p2"  id="yz-p2" value=""></td>   <td>亚洲</td><td>P4</td><td><input  name ="yz-p4"  id="yz-p4" value=""></td>
 
-      </tr>
+     </tr>
+     <tr>
+         <td style="text-align: center;">P2</td>
+         <td><input  name ="bd-p2"  id="bd-p2" value=""></td>
+         <td><input  name ="qy-p2"  id="qy-p2" value=""></td>
+         <td><input  name ="gl-p2"  id="gl-p2" value=""></td>
+         <td><input  name ="yz-p2"  id="yz-p2" value=""></td>
+         <td><input  name ="gj-p2"  id="gj-p2" value=""></td>
+     </tr>
+
+     <tr>
+         <td style="text-align: center;">P3</td>
+         <td><input  name ="bd-p3"  id="bd-p3" value=""></td>
+         <td><input  name ="qy-p3"  id="qy-p3" value=""></td>
+         <td><input  name ="gl-p3"  id="gl-p3" value=""></td>
+         <td><input  name ="yz-p3"  id="yz-p3" value=""></td>
+         <td><input  name ="gj-p3"  id="gj-p3" value=""></td>
+     </tr>
+
+
+     <tr>
+         <td style="text-align: center;">P4</td>
+         <td><input  name ="bd-p4"  id="bd-p4" value=""></td>
+         <td><input  name ="qy-p4"  id="qy-p4" value=""></td>
+         <td><input  name ="gl-p4"  id="gl-p4" value=""></td>
+         <td><input  name ="yz-p4"  id="yz-p4" value=""></td>
+         <td><input  name ="gj-p4"  id="gj-p4" value=""></td>
+     </tr>
+
       <tr>
-          <td>国际</td><td>P2</td><td><input  name ="gj-p2"  id="gj-p2" value=""></td>      <td>国际</td><td>P4</td><td><input  name ="gj-p4"  id="gj-p4" value=""></td>
-      </tr>
-      <tr>
-          <td colspan="2">广告金额合计：</td>
-          <td colspan="4"><div id="money-total" name = "money-total" style="color: #204d74;font-weight: bold;"></div></td>
+          <td colspan="5" style="text-align: center;">广告金额合计：</td>
+          <td ><div id="money-total" name = "money-total" style="color: #204d74;font-weight: bold;text-align: center"></div></td>
       </tr>
       <tr >
           <td colspan="6">
@@ -461,8 +468,8 @@
           </td>
       </tr>
 
-      </tbody>
   </table>
+  </div>
 
 </div>
 
