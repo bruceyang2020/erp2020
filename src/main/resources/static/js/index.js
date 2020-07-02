@@ -56,7 +56,7 @@ $(document).ready(function () {
         var period = $('#currentAp').val();
         if(Number(period)%4 != 1  )
         {
-            alert("只能在每年的第4季度进行长贷筹资。");
+            alert("只能在每年的第1季度进行长贷筹资。");
             return;
         }
         $('.pop-s1').show();
