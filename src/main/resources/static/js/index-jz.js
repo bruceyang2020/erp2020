@@ -59,10 +59,13 @@ $(document).ready(function () {
     });
 
 
-/*    //与教育部平台对接时，提交成绩*/
+/*    //与教育部平台对接时，提交成绩
+* 在新窗体中操作
+* */
     $("#final").click(function () {
 
-         updatatest();
+       //  updatatest();
+         window.open("/index");
 
 
 
