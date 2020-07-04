@@ -103,24 +103,24 @@ public class OrderManagementServiceImpl implements OrderManagementService {
             {
 
                 //产品出库，结转“销售成本”
-                invService.stockOutToSale(userTeam, period, myOrderManagement.getProductId(), myOrderManagement.getAmount().intValue(), orderId + "销售");
+                invService.stockOutToSale(userTeam, period, myOrderManagement.getProductId(), myOrderManagement.getAmount().intValue(), orderId + "销售成本");
 
                 //自动生成交货的会计凭证
-                accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JHXK", orderId);
+                accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JHXK", orderId+"现款销售收入");
 
                 myMsg = orderId+"现款交货成功";
 
-            }else if(periodPay > 0)  //销售交货
+            } //销售交货
             {
 
                 //应收账款
                 salepaymentService.addByOrderManagement(myOrderManagement);
 
                 //产品出库，结转“销售成本”
-                invService.stockOutToSale(userTeam, period, myOrderManagement.getProductId(), myOrderManagement.getAmount().intValue(), orderId + "销售");
+                invService.stockOutToSale(userTeam, period, myOrderManagement.getProductId(), myOrderManagement.getAmount().intValue(), orderId + "销售成本");
 
                 //自动生成交货的会计凭证
-                accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JH", orderId);
+                accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JH", orderId+"赊销销售收入");
 
                 myMsg = orderId+"赊销交货成功";
 
