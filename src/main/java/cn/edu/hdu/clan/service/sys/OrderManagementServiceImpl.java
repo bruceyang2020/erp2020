@@ -110,7 +110,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 
                 myMsg = orderId+"现款交货成功";
 
-            } //销售交货
+            }else //销售交货
             {
 
                 //应收账款

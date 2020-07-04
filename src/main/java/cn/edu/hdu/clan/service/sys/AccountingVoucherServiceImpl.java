@@ -297,6 +297,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
            case "JH": //交货的会计分录
                 voucherMakerBase(teamCount,period,"应收账款","销售收入",amount,content);
                break;
+
             //产品交货-现款，生成主营业务收入，现金的会计分录（账期为0,现款交货）
             case "JHXK": //交货的会计分录
                 voucherMakerBase(teamCount,period,"现金","销售收入",amount,content);
@@ -312,6 +313,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
            case "XSSK":
                 voucherMakerBase(teamCount,period,"现金","应收账款",amount,content);
                 break;
+
             //销售出库。 借直接成本 贷成品
            case "XSCK":
                 voucherMakerBase(teamCount,period,"直接成本","成品",amount,content);
