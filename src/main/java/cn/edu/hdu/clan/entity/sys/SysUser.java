@@ -38,6 +38,12 @@ public class SysUser extends BaseBean {
 
 
     /**
+     * 密码
+     */
+    @Column(name = "ilab_name")
+    private String ilabname;
+
+    /**
      * 获取公司id
      *
      * @return team_id - 公司id
@@ -125,5 +131,24 @@ public class SysUser extends BaseBean {
      */
     public void setRegistrationTime(Date registrationTime) {
         this.registrationTime = registrationTime;
+    }
+
+
+    /**
+     * 获取教育部平台的用户名
+     *
+     * @return ilabname - 密码
+     */
+    public String getIlabName() {
+        return ilabname;
+    }
+
+    /**
+     * 设置教育部平台的用户名
+     *
+     * @param ilabname 密码
+     */
+    public void setIlabName(String ilabname) {
+        this.ilabname = ilabname;
     }
 }

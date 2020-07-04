@@ -15,6 +15,7 @@ public class Const {
 	public static final String SESSION_USERNAME = "USERNAME";						//用户名
 	public static final String SESSION_EID = "EID";						//教育部平台的实验成绩唯一标识码
 	public static final String SESSION_USERTEAM = "USERTEAM";						//用户所在的组或公司ID
+	public static final String SESSION_ILABNAME = "ILABNAME";						//用户所在的组或公司ID
 	public static final String SESSION_USERPERIOD = "0";						//用户当前所在的会计期间
 	public static final String SESSION_U_NAME = "SESSION_U_NAME";					//用户姓名
 	public static final String SESSION_ROLE = "SESSION_ROLE";						//主职角色信息

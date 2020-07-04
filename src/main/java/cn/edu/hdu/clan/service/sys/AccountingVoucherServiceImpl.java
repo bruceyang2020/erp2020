@@ -293,10 +293,15 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
                 voucherMakerBase(teamCount,period,"综合费用","现金",amount,content);
                break;
 
-            //产品交货，生成主营业务收入，应收账款的会计分录
+            //产品交货-赊销，生成主营业务收入，应收账款的会计分录（账期>0,赊销交货）
            case "JH": //交货的会计分录
                 voucherMakerBase(teamCount,period,"应收账款","销售收入",amount,content);
+
+            //产品交货-现款，生成主营业务收入，现金的会计分录（账期为0,现款交货）
+            case "JHXK": //交货的会计分录
+                voucherMakerBase(teamCount,period,"现金","销售收入",amount,content);
                 break;
+
             //原材料入库，生成借原料，贷现金的会计分录
            case "CLRK": //材料入库的会计分录
                 voucherMakerBase(teamCount,period,"原料","现金",amount,content);

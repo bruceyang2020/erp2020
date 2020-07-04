@@ -91,6 +91,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
 
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         BigDecimal myMoney = myOrderManagement.getMoney();
+        int periodPay = myOrderManagement.getPeriodPay(); //得到当前订单的账期
 
          BigDecimal myAmount = invService.amountByProductId(userTeam,period,myOrderManagement.getProductId());
          //H 判断数量
@@ -98,20 +99,37 @@ public class OrderManagementServiceImpl implements OrderManagementService {
             myOrderManagement.setState(1);//将订单状态设置为0,表示已交付
             OrderManagementMapper.updateByExampleSelective(myOrderManagement, example);
 
-            //应收账款
-            salepaymentService.addByOrderManagement(myOrderManagement);
+            if( periodPay == 0)  //现款交货
+            {
 
-            //产品出库
-            invService.stockOutToSale(userTeam, period, myOrderManagement.getProductId(), myOrderManagement.getAmount().intValue(), orderId + "销售");
+                //产品出库，结转“销售成本”
+                invService.stockOutToSale(userTeam, period, myOrderManagement.getProductId(), myOrderManagement.getAmount().intValue(), orderId + "销售");
 
-            //自动生成交货的会计凭证
-            accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JH", orderId);
+                //自动生成交货的会计凭证
+                accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JHXK", orderId);
 
-            myMsg = orderId+"交货成功";
+                myMsg = orderId+"现款交货成功";
+
+            }else if(periodPay > 0)  //销售交货
+            {
+
+                //应收账款
+                salepaymentService.addByOrderManagement(myOrderManagement);
+
+                //产品出库，结转“销售成本”
+                invService.stockOutToSale(userTeam, period, myOrderManagement.getProductId(), myOrderManagement.getAmount().intValue(), orderId + "销售");
+
+                //自动生成交货的会计凭证
+                accountingVoucherService.voucherMaker(userTeam, period, myMoney, "JH", orderId);
+
+                myMsg = orderId+"赊销交货成功";
+
+            }
+
 
         }else
         {
-            myMsg = "库存不足";
+            myMsg = "库存不足，不能交货";
         }
         return  myMsg;
 

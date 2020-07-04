@@ -215,7 +215,7 @@ public class IndexController extends BaseController {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
-        SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss SSS");//只有bai时分秒
+        SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss SSS");//定义时间变量，并设置显示格式为： 时-分-秒-毫秒
 
         System.out.print("核算过程1扣减本期终合办公费："+sdf.format(new Date()));
         //H 扣减行政管理费用会计凭证：这里默认为1
@@ -326,6 +326,7 @@ public class IndexController extends BaseController {
     public String loginlabTo(@RequestBody Map<String, String> params) {
         String userName = params.get("username");
         String eId = params.get("eid");
+        String ilabName = params.get("ilabname");
         Subject subject = SecurityUtils.getSubject();
 
         try{
@@ -349,6 +350,7 @@ public class IndexController extends BaseController {
                 SysUser userNew = new SysUser();
                 userNew.setUsername(userName);
                 userNew.setTeamId(userName);
+                userNew.setIlabName(ilabName);
                 userNew.setPassword("123456");
                 userNew.setRegistrationTime(new Date());
                 userNew.setTelephome(800);
@@ -361,6 +363,7 @@ public class IndexController extends BaseController {
                 session.setAttribute(Const.SESSION_USER,sysUser3);
                 session.setAttribute(Const.SESSION_USERID,sysUser3.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser3.getTeamId());
+                session.setAttribute(Const.SESSION_ILABNAME,sysUser3.getIlabName());
                 session.setAttribute(Const.SESSION_USERPERIOD,userTeam.getState().toString());  //当前的会计期间
                 session.setAttribute(Const.SESSION_EID,eId); //将教育部平台传过来的实验ID保持，用于提交成绩
 
@@ -378,6 +381,7 @@ public class IndexController extends BaseController {
                 session.setAttribute(Const.SESSION_USER,sysUser2);
                 session.setAttribute(Const.SESSION_USERID,sysUser2.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser2.getTeamId());
+                session.setAttribute(Const.SESSION_ILABNAME,sysUser2.getIlabName());
                 session.setAttribute(Const.SESSION_USERPERIOD,sysTeam2.getState().toString());  //当前的会计期间
                 session.setAttribute(Const.SESSION_EID,eId); //将教育部平台传过来的实验ID保持，用于提交成绩
             }
