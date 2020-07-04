@@ -160,7 +160,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
     }
 
     /**
-     * Y  列表当前会计期间的已选择的订单。
+     * Y  列表当前年度未交付订单--未交付的。
      * @returnｒ
      */
     @Override
@@ -174,6 +174,25 @@ public class OrderManagementServiceImpl implements OrderManagementService {
         criteria.andEqualTo("teamId", userTeam);
         criteria.andEqualTo("period", periodB);
         criteria.andEqualTo("state", 0); //列出未交付的订单
+
+        return OrderManagementMapper.selectByExample(example);
+    }
+
+
+    /**
+     * Y  列表当前年度的已选择的订单。
+     * @returnｒ
+     */
+    @Override
+    public List<OrderManagement> listCurrentPeriodAllOrder() {
+        //全局变量 写入当前公司或小组ID
+        int period =  Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+        int periodB = period%4==0?(period/4-1)*4+1:(period)/4*4+1;
+        String userTeam = Jurisdiction.getUserTeam();
+        Example example = new Example(OrderManagement.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamId", userTeam);
+        criteria.andEqualTo("period", periodB);
 
         return OrderManagementMapper.selectByExample(example);
     }

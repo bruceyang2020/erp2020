@@ -25,6 +25,9 @@ public interface OrderManagementService {
 
     List<OrderManagement> listCurrentPeriodOrder();
 
+
+    List<OrderManagement> listCurrentPeriodAllOrder();
+
     void deleteByTeamCount(String userTeam) ;
 
     }

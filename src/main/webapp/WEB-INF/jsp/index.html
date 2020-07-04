@@ -627,10 +627,10 @@
             <tr>
                 <td>产品类型：</td>
                 <td><select id="productCTypeList" name="productCTypeList" class="select2">
-                    <option value="P1">P1</option>
-                    <option value="P2">P2</option>
-                    <option value="P3">P3</option>
-                    <option value="P4">P4</option>
+                    <option value="P1">P1-(产品结构：R1)</option>
+                    <option value="P2">P2-(产品结构：R1+R3)</option>
+                    <option value="P3">P3-(产品结构：2R2+R3)</option>
+                    <option value="P4">P4-(产品结构：R2+R3+2R4)</option>
                 </select></td>
             </tr>
         </table>
@@ -664,14 +664,18 @@
                 <td>     <div> 生产线类型：</div></td>
                 <td>        <div name ="productLineTypeIdT" id="productLineTypeIdT" ></div></td>
             </tr>
+            <tr>
+                <td>投产产品类型：</td>
+                <td><select id="productCList" name="productCList" class="select2">
+                    <option value="P1">P1-(产品结构：R1)</option>
+                    <option value="P2">P2-(产品结构：R1+R3)</option>
+                    <option value="P3">P3-(产品结构：2R2+R3)</option>
+                    <option value="P4">P4-(产品结构：R2+R3+2R4)</option>
+                </select></td>
+            </tr>
         </table>
 
-        <select id="productCList" name="productCList" class="select2">
-            <option value="P1">P1</option>
-            <option value="P2">P2</option>
-            <option value="P3">P3</option>
-            <option value="P4">P4</option>
-        </select>
+
         <div class="pop-foot">
             <input type="button" value="取消" class="pop-cancel pop-close">
             <input type="button" value="转产" class="pop-ok" id="ok-pro-switching">

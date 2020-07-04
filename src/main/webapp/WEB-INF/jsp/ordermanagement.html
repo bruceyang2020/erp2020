@@ -30,7 +30,7 @@
                 $.ajax({
                     type: "get",
                     dataType: "json",
-                    url: "/OrderManagement/listCurrentPeriodOrder",
+                    url: "/OrderManagement/listCurrentPeriodAllOrder",
                     contentType: "application/json;charset=utf-8;",
                     success: function (data) {
                         myrownumber = data['data'].length;

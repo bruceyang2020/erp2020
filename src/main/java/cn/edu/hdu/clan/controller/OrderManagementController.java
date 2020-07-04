@@ -82,4 +82,10 @@ public class OrderManagementController extends BaseController {
 
         return success(OrderManagementService.listCurrentPeriodOrder());
     }
+
+    @RequestMapping("listCurrentPeriodAllOrder")
+    public String listCurrentPeriodAllOrder() {
+
+        return success(OrderManagementService.listCurrentPeriodAllOrder());
+    }
 }

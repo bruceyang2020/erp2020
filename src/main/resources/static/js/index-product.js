@@ -664,12 +664,16 @@ $(document).ready(function () {
                     if( data[0].state == "2" ) //生产线=停产
                     {
                         $('#productLineTypeIdT').html(data[0].productLineTypeId);
+                        $('#productCList').val(data[0].productC);
 
                         $('.pro-produce').show();
                     }
 
                     if( data[0].state == "3" ) //生产线=转产
                     {
+                        $('#productLineTypeIdT').html(data[0].productLineTypeId);
+                        $('#productCList').val(data[0].productC);
+
                         $('.pro-produce').show();
                     }
 
