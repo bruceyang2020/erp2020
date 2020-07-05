@@ -1,7 +1,5 @@
 $(document).ready(function () {
 
-
-
     $('#ceo-cw').click(function () {
     $('.pop').show();
     });

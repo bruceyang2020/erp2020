@@ -27,8 +27,6 @@ $(document).ready(function () {
                 $("#ceo-cz-c" + i).val(value.moneyTotal);
             });
 
-            console.log(data);
-            console.log('*****长期贷款数据');
         }
     });
 
@@ -45,7 +43,6 @@ $(document).ready(function () {
             $.each(data, function (n, value) {
                 var currentAp = $("#currentAp").val();
                 var i = 6- value.surplusPeriod;
-                console.log(i);
                 $("#ceo-cz-d" + i).val(value.moneyTotal);
             });
 
@@ -72,8 +69,7 @@ $(document).ready(function () {
                 gaolidai=value.moneyTotal+gaolidai;
             });
             $("#ceo-cz-g").val(gaolidai);
-            console.log(data);
-            console.log('******高利贷数据');
+
 
         }
     });
@@ -113,12 +109,14 @@ $(document).ready(function () {
         var ShortTermLoan = {
             moneyTotal: $('#load-d').val(),
             period: $('#currentAp').val()
-        }
+        };
+
         //可输入负数的bug
         if(parseInt($('#load-d').val())<0){
             alert("请输入正确的短期贷款金额");
             return;
         }
+
         $.ajax({
             type: "post",
             dataType: "json",
@@ -141,7 +139,8 @@ $(document).ready(function () {
         var Usury = {
             moneyTotal: $('#load-g').val(),
             period: $('#currentAp').val()
-        }
+        };
+
         $.ajax({
             type: "post",
             dataType: "json",
@@ -896,8 +895,6 @@ $(document).ready(function () {
                 data: JSON.stringify(IsoFee),
                 success: function (data) {
                     alert("ISO9K研发成功");
-                    console.log(data);
-                    console.log("*************ISO9K");
                     SetCash();
                 }
             });
@@ -973,8 +970,6 @@ $(document).ready(function () {
                 data: JSON.stringify(IsoFee),
                 success: function (data) {
                     alert("ISO14K研发成功");
-                    console.log(data);
-                    console.log("**********************ISO14K");
                     SetCash();
                 }
 

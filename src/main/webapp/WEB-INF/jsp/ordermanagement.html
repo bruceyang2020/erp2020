@@ -212,7 +212,7 @@
                                 url: "/OrderManagement/adds",
                                 contentType: "application/json;charset=utf-8;",
                                 success: function (data) {
-                                    console.log(data);
+
                                     alert("保存订单成功");
                                 }
                             });
@@ -329,9 +329,7 @@
                     contentType: "application/json;charset=utf-8;",
                     success:function(data){
                         data = data['data'];
-                        console.log("查询备选订单==begin");
-                        console.log(data);
-                        console.log("查询备选订单==end");
+
                         var tbody="";
 
                         var len = data.length;
@@ -364,7 +362,7 @@
                         }
                         if(len==0){
                             tbody = tbody + "<tr style='text-align: center'>"
-                                +"<td colspan='6'><font color='#cd0a0a'>"+ '无可选的订单' + "</font></td>"
+                                +"<td colspan='6' style='color: #cd0a0a;'>"+ '无可选的订单' + "</td>"
                                 +"</tr>";
                         }
                         //添加到table中
@@ -376,7 +374,7 @@
                             function(e) {
                                 var myOrderName = "xxx";
                                 myOrderName = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
-                                console.log(myOrderName);
+
                                 var myJson = { orderId : myOrderName} ;
 
                                 $.ajax({
@@ -386,7 +384,7 @@
                                     url: "/OrderGroup/checkIsoRight",
                                     contentType: "application/json;charset=utf-8;",
                                     success: function (data) {
-                                        console.log(data);
+
                                         var msg = data['msg'];
                                         if(data['msg'] == 'ok')
                                         {

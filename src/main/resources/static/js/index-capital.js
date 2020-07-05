@@ -39,7 +39,6 @@ $(document).ready(function () {
                 var surplusPeriod= data[i].surplusPeriod;
                 var money=data[i].money;
                 var amount=data[i].amount;
-                console.log(surplusPeriod);
                 switch (surplusPeriod) {
                     case 1:
                         moneySum1=moneySum1+money-amount;

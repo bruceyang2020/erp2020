@@ -13,7 +13,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             success:function(data){
                 data = data['data'];
-                console.log(data);
+
 
 
                 var tableStr = "<table style ='width: 385px;'>";
@@ -40,7 +40,7 @@ $(document).ready(function () {
 
                 if(lenP1==0){
                     tableStr = tableStr + "<tr style='text-align: center'>"
-                        +"<td colspan='6'><font color='#cd0a0a'>"+ '无订单' + "</font></td>"
+                        +"<td colspan='6' style='color: #cd0a0a;'>"+ '无订单' + "</td>"
                         +"</tr>";
                 }
 
@@ -50,9 +50,9 @@ $(document).ready(function () {
                 $("#ordermanagement1").html(tableStr);
                 $("#ordermanagement1").delegate("input", "click",
                     function(e) {
-                        var myOrderName = "xxx";
+
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
-                        console.log(myOrderName);
+
                         var myJson = { orderId : myOrderId} ;
 
                         $.ajax({
@@ -88,7 +88,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             success:function(data){
                 data = data['data'];
-                console.log(data);
+
                 var tableStr = "<table style ='width: 385px;'>";
                 tableStr = tableStr
                     + "<tr>"
@@ -111,7 +111,7 @@ $(document).ready(function () {
                 }
                 if(lenP2==0){
                     tableStr = tableStr + "<tr style='text-align: center'>"
-                        +"<td colspan='6'><font color='#cd0a0a'>"+ '无订单' + "</font></td>"
+                        +"<td colspan='6' style='color: #cd0a0a;'>"+ '无订单' + "</td>"
                         +"</tr>";
                 }
                 tableStr = tableStr + "</table>";
@@ -119,9 +119,9 @@ $(document).ready(function () {
                 $("#ordermanagement2").html(tableStr);
                 $("#ordermanagement2").delegate("input", "click",
                     function(e) {
-                        var myOrderName = "xxx";
+
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
-                        console.log(myOrderName);
+
                         var myJson = { orderId : myOrderId} ;
 
                         $.ajax({
@@ -155,7 +155,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             success:function(data){
                 data = data['data'];
-                console.log(data);
+
                 var tableStr = "<table style ='width: 385px;'>";
                 tableStr = tableStr
                     + "<tr>"
@@ -177,7 +177,7 @@ $(document).ready(function () {
                 }}
                 if(lenP3==0){
                     tableStr = tableStr + "<tr style='text-align: center'>"
-                        +"<td colspan='6'><font color='#cd0a0a'>"+ '无订单' + "</font></td>"
+                        +"<td colspan='6' style='color: #cd0a0a;'>"+ '无订单' + "</td>"
                         +"</tr>";
                 }
                 tableStr = tableStr + "</table>";
@@ -185,9 +185,9 @@ $(document).ready(function () {
                 $("#ordermanagement3").html(tableStr);
                 $("#ordermanagement3").delegate("input", "click",
                     function(e) {
-                        var myOrderName = "xxx";
+
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
-                        console.log(myOrderName);
+
                         var myJson = { orderId : myOrderId} ;
 
                         $.ajax({
@@ -221,7 +221,7 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             success:function(data){
                 data = data['data'];
-                console.log(data);
+
                 var tableStr = "<table style ='width: 385px;'>";
                 tableStr = tableStr
                     + "<tr>"
@@ -244,7 +244,7 @@ $(document).ready(function () {
                 }
                 if(lenP4==0){
                     tableStr = tableStr + "<tr style='text-align: center'>"
-                        +"<td colspan='6'><font color='#cd0a0a'>"+ '无订单' + "</font></td>"
+                        +"<td colspan='6' style='color: #cd0a0a;'>"+ '无订单' + "</td>"
                         +"</tr>";
                 }
                 tableStr = tableStr + "</table>";
@@ -252,9 +252,9 @@ $(document).ready(function () {
                 $("#ordermanagement4").html(tableStr);
                 $("#ordermanagement4").delegate("input", "click",
                     function(e) {
-                        var myOrderName = "xxx";
+
                         myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
-                        console.log(myOrderName);
+
                         var myJson = { orderId : myOrderId} ;
 
                         $.ajax({

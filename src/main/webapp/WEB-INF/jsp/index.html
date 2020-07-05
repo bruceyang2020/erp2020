@@ -6,26 +6,24 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/select2.js"></script>
-    <script src="js/index-jz.js"></script> <!--//期间结转操作-->
-    <script src="js/index-ceo.js"></script> <!--//CEO办公室相关显示及操作-->
-    <script src="js/index-market.js"></script> <!--//市场销售部相关显示及操作-->
-    <script src="js/index-management.js"></script><!-- //物料管理部相关显示及操作-->
-    <script src="js/index-product.js"></script> <!-- //生产线相关显示及操作-->
-    <script src="js/index-factory.js"></script> <!--//厂房相关显示及操作-->
-    <script src="js/index-capital.js"></script> <!--//应收账款相关显示及操作-->
+    <script src="js/index-jz.js"></script>
+    <script src="js/index-ceo.js"></script>
+    <script src="js/index-market.js"></script>
+    <script src="js/index-management.js"></script>
+    <script src="js/index-product.js"></script>
+    <script src="js/index-factory.js"></script>
+    <script src="js/index-capital.js"></script>
       <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style/index.css">
     <link rel="stylesheet" type="text/css" href="style/select2.css">
     <link rel="stylesheet" type="text/css" href="style/table-sheet.css">
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="bookmark" href="/favicon.ico"/>
-    <title>杭州电子科技大学ERP财务虚拟仿真沙盘系统</title>
+    <title>杭州电子科技大学ERP财务虚拟仿真实验</title>
     <script>
 
-        //Y 全局的函数更新现金流的数据显示
+
         function SetCash() {
-
-
             //财务部现金
             $.ajax({
                 type: "post",
@@ -34,9 +32,7 @@
                 contentType: "application/json;charset=utf-8;",
                 success: function (data) {
                     data = data['data'];
-                    console.log(data);
                     $('#cash').text(parseInt(data['moneytotal']));
-
                 }
             })
 
@@ -56,19 +52,15 @@
                 contentType: "application/json;charset=utf-8;",
                 success: function (data) {
                     data = data['data'];
-                    console.log(data);
-                    $("#currentAp").val(data.currentAp);  //获取当前会计期间
-                    $("#currentUser").val(data.currentUser);  //获取当前用户名
-                    $("#currentTeam").val(data.currentTeam);  //获取当前的群组ID
-                    $("#eId").val(data.currentEId);  //获取当前的群组ID
-                    $("#userset-period").html(data.currentAp);  //获取当前会计期间
-                    $("#userset-user").html(data.currentTeam);  //获取当前用户名
-
+                    $("#currentAp").val(data.currentAp);
+                    $("#currentUser").val(data.currentUser);
+                    $("#currentTeam").val(data.currentTeam);
+                    $("#eId").val(data.currentEId);
+                    $("#userset-period").html(data.currentAp);
+                    $("#userset-user").html(data.currentTeam);
                     var period = data.currentAp;
                     var str = "第"+Math.ceil(period/4)+"年"+(period%4==0?4:period%4)+"季";
-                    $("#tip-period").html(str);  //在系统设置按钮上显示当前的会计期间。
-                    console.log($("#currentAp").val()+"全局会计期间");
-
+                    $("#tip-period").html(str);
                 }
             });
             SetCash();
@@ -694,7 +686,7 @@
 
 </div>
 <!--点击每条生产线的弹窗部分END-->
-<!--一个悬浮窗体-->
+<!--悬浮窗体-->
 <div id = "menuUserSet" class = "userset" title="点击进入系统设置">
     <p>系统设置</p>
     <div id="tip-period" style="color: white;font-weight: bold;font-variant: normal;padding-top:15px;"></div>

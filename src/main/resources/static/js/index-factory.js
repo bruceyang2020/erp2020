@@ -20,7 +20,6 @@ $(document).ready(function () {
             success: function (data) {
                 data = data['data'];
 
-                console.log(data);
                 $.each(data,function(n,value){
                     var mynumber = value.number;
                     var myState = value.state;
@@ -68,7 +67,7 @@ $(document).ready(function () {
                 });
 
 
-                console.log(data);
+
 
             }
         });

@@ -21,19 +21,16 @@ $(document).ready(function () {
         contentType: "application/json;charset=utf-8;",
         success: function(data){
             data = data['data'];
-            console.log('生产线：');
-            console.log(data);
-            console.log('获取数据');
+
             var len = data.length;
             for(var i=0; i<len;i++){
                 var productLineNumber = data[i].productLineNumber;
                 var state = Number(data[i].state);
                 var productLineTypeId = data[i].productLineTypeId;
-                console.log('生产线编码：'+productLineNumber);
+
                 editFlag[productLineNumber]=Number(data[i].editFlag); //H 每条生产线这期是否发生行为
                 productc[productLineNumber]=data[i].productC;
-                console.log( "第"+productLineNumber+"条生产线"+editFlag[productLineNumber]);
-                console.log( "第"+productLineNumber+"条生产线"+ productc[productLineNumber]);
+
 
                 switch (state) {
                     case 0:
@@ -184,10 +181,10 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             success: function (data) {
                 data = data['data'];
-                console.log(data);
+
 
                 var myPlnValue = $('#plnValue').val(); //获取当前生产线编号
-                console.log("新建，当前生产线的编号："+myPlnValue);
+
                 var len = data.length;
                 for(var i=0; i<len;i++){
                     var mynumber = data[i].number;
@@ -217,9 +214,7 @@ $(document).ready(function () {
                     }
                     var productLineTypeId = $("#productLineTypeIdList").find("option:selected").val();
                     var productLineCType = $("#productCTypeList").find("option:selected").val(); // H 产品类型
-                    console.log("新建生产线：");
-                    console.log(productLineTypeId);
-                    console.log(productLineCType);
+
                     if (editFlag[myPlnValue] == 0) {
                         var deviceValue = 0;
                         var processingCycle = 0;
@@ -635,8 +630,7 @@ $(document).ready(function () {
             data: JSON.stringify(ProductLine),
             success: function (data) {
                 var data = data['data'];
-                console.log("弹窗生产状态");
-                console.log(data[0]);
+
                 if(data.length == 1)  //如果生产线存在
                 {
 

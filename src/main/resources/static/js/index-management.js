@@ -8,7 +8,7 @@ $(document).ready(function () {
         contentType: "application/json;charset=utf-8;",
         success: function (data) {
             data = data['data'];
-            console.log(data);
+
             $.each(data,function(n,value){
                 if(value.number == "R1")
                 {  $("#mag-r4").text(value.amountB+value.amountI-value.amountO);}
@@ -28,7 +28,7 @@ $(document).ready(function () {
                 {  $("#mag-p4").text(value.amountB+value.amountI-value.amountO);}
 
             });
-            console.log('************类型1原材料数据');
+
         }
     });
 
@@ -42,7 +42,7 @@ $(document).ready(function () {
         contentType: "application/json;charset=utf-8;",
         success: function (data) {
             data = data['data'];
-            console.log(data);
+
             $.each(data,function(n,value){
                 var currentAp =$("#currentAp").val();
                 var leadTime = 1+currentAp*1-value.period;
@@ -61,7 +61,7 @@ $(document).ready(function () {
                 {  $("#r4-1").val(value.amount);}
 
             });
-            console.log('采购订单提取数据成功');
+
         }
     });
 
