@@ -19,18 +19,17 @@ public class MarketFeeController extends BaseController {
 
     @Autowired
     private MarketFeeService MarketFeeService;
-    @RequestMapping("add")
+    @RequestMapping(value="add",produces = "application/json;charset=utf-8")
     public String add(@RequestBody MarketFee MarketFee) {
-        MarketFeeService.add(MarketFee);
-        return success();
+        return success( MarketFeeService.add(MarketFee));
     }
 
-    @RequestMapping("deleteByPeriod")
-    public String sale(@RequestBody MarketFee MarketFee){
+    @RequestMapping(value="deleteByPeriod",produces = "application/json;charset=utf-8")
+    public String deleteByperiod(@RequestBody MarketFee MarketFee){
         String userTeam = Jurisdiction.getUserTeam();
         int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-        MarketFeeService.deleteByPeriod(userTeam,period,MarketFee.getMarketId());
-        return success();
+
+        return success(MarketFeeService.deleteByPeriod(userTeam,period,MarketFee.getMarketId()));
     }
 
 

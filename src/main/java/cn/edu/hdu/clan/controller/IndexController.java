@@ -256,10 +256,11 @@ public class IndexController extends BaseController {
         System.out.print("生成BS、IS报表："+sdf.format(new Date()));
         //获取当前会计期间的科目余额表
         List<AccountBalance> accountBalances = accountBalanceService.getByTeamcountAndPeriod(userTeam,period);
-        //根据科目余额表，生成本期的资产负债表。
-        balancesheetService.createBalanceSheet(accountBalances,userTeam,period);
         //根据科目余额表，生成本期的利润表。
         incomesheetService.createIncomeSheet(accountBalances,userTeam,period);
+        //根据科目余额表，生成本期的资产负债表。
+        balancesheetService.createBalanceSheet(accountBalances,userTeam,period);
+
 
 
        /*------------------------------------------------下一期发生的动态-----------------------------------------------------------------*/

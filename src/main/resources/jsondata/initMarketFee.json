@@ -1,7 +1,7 @@
 [
-  {"marketId": "本地","state": 1,"periodLeft": 0, "period": 1},
-  {"marketId": "区域","state": 1,"periodLeft": 0, "period": 1},
-  {"marketId": "国内", "state": 0, "periodLeft": 2, "period": 1},
-  {"marketId": "亚洲", "state": 0, "periodLeft": 3, "period": 1},
-  {"marketId": "国际", "state": 0, "periodLeft": 4, "period":1 }
+  {"marketId": "本地","state": 1,"takeRight": 0,"periodLeft": 0, "period": 1},
+  {"marketId": "区域","state": 1,"takeRight": 0,"periodLeft": 0, "period": 1},
+  {"marketId": "国内","state": 0,"takeRight": 0, "periodLeft": 2, "period": 1},
+  {"marketId": "亚洲","state": 0,"takeRight": 0,"periodLeft": 3, "period": 1},
+  {"marketId": "国际","state": 0,"takeRight": 0, "periodLeft": 4, "period":1 }
 ]

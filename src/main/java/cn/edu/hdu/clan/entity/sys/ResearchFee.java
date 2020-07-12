@@ -33,6 +33,12 @@ public class ResearchFee extends BaseBean {
     private Integer periodLeft;
 
     /**
+     * 执行权
+     */
+    @Column(name = "take_right")
+    private Integer takeRight;
+
+    /**
      * 当前会计期间
      */
     private Integer period;
@@ -144,6 +150,25 @@ public class ResearchFee extends BaseBean {
     public void setPeriodLeft(Integer periodLeft) {
         this.periodLeft = periodLeft;
     }
+
+    /**
+     * 获取执行权
+     *
+     * @return takeRight
+     */
+    public Integer getTakeRight() {
+        return takeRight;
+    }
+
+    /**
+     * 设置执行权
+     *
+     * @param takeRight 执行权
+     */
+    public void setTakeRight(Integer takeRight) {
+        this.takeRight = takeRight;
+    }
+
 
     /**
      * 获取当前会计期间

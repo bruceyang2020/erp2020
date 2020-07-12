@@ -118,8 +118,9 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
         {
             taxMoney = netMoney.multiply(BigDecimal.valueOf(0.25)).setScale(0, BigDecimal.ROUND_DOWN);  //所得税0.25,向下取整。这个BIGDECIMAL的语法真的是够烦的！
             netMoney = netMoney.subtract(taxMoney);
-            accountingVoucherService.voucherMaker(teamCount,period,taxMoney,"SDS","所得税费用");
         }
+        else{taxMoney=BigDecimal.valueOf(0);}
+        accountingVoucherService.voucherMaker(teamCount,period,taxMoney,"SDS","所得税费用");
         System.out.println(revenue);
         System.out.println(variableCost);
         System.out.println(cost);

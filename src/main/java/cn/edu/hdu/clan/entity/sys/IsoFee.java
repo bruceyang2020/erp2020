@@ -31,6 +31,12 @@ public class IsoFee extends BaseBean {
     private Integer periodLeft;
 
     /**
+     * 执行权
+     */
+    @Column(name = "take_right")
+    private Integer takeRight;
+
+    /**
      * 当前会计期间
      */
     private Integer period;
@@ -141,6 +147,24 @@ public class IsoFee extends BaseBean {
      */
     public void setPeriodLeft(Integer periodLeft) {
         this.periodLeft = periodLeft;
+    }
+
+    /**
+     * 执行权
+     *
+     * @return takeright 执行权
+     */
+    public Integer getTakeRight(){
+        return takeRight;
+    }
+
+    /**
+     * 执行权
+     *
+     * @param takeRight 执行权
+     */
+    public void setTakeRight(Integer takeRight) {
+        this.takeRight = takeRight;
     }
 
     /**

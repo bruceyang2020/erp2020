@@ -6,11 +6,11 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface MarketFeeService {
-    void add(MarketFee MarketFee);
+   String add(MarketFee MarketFee);
 
     void adds(List<MarketFee>  marketFees);
 
-    void deleteByPeriod(String userTeam,Integer period,String marketId);
+    String deleteByPeriod(String userTeam,Integer period,String marketId);
 
     void deleteByTeamCount(String userTeam);
 

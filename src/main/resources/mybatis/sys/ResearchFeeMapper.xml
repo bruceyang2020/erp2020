@@ -11,6 +11,7 @@
     <result column="product_id" property="productId" jdbcType="INTEGER" />
     <result column="sate" property="sate" jdbcType="INTEGER" />
     <result column="period_left" property="periodLeft" jdbcType="INTEGER" />
+    <result column="take_right" property="takeRight" jdbcType="INTEGER" />
     <result column="period" property="period" jdbcType="INTEGER" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />

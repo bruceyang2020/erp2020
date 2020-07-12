@@ -52,7 +52,9 @@ public class MarketFeeServiceImpl implements MarketFeeService {
 
     @Override
     // 确定研发按钮
-    public void add(MarketFee MarketFee) {
+    public String add(MarketFee MarketFee) {
+
+        String myMsg = "OK";
 
         //全局变量 写入当前公司或小组ID
         String userTeam = Jurisdiction.getUserTeam();
@@ -63,11 +65,13 @@ public class MarketFeeServiceImpl implements MarketFeeService {
         criteria.andEqualTo("period", MarketFee.getPeriod());
         criteria.andEqualTo("marketId", MarketFee.getMarketId());
         List<MarketFee> updateRow = MarketFeeMapper.selectByExample(example);
-    if(updateRow.get(0).getPeriodLeft()>0) {
+    if(updateRow.get(0).getPeriodLeft()>0&&updateRow.get(0).getTakeRight()!=1) {
 
       updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() - 1);
 
       updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//剩余期为0，则开发完成
+
+      updateRow.get(0).setTakeRight(1);
 
       //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
       BaseBeanHelper.edit(updateRow.get(0));
@@ -97,19 +101,26 @@ public class MarketFeeServiceImpl implements MarketFeeService {
 
 
       }
+        myMsg =marketId+"开拓成功!";
      }
+    else{
+        myMsg ="已投资或已开发完成";
+    }
+        return  myMsg;
     }
 
     //H  取消按钮
     @Override
-    public void deleteByPeriod(String userTeam,Integer period,String marketId) {
+    public String deleteByPeriod(String userTeam,Integer period,String marketId) {
+        String myMsg = "OK";
         //删除当前市场开发的记录
         //H 消除已经研发完成还能删退的bug
         List<MarketFee> oldRow= marketFeeService.listByperiod(userTeam,period-1,marketId);
-        if(oldRow.get(0).getState()==0) {
-            List<MarketFee> updateRow= marketFeeService.listByperiod(userTeam,period,marketId);
+        List<MarketFee> updateRow= marketFeeService.listByperiod(userTeam,period,marketId);
+        if(oldRow.get(0).getState()==0&&updateRow.get(0).getTakeRight()==1) {
             //补充相关字段的取值
             updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
+            updateRow.get(0).setTakeRight(0);//执行回撤
             updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
 
             //补充相关字段的取值
@@ -117,8 +128,14 @@ public class MarketFeeServiceImpl implements MarketFeeService {
             BaseBeanHelper.edit(updateRow.get(0));
             MarketFeeMapper.updateByPrimaryKey(updateRow.get(0));
             //删除会计凭证
-            accountingVoucherService.deleteByPeriodAndContent(userTeam, period, marketId);
+            accountingVoucherService.deleteByPeriodAndContent(userTeam, period, marketId+"市场开拓");
+            myMsg =marketId+"市场开拓取消成功!";
         }
+        else{
+             myMsg = "请投资"+marketId;
+        }
+        return myMsg;
+
     }
 
     //H
@@ -200,6 +217,7 @@ public class MarketFeeServiceImpl implements MarketFeeService {
             for (int i = 0; i < factorys.size(); i++) {
                 MarketFee myRow = factorys.get(i);
                 myRow.setPeriod(nextPeriod);
+                myRow.setTakeRight(0);
                 BaseBeanHelper.insert(myRow);
                 MarketFeeMapper.insert(myRow);
 

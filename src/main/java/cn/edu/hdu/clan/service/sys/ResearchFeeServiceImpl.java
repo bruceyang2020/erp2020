@@ -218,6 +218,7 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
             for (int i = 0; i < factorys.size(); i++) {
                 ResearchFee myRow = factorys.get(i);
                 myRow.setPeriod(nextPeriod);
+                myRow.setTakeRight(0);
                 BaseBeanHelper.insert(myRow);
                 ResearchFeeMapper.insert(myRow);
 

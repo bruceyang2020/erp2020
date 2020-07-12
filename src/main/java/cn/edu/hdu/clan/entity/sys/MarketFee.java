@@ -43,6 +43,13 @@ public class MarketFee extends BaseBean {
     private String createUser;
 
     /**
+     * 执行权
+     */
+    @Column(name = "take_right")
+    private Integer takeRight;
+
+
+    /**
      * 创建时间
      */
     @Column(name = "create_time")
@@ -160,6 +167,25 @@ public class MarketFee extends BaseBean {
     public void setPeriod(Integer period) {
         this.period = period;
     }
+
+    /**
+     * 获取执行权
+     *
+     * @return take_right - 剩余开发期数
+     */
+    public Integer getTakeRight() {
+        return takeRight;
+    }
+
+    /**
+     * 设置执行权
+     *
+     * @param takeRight 本期是否执行
+     */
+    public void setTakeRight(Integer takeRight) {
+        this.takeRight = takeRight;
+    }
+
 
     /**
      * 获取创建人外键用户表

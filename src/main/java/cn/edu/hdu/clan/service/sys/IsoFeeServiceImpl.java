@@ -174,6 +174,7 @@ public class IsoFeeServiceImpl implements IsoFeeService {
             for (int i = 0; i < isos.size(); i++) {
                 IsoFee myRow = isos.get(i);
                 myRow.setPeriod(nextPeriod);
+                myRow.setTakeRight(0);
                 BaseBeanHelper.insert(myRow);
                 IsoFeeMapper.insert(myRow);
 

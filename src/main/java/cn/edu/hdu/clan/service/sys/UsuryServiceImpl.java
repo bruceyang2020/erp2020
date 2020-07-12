@@ -47,12 +47,27 @@ public class UsuryServiceImpl implements UsuryService {
             UsuryMapper.deleteByExample(example);
         }
 
-        //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
+        //H 按teamCount取出所有高利贷
+        Example example2 = new Example(Usury.class);
+        Example.Criteria criteria2 = example2.createCriteria();
+        criteria2.andEqualTo("teamCount", userTeam);
+        List<Usury> myList = UsuryMapper.selectByExample(example2);
+        BigDecimal usury = BigDecimal.valueOf(0);
+        for (int i = 0; i < myList.size(); i++) {
+            usury = usury.add(myList.get(i).getMoneyTotal());
+        }
+        BigDecimal usuryIn=Usury.getMoneyTotal().add(usury);
+        if(!(usuryIn.compareTo(BigDecimal.valueOf(0))!=1)) {  //H 判断高利贷是否多还
+            //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
 
-        BaseBeanHelper.insert(Usury);
-        UsuryMapper.insert(Usury);
-        //自动生成高利贷会计凭证,同时用于高利贷还款（-）就可
-        accountingVoucherService.voucherMaker(userTeam,Usury.getPeriod(),Usury.getMoneyTotal(),"GAOLIDAI","新增高利贷");
+            BaseBeanHelper.insert(Usury);
+            UsuryMapper.insert(Usury);
+            //自动生成高利贷会计凭证,同时用于高利贷还款（-）就可
+            accountingVoucherService.voucherMaker(userTeam, Usury.getPeriod(), Usury.getMoneyTotal(), "GAOLIDAI", "新增高利贷");
+        }
+        else{
+
+        }
 
     }
 
