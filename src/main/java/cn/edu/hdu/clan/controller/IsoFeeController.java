@@ -16,10 +16,10 @@ public class IsoFeeController extends BaseController {
 
     @Autowired
     private IsoFeeService IsoFeeService;
-    @RequestMapping("add")
+    @RequestMapping(value = "add",produces = "application/json;charset=utf-8")
     public String add(@RequestBody IsoFee IsoFee) {
-        IsoFeeService.add(IsoFee);
-        return success();
+
+        return success( IsoFeeService.add(IsoFee));
     }
 
     @RequestMapping("delete")
@@ -45,11 +45,10 @@ public class IsoFeeController extends BaseController {
         return success(IsoFeeService.getById(param.get("id")));
     }
 
-    @RequestMapping("deleteByPeriod")
+    @RequestMapping(value = "deleteByPeriod",produces = "application/json;charset=utf-8")
     public String sale(@RequestBody IsoFee IsoFee){
         String userTeam = Jurisdiction.getUserTeam();
         int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-        IsoFeeService.deleteByPeriod(userTeam,period,IsoFee.getNumber());
-        return success();
+        return success( IsoFeeService.deleteByPeriod(userTeam,period,IsoFee.getNumber()));
     }
 }

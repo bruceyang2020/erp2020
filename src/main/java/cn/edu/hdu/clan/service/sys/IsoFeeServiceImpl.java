@@ -46,7 +46,8 @@ public class IsoFeeServiceImpl implements IsoFeeService {
     }
 
     //H ISO确定按钮更新
-    public void add(IsoFee IsoFee) {
+    public String add(IsoFee IsoFee) {
+        String myMsg = "OK";
 
         //全局变量 写入当前公司或小组ID
         String userTeam = Jurisdiction.getUserTeam();
@@ -59,8 +60,9 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         List<IsoFee> updateRow = IsoFeeMapper.selectByExample(example);
 
         //补充相关字段的取值
-        if(updateRow.get(0).getPeriodLeft()>0) {
+        if(updateRow.get(0).getPeriodLeft()>0&&updateRow.get(0).getTakeRight()!=1) { //H 本期未执行
             updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() - 1);
+            updateRow.get(0).setTakeRight(1);
             System.out.println(updateRow.get(0).getPeriodLeft());
             updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
 
@@ -82,19 +84,30 @@ public class IsoFeeServiceImpl implements IsoFeeService {
                     accountingVoucherService.voucherMaker(userTeam, IsoFee.getPeriod(), new BigDecimal("1"), "ISOZZ", "ISO14K");
                     break;
 
+
             }
+            myMsg =isoNumber+"认证成功!";
         }
+        else{
+            myMsg ="已认证或已认证完成";
+        }
+        return  myMsg;
     }
+
+
+
 
     //H ISO取消投资的按钮更新
     @Override
-    public void deleteByPeriod(String userTeam,Integer period,String number) {
-
+    public String deleteByPeriod(String userTeam,Integer period,String number) {
+        String myMsg = "OK";
         List<IsoFee> oldRow = isoFeeService.listByperiod(userTeam, period - 1, number);
-        if (oldRow.get(0).getState() == 0) {
+        List<IsoFee> updateRow = isoFeeService.listByperiod(userTeam, period, number);
+        if (oldRow.get(0).getState() == 0&&updateRow.get(0).getTakeRight()==1) {
             //补充相关字段的取值
-            List<IsoFee> updateRow = isoFeeService.listByperiod(userTeam, period, number);
+
             updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
+            updateRow.get(0).setTakeRight(0);
             updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
             //补充相关字段的取值
             //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
@@ -102,7 +115,12 @@ public class IsoFeeServiceImpl implements IsoFeeService {
             IsoFeeMapper.updateByPrimaryKey(updateRow.get(0));
             //删除会计凭证
             accountingVoucherService.deleteByPeriodAndContent(userTeam, period, number);
+            myMsg =number+"取消认证成功!";
         }
+        else{
+            myMsg ="请投资"+number;
+        }
+        return  myMsg;
     }
 
     //H
@@ -164,6 +182,7 @@ public class IsoFeeServiceImpl implements IsoFeeService {
 
     @Override
     public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        //H 复制到下一期间
         Example example = new Example(IsoFee.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);

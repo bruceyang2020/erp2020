@@ -6,7 +6,7 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface IsoFeeService {
-    void add(IsoFee IsoFee);
+    String add(IsoFee IsoFee);
 
    void adds(List<IsoFee>  isoFees);
 
@@ -22,7 +22,7 @@ public interface IsoFeeService {
 
     List<IsoFee> list(String userTeam , int period);
 
-    void deleteByPeriod(String userTeam,Integer period,String number);
+    String deleteByPeriod(String userTeam,Integer period,String number);
 
     void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 
