@@ -349,6 +349,7 @@ $(document).ready(function () {
                 success: function (data) {
                     alert("转产成功");
                     statusByPln(myPlnValue, "转产");
+                    window.location.reload();
                     SetCash();
 
                 }
@@ -415,9 +416,14 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(ProductLine),
             success: function (data) {
+                var myMsg=data['msg'];
+                if(myMsg=="OK"){
                 alert("投产成功");
                 statusByPln(myPlnValue, "生产");
-                SetCash();
+                SetCash();}
+                else{
+                    alert("投产失败");
+                }
 
             }
         })
@@ -463,14 +469,18 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(ProductLine),
             success: function (data) {
-                alert("投产成功");
-                statusByPln(myPlnValue, "生产");
-                SetCash();
+                var myMsg=data['msg'];
+                if(myMsg=="OK"){
+                    alert("投产成功");
+                    statusByPln(myPlnValue, "生产");
+                    SetCash();}
+                else{
+                    alert("投产失败");
+                }
+
 
             }
-        })
-
-
+        });
         break;
 
 
@@ -509,9 +519,14 @@ $(document).ready(function () {
                 contentType: "application/json;charset=utf-8;",
                 data: JSON.stringify(ProductLine),
                 success: function (data) {
-                    alert("投产成功");
-                    statusByPln(myPlnValue, "生产");
-                    SetCash();
+                    var myMsg=data['msg'];
+                    if(myMsg=="OK"){
+                        alert("投产成功");
+                        statusByPln(myPlnValue, "生产");
+                        SetCash();}
+                    else{
+                        alert("投产失败");
+                    }
 
                 }
             })
@@ -555,9 +570,15 @@ $(document).ready(function () {
                 contentType: "application/json;charset=utf-8;",
                 data: JSON.stringify(ProductLine),
                 success: function (data) {
-                    alert("投产成功");
-                    statusByPln(myPlnValue, "生产");
-                    SetCash();
+                    var myMsg=data['msg'];
+                    if(myMsg=="OK"){
+                        alert("投产成功");
+                        statusByPln(myPlnValue, "生产");
+                        SetCash();}
+                    else{
+                        alert("投产失败");
+                    }
+
 
                 }
             })
@@ -568,10 +589,8 @@ $(document).ready(function () {
         break;
 
 }}
-
-
         $('.pop-pro').hide();
-    });
+    });12
 
 
 
@@ -602,6 +621,7 @@ $(document).ready(function () {
                 alert("出售生产线成功");
                 statusByPln(myPlnValue,"出售");
                 showPLByPln(myPlnValue,"空白");
+                window.location.reload();
                 SetCash();
 
             }

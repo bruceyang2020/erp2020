@@ -16,10 +16,10 @@ public class ResearchFeeController extends BaseController {
 
     @Autowired
     private ResearchFeeService ResearchFeeService;
-    @RequestMapping("add")
+    @RequestMapping(value="add",produces = "application/json;charset=utf-8")
     public String add(@RequestBody ResearchFee ResearchFee) {
-        ResearchFeeService.add(ResearchFee);
-        return success();
+
+        return success( ResearchFeeService.add(ResearchFee));
     }
 
     @RequestMapping("delete")
@@ -56,11 +56,11 @@ public class ResearchFeeController extends BaseController {
     public String getById(@RequestBody Map<String,String> param) {
         return success(ResearchFeeService.getById(param.get("id")));
     }
-    @RequestMapping("deleteByPeriod")
+    @RequestMapping(value="deleteByPeriod",produces = "application/json;charset=utf-8")
     public String sale(@RequestBody ResearchFee ResearchFee){
         String userTeam = Jurisdiction.getUserTeam();
         int period  = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-        ResearchFeeService.deleteByPeriod(userTeam,period,ResearchFee.getProductId());
-        return success();
+
+        return success( ResearchFeeService.deleteByPeriod(userTeam,period,ResearchFee.getProductId()));
     }
 }

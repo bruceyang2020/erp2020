@@ -17,7 +17,7 @@ public interface ProductLineService {
 
     void build(ProductLine productLine);  //生产线投资
 
-    void inputToProduce(ProductLine productLine);//上线生产产品
+    String inputToProduce(ProductLine productLine);//上线生产产品
 
     void sale(ProductLine ProductLine);//卖生产线
 

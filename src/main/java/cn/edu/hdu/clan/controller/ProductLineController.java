@@ -39,10 +39,10 @@ public class ProductLineController extends BaseController {
         return success();
     }
 
-    @RequestMapping("inputToProduce")
+    @RequestMapping(value="inputToProduce",produces = "application/json;charset=utf-8")
     public String inputToProduce(@RequestBody ProductLine ProductLine){
-        ProductLineService.inputToProduce(ProductLine);
-        return success();
+
+        return success(ProductLineService.inputToProduce(ProductLine));
     }
 
     @RequestMapping("switching")

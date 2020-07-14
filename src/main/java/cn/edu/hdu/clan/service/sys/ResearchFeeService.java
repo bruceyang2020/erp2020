@@ -5,7 +5,7 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface ResearchFeeService {
-    void add(ResearchFee ResearchFee);
+    String add(ResearchFee ResearchFee);
 
     void  adds(List<ResearchFee>  researchFees);
 
@@ -23,7 +23,7 @@ public interface ResearchFeeService {
 
     List<ResearchFee> listFinish(String userTeam ,int period);
 
-    void deleteByPeriod(String userTeam,Integer period,String productId);
+   String deleteByPeriod(String userTeam,Integer period,String productId);
 
     void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 

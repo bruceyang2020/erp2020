@@ -18,7 +18,6 @@ public class IsoFeeController extends BaseController {
     private IsoFeeService IsoFeeService;
     @RequestMapping(value = "add",produces = "application/json;charset=utf-8")
     public String add(@RequestBody IsoFee IsoFee) {
-
         return success( IsoFeeService.add(IsoFee));
     }
 

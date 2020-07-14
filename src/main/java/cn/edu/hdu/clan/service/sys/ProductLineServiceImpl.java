@@ -3,6 +3,7 @@ package cn.edu.hdu.clan.service.sys;
 import cn.edu.hdu.clan.entity.BaseBean;
 import cn.edu.hdu.clan.entity.sys.Factory;
 import cn.edu.hdu.clan.entity.sys.ProductLine;
+import cn.edu.hdu.clan.entity.sys.ResearchFee;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.FactoryMapper;
 import cn.edu.hdu.clan.mapper.sys.ProductLineMapper;
@@ -30,6 +31,9 @@ public class     ProductLineServiceImpl implements ProductLineService {
     private AccountingVoucherService accountingVoucherService;
     @Resource
     private InvService invService;
+
+    @Resource
+    private ResearchFeeService researchFeeService;
 
     @Resource
     private ProductLineService productLineService;
@@ -275,9 +279,11 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
 //投入产品到生产线
     @Override
-    public void inputToProduce(ProductLine productLine) {
-        String userTeam = Jurisdiction.getUserTeam();
+    public String inputToProduce(ProductLine productLine) {
 
+        String myMsg="OK";
+
+        String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         String factoryNumber = productLine.getFactoryNumber();
         String productLineNumber = productLine.getProductLineNumber();
@@ -288,18 +294,21 @@ public class     ProductLineServiceImpl implements ProductLineService {
         int processingCycleBe = myRow.getProcessingCycleB();
         String productLineType = myRow.getProductLineTypeId();
 
-        //手工线柔性线投产直接转了，其他进不来
-        if(productLineType.equals("手工线")||productLineType.equals("柔性线")){
-            myRow.setProductC(productC);
-        }
+        List<ResearchFee> productRow= researchFeeService.listByperiod(userTeam,period-1,productC);
+        if(productRow.get(0).getState()==1) {
+
+            //手工线柔性线投产直接转了，其他进不来
+            if (productLineType.equals("手工线") || productLineType.equals("柔性线")) {
+                myRow.setProductC(productC);
+            }
 
 
-        myRow.setProcessingCycleB(1); //投入生产期间
+            myRow.setProcessingCycleB(1); //投入生产期间
 
-        myRow.setEditFlag(1); //操作
+            myRow.setEditFlag(1); //操作
 
-        if (myRow.getState() == 2 && processingCycleBe == 0)//H 停产转投产
-        {
+            if (myRow.getState() == 2 && processingCycleBe == 0)//H 停产转投产
+            {
 
                 myRow.setState(1);// 在产
 
@@ -328,11 +337,15 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
                 //自动生成投入生产的会计凭证.借在制品1 贷现金
                 accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCRGF", factoryNumber + productLineNumber + productLineType + myProduct);
+            }
+
+            BaseBeanHelper.edit(myRow);
+            ProductLineMapper.updateByPrimaryKey(myRow);
         }
-
-        BaseBeanHelper.edit(myRow);
-        ProductLineMapper.updateByPrimaryKey(myRow);
-
+        else{
+            myMsg="False";
+        }
+      return myMsg;
     }
 
 

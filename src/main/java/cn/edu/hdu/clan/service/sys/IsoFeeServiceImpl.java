@@ -83,13 +83,10 @@ public class IsoFeeServiceImpl implements IsoFeeService {
                     //自动生成ISO14K会计凭证
                     accountingVoucherService.voucherMaker(userTeam, IsoFee.getPeriod(), new BigDecimal("1"), "ISOZZ", "ISO14K");
                     break;
-
-
             }
-            myMsg =isoNumber+"认证成功!";
         }
         else{
-            myMsg ="已认证或已认证完成";
+            myMsg ="False";
         }
         return  myMsg;
     }
@@ -115,10 +112,10 @@ public class IsoFeeServiceImpl implements IsoFeeService {
             IsoFeeMapper.updateByPrimaryKey(updateRow.get(0));
             //删除会计凭证
             accountingVoucherService.deleteByPeriodAndContent(userTeam, period, number);
-            myMsg =number+"取消认证成功!";
+
         }
         else{
-            myMsg ="请投资"+number;
+            myMsg ="False";
         }
         return  myMsg;
     }

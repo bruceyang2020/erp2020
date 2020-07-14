@@ -15,8 +15,7 @@ $(document).ready(function () {
     var stateiso2 = 0;//H ISO是否完成
 
     var daikuan = 0;//贷款数
-    var touzi = 0;//投资额
-    var dindan = 0;//订单数
+
 
 
     //贷款显示-长期贷款
@@ -302,7 +301,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "区域市场开拓成功!") {
+                if (myMsg == "OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
                     for (var i = 0; i < battery.length; i++) {
@@ -315,10 +314,13 @@ $(document).ready(function () {
                             }
                         }
                     }
+                    alert("区域市场开拓成功!");
+                    SetCash();
                 }
-                alert(data['msg']);
-                window.location.href = "/index";
-                SetCash();
+                else{
+                    alert("区域市场开拓失败");
+                }
+
             }
         })
     });
@@ -338,7 +340,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "区域市场开拓取消成功!") {
+                if (myMsg == "OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz5"];
                     for (var i = 0; i < battery.length; i++) {
@@ -351,10 +353,13 @@ $(document).ready(function () {
                             }
                         }
                     }
+                    alert("区域市场开拓成功!");
+                    SetCash();
                 }
-                alert(data['msg']);
-                window.location.href = "/index";
-                SetCash();
+                else{
+                    alert("区域市场取消开拓失败")
+                }
+
             }
         });
 
@@ -375,7 +380,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "国内市场开拓成功!") {
+                if (myMsg=="OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz3", "tz5"];    //H 可通过添加随意更改
                     for (var i = 0; i < battery.length; i++) {
@@ -388,10 +393,14 @@ $(document).ready(function () {
                             }
                         }
                     }
+                    alert("国内市场开拓成功!");
+                    SetCash();
                 }
-                alert(data['msg']);
-                window.location.href = "/index";
-                SetCash();
+                else{
+                    alert("国内市场开拓失败")
+                }
+
+
             }
         });
 
@@ -410,7 +419,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "国内市场开拓取消成功!") {
+                if (myMsg == "OK") {
 
                     var battery = ["tz1", "tz3", "tz5"];
                     $('.pop-s5').hide();
@@ -424,10 +433,13 @@ $(document).ready(function () {
                             }
                         }
                     }
+                    alert("国内市场取消开拓成功!");
+                    SetCash();
                 }
-                alert(data['msg']);
-                window.location.href = "/index";
-                SetCash();
+                else{
+                    alert("国内市场取消开拓失败")
+                }
+
             }
         });
 
@@ -448,7 +460,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "亚洲市场开拓成功!") {
+                if (myMsg == "OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz2", "tz3", "tz5"];    //H 可通过添加随意更改
                     for (var i = 0; i < battery.length; i++) {
@@ -461,10 +473,11 @@ $(document).ready(function () {
                             }
                         }
                     }
+                    alert("亚洲市场开拓成功!");
+                    SetCash();
                 }
-                alert(data['msg']);
-                window.location.href = "/index";
-                SetCash();
+                else{alert("亚洲市场开拓失败")}
+
             }
         })
 
@@ -483,7 +496,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "亚洲市场开拓取消成功!") {
+                if (myMsg =="OK" ) {
                     var battery = ["tz1", "tz2", "tz3", "tz5"];
                     $('.pop-s6').hide();
                     for (var i = 0; i < battery.length; i++) {
@@ -495,10 +508,13 @@ $(document).ready(function () {
                                 break;
                             }
                         }
+                        alert("亚洲市场取消开拓成功!");
+                        SetCash();
                     }
-                    alert(data['msg']);
-                    window.location.href = "/index";
-                    SetCash();
+
+                }
+                else{
+                    alert("亚洲市场取消开拓失败")
                 }
             }
         });
@@ -519,7 +535,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "国际市场开拓成功!") {
+                if (myMsg == "OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz2", "tz3", "tz4", "tz5"];    //H 可通过添加随意更改
                     for (var i = 0; i < battery.length; i++) {
@@ -532,10 +548,12 @@ $(document).ready(function () {
                             }
                         }
                     }
+                    alert("国际市场开拓成功!");
+                    SetCash();
                 }
-                alert(data['msg']);
-                window.location.href = "/index";
-                SetCash();
+                else{
+                    alert("国际市场开拓失败")
+                }
             }
         })
     });
@@ -554,7 +572,7 @@ $(document).ready(function () {
             data: JSON.stringify(MarketFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "国际市场开拓取消成功!") {
+                if (myMsg == "OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz2", "tz3", "tz4", "tz5"];
                     $('.pop-s7').hide();
@@ -568,22 +586,18 @@ $(document).ready(function () {
                             }
                         }
                     }
+                    alert("国际市场开拓成功!");
+                    SetCash();
                 }
-                alert(data['msg']);
-                window.location.href = "/index";
-                SetCash();
+               else {alert("国际市场取消开拓失败");}
             }
         });
     });
-    var cp1 = 0;
-    var cp2 = 0;
-    var cp3 = 0;
-    var cp4 = 0;//H 判断当期投了几次
+
 
     //产品研发投资-P1
     $("#ok-p1").click(function () {
-        if (cp1 == 0) {
-            cp1 = 1;
+
             var ResearchFee = {
                 period: $('#currentAp').val(),
                 productId: "P1"
@@ -596,34 +610,31 @@ $(document).ready(function () {
                 data: JSON.stringify(ResearchFee),
                 success: function (data) {
                     var myMsg = data['msg'];
-                    alert(data['msg']);
-                    window.location.href = "/index";
+                    if(myMsg== "OK"){
+                        //H 前端battery显示变化
+                        var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
+                        for (var i = 0; i < battery.length; i++) {
+                            if ($('#ceo-tz-pr1').hasClass(battery[i])) {
+                                if (i == 1) {
+                                    break;
+                                } else {
+                                    $('#ceo-tz-pr1').attr("class", battery[i + 1]);
+                                    break;
+                                }
+                            }
+                        }
+                        alert("P1产品研发成功!");
                     SetCash();
-                }
-            });
-            //H 前端battery显示变化
-            var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
-            for (var i = 0; i < battery.length; i++) {
-                if ($('#ceo-tz-pr1').hasClass(battery[i])) {
-                    if (i == 1) {
-                        break;
-                    } else {
-                        $('#ceo-tz-pr1').attr("class", battery[i + 1]);
-                        break;
+                    }
+                    else{
+                        alert("P1产品研发失败");
                     }
                 }
-            }
+            });
 
-            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-        } else {
-            alert("您已投资");
-        }
     });
     //产品研发取消按钮-p1
     $("#cancel-p1").click(function () {
-        if (cp1 == 1) {
-            if (statep1 == 0) {
-                cp1 = 0;
                 var ResearchFee = {
                     period: $('#currentAp').val(),
                     productId: "P1"
@@ -635,34 +646,37 @@ $(document).ready(function () {
                     contentType: "application/json;charset=utf-8;",
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
-                        alert("P1产品研发取消成功");
-                        SetCash();
+                        var myMsg = data['msg'];
+                        if(myMsg=="OK"){
+                            //H 前端battery显示变化
+                            var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
+                            $('.pop-s9').hide();
+                            for (var i = 0; i < battery.length; i++) {
+                                if ($('#ceo-tz-pr1').hasClass(battery[i])) {
+                                    if (i == 0) {
+                                        break;
+                                    } else {
+                                        $('#ceo-tz-pr1').attr("class", battery[i - 1]);
+                                        break;
+                                    }
+                                }
+                            }
+                            alert("P1产品研发取消成功!");
+                            SetCash();
+
+                        }
+                        else{
+                            alert("P1产品研发取消失败")
+                        }
+
                     }
                 });
-                //H 前端battery显示变化
-                var battery = ["tz1", "tz5"];    //H 可通过添加随意更改
-                $('.pop-s9').hide();
-                for (var i = 0; i < battery.length; i++) {
-                    if ($('#ceo-tz-pr1').hasClass(battery[i])) {
-                        if (i == 0) {
-                            break;
-                        } else {
-                            $('#ceo-tz-pr1').attr("class", battery[i - 1]);
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            alert("请投资");
-        }
 
     });
 
     //产品研发投资-P2
     $("#ok-p2").click(function () {
-        if (cp2 == 0) {
-            cp2 = 1;
+
             var ResearchFee = {
                 period: $('#currentAp').val(),
                 productId: "P2"
@@ -675,35 +689,33 @@ $(document).ready(function () {
                 data: JSON.stringify(ResearchFee),
                 success: function (data) {
                     var myMsg = data['msg'];
-                    alert(data['msg']);
-                    window.location.href = "/index";
-                    SetCash();
-                }
-            });
-            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-
-            //H 前端battery显示变化
-            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
-            for (var i = 0; i < battery.length; i++) {
-                if ($('#ceo-tz-pr2').hasClass(battery[i])) {
-                    if (i == 6) {
-                        break;
-                    } else {
-                        $('#ceo-tz-pr2').attr("class", battery[i + 1]);
-                        break;
+                    console.log(myMsg+"??????????????????????????????");
+                    if(myMsg=="OK"){
+                        //H 前端battery显示变化
+                        var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+                        for (var i = 0; i < battery.length; i++) {
+                            if ($('#ceo-tz-pr2').hasClass(battery[i])) {
+                                if (i == 6) {
+                                    break;
+                                } else {
+                                    $('#ceo-tz-pr2').attr("class", battery[i + 1]);
+                                    break;
+                                }
+                            }
+                        }
+                        alert("P2产品研发成功!");
+                        SetCash();
+                    }
+                    else{
+                        alert("P2产品研发失败");
                     }
                 }
-            }
-        } else {
-            alert("您已投资");
-        }
+            });
     });
     //产品研发取消按钮-p2
     $("#cancel-p2").click(function () {
-        if (cp2 == 1) {
-            if (statep2 == 0) {
-                cp2 = 0;
-                var ResearchFee = {
+
+        var ResearchFee = {
                     period: $('#currentAp').val(),
                     productId: "P2"
                 }
@@ -715,36 +727,35 @@ $(document).ready(function () {
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
                         var myMsg = data['msg'];
-                        alert(data['msg']);
-                        window.location.href = "/index";
-                        SetCash();
+                        if(myMsg=="OK"){
+                            //H 前端battery显示变化
+                            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+                            for (var i = 0; i < battery.length; i++) {
+                                if ($('#ceo-tz-pr2').hasClass(battery[i])) {
+                                    if (i == 0) {
+                                        break;
+                                    } else {
+                                        $('#ceo-tz-pr2').attr("class", battery[i - 1]);
+                                        break;
+                                    }
+                                }
+                            }
+
+                            alert("P2产品取消研发成功!");
+                            SetCash();
+                        }
+                        else{
+                            alert("P2产品取消研发失败")
+                        }
+
                     }
                 });
 
-
-                //H 前端battery显示变化
-                var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
-                for (var i = 0; i < battery.length; i++) {
-                    if ($('#ceo-tz-pr2').hasClass(battery[i])) {
-                        if (i == 0) {
-                            break;
-                        } else {
-                            $('#ceo-tz-pr2').attr("class", battery[i - 1]);
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            alert("请投资");
-        }
     });
 
 
     //产品研发投资-P3
     $("#ok-p3").click(function () {
-        if (cp3 == 0) {
-            cp3 = 1;
             var ResearchFee = {
                 period: $('#currentAp').val(),
                 productId: "P3"
@@ -757,34 +768,30 @@ $(document).ready(function () {
                 data: JSON.stringify(ResearchFee),
                 success: function (data) {
                     var myMsg = data['msg'];
-                    alert(data['msg']);
-                    window.location.href = "/index";
-                    SetCash();
-                }
-            })
-            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-            //H 前端battery显示变化
-            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
-            for (var i = 0; i < battery.length; i++) {
-                if ($('#ceo-tz-pr3').hasClass(battery[i])) {
-                    if (i == 6) {
-                        break;
+                    if (myMsg == "OK") {
+                        //H 前端battery显示变化
+                        var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+                        for (var i = 0; i < battery.length; i++) {
+                            if ($('#ceo-tz-pr3').hasClass(battery[i])) {
+                                if (i == 6) {
+                                    break;
+                                } else {
+                                    $('#ceo-tz-pr3').attr("class", battery[i + 1]);
+                                    break;
+                                }
+                            }
+                        }
+                        alert("P3产品研发成功!");
+
+                        SetCash();
                     } else {
-                        $('#ceo-tz-pr3').attr("class", battery[i + 1]);
-                        break;
+                        alert("P3产品研发失败")
                     }
                 }
-            }
-            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-        } else {
-            alert("您已投资");
-        }
+            });
     })
     //产品研发取消按钮-p3
     $("#cancel-p3").click(function () {
-        if (cp3 == 1) {
-            if (statep3 == 0) {
-                cp3 = 0;
 
                 var ResearchFee = {
                     period: $('#currentAp').val(),
@@ -797,32 +804,31 @@ $(document).ready(function () {
                     contentType: "application/json;charset=utf-8;",
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
-                        alert("P3产品研发取消成功");
-                        SetCash();
+                        var myMsg = data['msg'];
+                        if(myMsg=="OK"){
+                            //H 前端battery显示变化
+                            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+                            for (var i = 0; i < battery.length; i++) {
+                                if ($('#ceo-tz-pr3').hasClass(battery[i])) {
+                                    if (i == 0) {
+                                        break;
+                                    } else {
+                                        $('#ceo-tz-pr3').attr("class", battery[i - 1]);
+                                        break;
+                                    }
+                                }
+                            }
+                            alert("P3产品取消研发成功!")
+                            SetCash();
+                        }
+                       else{
+                            alert("P3产品取消研发失败");
+                       }
                     }
                 });
-                //H 前端battery显示变化
-                var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
-                for (var i = 0; i < battery.length; i++) {
-                    if ($('#ceo-tz-pr3').hasClass(battery[i])) {
-                        if (i == 0) {
-                            break;
-                        } else {
-                            $('#ceo-tz-pr3').attr("class", battery[i - 1]);
-                            break;
-                        }
-                    }
-                }
-            }
-        } else {
-            alert("请投资");
-        }
-
     });
     //产品研发投资-P4
     $("#ok-p4").click(function () {
-        if (cp4 == 0) {
-            cp4 = 1;
             var ResearchFee = {
                 period: $('#currentAp').val(),
                 productId: "P4"
@@ -835,35 +841,30 @@ $(document).ready(function () {
                 data: JSON.stringify(ResearchFee),
                 success: function (data) {
                     var myMsg = data['msg'];
-                    alert(data['msg']);
-                    window.location.href = "/index";
-                    SetCash();
-                }
-            })
-
-            touzi = parseInt(touzi) + parseInt("20");//记录扣款数
-            //H 前端battery显示变化
-            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
-            for (var i = 0; i < battery.length; i++) {
-                if ($('#ceo-tz-pr4').hasClass(battery[i])) {
-                    if (i == 6) {
-                        break;
+                    if (myMsg == "OK") {
+                        //H 前端battery显示变化
+                        var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+                        for (var i = 0; i < battery.length; i++) {
+                            if ($('#ceo-tz-pr4').hasClass(battery[i])) {
+                                if (i == 6) {
+                                    break;
+                                } else {
+                                    $('#ceo-tz-pr4').attr("class", battery[i + 1]);
+                                    break;
+                                }
+                            }
+                        }
+                        alert("P4产品研发成功");
+                        SetCash();
                     } else {
-                        $('#ceo-tz-pr4').attr("class", battery[i + 1]);
-                        break;
+                        alert("P4产品研发失败")
                     }
                 }
-            }
-        } else {
-            alert("您已投资")
-        }
+            });
     })
 
     //产品研发取消按钮-p4
     $("#cancel-p4").click(function () {
-        if (cp4 == 1) {
-            if (statep4 == 0) {
-                cp4 = 0;
                 var ResearchFee = {
                     period: $('#currentAp').val(),
                     productId: "P4"
@@ -875,30 +876,31 @@ $(document).ready(function () {
                     contentType: "application/json;charset=utf-8;",
                     data: JSON.stringify(ResearchFee),
                     success: function (data) {
-                        alert("P4产品研发取消成功");
-                        SetCash();
-                    }
-                });
-                //H 前端battery显示变化
-                var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
-                $('.pop-s11').hide();
-                for (var i = 0; i < battery.length; i++) {
-                    if ($('#ceo-tz-pr4').hasClass(battery[i])) {
-                        if (i == 0) {
-                            break;
-                        } else {
-                            $('#ceo-tz-pr4').attr("class", battery[i - 1]);
-                            break;
+                        var myMsg=data['msg'];
+                        if(myMsg=="OK"){
+                            //H 前端battery显示变化
+                            var battery = ["tz1", "tz1_5", "tz2", "tz3", "tz3_5", "tz4", "tz5"];
+                            $('.pop-s11').hide();
+                            for (var i = 0; i < battery.length; i++) {
+                                if ($('#ceo-tz-pr4').hasClass(battery[i])) {
+                                    if (i == 0) {
+                                        break;
+                                    } else {
+                                        $('#ceo-tz-pr4').attr("class", battery[i - 1]);
+                                        break;
+                                    }
+                                }
+                            }
+                            alert("P4产品取消研发成功!");
+                            SetCash();
+                        }
+                        else{
+                            alert("P4产品取消研发失败!")
                         }
                     }
-                }
-            }
-        } else {
-            alert("请投资")
-        }
-        ;
+                });
 
-    });
+        });
 
 
     //ISO认证投资-ISO9000
@@ -915,7 +917,7 @@ $(document).ready(function () {
             data: JSON.stringify(IsoFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "ISO9K认证成功!") {
+                if (myMsg == "OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz3", "tz5"];
                     for (var i = 0; i < battery.length; i++) {
@@ -928,11 +930,11 @@ $(document).ready(function () {
                             }
                         }
                     }
-                    alert(data['msg']);
-                    window.location.href = "/index";
+                    alert("ISO9K认证成功!");
                     SetCash();
-                } else {
-                    alert(myMsg);
+                }
+                else {
+                    alert("ISO9K认证失败");
                 }
             }
         });
@@ -952,7 +954,7 @@ $(document).ready(function () {
             data: JSON.stringify(IsoFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "ISO9K取消认证成功!") {
+                if (myMsg == "OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz3", "tz5"];
                     for (var i = 0; i < battery.length; i++) {
@@ -965,11 +967,10 @@ $(document).ready(function () {
                             }
                         }
                     }
-                    alert(data['msg']);
-                    window.location.href = "/index";
+                    alert("ISO9K取消认证成功!");
                     SetCash();
                 } else {
-                    alert(myMsg)
+                    alert("ISO9K取消认证失败");
                 }
             }
         });
@@ -989,7 +990,7 @@ $(document).ready(function () {
             data: JSON.stringify(IsoFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "ISO14K认证成功!") {
+                if (myMsg == "OK") {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz2","tz3", "tz5"];
                     for (var i = 0; i < battery.length; i++) {
@@ -1002,11 +1003,10 @@ $(document).ready(function () {
                             }
                         }
                     }
-                    alert(data['msg']);
-                    window.location.href = "/index";
+                    alert("ISO14K认证成功!");
                     SetCash();
                 } else {
-                    alert(myMsg)
+                    alert("ISO14K认证失败");
                 }
             }
         });
@@ -1025,7 +1025,7 @@ $(document).ready(function () {
             data: JSON.stringify(IsoFee),
             success: function (data) {
                 var myMsg = data['msg'];
-                if (myMsg == "ISO14K取消认证成功!") {
+                if (myMsg == "OK" ) {
                     //H 前端battery显示变化
                     var battery = ["tz1", "tz2","tz3", "tz5"];
                     for (var i = 0; i < battery.length; i++) {
@@ -1038,13 +1038,12 @@ $(document).ready(function () {
                             }
                         }
                     }
-                    alert(data['msg']);
-                    window.location.href = "/index";
+                    alert("ISO14K认证成功!");
                     SetCash();
                 } else {
-                    alert(myMsg)
+                    alert("ISO14K认证失败")
                 }
             }
         });
-    });
+    })
 });

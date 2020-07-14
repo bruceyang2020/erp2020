@@ -50,7 +50,8 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
      * @param
      * @author Junhao Huang
      */
-    public void add(ResearchFee ResearchFee) {
+    public String add(ResearchFee ResearchFee) {
+        String myMsg= "OK";
 
         //全局变量 写入当前公司或小组ID
         String userTeam = Jurisdiction.getUserTeam();
@@ -61,10 +62,11 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
         criteria.andEqualTo("period", ResearchFee.getPeriod());
         criteria.andEqualTo("productId", ResearchFee.getProductId());
         List<ResearchFee> updateRow = ResearchFeeMapper.selectByExample(example);
-        if(updateRow.get(0).getPeriodLeft()>0) {
+        if(updateRow.get(0).getPeriodLeft()>0&&updateRow.get(0).getTakeRight()==0) {
 
 
             updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() - 1);
+            updateRow.get(0).setTakeRight(1);
             updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//剩余期为0，则开发完成
 
             //提交新增记录，自动生成GUID主键及新增的createuser ,createtime
@@ -94,9 +96,14 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
                     accountingVoucherService.voucherMaker(userTeam, ResearchFee.getPeriod(), new BigDecimal("3"), "CPYF", "P4研发");
                     break;
 
-
             }
+
+
         }
+        else{
+            myMsg="False";
+        }
+    return myMsg;
     }
 
     @Override
@@ -104,38 +111,45 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
      * @param
      * @author Junhao Huang
      */
-    public void deleteByPeriod(String userTeam,Integer period,String productId) {
+    public String deleteByPeriod(String userTeam,Integer period,String productId) {
         //删除产品研发的记录
         //H 消除已经研发完成还能删退的bug
+        String myMsg="OK";
         if(period >1) {
             List<ResearchFee> oldRow = researchFeeService.listByperiod(userTeam, period - 1, productId);
+            List<ResearchFee> updateRow = researchFeeService.listByperiod(userTeam, period, productId);
+            if (oldRow.get(0).getState() == 0&&updateRow.get(0).getTakeRight()==1) {
 
-            if (oldRow.get(0).getState() == 0) {
-                List<ResearchFee> updateRow = researchFeeService.listByperiod(userTeam, period, productId);
                 //补充相关字段的取值
                 updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
+                updateRow.get(0).setTakeRight(0);
                 updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
 
                 //删除新增记录，自动生成GUID主键及新增的createuser ,createtime
                 BaseBeanHelper.edit(updateRow.get(0));
                 ResearchFeeMapper.updateByPrimaryKey(updateRow.get(0));
                 //删除会计凭证
-                accountingVoucherService.deleteByPeriodAndContent(userTeam, period, productId);
-            }}
-
-        else{
-                List<ResearchFee> updateRow = researchFeeService.listByperiod(userTeam, period, productId);
-                //补充相关字段的取值
-                updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
-                updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
-
-                //删除新增记录，自动生成GUID主键及新增的createuser ,createtime
-                BaseBeanHelper.edit(updateRow.get(0));
-                ResearchFeeMapper.updateByPrimaryKey(updateRow.get(0));
-                //删除会计凭证
-                accountingVoucherService.deleteByPeriodAndContent(userTeam, period, productId);
+                accountingVoucherService.deleteByPeriodAndContent(userTeam, period, productId+"研发");
+            }
+            else{
+                myMsg="False";
+            }
         }
 
+        else if (period==1){                 //H period==1 的时候，不需要追溯上一周期是否已完成某项的开发
+                List<ResearchFee> updateRow = researchFeeService.listByperiod(userTeam, period, productId);
+                //补充相关字段的取值
+                updateRow.get(0).setPeriodLeft(updateRow.get(0).getPeriodLeft() + 1);//剩余时间回撤
+                updateRow.get(0).setState(updateRow.get(0).getPeriodLeft() == 0 ? 1 : 0);//这期开发过了
+                updateRow.get(0).setTakeRight(0);
+
+                //删除新增记录，自动生成GUID主键及新增的createuser ,createtime
+                BaseBeanHelper.edit(updateRow.get(0));
+                ResearchFeeMapper.updateByPrimaryKey(updateRow.get(0));
+                //删除会计凭证
+                accountingVoucherService.deleteByPeriodAndContent(userTeam, period, productId+"研发");
+        }
+ return myMsg;
     }
 
 

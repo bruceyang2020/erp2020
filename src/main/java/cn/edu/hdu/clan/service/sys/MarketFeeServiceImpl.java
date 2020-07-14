@@ -101,10 +101,9 @@ public class MarketFeeServiceImpl implements MarketFeeService {
 
 
       }
-        myMsg =marketId+"开拓成功!";
      }
     else{
-        myMsg ="已投资或已开发完成";
+        myMsg ="False";
     }
         return  myMsg;
     }
@@ -129,10 +128,10 @@ public class MarketFeeServiceImpl implements MarketFeeService {
             MarketFeeMapper.updateByPrimaryKey(updateRow.get(0));
             //删除会计凭证
             accountingVoucherService.deleteByPeriodAndContent(userTeam, period, marketId+"市场开拓");
-            myMsg =marketId+"市场开拓取消成功!";
+
         }
         else{
-             myMsg = "请投资"+marketId;
+             myMsg = "False";
         }
         return myMsg;
 
