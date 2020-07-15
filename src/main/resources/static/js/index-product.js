@@ -590,7 +590,7 @@ $(document).ready(function () {
 
 }}
         $('.pop-pro').hide();
-    });12
+    });
 
 
 
