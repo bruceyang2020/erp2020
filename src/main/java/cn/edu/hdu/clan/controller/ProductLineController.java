@@ -47,8 +47,8 @@ public class ProductLineController extends BaseController {
 
     @RequestMapping("switching")
     public String switching(@RequestBody ProductLine ProductLine){
-        ProductLineService.switching(ProductLine);
-        return success();
+
+        return success(ProductLineService.switching(ProductLine));
     }
 
 

@@ -21,7 +21,7 @@ public interface ProductLineService {
 
     void sale(ProductLine ProductLine);//卖生产线
 
-    void switching(ProductLine ProductLine); //转产
+    String switching(ProductLine ProductLine); //转产
 
     List<ProductLine> list();
 

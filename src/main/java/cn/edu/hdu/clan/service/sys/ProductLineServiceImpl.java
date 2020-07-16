@@ -406,7 +406,10 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
     //转产准备
     @Override
-    public void switching(ProductLine productLine) {
+    public String switching(ProductLine productLine) {
+        String myMsg="OK";
+
+
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         String factoryNumber = productLine.getFactoryNumber();
@@ -423,12 +426,14 @@ public class     ProductLineServiceImpl implements ProductLineService {
                 myRow.setProductC(productC); //H 更新新的产品
                 BaseBeanHelper.edit(myRow);
                 ProductLineMapper.updateByPrimaryKey(myRow);
+                myMsg="tostop"; //手工线不需要转产，直接变成停产状态
                 break;
 
             case "柔性线":
                 myRow.setProductC(productC); //H 更新新的产品
                 BaseBeanHelper.edit(myRow);
                 ProductLineMapper.updateByPrimaryKey(myRow);
+                myMsg="tostop";//手工线不需要转产，直接变成停产状态
                 break;
 
             case "半自动":
@@ -472,7 +477,7 @@ public class     ProductLineServiceImpl implements ProductLineService {
                 break;
         }
 
-
+        return myMsg;
 
     }
 

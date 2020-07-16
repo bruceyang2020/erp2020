@@ -347,10 +347,21 @@ $(document).ready(function () {
                 contentType: "application/json;charset=utf-8;",
                 data: JSON.stringify(ProductLine),
                 success: function (data) {
-                    alert("转产成功");
-                    statusByPln(myPlnValue, "转产");
-                    window.location.reload();
-                    SetCash();
+
+                    var myMsg=data['msg'];
+                    console.log(myMsg);
+                    if(myMsg=="OK"){
+                        alert("转产成功");
+                        statusByPln(myPlnValue, "转产");
+                        SetCash();}
+                    else{
+                        alert("转产成功");
+                        statusByPln(myPlnValue, "停产");
+                        SetCash();
+                    };
+
+
+
 
                 }
             })
@@ -621,7 +632,7 @@ $(document).ready(function () {
                 alert("出售生产线成功");
                 statusByPln(myPlnValue,"出售");
                 showPLByPln(myPlnValue,"空白");
-                window.location.reload();
+
                 SetCash();
 
             }
@@ -782,11 +793,11 @@ $(document).ready(function () {
                 }
                 break;
             case "出售":
-                if (Number(pln) < 7) {
+             /*   if (Number(pln) < 7) {
                     $(myObjId).addClass('scltc-l');
                 } else {
                     $(myObjId).addClass('scltc-r');
-                }
+                }*/
                 break;
 
 
