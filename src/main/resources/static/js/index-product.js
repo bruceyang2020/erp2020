@@ -315,6 +315,9 @@ $(document).ready(function () {
     });
         editFlag[myPlnValue]=1;
     }
+    else {
+        alert("已完成操作或刷新后再试");
+    }
         $('.pop-pro').hide();
     });
 
@@ -366,6 +369,8 @@ $(document).ready(function () {
                 }
             })
 
+        }else {
+            alert("已完成操作或刷新后再试");
         }
         $('.pop-pro').hide();
     });
@@ -599,7 +604,9 @@ $(document).ready(function () {
         else{alert("请先转产！")}
         break;
 
-}}
+}}else {
+            alert("已完成操作或刷新后再试");
+        }
         $('.pop-pro').hide();
     });
 

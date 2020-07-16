@@ -424,6 +424,8 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
             case "手工线":
                 myRow.setProductC(productC); //H 更新新的产品
+                myRow.setState(2); //Y 将手工线改成“停产”状态。
+                myRow.setProcessingCycleB(0);
                 BaseBeanHelper.edit(myRow);
                 ProductLineMapper.updateByPrimaryKey(myRow);
                 myMsg="tostop"; //手工线不需要转产，直接变成停产状态
@@ -431,9 +433,11 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
             case "柔性线":
                 myRow.setProductC(productC); //H 更新新的产品
+                myRow.setState(2);  //Y 将柔性线改成“停产”状态。
+                myRow.setProcessingCycleB(0);
                 BaseBeanHelper.edit(myRow);
                 ProductLineMapper.updateByPrimaryKey(myRow);
-                myMsg="tostop";//手工线不需要转产，直接变成停产状态
+                myMsg="tostop";//柔性线不需要转产，直接变成停产状态
                 break;
 
             case "半自动":
