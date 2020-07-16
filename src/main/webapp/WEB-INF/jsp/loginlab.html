@@ -31,9 +31,11 @@
                             type: "GET",
                             data: {"token":token},
                             dataType: "json",
+                            contentType: "application/json;charset=utf-8;",
                             success: function (response) {
                                 // 此处放成功后执行的代码
                                 // 解析返回的字符串 转为json对象
+
                                 var jsonStr = response;
 
                                 var JsonData = JSON.parse(window.atob(jsonStr));
