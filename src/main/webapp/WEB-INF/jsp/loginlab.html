@@ -31,21 +31,20 @@
                             type: "GET",
                             data: {"token":token},
                             dataType: "json",
-                            contentType: "application/json;charset=utf-8;",
                             success: function (response) {
                                 // 此处放成功后执行的代码
                                 // 解析返回的字符串 转为json对象
 
                                 var jsonStr = response;
-                                console.log("解析base64解码："+decodeURIComponent(window.atob(jsonStr)));
+
                                 var JsonData = JSON.parse(decodeURIComponent(window.atob(jsonStr)));
 
                                 $("#eid").attr("value",JsonData.eId);
                                 $("#username").attr("value",JsonData.userId);
-                                $('#ilabname').attr("value",JsonData.name);
+                                $('#ilabname').attr("value",utf8to16(JsonData.name));
                                 console.log("解析JSON对象字串："+JSON.stringify(JsonData));
                                 console.log("解析eid成功："+JsonData.eId);
-                                console.log("解析username成功："+JsonData.name);
+                                console.log("解析username成功："+utf8to16(JsonData.name));
                                 toIndexPage();
 
 
@@ -119,6 +118,39 @@
                     str += Math.floor(Math.random()*10)
                 }
                 return str
+            }
+
+
+            function utf8to16(str) {
+                var out, i, len, c;
+                var char2, char3;
+                out = "";
+                len = str.length;
+                i = 0;
+                while(i < len) {
+                    c = str.charCodeAt(i++);
+                    switch(c >> 4)
+                    {
+                        case 0: case 1: case 2: case 3: case 4: case 5: case 6:case7:
+                        // 0xxxxxxx
+                        out += str.charAt(i-1);
+                        break;
+                        case 12: case 13:
+                        // 110x xxxx 10xx xxxx
+                        char2 = str.charCodeAt(i++);
+                        out += String.fromCharCode(((c & 0x1F) << 6) | (char2&0x3F));
+                        break;
+                        case 14:
+                            // 1110 xxxx 10xx xxxx 10xx xxxx
+                            char2 = str.charCodeAt(i++);
+                            char3 = str.charCodeAt(i++);
+                            out += String.fromCharCode(((c & 0x0F) << 12) |
+                                ((char2 & 0x3F) << 6) |
+                                ((char3 & 0x3F) << 0));
+                            break;
+                    }
+                }
+                return out;
             }
 
             function toIndexPage() {
