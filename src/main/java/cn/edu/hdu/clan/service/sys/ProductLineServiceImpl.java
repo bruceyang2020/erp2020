@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.service.sys;
 
 import cn.edu.hdu.clan.entity.BaseBean;
 import cn.edu.hdu.clan.entity.sys.Factory;
+import cn.edu.hdu.clan.entity.sys.Inv;
 import cn.edu.hdu.clan.entity.sys.ProductLine;
 import cn.edu.hdu.clan.entity.sys.ResearchFee;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
@@ -287,7 +288,7 @@ public class     ProductLineServiceImpl implements ProductLineService {
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
         String factoryNumber = productLine.getFactoryNumber();
         String productLineNumber = productLine.getProductLineNumber();
-        String productC=productLine.getProductC();
+        String productC=productLine.getProductC(); //产品是由前端传过来的值
 
         ProductLine myRow = productLineRow(productLine);
 
@@ -295,56 +296,120 @@ public class     ProductLineServiceImpl implements ProductLineService {
         String productLineType = myRow.getProductLineTypeId();
 
         List<ResearchFee> productRow= researchFeeService.listByperiod(userTeam,period-1,productC);
-        if(productRow.get(0).getState()==1) {
+        if(productRow.get(0).getState()==1) {   //H 判断是否有生产资格
 
-            //手工线柔性线投产直接转了，其他进不来
-            if (productLineType.equals("手工线") || productLineType.equals("柔性线")) {
-                myRow.setProductC(productC);
-            }
+            //H 判断是否存在充足的原料
+            List<Inv> invRow = invService.listInv(userTeam, period);
+            BigDecimal R1 = BigDecimal.valueOf(0);
+            BigDecimal R2 = BigDecimal.valueOf(0);
+            BigDecimal R3 = BigDecimal.valueOf(0);
+            BigDecimal R4 = BigDecimal.valueOf(0);
 
-
-            myRow.setProcessingCycleB(1); //投入生产期间
-
-            myRow.setEditFlag(1); //操作
-
-            if (myRow.getState() == 2 && processingCycleBe == 0)//H 停产转投产
-            {
-
-                myRow.setState(1);// 在产
-
-                String myProduct = myRow.getProductC();
-                switch (myProduct) {
-                    case "P1":
-                        invService.stockOutToProduce(userTeam, period, "R1", 1, factoryNumber + productLineNumber + productLineType + "P1R1");
-                        break;
-
-                    case "P2":
-                        invService.stockOutToProduce(userTeam, period, "R1", 1, factoryNumber + productLineNumber + productLineType + "P2R1");
-                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P2R3");
-                        break;
-
-                    case "P3":
-                        invService.stockOutToProduce(userTeam, period, "R2", 2, factoryNumber + productLineNumber + productLineType + "P3R2");
-                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P3R3");
-                        break;
-
-                    case "P4":
-                        invService.stockOutToProduce(userTeam, period, "R2", 1, factoryNumber + productLineNumber + productLineType + "P4R2");
-                        invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P4R3");
-                        invService.stockOutToProduce(userTeam, period, "R4", 2, factoryNumber + productLineNumber + productLineType + "P4R4");
-                        break;
+            for (Integer i = 0; i < invRow.size(); i++) {
+                if (invRow.get(i).getNumber() != null) {
+                    switch (invRow.get(i).getNumber()) {
+                        case "R1":
+                            R1 = invRow.get(i).getAmountB().add(invRow.get(i).getAmountI().subtract(invRow.get(i).getAmountO()));
+                            break;
+                        case "R2":
+                            R2 = invRow.get(i).getAmountB().add(invRow.get(i).getAmountI().subtract(invRow.get(i).getAmountO()));
+                            break;
+                        case "R3":
+                            R3 = invRow.get(i).getAmountB().add(invRow.get(i).getAmountI().subtract(invRow.get(i).getAmountO()));
+                            break;
+                        case "R4":
+                            R4 = invRow.get(i).getAmountB().add(invRow.get(i).getAmountI().subtract(invRow.get(i).getAmountO()));
+                            break;
+                    }
                 }
 
-                //自动生成投入生产的会计凭证.借在制品1 贷现金
-                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCRGF", factoryNumber + productLineNumber + productLineType + myProduct);
             }
 
-            BaseBeanHelper.edit(myRow);
-            ProductLineMapper.updateByPrimaryKey(myRow);
+
+            Boolean m = false;
+            switch (productC) {
+                case "P1":
+                    //P1 R1
+                    if (R1.compareTo(BigDecimal.valueOf(1)) != -1) {
+                        m = true;
+                    }
+                    break;
+                case "P2":
+                    //P2 R1+R3
+                    if (R1.compareTo(BigDecimal.valueOf(1)) != -1 && R3.compareTo(BigDecimal.valueOf(1)) != -1) {
+                        m = true;
+                    }
+                    break;
+                case "P3":
+                    //P3 2R2+R3
+                    if (R2.compareTo(BigDecimal.valueOf(2)) != -1 && R3.compareTo(BigDecimal.valueOf(1)) != -1) {
+                        m = true;
+                    }
+                    break;
+                case "P4":
+                    //P4 R2+R3+2R4
+                    if (R2.compareTo(BigDecimal.valueOf(1)) != -1 && R3.compareTo(BigDecimal.valueOf(1)) != -1 && R4.compareTo(BigDecimal.valueOf(2)) != -1) {
+                        m = true;
+                    }
+                    break;
+
+            }
+
+            if (m) {
+
+                //手工线柔性线投产直接转了，其他进不来
+                if (productLineType.equals("手工线") || productLineType.equals("柔性线")) {
+                    myRow.setProductC(productC);
+                }
+
+
+                myRow.setProcessingCycleB(1); //投入生产期间
+
+                myRow.setEditFlag(1); //操作
+
+                if (myRow.getState() == 2 && processingCycleBe == 0)//H 停产转投产
+                {
+
+                    myRow.setState(1);// 在产
+
+                    String myProduct = myRow.getProductC();
+                    switch (myProduct) {
+                        case "P1":
+                            invService.stockOutToProduce(userTeam, period, "R1", 1, factoryNumber + productLineNumber + productLineType + "P1R1");
+                            break;
+
+                        case "P2":
+                            invService.stockOutToProduce(userTeam, period, "R1", 1, factoryNumber + productLineNumber + productLineType + "P2R1");
+                            invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P2R3");
+                            break;
+
+                        case "P3":
+                            invService.stockOutToProduce(userTeam, period, "R2", 2, factoryNumber + productLineNumber + productLineType + "P3R2");
+                            invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P3R3");
+                            break;
+
+                        case "P4":
+                            invService.stockOutToProduce(userTeam, period, "R2", 1, factoryNumber + productLineNumber + productLineType + "P4R2");
+                            invService.stockOutToProduce(userTeam, period, "R3", 1, factoryNumber + productLineNumber + productLineType + "P4R3");
+                            invService.stockOutToProduce(userTeam, period, "R4", 2, factoryNumber + productLineNumber + productLineType + "P4R4");
+                            break;
+                    }
+
+                    //自动生成投入生产的会计凭证.借在制品1 贷现金
+                    accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCRGF", factoryNumber + productLineNumber + productLineType + myProduct);
+                }
+
+                BaseBeanHelper.edit(myRow);
+                ProductLineMapper.updateByPrimaryKey(myRow);
+            }
+            else{
+                myMsg="False";//H 是否材料充足
+            }
         }
-        else{
-            myMsg="False";
-        }
+        else {
+                myMsg = "False";//H 是否有生产资格
+            }
+
       return myMsg;
     }
 
