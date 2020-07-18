@@ -364,7 +364,7 @@ public class IndexController extends BaseController {
                 session.setAttribute(Const.SESSION_USER,sysUser3);
                 session.setAttribute(Const.SESSION_USERID,sysUser3.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser3.getTeamId());
-                session.setAttribute(Const.SESSION_ILABNAME,sysUser3.getIlabName());
+                session.setAttribute(Const.SESSION_ILABNAME,ilabName);
                 session.setAttribute(Const.SESSION_USERPERIOD,userTeam.getState().toString());  //当前的会计期间
                 session.setAttribute(Const.SESSION_EID,eId); //将教育部平台传过来的实验ID保持，用于提交成绩
 
@@ -382,7 +382,7 @@ public class IndexController extends BaseController {
                 session.setAttribute(Const.SESSION_USER,sysUser2);
                 session.setAttribute(Const.SESSION_USERID,sysUser2.getId());
                 session.setAttribute(Const.SESSION_USERTEAM,sysUser2.getTeamId());
-                session.setAttribute(Const.SESSION_ILABNAME,sysUser2.getIlabName());
+                session.setAttribute(Const.SESSION_ILABNAME,ilabName);
                 session.setAttribute(Const.SESSION_USERPERIOD,sysTeam2.getState().toString());  //当前的会计期间
                 session.setAttribute(Const.SESSION_EID,eId); //将教育部平台传过来的实验ID保持，用于提交成绩
             }
