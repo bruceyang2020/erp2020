@@ -19,6 +19,8 @@ public interface AccountBalanceService {
 
     void deleteByPeriod(String userTeam ,int period);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void sumFromVoucher(String userTeam ,int period);
 
     PageInfo<AccountBalance> list(int pageNum, int pageSize);

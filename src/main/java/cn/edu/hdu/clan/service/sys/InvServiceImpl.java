@@ -281,6 +281,17 @@ public class InvServiceImpl implements InvService {
 
 
     @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        InvMapper.deleteByExample(example);
+
+    }
+
+
+    @Override
     public void update(Inv Inv) {
         BaseBeanHelper.edit(Inv);
         Example example = new Example(Inv.class);

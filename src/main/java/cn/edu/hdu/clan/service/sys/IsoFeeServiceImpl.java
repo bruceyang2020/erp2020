@@ -129,6 +129,18 @@ public class IsoFeeServiceImpl implements IsoFeeService {
         IsoFeeMapper.deleteByExample(example);
     }
 
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(IsoFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        IsoFeeMapper.deleteByExample(example);
+
+    }
+
+
     @Override
     public void delete(String id) {
     IsoFeeMapper.deleteByPrimaryKey(id);

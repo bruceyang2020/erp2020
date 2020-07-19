@@ -58,6 +58,32 @@ $(document).ready(function () {
 
     });
 
+    $("#priordata").click(function () {
+        var currentAp = $("#currentAp").val();
+        var currentTeam = $("#currentTeam").val();
+        var mydata ={userTeam:currentTeam,period:currentAp};
+
+        if(Number(currentAp) == 1 ){
+            alert("第一年第1季不可回退，可执行初始化操作。");
+            return;
+        };
+
+        $('.jz-timeg').addClass('show');
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            url: "/priordata?tm="+new Date().getTime(),
+            contentType: "application/json;charset=utf-8;",
+            data: JSON.stringify(mydata),
+            success: function (data) {
+                var myMsg = data['msg'];
+                window.location.href = "/index";
+
+            }
+        });
+
+    });
+
 
 /*    //与教育部平台对接时，提交成绩
 * 在新窗体中操作
@@ -136,4 +162,4 @@ $(document).ready(function () {
     }
 
 
-})
+});

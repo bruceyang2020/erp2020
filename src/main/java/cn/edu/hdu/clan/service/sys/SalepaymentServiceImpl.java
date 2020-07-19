@@ -63,6 +63,16 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         SalepaymentMapper.deleteByExample(example);
     }
 
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(Salepayment.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        SalepaymentMapper.deleteByExample(example);
+
+    }
+
 
 
     @Override

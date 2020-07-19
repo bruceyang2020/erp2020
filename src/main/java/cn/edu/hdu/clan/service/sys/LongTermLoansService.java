@@ -15,6 +15,8 @@ public interface LongTermLoansService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(LongTermLoans LongTermLoans);
 
     PageInfo<LongTermLoans> list(int pageNum, int pageSize);

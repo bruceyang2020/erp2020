@@ -72,6 +72,18 @@ public class OrderManagementServiceImpl implements OrderManagementService {
     OrderManagementMapper.deleteByPrimaryKey(id);
     }
 
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(OrderManagement.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        OrderManagementMapper.deleteByExample(example);
+
+    }
+
+
     //H 出库
     @Override
     public String stockOut(String orderId) {

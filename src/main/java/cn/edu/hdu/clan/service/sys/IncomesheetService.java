@@ -15,6 +15,8 @@ public interface IncomesheetService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(Incomesheet Incomesheet);
 
     PageInfo<Incomesheet> list(int pageNum, int pageSize);

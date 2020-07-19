@@ -21,6 +21,8 @@ public interface SalepaymentService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(Salepayment Salepayment);
 
     PageInfo<Salepayment> list(int pageNum, int pageSize);

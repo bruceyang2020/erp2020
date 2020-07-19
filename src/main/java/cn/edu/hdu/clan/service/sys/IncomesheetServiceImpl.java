@@ -60,6 +60,18 @@ public class IncomesheetServiceImpl implements IncomesheetService {
     }
 
 
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(Incomesheet.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        IncomesheetMapper.deleteByExample(example);
+
+    }
+
+
     @Override
     public void delete(String id) {
     IncomesheetMapper.deleteByPrimaryKey(id);

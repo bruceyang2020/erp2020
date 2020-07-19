@@ -59,6 +59,16 @@ public class BalancesheetServiceImpl implements BalancesheetService {
         BalancesheetMapper.deleteByExample(example);
     }
 
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(Balancesheet.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        BalancesheetMapper.deleteByExample(example);
+
+    }
+
 
 
     @Override

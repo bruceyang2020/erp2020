@@ -78,6 +78,17 @@ public class AccountBalanceServiceImpl implements AccountBalanceService {
         AccountBalanceMapper.deleteByExample(example);
 
     }
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(AccountBalance.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        AccountBalanceMapper.deleteByExample(example);
+
+    }
+
     //从当期会计凭证汇总科目发生额，填充到本期的科目余额表中
     @Override
     public void sumFromVoucher(String userTeam ,int period) {//

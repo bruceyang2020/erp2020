@@ -13,6 +13,8 @@ public interface FactoryService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(Factory Factory);
 
     void sale(Factory Factory);

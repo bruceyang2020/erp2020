@@ -160,6 +160,16 @@ public class ResearchFeeServiceImpl implements ResearchFeeService {
     ResearchFeeMapper.deleteByPrimaryKey(id);
     }
 
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(ResearchFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        ResearchFeeMapper.deleteByExample(example);
+
+    }
+
 //H
     @Override
     public List<ResearchFee> listByperiod(String userTeam ,int period,String productId) {

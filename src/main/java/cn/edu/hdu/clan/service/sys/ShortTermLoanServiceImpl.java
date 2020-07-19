@@ -69,12 +69,21 @@ public class ShortTermLoanServiceImpl implements ShortTermLoanService {
         Example example = new Example(ShortTermLoan.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount",userTeam);
-        List<ShortTermLoan> oldRow1 = ShortTermLoanMapper.selectByExample(example);
-        if(oldRow1.size() > 0)
-        {
-            ShortTermLoanMapper.deleteByExample(example);
-        }
+        ShortTermLoanMapper.deleteByExample(example);
+
     }
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(ShortTermLoan.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        ShortTermLoanMapper.deleteByExample(example);
+
+    }
+
+
 
     @Override
     public void update(ShortTermLoan ShortTermLoan) {

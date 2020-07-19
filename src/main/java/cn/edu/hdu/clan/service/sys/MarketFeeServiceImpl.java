@@ -146,6 +146,17 @@ public class MarketFeeServiceImpl implements MarketFeeService {
         MarketFeeMapper.deleteByExample(example);
     }
 
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(MarketFee.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        MarketFeeMapper.deleteByExample(example);
+
+    }
+
     //H
     @Override
     public List<MarketFee> listByperiod(String userTeam ,int period,String marketId) {

@@ -23,4 +23,6 @@ public interface ShortTermLoanService {
     void voucherMakerOfInterestAndRepayment(String userTeam,int nextPeriod);
 
     void deleteByTeamCount(String userTeam);
+
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
 }

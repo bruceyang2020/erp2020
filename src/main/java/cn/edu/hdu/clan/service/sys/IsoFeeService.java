@@ -14,6 +14,8 @@ public interface IsoFeeService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(IsoFee IsoFee);
 
     PageInfo<IsoFee> list(int pageNum, int pageSize);

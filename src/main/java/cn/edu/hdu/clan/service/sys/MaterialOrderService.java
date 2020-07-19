@@ -14,6 +14,8 @@ public interface MaterialOrderService {
     void delete(String id);
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(MaterialOrder MaterialOrder);
 
     PageInfo<MaterialOrder> list(int pageNum, int pageSize);

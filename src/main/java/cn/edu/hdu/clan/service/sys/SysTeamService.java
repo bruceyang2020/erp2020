@@ -19,4 +19,6 @@ public interface SysTeamService {
     void reloadData(String userTeam,int period);
 
     void nextPeriod(String userTeam,Integer nextPeriod);
+
+    void priorPeriod(String userTeam,Integer priorPeriod);
 }
