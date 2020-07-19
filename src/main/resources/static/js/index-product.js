@@ -376,7 +376,7 @@ $(document).ready(function () {
     });
 
 
-
+    
     //当生产线投产按钮被点击
     $('#ok-pro-produce').click(function () {   //只有当停产的时候才扣原料加工费
 
@@ -391,29 +391,36 @@ $(document).ready(function () {
             editFlag[myPlnValue]=1;
 
 
-            //H 原料库显示 P1=R1 P2=R2+R3 P3=2R2+R3 P4=R2+R3+2R4
+            //H 原料库显示 P1=R1 P2=R2+R3 P3=2R2+R3 P4=R2+R3+2R4,显示注意没有库存的情况
      switch(productLineType){
        case "手工线":
         //H 判断与当前生产线产品是否一致
 
             switch (product) {
                 case "P1":
-                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    if ($("#mag-r4").text()!= "0") {
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    }
                     break;
                 case "P2":
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
-                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    if ($("#mag-r4").text() != "0" && $("#mag-r2").text() != "0") {
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    }
                     break;
                 case "P3":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    if (parseInt($("#mag-r3").text()) != 1 && parseInt($("#mag-r2").text()) != 0) {
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    }
                     break;
                 case "P4":
-                    $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    if (parseInt($("#mag-r1").text()) != 1 && parseInt($("#mag-r2").text()) != 0&&parseInt($("#mag-r3").text()) != 0) {
+                        $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    }
                     break;
-
 
             }
 
@@ -444,8 +451,6 @@ $(document).ready(function () {
             }
         })
 
-
-
         break;
 
     case "柔性线":
@@ -453,20 +458,28 @@ $(document).ready(function () {
 
             switch (product) {
                 case "P1":
-                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    if ($("#mag-r4").text()!= "0") {
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    }
                     break;
                 case "P2":
-                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    if ($("#mag-r4").text() != "0" && $("#mag-r2").text() != "0") {
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    }
                     break;
                 case "P3":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    if (parseInt($("#mag-r3").text()) != 1 && parseInt($("#mag-r2").text()) != 0) {
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    }
                     break;
                 case "P4":
-                    $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    if (parseInt($("#mag-r1").text()) != 1 && parseInt($("#mag-r2").text()) != 0&&parseInt($("#mag-r3").text()) != 0) {
+                        $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    }
                     break;
             }
 
@@ -504,20 +517,28 @@ $(document).ready(function () {
         if(productc[myPlnValue]==product){
             switch (productc[myPlnValue]) {
                 case "P1":
-                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    if ($("#mag-r4").text()!= "0") {
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    }
                     break;
                 case "P2":
-                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    if ($("#mag-r4").text() != "0" && $("#mag-r2").text() != "0") {
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    }
                     break;
                 case "P3":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    if (parseInt($("#mag-r3").text()) != 1 && parseInt($("#mag-r2").text()) != 0) {
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    }
                     break;
                 case "P4":
-                    $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    if (parseInt($("#mag-r1").text()) != 1 && parseInt($("#mag-r2").text()) != 0&&parseInt($("#mag-r3").text()) != 0) {
+                        $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    }
                     break;
             }
             var ProductLine = {
@@ -555,20 +576,28 @@ $(document).ready(function () {
         if(productc[myPlnValue]==product){
             switch (productc[myPlnValue]) {
                 case "P1":
-                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    if ($("#mag-r4").text()!= "0") {
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                    }
                     break;
                 case "P2":
-                    $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    if ($("#mag-r4").text() != "0" && $("#mag-r2").text() != "0") {
+                        $("#mag-r4").text(parseInt($("#mag-r4").text()) - 1);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    }
                     break;
                 case "P3":
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    if (parseInt($("#mag-r3").text()) != 1 && parseInt($("#mag-r2").text()) != 0) {
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                    }
                     break;
                 case "P4":
-                    $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
-                    $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
-                    $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    if (parseInt($("#mag-r1").text()) != 1 && parseInt($("#mag-r2").text()) != 0&&parseInt($("#mag-r3").text()) != 0) {
+                        $("#mag-r1").text(parseInt($("#mag-r1").text()) - 2);
+                        $("#mag-r2").text(parseInt($("#mag-r2").text()) - 1);
+                        $("#mag-r3").text(parseInt($("#mag-r3").text()) - 1);
+                    }
                     break;
             }
             var ProductLine = {
