@@ -15,6 +15,8 @@ public interface InvService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(Inv Inv);
 
     PageInfo<Inv> list(int pageNum, int pageSize);

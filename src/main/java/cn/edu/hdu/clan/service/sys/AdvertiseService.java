@@ -13,6 +13,8 @@ public interface AdvertiseService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(Advertise Advertise);
 
     PageInfo<Advertise> list(int pageNum, int pageSize);

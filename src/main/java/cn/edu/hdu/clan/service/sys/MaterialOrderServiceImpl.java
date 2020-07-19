@@ -89,6 +89,17 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
 
 
     @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(MaterialOrder.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        MaterialOrderMapper.deleteByExample(example);
+
+    }
+
+
+    @Override
     public void payment(String userTeam ,int period) {
 
         Example example = new Example(MaterialOrder.class);

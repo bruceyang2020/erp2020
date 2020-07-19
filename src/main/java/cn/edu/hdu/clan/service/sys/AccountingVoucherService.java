@@ -30,6 +30,8 @@ public interface AccountingVoucherService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void transferToProfitAndLoss(String teamCount, int period);//H
 
     List<AccountingVoucher> selectByPeriodAndUserTeam( String userTeam, Integer period);//H

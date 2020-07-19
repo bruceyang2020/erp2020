@@ -80,10 +80,20 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
     @Override
     public void deleteByTeamCount(String userTeam) {
-        Example example = new Example(Factory.class);
+        Example example = new Example(ProductLine.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         ProductLineMapper.deleteByExample(example);
+    }
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(ProductLine.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        ProductLineMapper.deleteByExample(example);
+
     }
 
 

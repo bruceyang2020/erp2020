@@ -114,6 +114,17 @@ public class AdvertiseServiceImpl implements AdvertiseService {
 
     }
 
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(Advertise.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        AdvertiseMapper.deleteByExample(example);
+
+    }
+
     @Override
     public void update(Advertise Advertise) {
         BaseBeanHelper.edit(Advertise);

@@ -17,6 +17,8 @@ public interface BalancesheetService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(Balancesheet Balancesheet);
 
     PageInfo<Balancesheet> list(int pageNum, int pageSize);

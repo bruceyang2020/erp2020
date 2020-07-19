@@ -13,6 +13,8 @@ public interface ProductLineService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(ProductLine productLine);
 
     void build(ProductLine productLine);  //生产线投资

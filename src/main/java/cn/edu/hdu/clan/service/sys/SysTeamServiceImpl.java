@@ -130,6 +130,21 @@ public class SysTeamServiceImpl implements SysTeamService {
 
 
     @Override
+    public void priorPeriod(String userTeam,Integer priorPeriod) {
+
+        //Y 根据userTeam　找到当前这个用户组的ID,将state写入下一个期间。
+        Example example = new Example(SysTeam.class);
+        example.createCriteria().andEqualTo("id", userTeam);
+        SysTeam sysTeam = SysTeamMapper.selectOneByExample(example);
+        sysTeam.setState(priorPeriod);
+        BaseBeanHelper.edit(sysTeam);
+        SysTeamMapper.updateByPrimaryKey(sysTeam);
+
+
+    }
+
+
+    @Override
     public void reloadData(String userTeam,int period) {
 
         //Y 0322,根据userTeam　找到当前这个用户组的ID,将state写入1。这个STATE是用来保存当前的会计期间的。

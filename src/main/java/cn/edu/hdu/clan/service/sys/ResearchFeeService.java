@@ -13,6 +13,8 @@ public interface ResearchFeeService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(ResearchFee ResearchFee);
 
     PageInfo<ResearchFee> list(int pageNum, int pageSize);

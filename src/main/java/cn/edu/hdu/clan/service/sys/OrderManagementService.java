@@ -30,4 +30,6 @@ public interface OrderManagementService {
 
     void deleteByTeamCount(String userTeam) ;
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     }

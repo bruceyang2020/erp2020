@@ -43,6 +43,18 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
     AccountingVoucherMapper.deleteByPrimaryKey(id);
     }
 
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(AccountingVoucher.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+
+        AccountingVoucherMapper.deleteByExample(example);
+
+    }
+
     @Override
     public void update(AccountingVoucher AccountingVoucher) {
         BaseBeanHelper.edit(AccountingVoucher);

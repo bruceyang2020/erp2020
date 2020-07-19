@@ -96,6 +96,17 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
 
 
     @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(LongTermLoans.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        LongTermLoansMapper.deleteByExample(example);
+
+    }
+
+
+    @Override
     public void update(LongTermLoans LongTermLoans) {
         BaseBeanHelper.edit(LongTermLoans);
         Example example = new Example(LongTermLoans.class);

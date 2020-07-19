@@ -14,6 +14,8 @@ public interface MarketFeeService {
 
     void deleteByTeamCount(String userTeam);
 
+    void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
     void update(MarketFee MarketFee);
 
     PageInfo<MarketFee> list(int pageNum, int pageSize);

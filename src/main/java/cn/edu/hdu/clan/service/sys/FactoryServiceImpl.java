@@ -82,6 +82,18 @@ public class FactoryServiceImpl implements FactoryService {
         FactoryMapper.deleteByExample(example);
     }
 
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
+        Example example = new Example(Factory.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        FactoryMapper.deleteByExample(example);
+
+    }
+
+
     //出售厂房。
     @Override
     public void sale(Factory Factory) {

@@ -84,6 +84,12 @@ public class IndexController extends BaseController {
 
     @Resource
     private IsoFeeService isoFeeService;
+    @Resource
+    private AdvertiseService advertiseService ;
+
+    @Resource
+    private OrderManagementService orderManagementService  ;
+
 
 
 
@@ -320,6 +326,111 @@ public class IndexController extends BaseController {
     }
 
 
+    @ResponseBody
+    @RequestMapping(value = "priordata",produces = "application/json;charset=utf-8")
+    public String priordata(@RequestBody Map<String, String> params){
+        //Y 没有用前端传过来的参数，而是直接用了当前session里的参数。
+        String userTeam = Jurisdiction.getUserTeam();
+        int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+
+        SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss SSS");//定义时间变量，并设置显示格式为： 时-分-秒-毫秒
+
+        /*------------------------------------------------将本期数据清场-----------------------------------------------------------------*/
+        accountBalanceService.deleteByTeamCountAndPeriod(userTeam,period);
+        accountingVoucherService.deleteByTeamCountAndPeriod(userTeam,period);
+        advertiseService.deleteByTeamCountAndPeriod(userTeam,period);
+        balancesheetService.deleteByTeamCountAndPeriod(userTeam,period);
+        factoryService.deleteByTeamCountAndPeriod(userTeam,period);
+        incomesheetService.deleteByTeamCountAndPeriod(userTeam,period);
+        invService.deleteByTeamCountAndPeriod(userTeam,period);
+        isoFeeService.deleteByTeamCountAndPeriod(userTeam,period);
+        longTermLoansService.deleteByTeamCountAndPeriod(userTeam,period);
+        marketFeeService.deleteByTeamCountAndPeriod(userTeam,period);
+        materialOrderService.deleteByTeamCountAndPeriod(userTeam,period);
+        orderManagementService.deleteByTeamCountAndPeriod(userTeam,period);
+        productLineService.deleteByTeamCountAndPeriod(userTeam,period);
+        researchFeeService.deleteByTeamCountAndPeriod(userTeam,period);
+        salepaymentService.deleteByTeamCountAndPeriod(userTeam,period);
+        shortTermLoanService.deleteByTeamCountAndPeriod(userTeam,period);
+
+
+        /*------------------------------------------------跳转到上一期并且数据清场-----------------------------------------------------------------*/
+        int priorPeriod = period-1;  //注意：结账的时候，会计期间要跳转到前一期。-1
+        //Y 将当前用户组的state值修改成前一个会计期间。
+        sysTeamService.priorPeriod(userTeam,priorPeriod);
+        //Y 需要将当前session中保存的会计期间也跳转到前一个会计期间。
+        Session session = Jurisdiction.getSession();
+        session.setAttribute(Const.SESSION_USERPERIOD,priorPeriod);  //设置session中的当前的会计期间
+
+        accountBalanceService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        accountingVoucherService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        advertiseService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        balancesheetService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        factoryService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        incomesheetService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        invService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        isoFeeService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        longTermLoansService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        marketFeeService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        materialOrderService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        orderManagementService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        productLineService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        researchFeeService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        salepaymentService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        shortTermLoanService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+
+
+        /*------------------------------------------------上一期的跳转之后，期初操作同closing-----------------------------------------------------------------*/
+
+        int priorPeriod2 = period-2;  //会计期间-回退期间的再前一期。-2
+
+          //BEGIN 这一部分的代码有点难度，改不动了 Y 20200719
+        System.out.print("核算过程7采购订单到期支付："+sdf.format(new Date()));
+        //原材料订单到期，会计账务处理：现金减少
+        materialOrderService.payment(userTeam,priorPeriod);
+
+        System.out.print("核算过程8材料入库："+sdf.format(new Date()));
+        //H 原材料订单到期，材料入库
+        invService.goToPeriod(userTeam,priorPeriod);
+
+        System.out.print("核算过程9收到应收账款："+sdf.format(new Date()));
+        //应收账款到期，会计账务处理：现金增加
+        salepaymentService.receivePayment(userTeam,priorPeriod);
+
+        System.out.print("核算过程10："+sdf.format(new Date()));
+
+        //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
+        longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,priorPeriod);
+
+        System.out.print("核算过程11："+sdf.format(new Date()));
+        //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
+        shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,priorPeriod);
+
+        //END这一部分的代码有点难度，改不动了 Y 20200719
+
+
+        System.out.print("核算过程12："+sdf.format(new Date()));
+        //复制厂房信息到下一会计期间。
+        factoryService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+
+        System.out.print("核算过程13："+sdf.format(new Date()));
+        //复制生产线信息到下一会计期间。
+        productLineService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+
+        System.out.print("核算过程14："+sdf.format(new Date()));
+        //复制市场开拓信息到下一期
+        marketFeeService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+
+        System.out.print("核算过程15："+sdf.format(new Date()));
+        //复制产品研发信息到下一期
+        researchFeeService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+
+        System.out.print("核算过程16："+sdf.format(new Date()));
+        //复制ISO认证到信息到下一期
+        isoFeeService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+
+        return success("结转成功");
+    }
 
 
     @ResponseBody
