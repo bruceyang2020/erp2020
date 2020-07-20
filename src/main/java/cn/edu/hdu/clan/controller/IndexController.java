@@ -442,12 +442,8 @@ public class IndexController extends BaseController {
         Subject subject = SecurityUtils.getSubject();
 
         try{
-      
-
 
             SysUser sysUser2  = userService.findByUsername(userName);
-
-
 
             //当教育部平台传过来的USERNAME 也就是ID在系统中不存在。
             if (sysUser2 == null) {
