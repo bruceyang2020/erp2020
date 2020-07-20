@@ -66,7 +66,7 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
 
 
     @Override
-    // H  所得税和结转期末损益会计凭证记录  Y 性能优化，不使用sumMonye。将查询加载到内存后，再计算，并将查询条件数据范围缩小
+    // H  所得税和结转期末损益会计凭证记录  Y 性能优化，不使用sumMoney。将查询加载到内存后，再计算，并将查询条件数据范围缩小
     public void transferToProfitAndLoss(String teamCount, int period){
 
         BigDecimal netMoney = BigDecimal.valueOf(0);
