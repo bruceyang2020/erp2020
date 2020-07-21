@@ -18,11 +18,15 @@ public interface ShortTermLoanService {
 
     ShortTermLoan getById(String id);
 
-    List<ShortTermLoan> getByUserIdAndPeriod(String userTeam);
+    List<ShortTermLoan> getByUserIdAndPeriod(String userTeam,int period);
 
     void voucherMakerOfInterestAndRepayment(String userTeam,int nextPeriod);
 
     void deleteByTeamCount(String userTeam);
 
     void deleteByTeamCountAndPeriod(String userTeam ,int period);
+
+    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
+
+    void adds(List<ShortTermLoan>  shortTermLoanList);
 }

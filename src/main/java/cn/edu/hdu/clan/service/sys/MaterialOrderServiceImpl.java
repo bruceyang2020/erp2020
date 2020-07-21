@@ -180,6 +180,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         Example example = new Example(MaterialOrder.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
+        criteria.andNotEqualTo("state",1);
         return MaterialOrderMapper.selectByExample(example);}
 
     /** H

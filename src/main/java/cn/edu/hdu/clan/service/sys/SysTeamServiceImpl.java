@@ -158,8 +158,6 @@ public class SysTeamServiceImpl implements SysTeamService {
         // 清空会计凭证
         accountingVoucherService.deleteByTeamCount(userTeam);
 
-        //清空短贷
-        shortTermLoanService.deleteByTeamCount(userTeam);
 
         //清空高利贷
         usuryService.deleteByTeamCount(userTeam);
@@ -278,6 +276,14 @@ public class SysTeamServiceImpl implements SysTeamService {
         marketFeeService.deleteByTeamCount(userTeam);
         marketFeeService.adds(marketFees);
         System.out.println(json11);
+
+        //H 短贷初始化
+        String jsonStr12 = PropertiesUtils.readJsonFile("jsondata/initShortTermLoan.json");
+        JSONArray json12 = JSONArray.fromObject(jsonStr12);
+        List<ShortTermLoan> shortTermLoanList= (List<ShortTermLoan>)JSONArray.toCollection(json12, ShortTermLoan.class);
+        shortTermLoanService.deleteByTeamCount(userTeam);
+        shortTermLoanService.adds(shortTermLoanList);
+        System.out.println(json12);
 
 
     }
