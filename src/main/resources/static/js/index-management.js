@@ -8,7 +8,6 @@ $(document).ready(function () {
         contentType: "application/json;charset=utf-8;",
         success: function (data) {
             data = data['data'];
-
             $.each(data,function(n,value){
                 if(value.number == "R1")
                 {  $("#mag-r4").text(value.amountB+value.amountI-value.amountO);}
@@ -46,7 +45,6 @@ $(document).ready(function () {
             $.each(data,function(n,value){
                 var currentAp =$("#currentAp").val();
                 var leadTime = 1+currentAp*1-value.period;
-                console.log(leadTime);
                 if(value.materialId == "R1" && leadTime == 1 )
                 {  $("#r1-1").val(value.amount);}
                 if(value.materialId == "R2" && leadTime == 1)
