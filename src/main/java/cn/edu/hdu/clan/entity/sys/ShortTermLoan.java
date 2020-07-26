@@ -26,6 +26,12 @@ public class ShortTermLoan extends BaseBean {
     private Integer period;
 
     /**
+     * 当前会计期间
+     */
+    @Column(name = "current_period")
+    private Integer currentPeriod;
+
+    /**
      * 金额
      */
     @Column(name = "money_total")
@@ -126,6 +132,25 @@ public class ShortTermLoan extends BaseBean {
     public void setPeriod(Integer period) {
         this.period = period;
     }
+
+    /**
+     * 当前会计期间
+     *
+     * @return current_period - 当前会计期间
+     */
+    public Integer getCurrentPeriod() {
+        return currentPeriod;
+    }
+
+    /**
+     * 设置短贷产生期间
+     *
+     * @param currentPeriod 短贷产生期间
+     */
+    public void setCurrentPeriod(Integer currentPeriod) {
+        this.currentPeriod = currentPeriod;
+    }
+
 
     /**
      * 获取金额

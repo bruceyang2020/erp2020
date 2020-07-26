@@ -41,8 +41,13 @@
                     $("#money_other").text(data.moneyOther);
                     var sqlr = lxqlr-data.moneyOther*1-data.moneyInterest*1;
                     $("#money_notax").text(sqlr);
-                    $("#money_tax").text(data.moneyTax);
-                    var jlr = sqlr -data.moneyTax*1;
+                    if(data.moneyTax>0) {
+                        $("#money_tax").text(data.moneyTax);
+                    }
+                    else{
+                        $("#money_tax").text(0);
+                    }
+                    var jlr = sqlr - $("#money_tax").text();
                     $("#money_income").text(jlr);
 
 
@@ -80,8 +85,13 @@
                         $("#money_other1").text(data.moneyOther);
                         var sqlr = lxqlr-data.moneyOther*1-data.moneyInterest*1;
                         $("#money_notax1").text(sqlr);
-                        $("#money_tax1").text(data.moneyTax);
-                        var jlr = sqlr -data.moneyTax*1;
+                        if(data.moneyTax>0) {
+                            $("#money_tax1").text(data.moneyTax);
+                        }
+                        else{
+                            $("#money_tax1").text(0);
+                        }
+                        var jlr = sqlr - $("#money_tax1").text();
                         $("#money_income1").text(jlr);
 
 

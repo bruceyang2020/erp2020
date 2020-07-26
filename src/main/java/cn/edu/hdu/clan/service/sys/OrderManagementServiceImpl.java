@@ -96,7 +96,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
         Example example = new Example(OrderManagement.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("orderId", orderId);
-        criteria.andEqualTo("teamId", userTeam);  //
+        criteria.andEqualTo("teamId", userTeam);
 
         OrderManagement myOrderManagement =  OrderManagementMapper.selectOneByExample(example);
 
