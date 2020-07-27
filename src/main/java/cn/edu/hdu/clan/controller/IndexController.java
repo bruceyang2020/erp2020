@@ -332,6 +332,7 @@ public class IndexController extends BaseController {
     }
 
 
+    //回退的功能：基本原理是把本期数据删除，同时把上一期的数据删除，将上两期的期末数据更新到上一期，实现上一期的期初数据状态
     @ResponseBody
     @RequestMapping(value = "priordata",produces = "application/json;charset=utf-8")
     public String priordata(@RequestBody Map<String, String> params){
