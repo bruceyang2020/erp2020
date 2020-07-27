@@ -29,4 +29,6 @@ public interface LongTermLoansService {
     //H 长贷利息期初还息记入下一年度财务费用
     void voucherMakerOfInterestAndRepayment(String userTeam,int nextPeriod);
 
+    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);//H 长贷复制到下一个会计期间
+
 }

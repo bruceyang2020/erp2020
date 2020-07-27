@@ -8,6 +8,7 @@ $(document).ready(function () {
         contentType: "application/json;charset=utf-8;",
         success: function (data) {
             data = data['data'];
+
             $.each(data,function(n,value){
                 if(value.number == "R1")
                 {  $("#mag-r4").text(value.amountB+value.amountI-value.amountO);}
@@ -43,19 +44,24 @@ $(document).ready(function () {
             data = data['data'];
 
             $.each(data,function(n,value){
-                var currentAp =$("#currentAp").val();
-                var leadTime = 1+currentAp*1-value.period;
-                if(value.materialId == "R1" && leadTime == 1 )
+                var currentAp =$('#currentAp').val();
+                var leadTime = currentAp*1-value.period;
+                console.log("当前会计期间");
+                console.log($('#currentAp').val());
+                console.log(currentAp);
+                console.log(leadTime);
+                console.log(value.period);
+                if(value.materialId == "R1" && leadTime == 0 )
                 {  $("#r1-1").val(value.amount);}
-                if(value.materialId == "R2" && leadTime == 1)
+                if(value.materialId == "R2" && leadTime == 0)
                 {  $("#r2-1").val(value.amount);}
-                if(value.materialId == "R3"  && leadTime == 1)
+                if(value.materialId == "R3"  && leadTime == 0)
                 {  $("#r3-2").val(value.amount);}
-                if(value.materialId == "R3"  && leadTime == 2)
+                if(value.materialId == "R3"  && leadTime == 1)
                 {  $("#r3-1").val(value.amount);}
-                if(value.materialId == "R4" && leadTime == 1)
+                if(value.materialId == "R4" && leadTime == 0)
                 {  $("#r4-2").val(value.amount);}
-                if(value.materialId == "R4" && leadTime == 2)
+                if(value.materialId == "R4" && leadTime == 1)
                 {  $("#r4-1").val(value.amount);}
 
             });

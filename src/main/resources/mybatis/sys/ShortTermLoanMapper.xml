@@ -10,6 +10,7 @@
     <result column="team_count" property="teamCount" jdbcType="INTEGER" />
     <result column="number" property="number" jdbcType="INTEGER" />
     <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="current_period" property="currentPeriod" jdbcType="INTEGER" />
     <result column="money_total" property="moneyTotal" jdbcType="DECIMAL" />
     <result column="surplus_period" property="surplusPeriod" jdbcType="INTEGER" />
     <result column="create_user" property="createUser" jdbcType="VARCHAR" />

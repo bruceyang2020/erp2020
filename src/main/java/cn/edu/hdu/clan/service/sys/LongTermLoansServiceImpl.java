@@ -2,6 +2,7 @@ package cn.edu.hdu.clan.service.sys;
 
 
 import cn.edu.hdu.clan.entity.sys.LongTermLoans;
+import cn.edu.hdu.clan.entity.sys.ResearchFee;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.LongTermLoansMapper;
 import cn.edu.hdu.clan.util.Jurisdiction;
@@ -169,6 +170,27 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
             //H 利息记账
             accountingVoucherService.voucherMaker(userTeam, nextPeriod, longTermLoansInterest, "LXFY", "长期贷款利息");
         }
+    }
+
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(LongTermLoans.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<LongTermLoans> factorys = LongTermLoansMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                LongTermLoans myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                LongTermLoansMapper.insert(myRow);
+
+            }
+        }
+
     }
 
 }

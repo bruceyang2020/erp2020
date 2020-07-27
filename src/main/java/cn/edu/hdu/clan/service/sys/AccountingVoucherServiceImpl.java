@@ -131,7 +131,8 @@ public class AccountingVoucherServiceImpl implements AccountingVoucherService {
             taxMoney = netMoney.multiply(BigDecimal.valueOf(0.25)).setScale(0, BigDecimal.ROUND_DOWN);  //所得税0.25,向下取整。这个BIGDECIMAL的语法真的是够烦的！
             netMoney = netMoney.subtract(taxMoney);
         }
-        else{taxMoney=BigDecimal.valueOf(0);}
+        //H 20200720 当毛利小于0的时候，算一个负的税值来抵减未来的所得税。（注，未来的所得税只有一年的抵减期）。净利润不发生改变。
+        else{taxMoney=netMoney.multiply(BigDecimal.valueOf(0.25)).setScale(0, BigDecimal.ROUND_DOWN);}
         accountingVoucherService.voucherMaker(teamCount,period,taxMoney,"SDS","所得税费用");
         System.out.println(revenue);
         System.out.println(variableCost);

@@ -17,7 +17,7 @@ $(document).ready(function () {
             $('#fin-gg').text(parseInt(data['avdertisedcost']));
             $('#fin-bg').text(parseInt(data['managementcost']));
             $('#fin-zj').text(parseInt(data['depreciation']));
-            $('#fin-sds').text(parseInt(data['incometax']));
+            $('#fin-sds').text(parseInt(data['incometax'])>0?parseInt(data['incometax'])>0:0);//H 所得税负数不显示
         }
     });
 

@@ -48,6 +48,6 @@ public class ShortTermLoanController extends BaseController {
     public String getByUserIdAndPeriod() {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-        return success(ShortTermLoanService.getByUserIdAndPeriod(userTeam));
+        return success(ShortTermLoanService.getByUserIdAndPeriod(userTeam,period));
     }
 }
