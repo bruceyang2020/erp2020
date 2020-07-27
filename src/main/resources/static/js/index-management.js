@@ -46,11 +46,6 @@ $(document).ready(function () {
             $.each(data,function(n,value){
                 var currentAp =$('#currentAp').val();
                 var leadTime = currentAp*1-value.period;
-                console.log("当前会计期间");
-                console.log($('#currentAp').val());
-                console.log(currentAp);
-                console.log(leadTime);
-                console.log(value.period);
                 if(value.materialId == "R1" && leadTime == 0 )
                 {  $("#r1-1").val(value.amount);}
                 if(value.materialId == "R2" && leadTime == 0)

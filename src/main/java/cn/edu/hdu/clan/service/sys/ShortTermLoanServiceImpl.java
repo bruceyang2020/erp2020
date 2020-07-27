@@ -98,7 +98,7 @@ public class ShortTermLoanServiceImpl implements ShortTermLoanService {
         Example example = new Example(ShortTermLoan.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("currentPeriod", period);
         ShortTermLoanMapper.deleteByExample(example);
 
     }

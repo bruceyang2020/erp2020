@@ -53,12 +53,12 @@ public class SalepaymentController extends BaseController {
     }
 
 
-    @RequestMapping("discountedMoney")
+    @RequestMapping(value="discountedMoney",produces = "application/json;charset=utf-8")
     public String discountedMoney(@RequestBody Map<String, Integer> discountedAmount) {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-        SalepaymentService.discountedMoney(period,userTeam,new BigDecimal(discountedAmount.get("amount")));
-        return success();
+
+        return success(SalepaymentService.discountedMoney(period,userTeam,new BigDecimal(discountedAmount.get("amount"))));
     }
 
 }

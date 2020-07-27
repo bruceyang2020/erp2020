@@ -64,7 +64,8 @@ $(document).ready(function () {
         }
     })
 
-    //应收款贴现
+    //H 应收款贴现
+    //20200727 H 还缺少一个显示刷新
     $('#fin-ok').click(function() {
 
         var discountedAmount ={
@@ -79,8 +80,15 @@ $(document).ready(function () {
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(discountedAmount),
             success: function (data) {
-                SetCash();
-                alert("贴现成功");
+                var myMsg =data['msg'];
+                if(myMsg=="OK"){
+                    SetCash();
+                    alert("贴现成功");
+                }
+                else{
+                    alert("请输入正确的金额");
+                }
+
             }
         });
     })

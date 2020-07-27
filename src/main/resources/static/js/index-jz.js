@@ -62,9 +62,9 @@ $(document).ready(function () {
         var currentAp = $("#currentAp").val();
         var currentTeam = $("#currentTeam").val();
         var mydata ={userTeam:currentTeam,period:currentAp};
-
-        if(Number(currentAp) == 1 ){
-            alert("第一年第1季不可回退，可执行初始化操作。");
+        //H 不知道为什么，这里第二季度没有控住？？
+        if(Number(currentAp) ==1||Number(currentAp) ==2 ){
+            alert("第一年第1季和第二季不可回退，可执行初始化操作。");
             return;
         };
 

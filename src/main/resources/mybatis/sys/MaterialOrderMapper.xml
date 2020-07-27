@@ -9,6 +9,7 @@
     <result column="group_id" property="groupId" jdbcType="INTEGER" />
     <result column="team_count" property="teamCount" jdbcType="INTEGER" />
     <result column="period" property="period" jdbcType="INTEGER" />
+    <result column="current_period" property="currentPeriod" jdbcType="INTEGER" />
     <result column="material_id" property="materialId" jdbcType="INTEGER" />
     <result column="amount" property="amount" jdbcType="INTEGER" />
     <result column="money_total" property="moneyTotal" jdbcType="DECIMAL" />
