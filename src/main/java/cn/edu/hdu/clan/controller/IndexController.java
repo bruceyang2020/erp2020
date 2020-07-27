@@ -165,6 +165,7 @@ public class IndexController extends BaseController {
             session.setAttribute(Const.SESSION_USERTEAM,sysUser.getTeamId());
             session.setAttribute(Const.SESSION_USERPERIOD,sysTeam.getState().toString());  //当前的会计期间
             session.setAttribute(Const.SESSION_EID,"888"); //将教育部平台传过来的实验ID保持，
+            session.setAttribute(Const.SESSION_ILABNAME,"guest"); //将教育部平台传过来的实验ID保持，
 
 
 
@@ -223,6 +224,8 @@ public class IndexController extends BaseController {
 
         SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss SSS");//定义时间变量，并设置显示格式为： 时-分-秒-毫秒
 
+        /*------------------------------------------------期间结转----------------------------------------------------------------*/
+
         System.out.print("核算过程1扣减本期终合办公费："+sdf.format(new Date()));
         //H 扣减行政管理费用会计凭证：这里默认为1
         accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("1"),"GLFY","管理费用");
@@ -246,8 +249,6 @@ public class IndexController extends BaseController {
         System.out.print("核算过程6转上年度净利开始："+sdf.format(new Date()));
         //H 转上年度年度净利
         accountBalanceService.makeVoucherOfNI(userTeam,period);
-
-
 
 
         System.out.print("期末损益："+sdf.format(new Date()));
@@ -280,53 +281,73 @@ public class IndexController extends BaseController {
         Session session = Jurisdiction.getSession();
         session.setAttribute(Const.SESSION_USERPERIOD,nextPeriod);  //当前的会计期间
 
-        System.out.print("核算过程7采购订单到期支付："+sdf.format(new Date()));
-        //原材料订单到期，会计账务处理：现金减少
-        materialOrderService.payment(userTeam,nextPeriod);
+        /*------------------------------------------------复制到下一会计期间----------------------------------------------------------------*/
 
-        System.out.print("核算过程8材料入库："+sdf.format(new Date()));
-        //H 原材料订单到期，材料入库
-        invService.goToPeriod(userTeam,nextPeriod);
-
-        System.out.print("核算过程9收到应收账款："+sdf.format(new Date()));
-        //应收账款到期，会计账务处理：现金增加
-        salepaymentService.receivePayment(userTeam,nextPeriod);
-
-        System.out.print("核算过程10："+sdf.format(new Date()));
-
-        //长期贷款复制到下一会计期间
+        System.out.print("核算过程7：复制"+sdf.format(new Date()));
+        //H 长期贷款复制到下一会计期间
         longTermLoansService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-        System.out.print("核算过程11："+sdf.format(new Date()));
-
-        //短期贷款复制到下一会计期间
+        System.out.print("核算过程8：复制"+sdf.format(new Date()));
+        //H 短期贷款复制到下一会计期间
         shortTermLoanService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-        System.out.print("核算过程12："+sdf.format(new Date()));
+        System.out.print("核算过程9：复制"+sdf.format(new Date()));
+        //H 应收账款复制到下一会计期间
+        salepaymentService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        System.out.print("核算过程10：复制"+sdf.format(new Date()));
+        //H 订单信息复制到下一会计期间
+        materialOrderService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        System.out.print("核算过程11：复制"+sdf.format(new Date()));
+        //H 存货信息复制到下一会计期间
+        invService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        System.out.print("核算过程12：复制"+sdf.format(new Date()));
         //复制厂房信息到下一会计期间。
         factoryService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-        System.out.print("核算过程13："+sdf.format(new Date()));
-        //复制生产线信息到下一会计期间。
+        System.out.print("核算过程13：复制"+sdf.format(new Date()));
+        //H 复制生产线信息到下一会计期间。包含了产品入库
         productLineService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-        System.out.print("核算过程14："+sdf.format(new Date()));
+        System.out.print("核算过程14：复制"+sdf.format(new Date()));
         //复制市场开拓信息到下一期
         marketFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-        System.out.print("核算过程15："+sdf.format(new Date()));
+        System.out.print("核算过程15：复制"+sdf.format(new Date()));
         //复制产品研发信息到下一期
         researchFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-        System.out.print("核算过程16："+sdf.format(new Date()));
+        System.out.print("核算过程16：复制"+sdf.format(new Date()));
         //复制ISO认证到信息到下一期
         isoFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
+        //复制高利贷到下一期
+        usuryService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
+        /*------------------------------------------------下一会计期间开始----------------------------------------------------------------*/
+        System.out.print("核算过程17：短贷还本还息"+sdf.format(new Date()));
         //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
         shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
+
+        System.out.print("核算过程18：长贷还本还息"+sdf.format(new Date()));
         //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
         longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
+
+        System.out.print("核算过程19收到应收账款："+sdf.format(new Date()));
+        //应收账款到期，会计账务处理：现金增加
+        salepaymentService.receivePayment(userTeam,nextPeriod);
+
+        System.out.print("核算过程20采购订单到期支付："+sdf.format(new Date()));
+        //原材料订单到期，会计账务处理：现金减少
+        materialOrderService.payment(userTeam,nextPeriod);
+
+        System.out.print("核算过程21材料入库："+sdf.format(new Date()));
+        //H 原材料订单到期，材料入库
+        invService.goToPeriod(userTeam,nextPeriod);
+
+
 
         return success("结转成功");
     }
@@ -359,6 +380,7 @@ public class IndexController extends BaseController {
         researchFeeService.deleteByTeamCountAndPeriod(userTeam,period);
         salepaymentService.deleteByTeamCountAndPeriod(userTeam,period);
         shortTermLoanService.deleteByTeamCountAndPeriod(userTeam,period);
+        usuryService.deleteByTeamCountAndPeriod(userTeam,period);
 
 
         /*------------------------------------------------跳转到上一期并且数据清场-----------------------------------------------------------------*/
@@ -385,56 +407,74 @@ public class IndexController extends BaseController {
         researchFeeService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
         salepaymentService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
         shortTermLoanService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
+        usuryService.deleteByTeamCountAndPeriod(userTeam,priorPeriod);
 
 
         /*------------------------------------------------上一期的跳转之后，期初操作同closing-----------------------------------------------------------------*/
 
         int priorPeriod2 = period-2;  //会计期间-回退期间的再前一期。-2
 
-          //BEGIN 这一部分的代码有点难度，改不动了 Y 20200719
-        System.out.print("核算过程7采购订单到期支付："+sdf.format(new Date()));
-        //原材料订单到期，会计账务处理：现金减少
-        materialOrderService.payment(userTeam,priorPeriod);
+        System.out.print("核算过程1：复制"+sdf.format(new Date()));
+        //H 长期贷款复制到下一会计期间
+        longTermLoansService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+        System.out.print("核算过程2：复制"+sdf.format(new Date()));
+        //H 短期贷款复制到下一会计期间
+        shortTermLoanService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+        System.out.print("核算过程3：复制"+sdf.format(new Date()));
+        //H 应收账款复制到下一会计期间
+        salepaymentService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+        System.out.print("核算过程4：复制"+sdf.format(new Date()));
+        //H 订单信息复制到下一会计期间
+        materialOrderService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
 
-        System.out.print("核算过程8材料入库："+sdf.format(new Date()));
-        //H 原材料订单到期，材料入库
-        invService.goToPeriod(userTeam,priorPeriod);
+        System.out.print("核算过程5：复制"+sdf.format(new Date()));
+        //H 存货信息复制到下一会计期间
+        invService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
 
-        System.out.print("核算过程9收到应收账款："+sdf.format(new Date()));
-        //应收账款到期，会计账务处理：现金增加
-        salepaymentService.receivePayment(userTeam,priorPeriod);
-
-        System.out.print("核算过程10："+sdf.format(new Date()));
-
-        //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
-        longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,priorPeriod);
-
-        System.out.print("核算过程11："+sdf.format(new Date()));
-        //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
-        shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,priorPeriod);
-
-        //END这一部分的代码有点难度，改不动了 Y 20200719
-
-
-        System.out.print("核算过程12："+sdf.format(new Date()));
+        System.out.print("核算过程6：复制"+sdf.format(new Date()));
         //复制厂房信息到下一会计期间。
         factoryService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
 
-        System.out.print("核算过程13："+sdf.format(new Date()));
-        //复制生产线信息到下一会计期间。
+        System.out.print("核算过程7：复制"+sdf.format(new Date()));
+        //复制生产线信息到下一会计期间。包含了产品入库
         productLineService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
 
-        System.out.print("核算过程14："+sdf.format(new Date()));
+        System.out.print("核算过程8：复制"+sdf.format(new Date()));
         //复制市场开拓信息到下一期
         marketFeeService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
 
-        System.out.print("核算过程15："+sdf.format(new Date()));
+        System.out.print("核算过程9：复制"+sdf.format(new Date()));
         //复制产品研发信息到下一期
         researchFeeService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
 
-        System.out.print("核算过程16："+sdf.format(new Date()));
+        System.out.print("核算过程10：复制"+sdf.format(new Date()));
         //复制ISO认证到信息到下一期
         isoFeeService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+
+        usuryService.copyDataToNextPeriod(userTeam,priorPeriod2,priorPeriod);
+
+        /*------------------------------------------------下一会计期间开始----------------------------------------------------------------*/
+        System.out.print("核算过程11：短贷还本还息"+sdf.format(new Date()));
+        //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
+        shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,priorPeriod);
+        System.out.print("核算过程12：长贷还本还息"+sdf.format(new Date()));
+        //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
+        longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,priorPeriod);
+
+        System.out.print("核算过程13收到应收账款："+sdf.format(new Date()));
+        //应收账款到期，会计账务处理：现金增加
+        salepaymentService.receivePayment(userTeam,priorPeriod);
+
+        System.out.print("核算过程14采购订单到期支付："+sdf.format(new Date()));
+        //原材料订单到期，会计账务处理：现金减少
+        materialOrderService.payment(userTeam,priorPeriod);
+
+        System.out.print("核算过程15材料入库："+sdf.format(new Date()));
+        //H 原材料订单到期，材料入库
+        invService.goToPeriod(userTeam,priorPeriod);
+
+
+
 
         return success("结转成功");
     }

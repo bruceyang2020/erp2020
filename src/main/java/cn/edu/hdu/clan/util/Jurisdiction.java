@@ -67,5 +67,12 @@ public class Jurisdiction {
 		return getSession().getAttribute(Const.SESSION_EID).toString();
 	}
 
+	/**获取当前登录的用户的Ilab
+	 * @return
+	 */
+	public static String  getUserIlabName(){
+		return getSession().getAttribute(Const.SESSION_ILABNAME).toString();
+	}
+
 
 }

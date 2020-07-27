@@ -44,21 +44,21 @@ public class InvServiceImpl implements InvService {
         InvMapper.insert(Inv);
 
     }
-    /**H 转下个季度时原材料入库
+
+    /**H 转下个季度
      * @param
      */
-    public void goToPeriod(String userTeam,int period){
+    public void copyDataToNextPeriod(String userTeam,int perid ,int nextPeriod){
 
-        List<MaterialOrder> materialOrderList12 = materialOrderService.listR1R2(period);
-        List<MaterialOrder> materialOrderList34 = materialOrderService.listR3R4(period);
-        List<Inv> inv= invService.listInv(userTeam,period-1);//上期数取出期初数
+
+        List<Inv> inv= invService.listInv(userTeam,nextPeriod-1);//上期数取出期初数
         //H 上期期末数，如果period=1 默认上期期末数为0
         BigDecimal r1Ab=  BigDecimal.valueOf(0); BigDecimal r2Ab=  BigDecimal.valueOf(0);BigDecimal r3Ab=  BigDecimal.valueOf(0); BigDecimal r4Ab=  BigDecimal.valueOf(0);
         BigDecimal r1Mb=  BigDecimal.valueOf(0); BigDecimal r2Mb=  BigDecimal.valueOf(0);BigDecimal r3Mb=  BigDecimal.valueOf(0); BigDecimal r4Mb=  BigDecimal.valueOf(0);
         BigDecimal p1Ab=  BigDecimal.valueOf(0); BigDecimal p2Ab=  BigDecimal.valueOf(0);BigDecimal p3Ab=  BigDecimal.valueOf(0); BigDecimal p4Ab=  BigDecimal.valueOf(0);
         BigDecimal p1Mb=  BigDecimal.valueOf(0); BigDecimal p2Mb=  BigDecimal.valueOf(0);BigDecimal p3Mb=  BigDecimal.valueOf(0); BigDecimal p4Mb=  BigDecimal.valueOf(0);
         //H 通过上期期初数和发生额计算本期期初数
-        if (period!=1) {
+        if (nextPeriod !=1) {
             for (int i = 0; i < inv.size(); i++) {
                 switch (inv.get(i).getNumber()) {
                     case "R1":
@@ -97,10 +97,137 @@ public class InvServiceImpl implements InvService {
                 }
             }
         }
+        Inv inv1=new Inv();Inv inv2=new Inv();Inv inv3=new Inv();Inv inv4=new Inv();
+        //H 在结转时写入
+        inv1.setTeamCount(userTeam);
+        inv1.setGroupId("1000");
+        inv1.setPeriod(nextPeriod);
+        inv1.setNumber("R1");
+        inv1.setMoneyB(r1Mb);
+        inv1.setAmountB(r1Ab);
+        inv1.setMoneyI(BigDecimal.valueOf(0));
+        inv1.setAmountI(BigDecimal.valueOf(0));
+        inv1.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv1.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv1.setCost(new BigDecimal(1));
+        BaseBeanHelper.insert(inv1);
+        InvMapper.insert(inv1);
+
+        inv2.setTeamCount(userTeam);
+        inv2.setGroupId("1000");
+        inv2.setPeriod(nextPeriod);
+        inv2.setNumber("R2");
+        inv2.setMoneyB(r2Mb);
+        inv2.setAmountB(r2Ab);
+        inv2.setMoneyI(BigDecimal.valueOf(0));
+        inv2.setAmountI(BigDecimal.valueOf(0));
+        inv2.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv2.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv2.setCost(new BigDecimal(1));
+        BaseBeanHelper.insert(inv2);
+        InvMapper.insert(inv2);
+
+        inv3.setTeamCount(userTeam);
+        inv3.setGroupId("1000");
+        inv3.setPeriod(nextPeriod);
+        inv3.setNumber("R3");
+        inv3.setMoneyB(r3Mb);
+        inv3.setAmountB(r3Ab);
+        inv3.setMoneyI(BigDecimal.valueOf(0));
+        inv3.setAmountI(BigDecimal.valueOf(0));
+        inv3.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv3.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv3.setCost(new BigDecimal(1));
+        BaseBeanHelper.insert(inv3);
+        InvMapper.insert(inv3);
+
+        inv4.setTeamCount(userTeam);
+        inv4.setGroupId("1000");
+        inv4.setPeriod(nextPeriod);
+        inv4.setNumber("R4");
+        inv4.setMoneyB(r4Mb);
+        inv4.setAmountB(r4Ab);
+        inv4.setMoneyI(BigDecimal.valueOf(0));
+        inv4.setAmountI(BigDecimal.valueOf(0));
+        inv4.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv4.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
+        inv4.setCost(new BigDecimal(1));
+        BaseBeanHelper.insert(inv4);
+        InvMapper.insert(inv4);
+
+
+        Inv invP1=new Inv();Inv invP2=new Inv();Inv invP3=new Inv();Inv invP4=new Inv();
+
+        //H 在结转时写入
+        invP1.setTeamCount(userTeam);
+        invP1.setGroupId("1000");
+        invP1.setPeriod(nextPeriod);
+        invP1.setNumber("P1");
+        invP1.setMoneyB(p1Mb);
+        invP1.setAmountB(p1Ab);
+        invP1.setMoneyI(BigDecimal.valueOf(0));
+        invP1.setAmountI(BigDecimal.valueOf(0));
+        invP1.setAmountO(BigDecimal.valueOf(0));
+        invP1.setMoneyO(BigDecimal.valueOf(0));
+        invP1.setCost(new BigDecimal(2));
+        BaseBeanHelper.insert(invP1);
+        InvMapper.insert(invP1);
+
+        invP2.setTeamCount(userTeam);
+        invP2.setGroupId("1000");
+        invP2.setPeriod(nextPeriod);
+        invP2.setNumber("P2");
+        invP2.setMoneyB(p2Mb);
+        invP2.setAmountB(p2Ab);
+        invP2.setMoneyI(BigDecimal.valueOf(0));
+        invP2.setAmountI(BigDecimal.valueOf(0));
+        invP2.setAmountO(BigDecimal.valueOf(0));
+        invP2.setMoneyO(BigDecimal.valueOf(0));
+        invP2.setCost(new BigDecimal(3));
+        BaseBeanHelper.insert(invP2);
+        InvMapper.insert(invP2);
+
+        invP3.setTeamCount(userTeam);
+        invP3.setGroupId("1000");
+        invP3.setPeriod(nextPeriod);
+        invP3.setNumber("P3");
+        invP3.setMoneyB(p3Mb);
+        invP3.setAmountB(p3Ab);
+        invP3.setMoneyI(BigDecimal.valueOf(0));
+        invP3.setAmountI(BigDecimal.valueOf(0));
+        invP3.setAmountO(BigDecimal.valueOf(0));
+        invP3.setMoneyO(BigDecimal.valueOf(0));
+        invP3.setCost(new BigDecimal(4));
+        BaseBeanHelper.insert(invP3);
+        InvMapper.insert(invP3);
+
+        invP4.setTeamCount(userTeam);
+        invP4.setGroupId("1000");
+        invP4.setPeriod(nextPeriod);
+        invP4.setNumber("P4");
+        invP4.setMoneyB(p4Mb);
+        invP4.setAmountB(p4Ab);
+        invP4.setMoneyI(BigDecimal.valueOf(0));
+        invP4.setAmountI(BigDecimal.valueOf(0));
+        invP4.setAmountO(BigDecimal.valueOf(0));
+        invP4.setMoneyO(BigDecimal.valueOf(0));
+        invP4.setCost(new BigDecimal(5));
+        BaseBeanHelper.insert(invP4);
+        InvMapper.insert(invP4);
+
+
+
+    }
+
+// H 原材料入库
+    public void goToPeriod(String userTeam,int nextPeriod){
+        List<MaterialOrder> materialOrderList12 = materialOrderService.listR1R2(nextPeriod);
+        List<MaterialOrder> materialOrderList34 = materialOrderService.listR3R4(nextPeriod);
+
         // 根据material 表计算发生值
         BigDecimal r1Ai=  BigDecimal.valueOf(0); BigDecimal r2Ai=  BigDecimal.valueOf(0);BigDecimal r3Ai=  BigDecimal.valueOf(0); BigDecimal r4Ai=  BigDecimal.valueOf(0);
         BigDecimal r1Mi=  BigDecimal.valueOf(0); BigDecimal r2Mi=  BigDecimal.valueOf(0);BigDecimal r3Mi=  BigDecimal.valueOf(0); BigDecimal r4Mi=  BigDecimal.valueOf(0);
-        Inv inv1=new Inv();Inv inv2=new Inv();Inv inv3=new Inv();Inv inv4=new Inv();
+
         for(int i=0;i< materialOrderList12.size();i++) {
             //全局变量 写入当前公司或小组ID
             switch (materialOrderList12.get(i).getMaterialId()) {
@@ -121,126 +248,41 @@ public class InvServiceImpl implements InvService {
                 case "R4":
                     r4Ai= BigDecimal.valueOf(materialOrderList34.get(i).getAmount());//H 材料入库
                     r4Mi= materialOrderList34.get(i).getMoneyTotal();//H 材料入库
-                    break; } }
-        //H 在结转时写入
-        inv1.setTeamCount(userTeam);
-        inv1.setGroupId("1000");
-        inv1.setPeriod(period);
-        inv1.setNumber("R1");
-        inv1.setMoneyB(r1Mb);
-        inv1.setAmountB(r1Ab);
-        inv1.setMoneyI(r1Mi);
-        inv1.setAmountI(r1Ai);
-        inv1.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
-        inv1.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
-        inv1.setCost(new BigDecimal(1));
-        BaseBeanHelper.insert(inv1);
-        InvMapper.insert(inv1);
+                    break;
+            }
+        }
 
-        inv2.setTeamCount(userTeam);
-        inv2.setGroupId("1000");
-        inv2.setPeriod(period);
-        inv2.setNumber("R2");
-        inv2.setMoneyB(r2Mb);
-        inv2.setAmountB(r2Ab);
-        inv2.setMoneyI(r2Mi);
-        inv2.setAmountI(r2Ai);
-        inv2.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
-        inv2.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
-        inv2.setCost(new BigDecimal(1));
-        BaseBeanHelper.insert(inv2);
-        InvMapper.insert(inv2);
+        Example example = new Example(Inv.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", nextPeriod);
+        List<Inv> myMaterial= InvMapper.selectByExample(example);
+        for(int i=0;i<myMaterial.size();i++){
+            Inv materials=myMaterial.get(i);
+            switch (materials.getNumber()){
+                case "R1":
+                    materials.setAmountI(r1Ai);
+                    materials.setMoneyI(r1Mi);
+                    InvMapper.updateByPrimaryKey(materials);
+                    break;
+                case "R2":
+                    materials.setAmountI(r2Ai);
+                    materials.setMoneyI(r2Mi);
+                    InvMapper.updateByPrimaryKey(materials);
+                    break;
+                case "R3":
+                    materials.setAmountI(r3Ai);
+                    materials.setMoneyI(r3Mi);
+                    InvMapper.updateByPrimaryKey(materials);
+                    break;
+                case "R4":
+                    materials.setAmountI(r4Ai);
+                    materials.setMoneyI(r4Mi);
+                    InvMapper.updateByPrimaryKey(materials);
+                    break;
+            }
 
-        inv3.setTeamCount(userTeam);
-        inv3.setGroupId("1000");
-        inv3.setPeriod(period);
-        inv3.setNumber("R3");
-        inv3.setMoneyB(r3Mb);
-        inv3.setAmountB(r3Ab);
-        inv3.setMoneyI(r3Mi);
-        inv3.setAmountI(r3Ai);
-        inv3.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
-        inv3.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
-        inv3.setCost(new BigDecimal(1));
-        BaseBeanHelper.insert(inv3);
-        InvMapper.insert(inv3);
-
-        inv4.setTeamCount(userTeam);
-        inv4.setGroupId("1000");
-        inv4.setPeriod(period);
-        inv4.setNumber("R4");
-        inv4.setMoneyB(r4Mb);
-        inv4.setAmountB(r4Ab);
-        inv4.setMoneyI(r4Mi);
-        inv4.setAmountI(r4Ai);
-        inv4.setAmountO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
-        inv4.setMoneyO(BigDecimal.valueOf(0));//先预设0，原料投入生产时更新写入
-        inv4.setCost(new BigDecimal(1));
-        BaseBeanHelper.insert(inv4);
-        InvMapper.insert(inv4);
-
-
-        Inv invP1=new Inv();Inv invP2=new Inv();Inv invP3=new Inv();Inv invP4=new Inv();
-
-        //H 在结转时写入
-        invP1.setTeamCount(userTeam);
-        invP1.setGroupId("1000");
-        invP1.setPeriod(period);
-        invP1.setNumber("P1");
-        invP1.setMoneyB(p1Mb);
-        invP1.setAmountB(p1Ab);
-        invP1.setMoneyI(BigDecimal.valueOf(0));
-        invP1.setAmountI(BigDecimal.valueOf(0));
-        invP1.setAmountO(BigDecimal.valueOf(0));
-        invP1.setMoneyO(BigDecimal.valueOf(0));
-        invP1.setCost(new BigDecimal(2));
-        BaseBeanHelper.insert(invP1);
-        InvMapper.insert(invP1);
-
-        invP2.setTeamCount(userTeam);
-        invP2.setGroupId("1000");
-        invP2.setPeriod(period);
-        invP2.setNumber("P2");
-        invP2.setMoneyB(p2Mb);
-        invP2.setAmountB(p2Ab);
-        invP2.setMoneyI(BigDecimal.valueOf(0));
-        invP2.setAmountI(BigDecimal.valueOf(0));
-        invP2.setAmountO(BigDecimal.valueOf(0));
-        invP2.setMoneyO(BigDecimal.valueOf(0));
-        invP2.setCost(new BigDecimal(3));
-        BaseBeanHelper.insert(invP2);
-        InvMapper.insert(invP2);
-
-        invP3.setTeamCount(userTeam);
-        invP3.setGroupId("1000");
-        invP3.setPeriod(period);
-        invP3.setNumber("P3");
-        invP3.setMoneyB(p3Mb);
-        invP3.setAmountB(p3Ab);
-        invP3.setMoneyI(BigDecimal.valueOf(0));
-        invP3.setAmountI(BigDecimal.valueOf(0));
-        invP3.setAmountO(BigDecimal.valueOf(0));
-        invP3.setMoneyO(BigDecimal.valueOf(0));
-        invP3.setCost(new BigDecimal(4));
-        BaseBeanHelper.insert(invP3);
-        InvMapper.insert(invP3);
-
-        invP4.setTeamCount(userTeam);
-        invP4.setGroupId("1000");
-        invP4.setPeriod(period);
-        invP4.setNumber("P4");
-        invP4.setMoneyB(p4Mb);
-        invP4.setAmountB(p4Ab);
-        invP4.setMoneyI(BigDecimal.valueOf(0));
-        invP4.setAmountI(BigDecimal.valueOf(0));
-        invP4.setAmountO(BigDecimal.valueOf(0));
-        invP4.setMoneyO(BigDecimal.valueOf(0));
-        invP4.setCost(new BigDecimal(5));
-        BaseBeanHelper.insert(invP4);
-        InvMapper.insert(invP4);
-
-
-
+        }
     }
 
 

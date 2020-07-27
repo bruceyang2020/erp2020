@@ -21,12 +21,15 @@ public interface MaterialOrderService {
     PageInfo<MaterialOrder> list(int pageNum, int pageSize);
 
     MaterialOrder getById(String id);
+
     List<MaterialOrder> list();
 
     void payment(String userTeam ,int period);
 
     List<MaterialOrder> listR1R2(int period);
+
     List<MaterialOrder> listR3R4(int period);
 
+    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 
 }

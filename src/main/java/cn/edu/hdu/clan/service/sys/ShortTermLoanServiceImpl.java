@@ -98,7 +98,7 @@ public class ShortTermLoanServiceImpl implements ShortTermLoanService {
         Example example = new Example(ShortTermLoan.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("currentPeriod", period);
         ShortTermLoanMapper.deleteByExample(example);
 
     }
@@ -144,21 +144,23 @@ public class ShortTermLoanServiceImpl implements ShortTermLoanService {
         criteria.andEqualTo("currentPeriod",nextPeriod);
         List<ShortTermLoan> myList = ShortTermLoanMapper.selectByExample(example);
         //H 计算利息累加,每期都有结转，利息记入当期，一期只有一笔利息
-        BigDecimal shortTermLoanInterest = BigDecimal.valueOf(0);
-        for (int i = 0; i < myList.size(); i++) {
-            //H 每一期结转时还款期减1
-            myList.get(i).setSurplusPeriod(myList.get(i).getSurplusPeriod() - 1);
-            BaseBeanHelper.edit(myList.get(i));
-            ShortTermLoanMapper.updateByPrimaryKey(myList.get(i));
-            //到还款期时还息
-            if (myList.get(i).getSurplusPeriod() == 1) {
-                shortTermLoanInterest = myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.05)).setScale(0, BigDecimal.ROUND_DOWN);
-                //H 利息记账
-                accountingVoucherService.voucherMaker(userTeam, nextPeriod, shortTermLoanInterest, "LXFY", "短期贷款利息");
-                //H 偿还本金
-                accountingVoucherService.voucherMaker(userTeam, nextPeriod, myList.get(i).getMoneyTotal(), "CHDD", "偿还短期贷款");
+
+            BigDecimal shortTermLoanInterest = BigDecimal.valueOf(0);
+            for (int i = 0; i < myList.size(); i++) {
+                //H 每一期结转时还款期减1
+                int surplusPeriod = myList.get(i).getSurplusPeriod();
+                myList.get(i).setSurplusPeriod(surplusPeriod - 1);
+                BaseBeanHelper.edit(myList.get(i));
+                ShortTermLoanMapper.updateByPrimaryKey(myList.get(i));
+                //到还款期时还息
+                if (myList.get(i).getSurplusPeriod() == 1) {
+                    shortTermLoanInterest = myList.get(i).getMoneyTotal().multiply(BigDecimal.valueOf(0.05)).setScale(0, BigDecimal.ROUND_DOWN);
+                    //H 利息记账
+                    accountingVoucherService.voucherMaker(userTeam, nextPeriod, shortTermLoanInterest, "LXFY", "短期贷款利息");
+                    //H 偿还本金
+                    accountingVoucherService.voucherMaker(userTeam, nextPeriod, myList.get(i).getMoneyTotal(), "CHDD", "偿还短期贷款");
+                }
             }
-        }
     }
 
 

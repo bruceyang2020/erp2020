@@ -62,6 +62,8 @@ public class SysUserController extends BaseController {
         String currentUser = Jurisdiction.getUserId();
         String currentTeam = Jurisdiction.getUserTeam();
         String currentEId = Jurisdiction.getUserEID();
+        String currentIlabName = Jurisdiction.getUserIlabName();
+
 
         SysTeam sysTeam = sysTeamService.getById(currentTeam);
         String currentAp = sysTeam.getState().toString();
@@ -70,6 +72,7 @@ public class SysUserController extends BaseController {
         map.put("currentUser",currentUser);
         map.put("currentTeam",currentTeam);
         map.put("currentEId",currentEId);
+        map.put("currentIlabName",currentIlabName);
         return success("ok",map);
     }
 

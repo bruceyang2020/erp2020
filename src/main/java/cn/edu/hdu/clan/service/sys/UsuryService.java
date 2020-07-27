@@ -22,4 +22,9 @@ public interface UsuryService {
     void voucherMakerOfInterest(String userTeam,int period);
 
     void deleteByTeamCount(String userTeam);
+
+    void adds(List<Usury>  usuryList);
+
+    void deleteByTeamCountAndPeriod(String userTeam, int period);
+    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 }

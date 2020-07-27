@@ -17,7 +17,7 @@ $(document).ready(function () {
         $.ajax({
             type: "post",
             dataType: "json",
-            url: "/reloaddata",
+            url: "/reloaddata?tm="+new Date().getTime(),
             contentType: "application/json;charset=utf-8;",
             data: JSON.stringify(mydata),
             success: function (data) {
@@ -63,24 +63,51 @@ $(document).ready(function () {
         var currentTeam = $("#currentTeam").val();
         var mydata ={userTeam:currentTeam,period:currentAp};
 
-        if(Number(currentAp) == 1 ){
-            alert("第一年第1季不可回退，可执行初始化操作。");
+        if(Number(currentAp) < 2)
+        {
+            alert("第一年第1季不可退回，可执行初始化操作。");
             return;
+
         };
 
-        $('.jz-timeg').addClass('show');
-        $.ajax({
-            type: "post",
-            dataType: "json",
-            url: "/priordata?tm="+new Date().getTime(),
-            contentType: "application/json;charset=utf-8;",
-            data: JSON.stringify(mydata),
-            success: function (data) {
-                var myMsg = data['msg'];
-                window.location.href = "/index";
+        if(Number(currentAp) == 2)
+        {
+            $('.reload-timeg').addClass('show');
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/reloaddata?tm="+new Date().getTime(),
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(mydata),
+                success: function (data) {
+                    var myMsg = data['msg'];
+                    alert(data['msg']);
+                    window.location.href = "/index";
 
-            }
-        });
+                }
+            })
+
+        };
+
+
+        if(Number(currentAp) > 2)
+        {
+            $('.reload-timeg').addClass('show');
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/priordata?tm="+new Date().getTime(),
+                contentType: "application/json;charset=utf-8;",
+                data: JSON.stringify(mydata),
+                success: function (data) {
+                    var myMsg = data['msg'];
+                    window.location.href = "/index";
+
+                }
+            });
+        }
+
+
 
     });
 

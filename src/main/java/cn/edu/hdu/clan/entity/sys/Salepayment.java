@@ -32,6 +32,12 @@ public class Salepayment extends BaseBean {
     private Integer surplusPeriod;
 
     /**
+     * 当前会计期间
+     */
+    @Column(name = "current_period")
+    private Integer currentPeriod;
+
+    /**
      * 订单编码
      */
     @Column(name = "sale_order_id")
@@ -156,6 +162,24 @@ public class Salepayment extends BaseBean {
      */
     public void setSurplusPeriod(Integer surplusPeriod) {
         this.surplusPeriod = surplusPeriod;
+    }
+
+    /**
+     * 获取剩余还款期
+     *
+     * @return current_period - 剩余还款期
+     */
+    public Integer getCurrentPeriod() {
+        return currentPeriod;
+    }
+
+    /**
+     * 设置剩余还款期
+     *
+     * @param currentPeriod 剩余还款期
+     */
+    public void setCurrentPeriod(Integer currentPeriod) {
+        this.currentPeriod = currentPeriod;
     }
 
     /**

@@ -55,6 +55,6 @@ public class LongTermLoansController extends BaseController {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
-        return success(LongTermLoansService.getByUserTeamIdAndPeriod(userTeam));
+        return success(LongTermLoansService.getByUserTeamIdAndPeriod(userTeam,period));
     }
 }
