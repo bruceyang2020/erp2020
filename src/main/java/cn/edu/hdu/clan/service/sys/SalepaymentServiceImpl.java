@@ -86,6 +86,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         mySalePayment.setGroupId("1000");
         mySalePayment.setTeamCount(userTeam);
         mySalePayment.setPeriod(period);
+        mySalePayment.setCurrentPeriod(period);//H 当前会计期间.
         mySalePayment.setNumber(OrderManagement.getOrderId());
         mySalePayment.setSaleOrderId(OrderManagement.getOrderId());
         mySalePayment.setAmount(BigDecimal.valueOf(0));
@@ -109,8 +110,9 @@ public class SalepaymentServiceImpl implements SalepaymentService {
 
         Salepayment mySalePayment = new Salepayment();
         mySalePayment.setGroupId("1000");
+        mySalePayment.setCurrentPeriod(period);//H 当前的会计期间
         mySalePayment.setTeamCount(userTeam);
-        mySalePayment.setPeriod(period);
+        mySalePayment.setPeriod(period);//H 产生的会计期间
         mySalePayment.setNumber(factory.getNumber());
         mySalePayment.setSaleOrderId(factory.getName());
         mySalePayment.setSurplusPeriod(4);  //H 出售厂房剩余还款期4
@@ -132,6 +134,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
         criteria.andNotEqualTo("state", 1);
+        criteria.andEqualTo("currentPeriod",period);
         List<Salepayment> oldRow = SalepaymentMapper.selectByExample(example);
         if(oldRow.size() > 0)
         {
@@ -190,6 +193,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("teamCount", userTeam);
             criteria.andEqualTo("state", 0);
+            criteria.andEqualTo("currentPeriod",period);
             return SalepaymentMapper.selectByExample(example);
     }
 
@@ -199,6 +203,7 @@ public class SalepaymentServiceImpl implements SalepaymentService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", teamCount);
         criteria.andEqualTo("state", 0);
+        criteria.andEqualTo("currentPeriod",period);
         example.orderBy("surplusPeriod").desc().orderBy("amount").asc();
         List<Salepayment> orderRow=SalepaymentMapper.selectByExample(example);
         BigDecimal amountLeft=amount;
@@ -229,6 +234,28 @@ public class SalepaymentServiceImpl implements SalepaymentService {
     BigDecimal financeCost=amount.subtract(cash);
     accountingVoucherService.voucherMaker(teamCount, period,cash,"YSZKTX","应收账款贴现现金");
     accountingVoucherService.voucherMaker(teamCount, period,financeCost,"YSZKTX2","应收账款贴现贴息");
+
+    }
+
+
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(Salepayment.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("currentPeriod",period);
+        List<Salepayment> receivables = SalepaymentMapper.selectByExample(example);
+
+        if (receivables.size() > 0) {
+            for (int i = 0; i < receivables.size(); i++) {
+                Salepayment myRow = receivables.get(i);
+                myRow.setCurrentPeriod(nextPeriod);
+                BaseBeanHelper.insert(myRow);
+                SalepaymentMapper.insert(myRow);
+
+            }
+        }
 
     }
 }

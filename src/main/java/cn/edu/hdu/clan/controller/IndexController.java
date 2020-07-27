@@ -223,6 +223,8 @@ public class IndexController extends BaseController {
 
         SimpleDateFormat sdf =new SimpleDateFormat("HH:mm:ss SSS");//定义时间变量，并设置显示格式为： 时-分-秒-毫秒
 
+        /*------------------------------------------------期间结转----------------------------------------------------------------*/
+
         System.out.print("核算过程1扣减本期终合办公费："+sdf.format(new Date()));
         //H 扣减行政管理费用会计凭证：这里默认为1
         accountingVoucherService.voucherMaker(userTeam,period,new BigDecimal("1"),"GLFY","管理费用");
@@ -246,8 +248,6 @@ public class IndexController extends BaseController {
         System.out.print("核算过程6转上年度净利开始："+sdf.format(new Date()));
         //H 转上年度年度净利
         accountBalanceService.makeVoucherOfNI(userTeam,period);
-
-
 
 
         System.out.print("期末损益："+sdf.format(new Date()));
@@ -288,19 +288,21 @@ public class IndexController extends BaseController {
         //H 原材料订单到期，材料入库
         invService.goToPeriod(userTeam,nextPeriod);
 
-        System.out.print("核算过程9收到应收账款："+sdf.format(new Date()));
-        //应收账款到期，会计账务处理：现金增加
-        salepaymentService.receivePayment(userTeam,nextPeriod);
 
         System.out.print("核算过程10："+sdf.format(new Date()));
 
-        //长期贷款复制到下一会计期间
+        /*------------------------------------------------复制到下一会计期间----------------------------------------------------------------*/
+
+        //H 长期贷款复制到下一会计期间
         longTermLoansService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
         System.out.print("核算过程11："+sdf.format(new Date()));
 
-        //短期贷款复制到下一会计期间
+        //H 短期贷款复制到下一会计期间
         shortTermLoanService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+        //H 应收账款复制到下一会计期间
+        salepaymentService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
         System.out.print("核算过程12："+sdf.format(new Date()));
         //复制厂房信息到下一会计期间。
@@ -322,11 +324,20 @@ public class IndexController extends BaseController {
         //复制ISO认证到信息到下一期
         isoFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
+        /*------------------------------------------------下一会计期间开始----------------------------------------------------------------*/
 
         //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
         shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
+
         //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
         longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
+
+        System.out.print("核算过程9收到应收账款："+sdf.format(new Date()));
+        //应收账款到期，会计账务处理：现金增加
+        salepaymentService.receivePayment(userTeam,nextPeriod);
+
+
+
 
         return success("结转成功");
     }

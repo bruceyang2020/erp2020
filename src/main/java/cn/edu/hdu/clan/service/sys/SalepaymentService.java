@@ -34,4 +34,6 @@ public interface SalepaymentService {
     List <Salepayment> listRec(String userTeam,int period);
 
     void discountedMoney(int period, String teamCount, BigDecimal amount);
+
+    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 }

@@ -1,2 +1,2 @@
-[{"number": "C0001", "saleOrderId" : "C0001", "money" : 15, "payPeriod" : 3, "state" : 0,"period" : 0,"surplusPeriod": 2 , "amount": 0}
+[{"number": "C0001", "saleOrderId" : "C0001", "money" : 15, "payPeriod" : 3, "currentPeriod":1,"state" : 0,"period" : 0,"surplusPeriod": 2 , "amount": 0}
 ]
