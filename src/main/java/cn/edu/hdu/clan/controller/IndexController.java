@@ -297,14 +297,10 @@ public class IndexController extends BaseController {
         //长期贷款复制到下一会计期间
         longTermLoansService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
-        //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
-        longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
-
         System.out.print("核算过程11："+sdf.format(new Date()));
-        shortTermLoanService.copyDataToNextPeriod(userTeam,period,nextPeriod);
-        //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
-        shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
 
+        //短期贷款复制到下一会计期间
+        shortTermLoanService.copyDataToNextPeriod(userTeam,period,nextPeriod);
 
         System.out.print("核算过程12："+sdf.format(new Date()));
         //复制厂房信息到下一会计期间。
@@ -325,6 +321,12 @@ public class IndexController extends BaseController {
         System.out.print("核算过程16："+sdf.format(new Date()));
         //复制ISO认证到信息到下一期
         isoFeeService.copyDataToNextPeriod(userTeam,period,nextPeriod);
+
+
+        //短期贷款回收期减少，还息还本的会计凭证，还息记入下一年度财务费用
+        shortTermLoanService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
+        //长期贷款回收期减少，还本，第一期借第四期结转时候还贷记入下一年度财务费用
+        longTermLoansService.voucherMakerOfInterestAndRepayment(userTeam,nextPeriod);
 
         return success("结转成功");
     }
