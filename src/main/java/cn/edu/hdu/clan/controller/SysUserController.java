@@ -56,7 +56,7 @@ public class SysUserController extends BaseController {
     }
 
 
-    @RequestMapping("getCurrentInfo")
+    @RequestMapping(value = "getCurrentInfo",produces = "application/json;charset=utf-8")
     public String getCurrentInfo(@RequestBody Map<String, Integer> param) {
       //Y  当前会计期间从后台数据库中去取值  String currentAp = Jurisdiction.getUserTeamintPeriod();
         String currentUser = Jurisdiction.getUserId();
