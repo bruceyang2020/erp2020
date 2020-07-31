@@ -17,7 +17,7 @@ public interface UsuryService {
 
     Usury getById(String id);
     List<Usury> list();
-    List<Usury> getByUserIdAndPeriod(String userTeam);
+    List<Usury> getByUserIdAndPeriod(String userTeam,int period);
 
     void voucherMakerOfInterest(String userTeam,int period);
 

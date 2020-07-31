@@ -117,10 +117,12 @@ public class UsuryServiceImpl implements UsuryService {
 
 
     @Override
-    public List<Usury> getByUserIdAndPeriod(String userTeam) {
+    public List<Usury> getByUserIdAndPeriod(String userTeam,int period) {
         Example example = new Example(Usury.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
+        //Y 20200731 增加了一个会计期间的筛选条件
+        criteria.andEqualTo("period", period);
         return UsuryMapper.selectByExample(example);
     }
 
@@ -130,6 +132,8 @@ public class UsuryServiceImpl implements UsuryService {
                 Example example = new Example(Usury.class);
                 Example.Criteria criteria = example.createCriteria();
                 criteria.andEqualTo("teamCount", userTeam);
+                //Y 20200731 增加了一个会计期间的筛选条件
+                criteria.andEqualTo("period", period);
                 List<Usury> myList = UsuryMapper.selectByExample(example);
                 //H 计算每期结算利息
                 BigDecimal usuryInterest = BigDecimal.valueOf(0);
