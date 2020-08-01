@@ -35,20 +35,24 @@
                                 // 此处放成功后执行的代码
                                 // 解析返回的字符串 转为json对象
                                 var jsonStr = response;
-                                var JsonData = JSON.parse(decodeURIComponent(escape(window.atob(jsonStr.replace("-", "+").replace("_", "/")))));
+                                
+                                try{
+                                    var JsonData = JSON.parse(decodeURIComponent(escape(window.atob(jsonStr.replace("-", "+").replace("_", "/")))));
+                                    //  var JsonData = JSON.parse(window.atob(jsonStr));
+                                    $("#eid").attr("value",JsonData.eId);
+                                    $("#username").attr("value",JsonData.userId);
+                                    $('#ilabname').attr("value",JsonData.name);
+                                    console.log("解析JSON对象字串："+JSON.stringify(JsonData));
+                                    console.log("解析eid成功："+JsonData.eId);
+                                    //  console.log("解析username成功："+utf8to16(JsonData.name));
+                                    console.log("解析username成功："+JsonData.name);
 
 
-                                //  var JsonData = JSON.parse(window.atob(jsonStr));
-
-
-                                $("#eid").attr("value",JsonData.eId);
-                                $("#username").attr("value",JsonData.userId);
-                                $('#ilabname').attr("value",JsonData.name);
-                                console.log("解析JSON对象字串："+JSON.stringify(JsonData));
-                                console.log("解析eid成功："+JsonData.eId);
-                                //  console.log("解析username成功："+utf8to16(JsonData.name));
-                                console.log("解析username成功："+JsonData.name);
-                                toIndexPage();
+                                }catch (err) {
+                                    console.log("解析字串错误："+jsonStr);
+                                }finally {
+                                    toIndexPage();
+                                }
 
 
 
