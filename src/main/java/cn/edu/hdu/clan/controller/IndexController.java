@@ -152,13 +152,17 @@ public class IndexController extends BaseController {
     @RequestMapping("/login")
     public String login(@RequestBody Map<String, String> params) {
         Subject subject = SecurityUtils.getSubject();
+
+        String userName = params.get("username");
         try {
             // 调用安全认证框架的登录方法
             subject.login(new UsernamePasswordToken(params.get("username"), params.get("password")));
             Session session = Jurisdiction.getSession();
 
-            SysUser sysUser  = userService.findByUsername(params.get("username"));
+            SysUser sysUser  = userService.findByUsername(userName);
             SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
+
+
 
             session.setAttribute(Const.SESSION_USER,sysUser);
             session.setAttribute(Const.SESSION_USERID,sysUser.getId());
@@ -182,11 +186,41 @@ public class IndexController extends BaseController {
     @ResponseBody
     @RequestMapping("register")
     public String register(@RequestBody Map<String, String> params) {
-        SysUser user = new SysUser();
-        user.setUsername(params.get("username"));
-        user.setPassword(params.get("password"));
-        userService.addUser(user);
-        return success("注册成功");
+
+        String userName = params.get("username");
+
+        SysUser sysUserExist  = userService.findByUsername(userName);
+
+        if(sysUserExist == null) {
+            SysUser user = new SysUser();
+            user.setUsername(params.get("username"));
+            user.setPassword(params.get("password"));
+            user.setTeamId(params.get("username"));
+            userService.addUser(user);
+            SysUser sysUser  = userService.findByUsername(userName);
+            SysTeam  sysTeam = sysTeamService.getById(sysUser.getTeamId());
+
+            if(sysTeam == null)
+            {
+                //先建立一个群组保存。根据ID
+                SysTeam userTeam = new SysTeam();
+                userTeam.setGroupId("1000");
+                userTeam.setName(userName);
+                userTeam.setState(1);//设置当前会计期间为1
+                sysTeamService.add(userTeam);
+            }
+
+
+            return success("注册成功");
+
+
+        }else
+        {
+            return success("注册失败");
+        }
+
+
+
     }
 
     @ResponseBody
