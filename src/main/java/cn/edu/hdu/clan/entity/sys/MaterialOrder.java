@@ -38,6 +38,12 @@ public class MaterialOrder extends BaseBean {
     private BigDecimal moneyTotal;
 
     /**
+     * 当前会计期间
+     */
+    @Column(name = "current_period")
+    private Integer currentPeriod;
+
+    /**
      * 状态 1入库0未入库
      */
     private Integer state;
@@ -221,6 +227,26 @@ public class MaterialOrder extends BaseBean {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+
+    /**
+     * 获取创建时间
+     *
+     * @return current_period - 创建时间
+     */
+    public Integer getCurrentPeriod() {
+        return currentPeriod;
+    }
+
+    /**
+     * 设置创建时间
+     *
+     * @param currentPeriod 创建时间
+     */
+    public void setCurrentPeriod(Integer currentPeriod) {
+        this.currentPeriod = currentPeriod;
+    }
+
 
     /**
      * 获取编辑人

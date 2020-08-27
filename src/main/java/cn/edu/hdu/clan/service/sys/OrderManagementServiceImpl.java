@@ -77,7 +77,7 @@ public class OrderManagementServiceImpl implements OrderManagementService {
     public void deleteByTeamCountAndPeriod(String userTeam ,int period) {
         Example example = new Example(OrderManagement.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("teamId", userTeam);
         criteria.andEqualTo("period", period);
         OrderManagementMapper.deleteByExample(example);
 

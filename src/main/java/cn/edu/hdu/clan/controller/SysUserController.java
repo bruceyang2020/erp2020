@@ -56,12 +56,14 @@ public class SysUserController extends BaseController {
     }
 
 
-    @RequestMapping("getCurrentInfo")
+    @RequestMapping(value = "getCurrentInfo",produces = "application/json;charset=utf-8")
     public String getCurrentInfo(@RequestBody Map<String, Integer> param) {
       //Y  当前会计期间从后台数据库中去取值  String currentAp = Jurisdiction.getUserTeamintPeriod();
         String currentUser = Jurisdiction.getUserId();
         String currentTeam = Jurisdiction.getUserTeam();
         String currentEId = Jurisdiction.getUserEID();
+        String currentIlabName = Jurisdiction.getUserIlabName();
+
 
         SysTeam sysTeam = sysTeamService.getById(currentTeam);
         String currentAp = sysTeam.getState().toString();
@@ -70,6 +72,7 @@ public class SysUserController extends BaseController {
         map.put("currentUser",currentUser);
         map.put("currentTeam",currentTeam);
         map.put("currentEId",currentEId);
+        map.put("currentIlabName",currentIlabName);
         return success("ok",map);
     }
 

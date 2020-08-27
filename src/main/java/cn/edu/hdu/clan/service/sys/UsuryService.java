@@ -17,9 +17,14 @@ public interface UsuryService {
 
     Usury getById(String id);
     List<Usury> list();
-    List<Usury> getByUserIdAndPeriod(String userTeam);
+    List<Usury> getByUserIdAndPeriod(String userTeam,int period);
 
     void voucherMakerOfInterest(String userTeam,int period);
 
     void deleteByTeamCount(String userTeam);
+
+    void adds(List<Usury>  usuryList);
+
+    void deleteByTeamCountAndPeriod(String userTeam, int period);
+    void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 }

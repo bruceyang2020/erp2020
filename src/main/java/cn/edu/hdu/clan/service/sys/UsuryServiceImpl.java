@@ -71,6 +71,20 @@ public class UsuryServiceImpl implements UsuryService {
 
     }
 
+    //H 初始化
+    public void adds(List<Usury>  usuryList) {
+        if(usuryList.size() > 0) {
+            for (int i = 0; i < usuryList.size(); i++) {
+                String userTeam = Jurisdiction.getUserTeam();
+                int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
+                usuryList.get(i).setTeamCount(userTeam);
+                usuryList.get(i).setGroupId("1000");
+                BaseBeanHelper.insert(usuryList.get(i));
+                UsuryMapper.insert(usuryList.get(i));
+            }
+        }
+    }
+
     @Override
     public void delete(String id) {
     UsuryMapper.deleteByPrimaryKey(id);
@@ -103,10 +117,12 @@ public class UsuryServiceImpl implements UsuryService {
 
 
     @Override
-    public List<Usury> getByUserIdAndPeriod(String userTeam) {
+    public List<Usury> getByUserIdAndPeriod(String userTeam,int period) {
         Example example = new Example(Usury.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
+        //Y 20200731 增加了一个会计期间的筛选条件
+        criteria.andEqualTo("period", period);
         return UsuryMapper.selectByExample(example);
     }
 
@@ -116,6 +132,8 @@ public class UsuryServiceImpl implements UsuryService {
                 Example example = new Example(Usury.class);
                 Example.Criteria criteria = example.createCriteria();
                 criteria.andEqualTo("teamCount", userTeam);
+                //Y 20200731 增加了一个会计期间的筛选条件
+                criteria.andEqualTo("period", period);
                 List<Usury> myList = UsuryMapper.selectByExample(example);
                 //H 计算每期结算利息
                 BigDecimal usuryInterest = BigDecimal.valueOf(0);
@@ -141,5 +159,36 @@ public class UsuryServiceImpl implements UsuryService {
         {
             UsuryMapper.deleteByExample(example);
         }
+    }
+
+
+    @Override
+    public void deleteByTeamCountAndPeriod(String userTeam, int period) {
+        Example example = new Example(Usury.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        UsuryMapper.deleteByExample(example);
+
+    }
+
+    @Override
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(Usury.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period", period);
+        List<Usury> factorys = UsuryMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                Usury myRow = factorys.get(i);
+                myRow.setPeriod(nextPeriod); //当前会计期间设为下一期间
+                BaseBeanHelper.insert(myRow);
+                UsuryMapper.insert(myRow);
+
+            }
+        }
+
     }
 }

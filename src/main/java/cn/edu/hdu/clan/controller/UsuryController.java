@@ -53,6 +53,6 @@ public class UsuryController extends BaseController {
         String userTeam = Jurisdiction.getUserTeam();
         int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
 
-        return success(UsuryService.getByUserIdAndPeriod(userTeam));
+        return success(UsuryService.getByUserIdAndPeriod(userTeam,period));
     }
 }

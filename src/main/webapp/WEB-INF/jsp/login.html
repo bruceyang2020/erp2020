@@ -28,6 +28,44 @@
 
         }
 
+
+        function register(){
+            var username = $('#usernameR').val();
+            var password1 = $('#passwordR1').val();
+            var password2 = $('#passwordR2').val();
+
+            if(password1 != password2 && password1 == '')
+            {
+                alert("两次输入的密码不一致");
+                return;
+            }
+
+            var str = {
+                "username":username,
+                "password":password1
+            };
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                url: "/register",
+                contentType: "application/json;charset=utf-8;",
+                data:JSON.stringify(str),
+                success: function (data) {
+                    console.log(data);
+                    var myInfo = data['msg'];
+                    if(myInfo == '注册失败')
+                    {
+                    alert("两次输入的密码不一致");}
+                    else{
+                        window.location.href = "/toLogin";
+                    }
+
+
+                }
+            });
+
+        }
+
     </script>
 </head>
 <body>
@@ -40,11 +78,11 @@
             <div class="login-form">
                 <div class="sign-in-htm">
                     <div class="group">
-                        <label for="user" class="label">用户名</label>
+                        <label for="username" class="label">用户名</label>
                         <input id="username" type="text" class="input">
                     </div>
                     <div class="group">
-                        <label for="pass" class="label">密码</label>
+                        <label for="password" class="label">密码</label>
                         <input id="password" type="password" class="input" data-type="password">
                     </div>
                     <div class="group">
@@ -62,23 +100,23 @@
                 </div>
                 <div class="sign-up-htm">
                     <div class="group">
-                        <label for="user" class="label">用户名</label>
-                        <input id="user" type="text" class="input">
+                        <label for="usernameR" class="label">用户名</label>
+                        <input id="usernameR" type="text" class="input">
                     </div>
                     <div class="group">
-                        <label for="pass" class="label">密码</label>
-                        <input id="pass" type="password" class="input" data-type="password">
+                        <label for="passwordR1" class="label">密码</label>
+                        <input id="passwordR1" type="password" class="input" data-type="password">
                     </div>
                     <div class="group">
-                        <label for="pass" class="label">再输入一次</label>
-                        <input id="pass" type="password" class="input" data-type="password">
+                        <label for="passwordR2" class="label">再输入一次</label>
+                        <input id="passwordR2" type="password" class="input" data-type="password">
                     </div>
                     <div class="group">
-                        <label for="pass" class="label">邮箱地址</label>
-                        <input id="pass" type="text" class="input">
+                        <label for="mailaddress" class="label">邮箱地址</label>
+                        <input id="mailaddress" type="text" class="input">
                     </div>
                     <div class="group">
-                        <input type="submit" class="button" value="Sign Up">
+                        <input type="submit" class="button" value="Sign Up" onclick="register()">
                     </div>
                 </div>
             </div>

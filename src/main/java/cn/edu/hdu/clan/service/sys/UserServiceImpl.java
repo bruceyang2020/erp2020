@@ -10,6 +10,7 @@ package cn.edu.hdu.clan.service.sys;
 import cn.edu.hdu.clan.SystemException;
 import cn.edu.hdu.clan.entity.sys.SysUser;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
+import cn.edu.hdu.clan.helper.UUIDHelper;
 import cn.edu.hdu.clan.mapper.sys.SysUserMapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -57,7 +58,12 @@ public class UserServiceImpl implements UserService {
         if (count != 0) {
             throw new SystemException("该用户名已存在");
         }
-        BaseBeanHelper.insert(record);
+      //  BaseBeanHelper.insert(record);
+        record.setId(UUIDHelper.getUUID());
+        record.setCreateTime(new Date());
+        record.setCreateUser(record.getUsername());
+        record.setEditTime(new Date());
+        record.setEditUser(record.getUsername());
         record.setRegistrationTime(new Date());
         userMapper.insert(record);
     }

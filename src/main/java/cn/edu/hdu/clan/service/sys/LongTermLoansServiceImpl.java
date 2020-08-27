@@ -50,7 +50,7 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
         Example example = new Example(LongTermLoans.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", LongTermLoans.getTeamCount());
-        criteria.andEqualTo("period", LongTermLoans.getPeriod());
+        criteria.andEqualTo("periodLoan", LongTermLoans.getPeriod()); //H 借款的时间不能相同
         List<LongTermLoans> oldRow = LongTermLoansMapper.selectByExample(example);
         if(oldRow.size() > 0)
         {
@@ -72,7 +72,7 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
             for (int i = 0; i < longTermLoansList.size(); i++) {
                 String userTeam = Jurisdiction.getUserTeam();
                 int period = Integer.parseInt(Jurisdiction.getUserTeamintPeriod());
-                longTermLoansList.get(i).setPeriod(0); //初始化的period应设置为0，否则会被删除记录代码块删除
+                longTermLoansList.get(i).setPeriod(1);
                 longTermLoansList.get(i).setTeamCount(userTeam);
                 longTermLoansList.get(i).setGroupId("1000");
                 BaseBeanHelper.insert(longTermLoansList.get(i));
@@ -134,10 +134,11 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
 
 
     @Override
-    public List<LongTermLoans> getByUserTeamIdAndPeriod(String userTeam ) {
+    public List<LongTermLoans> getByUserTeamIdAndPeriod(String userTeam,int period ) {
         Example example = new Example(LongTermLoans.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("period",period);
 
         return LongTermLoansMapper.selectByExample(example);
     }
@@ -147,10 +148,11 @@ public class LongTermLoansServiceImpl implements LongTermLoansService {
     public void voucherMakerOfInterestAndRepayment(String userTeam,int nextPeriod) {
        // 每年初计一次
         if(nextPeriod%4==1) {
-            //H 按teamCount取出所有长贷
+            //H 按teamCount，period取出所有长贷
             Example example = new Example(LongTermLoans.class);
             Example.Criteria criteria = example.createCriteria();
             criteria.andEqualTo("teamCount", userTeam);
+            criteria.andEqualTo("period",nextPeriod);
             List<LongTermLoans> myList = LongTermLoansMapper.selectByExample(example);
             BigDecimal longTermLoansInterest = BigDecimal.valueOf(0);
             for (int i = 0; i < myList.size(); i++) {

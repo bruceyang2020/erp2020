@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Stream;
 
 public interface InvService {
     void add(Inv Inv);
@@ -32,7 +33,9 @@ public interface InvService {
 
     Inv getById(String id);
 
-    void goToPeriod(String userTeam,int period);// H 原材料结转和入库
+    void goToPeriod(String userTeam,int nextPeriod);// H 原材料结转和入库
 
     BigDecimal amountByProductId(String userTeam, int period, String productId);
+
+   void copyDataToNextPeriod(String userTeam, int period, int nextPeriod);
 }

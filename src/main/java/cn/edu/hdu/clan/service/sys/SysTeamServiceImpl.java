@@ -285,6 +285,14 @@ public class SysTeamServiceImpl implements SysTeamService {
         shortTermLoanService.adds(shortTermLoanList);
         System.out.println(json12);
 
+        //H 高利贷
+        String jsonStr13 = PropertiesUtils.readJsonFile("jsondata/initUsury.json");
+        JSONArray json13 = JSONArray.fromObject(jsonStr13);
+        List<Usury> usuryList= (List<Usury>)JSONArray.toCollection(json13, Usury.class);
+        usuryService.deleteByTeamCount(userTeam);
+        usuryService.adds(usuryList);
+        System.out.println(json13);
+
 
     }
 }

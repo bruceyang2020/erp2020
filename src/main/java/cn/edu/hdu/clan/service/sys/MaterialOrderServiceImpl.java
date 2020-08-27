@@ -1,9 +1,6 @@
 package cn.edu.hdu.clan.service.sys;
 
-import cn.edu.hdu.clan.entity.sys.Inv;
-import cn.edu.hdu.clan.entity.sys.MaterialOrder;
-import cn.edu.hdu.clan.entity.sys.OrderManagement;
-import cn.edu.hdu.clan.entity.sys.ResearchFee;
+import cn.edu.hdu.clan.entity.sys.*;
 import cn.edu.hdu.clan.helper.BaseBeanHelper;
 import cn.edu.hdu.clan.mapper.sys.MaterialOrderMapper;
 import cn.edu.hdu.clan.util.Jurisdiction;
@@ -39,6 +36,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         MaterialOrder.setTeamCount(userTeam);
         MaterialOrder.setGroupId("1000");
         MaterialOrder.setState(0); //设置新增订单的状态为0, [0]未入库，[1]入库
+        MaterialOrder.setCurrentPeriod(MaterialOrder.getPeriod());
 
         //删除当前原材料订单的记录
         Example example = new Example(MaterialOrder.class);
@@ -93,7 +91,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         Example example = new Example(MaterialOrder.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
-        criteria.andEqualTo("period", period);
+        criteria.andEqualTo("currentPeriod",period);
         MaterialOrderMapper.deleteByExample(example);
 
     }
@@ -105,6 +103,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         Example example = new Example(MaterialOrder.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("currentPeriod",period);
         criteria.andNotEqualTo("state", 1); //H 入库为1 未入库为0
         List<MaterialOrder> oldRow = MaterialOrderMapper.selectByExample(example);
         if(oldRow.size() > 0)
@@ -180,6 +179,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         Example example = new Example(MaterialOrder.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("currentPeriod",period);
         criteria.andNotEqualTo("state",1);
         return MaterialOrderMapper.selectByExample(example);}
 
@@ -194,6 +194,7 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         Example example = new Example(MaterialOrder.class);
         Example.Criteria criteria1 = example.createCriteria();
         criteria1.andEqualTo("teamCount", userTeam);
+        criteria1.andEqualTo("currentPeriod",period);
         criteria1.andEqualTo("period", period-1);
         List<String> x=new ArrayList<>();
         x.add("R1");
@@ -208,13 +209,37 @@ public class MaterialOrderServiceImpl implements MaterialOrderService {
         Example example = new Example(MaterialOrder.class);
         Example.Criteria criteria1 = example.createCriteria();
         criteria1.andEqualTo("teamCount", userTeam);
+        criteria1.andEqualTo("currentPeriod",period);
         criteria1.andEqualTo("period", period-2);
         List<String> x=new ArrayList<>();
         x.add("R3");
         x.add("R4");
         criteria1.andIn("materialId",x);
 
-        return MaterialOrderMapper.selectByExample(example);}
+        return MaterialOrderMapper.selectByExample(example);
+    }
+
+
+    @Override
+    //H 复制到下一个会计期间
+    public void copyDataToNextPeriod(String userTeam, int period, int nextPeriod) {
+        Example example = new Example(MaterialOrder.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("teamCount", userTeam);
+        criteria.andEqualTo("currentPeriod", period);
+        List<MaterialOrder> factorys = MaterialOrderMapper.selectByExample(example);
+
+        if (factorys.size() > 0) {
+            for (int i = 0; i < factorys.size(); i++) {
+                MaterialOrder myRow = factorys.get(i);
+                myRow.setCurrentPeriod(nextPeriod); //当前会计期间设为下一期间
+                BaseBeanHelper.insert(myRow);
+               MaterialOrderMapper.insert(myRow);
+
+            }
+        }
+
+    }
 
 }
 
