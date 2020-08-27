@@ -9,6 +9,7 @@
 
 
         function login(){
+            var username  = $('#username').val();
             var str = {
                 "username":$('#username').val(),
                 "password":$('#password').val()
@@ -20,8 +21,20 @@
                 contentType: "application/json;charset=utf-8;",
                 data:JSON.stringify(str),
                 success: function (data) {
-                    console.log(data);
-                    window.location.href = "/index";
+
+                    if(username == 'yang' || username == 'guest')
+                    {
+                        window.location.href = "/index";
+                    }
+                    else
+                    {
+                        window.location.href = "/indexmanual";
+                    }
+
+
+
+
+
 
                 }
             });

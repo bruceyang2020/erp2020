@@ -110,6 +110,12 @@ public class IndexController extends BaseController {
     }
 
 
+    @RequestMapping("/indexmanual")
+    public String indexmanual() {
+        return "indexManual";
+    }
+
+
     @RequestMapping("/balancesheet")
     public String balancesheet() {
         return "balancesheet";
