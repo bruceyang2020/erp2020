@@ -5,35 +5,20 @@
 
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/select2.js"></script>
+    <script src="js/index-manual.js"></script>
       <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style/indexmanual.css">
     <link rel="stylesheet" type="text/css" href="style/select2.css">
     <link rel="shortcut icon" href="/favicon.ico"/>
     <link rel="bookmark" href="/favicon.ico"/>
     <title>杭州电子科技大学ERP财务手工沙盘实验</title>
-    <script>
 
-
-
-        $(document).ready(function () {
-
-            $('#menuUserSet').click(function () {
-                $('.pop-userset').show()
-            });
-
-            $('.pop-cancel').click(function () {
-                $('.pop-userset').hide();
-            });
-
-        })
-
-    </script>
 </head>
 <body>
 
 <div id="wrap">
     <div id="wrapper">
-        <div class="erp">
+        <div class="erp" id="main-panel">
           <!--  厂房净值-->
             <input name="" id="factory-jz-1" style="border-width: 0px;background-color:transparent;width:30px;left: 365px;top:75px;position: absolute"/>
             <input name="" id="factory-jz-2" style="border-width: 0px;background-color:transparent;width:30px;left: 430px;top:75px;position: absolute"/>
@@ -134,10 +119,96 @@
 
 
             <!-- 高利贷款-->
-            <input name="" id="highloan-4" style="border-width: 0px;background-color:blue;width:30px;height:30px;left: 445px;top:700px;position: absolute"/>
+            <input name="" id="highloan-4" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 445px;top:700px;position: absolute"/>
             <input name="" id="highloan-3" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 500px;top:700px;position: absolute"/>
             <input name="" id="highloan-2" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 555px;top:700px;position: absolute"/>
             <input name="" id="highloan-1" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 610px;top:700px;position: absolute"/>
+
+            <!-- 现金-->
+            <input name="" id="highloan-1" style="border-width: 0px;background-color:transparent;width:50px;height:30px;left: 690px;top:595px;position: absolute"/>
+
+            <!-- 应收账款-->
+            <input name="" id="receive-1" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 782px;top:450px;position: absolute"/>
+            <input name="" id="receive-2" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 838px;top:450px;position: absolute"/>
+            <input name="" id="receive-3" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 892px;top:450px;position: absolute"/>
+            <input name="" id="receive-4" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 948px;top:450px;position: absolute"/>
+
+            <!-- 本年度费用第一行-->
+            <input name="" id="fee-1-1" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 782px;top:600px;position: absolute"/>
+            <input name="" id="fee-1-2" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 822px;top:600px;position: absolute"/>
+            <input name="" id="fee-1-3" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 865px;top:600px;position: absolute"/>
+            <input name="" id="fee-1-4" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 908px;top:600px;position: absolute"/>
+            <input name="" id="fee-1-5" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 951px;top:600px;position: absolute"/>
+
+            <!-- 本年度费用第二行-->
+            <input name="" id="fee-2-1" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 782px;top:685px;position: absolute"/>
+            <input name="" id="fee-2-2" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 822px;top:685px;position: absolute"/>
+            <input name="" id="fee-2-3" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 865px;top:685px;position: absolute"/>
+            <input name="" id="fee-2-4" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 908px;top:685px;position: absolute"/>
+            <input name="" id="fee-2-5" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 951px;top:685px;position: absolute"/>
+
+
+            <!-- 成品库期初-->
+            <input name="" id="product-qc-r1" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1135px;top:435px;position: absolute"/>
+            <input name="" id="product-qc-r2" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1205px;top:435px;position: absolute"/>
+            <input name="" id="product-qc-r3" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1278px;top:435px;position: absolute"/>
+            <input name="" id="product-qc-r4" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1350px;top:435px;position: absolute"/>
+
+            <!-- 成品库本期入库-->
+            <input name="" id="product-rk-r1" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1135px;top:482px;position: absolute"/>
+            <input name="" id="product-rk-r2" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1205px;top:482px;position: absolute"/>
+            <input name="" id="product-rk-r3" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1278px;top:482px;position: absolute"/>
+            <input name="" id="product-rk-r4" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1350px;top:482px;position: absolute"/>
+
+
+            <!-- 成品库本期出库-->
+            <input name="" id="product-ck-r1" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1135px;top:533px;position: absolute"/>
+            <input name="" id="product-ck-r2" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1205px;top:533px;position: absolute"/>
+            <input name="" id="product-ck-r3" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1278px;top:533px;position: absolute"/>
+            <input name="" id="product-ck-r4" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1350px;top:533px;position: absolute"/>
+
+            <!-- 订单-->
+            <input name="" id="order-p1" style="border-width: 0px;background-color:transparent;width:50px;height:30px;left: 1130px;top:650px;position: absolute"/>
+            <input name="" id="order-p2" style="border-width: 0px;background-color:transparent;width:50px;height:30px;left: 1200px;top:650px;position: absolute"/>
+            <input name="" id="order-p3" style="border-width: 0px;background-color:transparent;width:50px;height:30px;left: 1273px;top:650px;position: absolute"/>
+            <input name="" id="order-p4" style="border-width: 0px;background-color:transparent;width:50px;height:30px;left: 1345px;top:650px;position: absolute"/>
+
+
+            <!-- 市场投入-->
+            <input name="" id="market-1-bd" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 272px;top:830px;position: absolute"/>
+            <input name="" id="market-1-qy" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 350px;top:830px;position: absolute"/>
+            <input name="" id="market-1-gl" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 420px;top:830px;position: absolute"/>
+            <input name="" id="market-1-yz" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 496px;top:830px;position: absolute"/>
+            <input name="" id="market-1-gj" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 563px;top:830px;position: absolute"/>
+
+            <!-- 市场投入-->
+            <input name="" id="market-2-bd" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 272px;top:870px;position: absolute"/>
+            <input name="" id="market-2-qy" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 350px;top:870px;position: absolute"/>
+            <input name="" id="market-2-gl" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 420px;top:870px;position: absolute"/>
+            <input name="" id="market-2-yz" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 496px;top:870px;position: absolute"/>
+            <input name="" id="market-2-gj" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 563px;top:870px;position: absolute"/>
+
+
+            <!--ISO-->
+            <input name="" id="iso-1-9K" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 665px;top:810px;position: absolute"/>
+            <input name="" id="iso-1-14k" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 742px;top:810px;position: absolute"/>
+
+            <!-- 现金-->
+            <input name="" id="iso-2-9K" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 665px;top:852px;position: absolute"/>
+            <input name="" id="iso-2-14k" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 742px;top:852px;position: absolute"/>
+
+
+            <!-- 产品研发已投入-->
+            <input name="" id="research-1-p1" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 902px;top:823px;position: absolute"/>
+            <input name="" id="research-1-p2" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1012px;top:823px;position: absolute"/>
+            <input name="" id="research-1-p3" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1120px;top:823px;position: absolute"/>
+            <input name="" id="research-1-p4" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1218px;top:823px;position: absolute"/>
+
+            <!-- 产品研发本期投入-->
+            <input name="" id="research-2-p1" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 902px;top:868px;position: absolute"/>
+            <input name="" id="research-2-p2" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1012px;top:868px;position: absolute"/>
+            <input name="" id="research-2-p3" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1120px;top:868px;position: absolute"/>
+            <input name="" id="research-2-p4" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1218px;top:868px;position: absolute"/>
 
         </div>
     </div>
@@ -147,19 +218,10 @@
 
 <!--悬浮窗体-->
 <div id = "menuUserSet" class = "userset" title="功能菜单">
-    <p>系统设置</p>
-    <div id="tip-period" style="color: white;font-weight: bold;font-variant: normal;padding-top:15px;"></div>
-</div>
-
-
-
-<div class="pop-userset">
-    <table style ='width: 300px;'>
-
+     <table style ='width:100%;padding:10px 0px 0px 12px;'>
         <tr>
-            <td>选择经营期间：</td>
-            <td><select id="apList" name="apList" class="select2">
-                <option value="0">零期</option>
+            <td style="width:40px;">  <div id="tip-period" style="color: white;width:100%;font-weight: bold;font-variant: normal;text-align: left;font-size: small">当前经营期间</div></td>
+            <td style="width:30px;"><select id="apList" name="apList" class="select2">
                 <option value="1">第1年1期</option>
                 <option value="2">第1年2期</option>
                 <option value="3">第1年3期</option>
@@ -185,21 +247,22 @@
                 <option value="23">第6年3期</option>
                 <option value="24">第6年4期</option>
             </select></td>
-
-
-
-
         </tr>
+         <tr>
+             <td colspan="2">
+                 <input type="button" value="清除" class="pop-ok" id="pop-clear" title="清空本期数据">
+                 <input type="button" value="规则" class="pop-ok" id="pop-rule" title="查看规则">
+                 <input type="button" value="表格" class="pop-ok" id="pop-download" title="下载经营登记表">
+             </td>
+         </tr>
     </table>
-    <div class="reload-timeg"></div>
-    <div class="pop-foot">
-        <input name="showrule" id="showrule"  type="button" value="规则说明" class="pop-cancel pop-close">
-        <input name="final" id="final"  type="button" value="全屏模式" title="在新的网页显示实验台" class="pop-cancel pop-close">
-        <input name="priordata" id="priordata" title="将经营状态退回到上一季起始" type="button" value="回退" class="pop-btn-closing">
-        <input name="reloaddata" id="reloaddata" title="将经营状态重置为第1年第1季" type="button" value="初始化" class="pop-btn-closing">
-        <input type="button" value="关闭" class="pop-cancel pop-close">
-    </div>
+
 </div>
+
+
+
+<input type="hidden" id = "currentAp" name ="currentAp" value="">
+<input type="hidden" id = "currentUser" name ="currentUser" value="">
 
 </body>
 
