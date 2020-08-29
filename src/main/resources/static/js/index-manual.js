@@ -55,19 +55,11 @@ $(document).ready(function () {
     });
 
     $('#pop-rule').click(function () {
-        $("#main-panel input").each(
-            function () {
-                $(this).val('');
-            }
-        );
+        window.open("/SandtableManual/downfile?fileName=rule-manual.pdf");
     });
 
     $('#pop-download').click(function () {
-        $("#main-panel input").each(
-            function () {
-                $(this).val('');
-            }
-        );
+        window.open("/SandtableManual/downfile?fileName=worksheet.xlsx");
     });
 
 

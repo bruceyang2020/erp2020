@@ -11,6 +11,7 @@ import java.nio.ByteBuffer;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
+import java.io.InputStream;
 
 /**
  * 说明：文件处理
@@ -166,6 +167,9 @@ public class FileUtil {
 			}
 		}
 	}
+
+
+
 
 	/**
 	 * Mapped File way MappedByteBuffer 可以在处理大文件时，提升性能
