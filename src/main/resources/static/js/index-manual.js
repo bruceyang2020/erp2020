@@ -132,6 +132,7 @@ function setdata() {
                         {
                             $(this).val('');
                         }
+                        $(this).css({'font-weight':'bold','font-size':'15px','color':'blue'});  //无效代码
 
                         i++;
 

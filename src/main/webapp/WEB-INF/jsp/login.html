@@ -53,6 +53,9 @@
                 return;
             }
 
+
+
+
             var str = {
                 "username":username,
                 "password":password1
@@ -68,7 +71,7 @@
                     var myInfo = data['msg'];
                     if(myInfo == '注册失败')
                     {
-                    alert("两次输入的密码不一致");}
+                    alert("注册失败：用户名已存在");}
                     else{
                         window.location.href = "/toLogin";
                     }
@@ -86,9 +89,13 @@
 <script src="js/login.js"></script>
     <div class="login-wrap">
         <div class="login-html">
-            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">登录入口</label>
-            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">ERP虚拟仿真实验平台</label>
+            <h2>ERP财务虚拟仿真实验</h2>
+
+            <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">登录</label>
+            <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">注册</label>
+
             <div class="login-form">
+
                 <div class="sign-in-htm">
                     <div class="group">
                         <label for="username" class="label">用户名</label>
@@ -98,18 +105,18 @@
                         <label for="password" class="label">密码</label>
                         <input id="password" type="password" class="input" data-type="password">
                     </div>
-                    <div class="group">
+                  <!--  <div class="group">
                         <input id="check" type="checkbox" class="check" checked>
                         <label for="check"><span class="icon"></span> 保存当前用户状态信息</label>
-                    </div>
+                    </div>-->
                     <div class="group">
-                        <input type="submit" class="button" value="Sign In" onclick="login()">
+                        <input type="submit" class="button" value="登录" onclick="login()">
 
                     </div>
                     <div class="hr"></div>
-                    <div class="foot-lnk">
+                   <!-- <div class="foot-lnk">
                         <a href="#forgot">忘记密码?</a>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="sign-up-htm">
                     <div class="group">
@@ -125,11 +132,11 @@
                         <input id="passwordR2" type="password" class="input" data-type="password">
                     </div>
                     <div class="group">
-                        <label for="mailaddress" class="label">邮箱地址</label>
+                        <label for="mailaddress" class="label">邮箱地址（可选）</label>
                         <input id="mailaddress" type="text" class="input">
                     </div>
                     <div class="group">
-                        <input type="submit" class="button" value="Sign Up" onclick="register()">
+                        <input type="submit" class="button" value="注册账号" onclick="register()">
                     </div>
                 </div>
             </div>

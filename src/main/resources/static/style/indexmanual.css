@@ -43,6 +43,13 @@ html,body,#wrapper{
     box-shadow: 0 3px 18px rgba(100, 0, 0, .5);
 
 }
+
+input
+{
+    font-weight: bold;
+}
+
+
 #jz:active{
     top:35px;
 }
