@@ -206,7 +206,7 @@ li a {position: relative;background: #ddd;padding: 10px 50px;float: left;text-de
 .pop-foot-rule{  height:50px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: center;  }
 .pop-foot-advertise{  height:30px;  line-height:50px;  width:100%;  border-top: 1px #E5E5E5 solid;  text-align: right;  }
 .pop-cancel,
-.pop-ok {  border: none;  border-radius: 5px;  background-color: #666699;  color: #fff;  cursor:pointer;  }
+.pop-ok {  padding:5px 15px;  border: none;  border-radius: 5px;  background-color: #666699;  color: #fff;  cursor:pointer;  }
 .pop-cancel {  background-color: #FFF;  border:1px #CECECE solid;  color: #000;  }
 .pop-btn-closing {   padding:8px 15px;  margin:15px 5px;  border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }
 .pop-btn-stockout {   padding:5px 15px;   border: none;  border-radius: 5px;  background-color: #c3aedf;  color: #fff;  cursor:pointer;  }

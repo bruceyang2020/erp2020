@@ -32,9 +32,17 @@ public class SandtableManualControler  extends BaseController{
 
     @Autowired
     private SandtableManualService sandtableManualService;
+
+
     @RequestMapping("add")
     public String add(@RequestBody SandtableManual SandtableManual) {
         sandtableManualService.add(SandtableManual);
+        return success();
+    }
+
+    @RequestMapping("delByUserIdAndPeriod")
+    public String delByUserIdAndPeriod(@RequestBody SandtableManual SandtableManual) {
+        sandtableManualService.delByUserIdAndPeriod(SandtableManual);
         return success();
     }
 

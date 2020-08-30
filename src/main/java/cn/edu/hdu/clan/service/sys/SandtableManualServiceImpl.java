@@ -28,6 +28,18 @@ public class SandtableManualServiceImpl implements  SandtableManualService{
     public void add(SandtableManual sandtableManual) {
 
         //先删除
+        delByUserIdAndPeriod(sandtableManual);
+
+        sandtableManual.setId(UUIDHelper.getUUID());
+        sandtableManual.setCreateTime(new Date());
+        sandtableManual.setEditTime(new Date());
+        sandtableManual.setCreateUser("yang");
+        sandtableManual.setEditUser("yang");
+        SandtableManualMapper.insert(sandtableManual);
+    }
+
+    public void delByUserIdAndPeriod(SandtableManual sandtableManual) {
+
         String userId = sandtableManual.getUserId();
         int period = sandtableManual.getPeriod();
         Example example = new Example(SandtableManual.class);
@@ -36,12 +48,7 @@ public class SandtableManualServiceImpl implements  SandtableManualService{
         criteria.andEqualTo("period", period);
         SandtableManualMapper.deleteByExample(example);
 
-        sandtableManual.setId(UUIDHelper.getUUID());
-        sandtableManual.setCreateTime(new Date());
-        sandtableManual.setEditTime(new Date());
-        sandtableManual.setCreateUser("yang");
-        sandtableManual.setEditUser("yang");
-        SandtableManualMapper.insert(sandtableManual);
+
     }
 
     public SandtableManual findByUserIdAndPeriod(String userId,int period) {

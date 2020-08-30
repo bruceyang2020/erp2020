@@ -47,11 +47,29 @@ $(document).ready(function () {
     });
 
     $('#pop-clear').click(function () {
-        $("#main-panel input").each(
-            function () {
-                $(this).val('');
+
+
+        var currentUser =  $("#currentUser").val();
+        var currentAp =  $("#currentAp").val() ;
+        var myJson = { userId :currentUser,period :currentAp};
+
+        /* 删除当前期间的数据*/
+        $.ajax({
+            type: "post",
+            dataType: "json",
+            data: JSON.stringify(myJson),
+            url: "/SandtableManual/delByUserIdAndPeriod",
+            contentType: "application/json;charset=utf-8;",
+            success: function (data) {
+                $("#main-panel input").each(
+                    function () {
+                        $(this).val('');
+                    }
+                );
             }
-        );
+        })
+
+
     });
 
     $('#pop-rule').click(function () {
@@ -132,7 +150,7 @@ function setdata() {
                         {
                             $(this).val('');
                         }
-                        $(this).css({'font-weight':'bold','font-size':'15px','color':'blue'});  //无效代码
+                        $(this).css({'font-weight':'bold','font-size':'20px','color':'dodgerblue','text-align': 'center'});
 
                         i++;
 
