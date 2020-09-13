@@ -18,7 +18,7 @@ $(document).ready(function () {
                 $("#currentAp").val("0");
                 $("#tip-period").html('第0年4期');
                 $("#apList").val("0").select2();
-                console.log('初始化第一期');
+                $("#tip-ilabusername").html(data.currentIlabName);
 
             }
 
