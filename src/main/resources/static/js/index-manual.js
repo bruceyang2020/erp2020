@@ -15,10 +15,12 @@ $(document).ready(function () {
 
             if(   $("#currentAp").val() =='')
             {
-                $("#currentAp").val("1");
-                $("#tip-period").html('第1年1期');
+                $("#currentAp").val("0");
+                $("#tip-period").html('第0年4期');
+                $("#apList").val("0").select2();
+                console.log('初始化第一期');
 
-            };
+            }
 
             setdata();
 
@@ -30,7 +32,7 @@ $(document).ready(function () {
 
     $("#apList").change(function () {
 
-        var apText = $("#apList").find("option:selected").text();
+        var apText =$("#apList").find("option:selected").text();
         var currentAp =$("#apList").find("option:selected").val();
         $("#currentAp").val(currentAp);
         setdata();
@@ -46,6 +48,49 @@ $(document).ready(function () {
 
     });
 
+    $('#pop-prior').click(function () {
+        var currentUser =  $("#currentUser").val();
+        var currentAp =  $("#currentAp").val() ;
+        currentAp = Number(currentAp)-1;
+        if(Number(currentAp) < 0)
+        {
+            alert('已到起始期');
+        }else
+        {
+            $("#currentAp").val(currentAp) ;
+            $("#apList").val(currentAp).select2();
+            var apText = $("#apList").find("option:selected").text();
+            setdata();
+            $("#tip-period").html(apText);
+
+        }
+
+
+
+    });
+
+
+    $('#pop-next').click(function () {
+
+        var currentUser =  $("#currentUser").val();
+        var currentAp =  $("#currentAp").val() ;
+        currentAp = Number(currentAp)+1;
+        console.log('触发下一期');
+        if(Number(currentAp) > 24)
+        {
+            alert('已到最后一期');
+        }else
+        {
+            $("#currentAp").val(currentAp) ;
+            $("#apList").val(currentAp).select2();
+            var apText = $("#apList").find("option:selected").text();
+            setdata();
+            $("#tip-period").html(apText);
+
+        }
+
+    });
+
     $('#pop-clear').click(function () {
 
 
@@ -53,19 +98,22 @@ $(document).ready(function () {
         var currentAp =  $("#currentAp").val() ;
         var myJson = { userId :currentUser,period :currentAp};
 
-        /* 删除当前期间的数据*/
+
+
+        /* 删除当前期间的数据，加载上一期的期末数据*/
         $.ajax({
             type: "post",
             dataType: "json",
             data: JSON.stringify(myJson),
-            url: "/SandtableManual/delByUserIdAndPeriod",
+            url: "/SandtableManual/reloadByUserIdAndPeriod",
             contentType: "application/json;charset=utf-8;",
             success: function (data) {
-                $("#main-panel input").each(
+               /* $("#main-panel input").each(
                     function () {
                         $(this).val('');
                     }
-                );
+                );*/
+                setdata();
             }
         })
 
@@ -114,13 +162,9 @@ function savedata() {
 }
 
 function setdata() {
-
-
-
     var currentUser =  $("#currentUser").val();
     var currentAp =  $("#currentAp").val() ;
     var myJson = { userId :currentUser,period :currentAp};
-
 
     /* 获取当前经营期间的数据*/
     $.ajax({
@@ -162,7 +206,6 @@ function setdata() {
                 $("#main-panel input").each(
                     function () {
                         $(this).val('');
-
                     }
                 );
                 alert('所选期间无数据');

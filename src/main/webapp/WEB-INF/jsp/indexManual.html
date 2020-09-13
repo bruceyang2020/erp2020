@@ -18,6 +18,57 @@
 
 <div id="wrap">
     <div id="wrapper">
+        <div>
+            <table style ='width:100%;padding:10px 0px 0px 12px;'>
+                <tr>
+                    <td style="width:120px;">当前经营期间：</td>
+                    <td style="width:200px;">  <div id="tip-period" style="color: royalblue;width:100%;font-weight: bold;font-variant: normal;text-align: left;font-size: small">当前经营期间</div></td>
+                    <td style="width:30px;">   <input type="button" value="上期" class="pop-ok" id="pop-prior" title="跳转到上一期"></td>
+                    <td style="width:30px;">
+                        <select id="apList" name="apList" class="select2">
+                            <option value="0">第0年4期</option>
+                        <option value="1">第1年1期</option>
+                        <option value="2">第1年2期</option>
+                        <option value="3">第1年3期</option>
+                        <option value="4">第1年4期</option>
+                        <option value="5">第2年1期</option>
+                        <option value="6">第2年2期</option>
+                        <option value="7">第2年3期</option>
+                        <option value="8">第2年4期</option>
+                        <option value="9">第3年1期</option>
+                        <option value="10">第3年2期</option>
+                        <option value="11">第3年3期</option>
+                        <option value="12">第3年4期</option>
+                        <option value="13">第4年1期</option>
+                        <option value="14">第4年2期</option>
+                        <option value="15">第4年3期</option>
+                        <option value="16">第4年4期</option>
+                        <option value="17">第5年1期</option>
+                        <option value="18">第5年2期</option>
+                        <option value="19">第5年3期</option>
+                        <option value="20">第5年4期</option>
+                        <option value="21">第6年1期</option>
+                        <option value="22">第6年2期</option>
+                        <option value="23">第6年3期</option>
+                        <option value="24">第6年4期</option>
+                    </select>
+
+                    </td>
+                    <td><input type="button" value="下期" class="pop-ok" id="pop-next" title="跳转到下一期"></td>
+                    <td >
+
+
+                        <input type="button" value="复制上期" class="pop-ok" id="pop-clear" title="填充上期期末数据到本期期初">
+                        <input type="button" value="规则" class="pop-ok" id="pop-rule" title="下载经营规则">
+                        <input type="button" value="表格" class="pop-ok" id="pop-download" title="下载经营登记表">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6" style="height: 20px;"></td>
+                </tr>
+
+            </table>
+        </div>
         <div class="erp" id="main-panel">
           <!--  厂房净值-->
             <input name="" id="factory-jz-1" style="border-width: 0px;background-color:transparent;width:30px;left: 365px;top:75px;position: absolute"/>
@@ -217,47 +268,12 @@
 
 
 <!--悬浮窗体-->
+<!--
 <div id = "menuUserSet" class = "userset" title="功能菜单">
-     <table style ='width:100%;padding:10px 0px 0px 12px;'>
-        <tr>
-            <td style="width:40px;">  <div id="tip-period" style="color: white;width:100%;font-weight: bold;font-variant: normal;text-align: left;font-size: small">当前经营期间</div></td>
-            <td style="width:30px;"><select id="apList" name="apList" class="select2">
-                <option value="1">第1年1期</option>
-                <option value="2">第1年2期</option>
-                <option value="3">第1年3期</option>
-                <option value="4">第1年4期</option>
-                <option value="5">第2年1期</option>
-                <option value="6">第2年2期</option>
-                <option value="7">第2年3期</option>
-                <option value="8">第2年4期</option>
-                <option value="9">第3年1期</option>
-                <option value="10">第3年2期</option>
-                <option value="11">第3年3期</option>
-                <option value="12">第3年4期</option>
-                <option value="13">第4年1期</option>
-                <option value="14">第4年2期</option>
-                <option value="15">第4年3期</option>
-                <option value="16">第4年4期</option>
-                <option value="17">第5年1期</option>
-                <option value="18">第5年2期</option>
-                <option value="19">第5年3期</option>
-                <option value="20">第5年4期</option>
-                <option value="21">第6年1期</option>
-                <option value="22">第6年2期</option>
-                <option value="23">第6年3期</option>
-                <option value="24">第6年4期</option>
-            </select></td>
-        </tr>
-         <tr>
-             <td colspan="2">
-                 <input type="button" value="清除" class="pop-ok" id="pop-clear" title="清空本期数据">
-                 <input type="button" value="规则" class="pop-ok" id="pop-rule" title="查看规则">
-                 <input type="button" value="表格" class="pop-ok" id="pop-download" title="下载经营登记表">
-             </td>
-         </tr>
-    </table>
+
 
 </div>
+-->
 
 
 

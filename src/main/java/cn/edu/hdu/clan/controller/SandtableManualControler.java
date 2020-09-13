@@ -46,6 +46,12 @@ public class SandtableManualControler  extends BaseController{
         return success();
     }
 
+    @RequestMapping("reloadByUserIdAndPeriod")
+    public String reloadByUserIdAndPeriod(@RequestBody SandtableManual SandtableManual) {
+        sandtableManualService.reloadByUserIdAndPeriod(SandtableManual);
+        return success();
+    }
+
     @ResponseBody
     @RequestMapping("listbyuserandperiod")
     public String getByUsernameAndPeriod(@RequestBody Map<String, String> param) {

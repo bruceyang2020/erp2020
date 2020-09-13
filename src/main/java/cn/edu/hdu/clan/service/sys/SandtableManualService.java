@@ -7,5 +7,7 @@ public interface SandtableManualService {
 
     void delByUserIdAndPeriod(SandtableManual sandtableManual);
 
+    void reloadByUserIdAndPeriod(SandtableManual sandtableManual);
+
     SandtableManual  findByUserIdAndPeriod(String userId ,int period);
 }
