@@ -129,6 +129,18 @@ $(document).ready(function () {
     });
 
 
+/** 在新窗体中操作
+* */
+    $("#pop-newpage").click(function () {
+
+
+        window.open("/indexmanual");
+
+
+
+    });
+
+
 })
 
 function savedata() {
