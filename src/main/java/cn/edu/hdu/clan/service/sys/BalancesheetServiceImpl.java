@@ -265,7 +265,7 @@ public class BalancesheetServiceImpl implements BalancesheetService {
             System.out.print("应交税金"+moneyTax);
             BigDecimal moneyOrder = balancesheet.getMoneyOrderGet();
             System.out.print("应交税金"+moneyOrder);
-            balancesheet.setMoneyLoan(longTermLoan.add(shortTermLoan).add(moneyTax).add(moneyOrder)); //负债(应付账款没写)
+            balancesheet.setMoneyLoan(longTermLoan.add(shortTermLoan).add(moneyTax.compareTo(BigDecimal.valueOf(0))==1?moneyTax:BigDecimal.valueOf(0)).add(moneyOrder)); //负债(应付账款没写)
             //负债
 
             BigDecimal moneyG = balancesheet.getMoneyG();

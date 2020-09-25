@@ -53,7 +53,7 @@
                     $("#money_all").text(data.moneyAll);
                     $("#money_alls").text(data.moneyAlls);
                     $("#money_order_get").text(data.moneyOrderGet);
-                    $("#money_tax").text(data.moneyTax);
+                    $("#money_tax").text(data.moneyTax<0?0:data.moneyTax);
 
                     console.log('***********资产负债表查询数据');
                     // $('#year').text(Math.floor(data.period / 4))
@@ -92,7 +92,7 @@
                     $("#money_all1").text(data.moneyAll);
                     $("#money_alls1").text(data.moneyAlls);
                     $("#money_order_get1").text(data.moneyOrderGet);
-                    $("#money_tax1").text(data.moneyTax);
+                    $("#money_tax1").text(data.moneyTax<0?0:data.moneyTax);
 
                     console.log('***********资产负债表查询数据');
                     // $('#year').text(Math.floor(data.period / 4))
