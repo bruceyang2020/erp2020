@@ -129,15 +129,14 @@ $(document).ready(function () {
     });
 
 
-/** 在新窗体中操作
-* */
+
     $("#pop-newpage").click(function () {
-
-
         window.open("/indexmanual");
+    });
 
 
-
+    $("#pop-backhome").click(function () {
+        window.location.href = "/optionList";
     });
 
 

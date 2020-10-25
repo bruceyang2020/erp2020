@@ -1,0 +1,54 @@
+﻿﻿
+<html>
+<head>
+<meta charset="utf-8">
+<title>选择实验类型</title>
+    <link rel="stylesheet" type="text/css" href="style/login.css" />
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script>
+
+
+        function loginAuto(){
+           window.location.href = "/index";
+        }
+
+
+        function loginManual(){
+            window.location.href = "/indexmanual";
+        }
+
+
+
+
+    </script>
+</head>
+<body>
+<div class="waves"></div>
+<script src="js/login.js"></script>
+    <div class="login-wrap">
+        <div class="login-html">
+            <h2>请选择实验类型</h2>
+            <div class="login-form">
+                <div class="hr-optionlist"></div>
+                    <div class="group">
+
+                        <input type="submit" class="button" value="智能化实验"  title="侧重于ERP决策分析，面向财务及非财务专业" onclick="loginAuto()">
+
+                    </div>
+
+                    <div class="group">
+
+                        <input type="submit" class="button" value="基础性实验" title="侧重于ERP计算原理，面向财务专业课堂练习" onclick="loginManual()">
+
+                    </div>
+                    <div class="hr-optionlist"></div>
+
+                </div>
+
+            </div>
+
+    </div>
+<div style="text-align:center;margin:10px 0; font:normal 14px/24px 'MicroSoft YaHei';color:#ffffff">
+</div>
+</body>
+</html>

@@ -3,7 +3,6 @@ package cn.edu.hdu.clan.controller;
 
 import cn.edu.hdu.clan.entity.sys.*;
 import cn.edu.hdu.clan.service.sys.*;
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -16,17 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.rmi.CORBA.Util;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import cn.edu.hdu.clan.util.Jurisdiction;
-import cn.edu.hdu.clan.util.PropertiesUtils;
-import tk.mybatis.mapper.util.StringUtil;
+
 import java.text.SimpleDateFormat;
 
 
@@ -107,6 +102,12 @@ public class IndexController extends BaseController {
     @RequestMapping("/index")
      public String index() {
         return "index";
+    }
+
+
+    @RequestMapping("/optionList")
+    public String optionList() {
+        return "optionList";
     }
 
 
