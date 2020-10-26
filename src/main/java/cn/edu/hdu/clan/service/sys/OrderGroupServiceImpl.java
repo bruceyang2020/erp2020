@@ -47,6 +47,12 @@ public class OrderGroupServiceImpl implements OrderGroupService {
     }
 
     @Override
+    public List<OrderGroup> listToSandtableOrder() {
+        Example example = new Example(OrderGroup.class);
+        return OrderGroupMapper.selectByExample(example);
+    }
+
+    @Override
     public void update(OrderGroup OrderGroup) {
         BaseBeanHelper.edit(OrderGroup);
         Example example = new Example(OrderGroup.class);
@@ -331,11 +337,11 @@ public class OrderGroupServiceImpl implements OrderGroupService {
 
 
 
-
-
-
         //判断当前这个订单，是否有iso的要求。
 
         return infoString;
     }
+
+
+
 }

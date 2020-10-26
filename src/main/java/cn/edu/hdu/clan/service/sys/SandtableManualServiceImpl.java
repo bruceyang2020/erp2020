@@ -94,4 +94,5 @@ public class SandtableManualServiceImpl implements  SandtableManualService{
         return SandtableManualMapper.selectOneByExample(example);
     }
 
+    
 }

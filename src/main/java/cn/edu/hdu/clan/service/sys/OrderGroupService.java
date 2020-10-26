@@ -12,6 +12,8 @@ public interface OrderGroupService {
 
     void update(OrderGroup OrderGroup);
 
+    List<OrderGroup> listToSandtableOrder();
+
     List<OrderGroup> list(String productId);
 
     List<OrderGroup> listByUserTeamAndPeriod();

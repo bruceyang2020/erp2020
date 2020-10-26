@@ -6,6 +6,7 @@
     <script src="js/jquery-3.1.1.min.js"></script>
     <script src="js/select2.js"></script>
     <script src="js/index-manual.js"></script>
+    <script src="js/index-manual-order.js"></script>
       <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="style/indexmanual.css">
     <link rel="stylesheet" type="text/css" href="style/select2.css">
@@ -64,6 +65,8 @@
                         <input type="button" value="新窗口" class="pop-ok" id="pop-newpage" title="新窗口中打开本页面">
                         <input type="button" value="规则" class="pop-ok" id="pop-rule" title="下载经营规则">
                         <input type="button" value="表格" class="pop-ok" id="pop-download" title="下载经营登记表">
+                        <input type="button" value="订单" class="pop-ok" id="pop-window" title="订单选取表">
+                        <input type="button" value="生成订单" class="pop-ok" id="pop-create-order" title="生成订单">
 
                     </td>
                 </tr>
@@ -180,7 +183,7 @@
             <input name="" id="highloan-1" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 610px;top:700px;position: absolute"/>
 
             <!-- 现金-->
-            <input name="" id="highloan-1" style="border-width: 0px;background-color:transparent;width:50px;height:30px;left: 690px;top:595px;position: absolute"/>
+            <input name="" id="cash" style="border-width: 0px;background-color:transparent;width:50px;height:30px;left: 690px;top:595px;position: absolute"/>
 
             <!-- 应收账款-->
             <input name="" id="receive-1" style="border-width: 0px;background-color:transparent;width:30px;height:30px;left: 782px;top:450px;position: absolute"/>
@@ -266,6 +269,19 @@
             <input name="" id="research-2-p4" style="border-width: 0px;background-color:transparent;width:40px;height:30px;left: 1218px;top:868px;position: absolute"/>
 
         </div>
+        <!--选单弹窗-->
+        <div class="pop-order" style="display:none;position: absolute;top: 50%;left: 50%;transform:translate(-50%,-50%);height:800Px;width: 600px;padding: 50px;background: white;box-sizing: border-box;box-shadow: 0 3px 18px rgba(100, 0, 0, .5);border-radius: 15px">
+            <h3 style="text-align: center;">选单</h3>
+            <div style="padding-bottom: 15px">
+                <input id="group-name" type="text" class="input" placeholder="请输入你所在的小组">
+                <input type="button" value="确定" class="pop-ok" id="pop-group">
+                <input type="button" value="关闭" class="pop-cancel pop-close">
+            </div>
+
+            <div id="sandtable-order-management" class="pop-p-scroll" style="border:1px solid #ccc;overflow-y: auto;height:500Px;width: 500px;">
+            </div>
+
+        </div>
     </div>
 
 </div>
@@ -280,9 +296,9 @@
 -->
 
 
-
 <input type="hidden" id = "currentAp" name ="currentAp" value="">
 <input type="hidden" id = "currentUser" name ="currentUser" value="">
+<input type="hidden" id = "currentGroup" name ="currentGroup" value="">
 
 </body>
 

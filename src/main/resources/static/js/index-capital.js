@@ -65,7 +65,7 @@ $(document).ready(function () {
     })
 
     //H 应收款贴现
-    //20200727 H 还缺少一个显示刷新
+
     $('#fin-ok').click(function() {
 
         var discountedAmount ={
