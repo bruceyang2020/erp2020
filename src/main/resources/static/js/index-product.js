@@ -357,6 +357,9 @@ $(document).ready(function () {
                         alert("转产成功");
                         statusByPln(myPlnValue, "转产");
                         SetCash();}
+                    else if(myMsg=="fail"){
+                        alert("没有资格");
+                    }
                     else{
                         alert("转产成功");
                         statusByPln(myPlnValue, "停产");

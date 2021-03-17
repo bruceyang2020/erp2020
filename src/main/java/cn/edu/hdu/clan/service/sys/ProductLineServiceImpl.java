@@ -494,68 +494,71 @@ public class     ProductLineServiceImpl implements ProductLineService {
 
         ProductLine myRow = productLineRow(productLine);
         String productLineType = myRow.getProductLineTypeId();
+        List<ResearchFee> productRow= researchFeeService.listByperiod(userTeam,period-1,productC);
+        if(productRow.get(0).getState()==1) {   //H 判断是否有生产资格
+            switch (productLineType) {
 
-        switch (productLineType) {
+                case "手工线":
+                    myRow.setProductC(productC); //H 更新新的产品
+                    myRow.setState(2); //Y 将手工线改成“停产”状态。
+                    myRow.setProcessingCycleB(0);
+                    BaseBeanHelper.edit(myRow);
+                    ProductLineMapper.updateByPrimaryKey(myRow);
+                    myMsg = "tostop"; //手工线不需要转产，直接变成停产状态
+                    break;
 
-            case "手工线":
-                myRow.setProductC(productC); //H 更新新的产品
-                myRow.setState(2); //Y 将手工线改成“停产”状态。
-                myRow.setProcessingCycleB(0);
-                BaseBeanHelper.edit(myRow);
-                ProductLineMapper.updateByPrimaryKey(myRow);
-                myMsg="tostop"; //手工线不需要转产，直接变成停产状态
-                break;
+                case "柔性线":
+                    myRow.setProductC(productC); //H 更新新的产品
+                    myRow.setState(2);  //Y 将柔性线改成“停产”状态。
+                    myRow.setProcessingCycleB(0);
+                    BaseBeanHelper.edit(myRow);
+                    ProductLineMapper.updateByPrimaryKey(myRow);
+                    myMsg = "tostop";//柔性线不需要转产，直接变成停产状态
+                    break;
 
-            case "柔性线":
-                myRow.setProductC(productC); //H 更新新的产品
-                myRow.setState(2);  //Y 将柔性线改成“停产”状态。
-                myRow.setProcessingCycleB(0);
-                BaseBeanHelper.edit(myRow);
-                ProductLineMapper.updateByPrimaryKey(myRow);
-                myMsg="tostop";//柔性线不需要转产，直接变成停产状态
-                break;
-
-            case "半自动":
-                myRow.setState(3);
-                myRow.setEditFlag(1);
-                myRow.setProductC(productC); //H 更新新的产品
-                myRow.setTransferredPeriodA(1);
-                myRow.setTransferFeeA(new BigDecimal(1));
-                BaseBeanHelper.edit(myRow);
-           /* Example example = new Example(ProductLine.class);
-            example.createCriteria().andEqualTo("id", myRow.getId());*/
-                ProductLineMapper.updateByPrimaryKey(myRow);
-
-                //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
-                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCXZC", factoryNumber + productLineNumber + productLineType + "转产");
-                break;
-
-
-            case "全自动":
-
-                if(listDetail(productLine).get(0).getTransferredPeriodA()==1) {
-                    //H 第二次转产
-                    myRow.setState(3);
-                    myRow.setEditFlag(1);
-                    /*myRow.setProductC(productC); //H 更新新的产品*/
-                    myRow.setTransferredPeriodA(2);
-                    myRow.setTransferFeeA(new BigDecimal(4)); //全自动线的转产费用为每期2M
-                }
-                else{
-                    //H 第一次转产
+                case "半自动":
                     myRow.setState(3);
                     myRow.setEditFlag(1);
                     myRow.setProductC(productC); //H 更新新的产品
                     myRow.setTransferredPeriodA(1);
-                    myRow.setTransferFeeA(new BigDecimal(2)); //全自动线的转产费用为每期2M
-                }
-                BaseBeanHelper.edit(myRow);
-                ProductLineMapper.updateByPrimaryKey(myRow);
-                //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
-                accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "SCXZC", factoryNumber + productLineNumber + productLineType + "转产");
-                break;
-        }
+                    myRow.setTransferFeeA(new BigDecimal(1));
+                    BaseBeanHelper.edit(myRow);
+           /* Example example = new Example(ProductLine.class);
+            example.createCriteria().andEqualTo("id", myRow.getId());*/
+                    ProductLineMapper.updateByPrimaryKey(myRow);
 
+                    //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
+                    accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("1"), "SCXZC", factoryNumber + productLineNumber + productLineType + "转产");
+                    break;
+
+
+                case "全自动":
+
+                    if (listDetail(productLine).get(0).getTransferredPeriodA() == 1) {
+                        //H 第二次转产
+                        myRow.setState(3);
+                        myRow.setEditFlag(1);
+                        /*myRow.setProductC(productC); //H 更新新的产品*/
+                        myRow.setTransferredPeriodA(2);
+                        myRow.setTransferFeeA(new BigDecimal(4)); //全自动线的转产费用为每期2M
+                    } else {
+                        //H 第一次转产
+                        myRow.setState(3);
+                        myRow.setEditFlag(1);
+                        myRow.setProductC(productC); //H 更新新的产品
+                        myRow.setTransferredPeriodA(1);
+                        myRow.setTransferFeeA(new BigDecimal(2)); //全自动线的转产费用为每期2M
+                    }
+                    BaseBeanHelper.edit(myRow);
+                    ProductLineMapper.updateByPrimaryKey(myRow);
+                    //自动生成转产费用的凭证。借综合费用 贷现金  注意：这里跟会计的基本方法不一样。为了生产成本的标准成本不被破坏，把本应列入制造费用的金额放到综合费用里处理。
+                    accountingVoucherService.voucherMaker(userTeam, period, new BigDecimal("2"), "SCXZC", factoryNumber + productLineNumber + productLineType + "转产");
+                    break;
+            }
+        }
+        else{
+            myMsg = "fail";//H 没有生产资格
+        }
         return myMsg;
 
     }

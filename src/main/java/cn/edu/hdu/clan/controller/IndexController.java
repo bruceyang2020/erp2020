@@ -111,6 +111,8 @@ public class IndexController extends BaseController {
     }
 
 
+
+
     @RequestMapping("/indexmanual")
     public String indexmanual() {
         return "indexManual";

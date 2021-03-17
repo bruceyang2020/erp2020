@@ -144,6 +144,7 @@ $(document).ready(function () {
 
 
 function listen(groupOrder) {
+    $("#sandtable-order-management").undelegate();
     $("#sandtable-order-management").delegate("input", "click",
         function (e) {
             myOrderId = $(e.currentTarget).parent("td").parent("tr").children("td:first-child").text();
@@ -171,6 +172,7 @@ function listen(groupOrder) {
                         p.parent("td").parent("tr").children("td")[9].innerText = groupOrder.userId;
                     }
                 });
+                $("#sandtable-order-management").undelegate();
             }
 
             //取消选取
@@ -194,6 +196,7 @@ function listen(groupOrder) {
 
                         }
                     });
+                    $("#sandtable-order-management").undelegate();
                 }
             }
         })

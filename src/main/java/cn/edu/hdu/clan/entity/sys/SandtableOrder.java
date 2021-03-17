@@ -13,7 +13,7 @@ import java.util.Date;
 public class SandtableOrder extends BaseBean {
 
     /**
-     * 主键  不知道为什么提示两个id所以被我注释掉了
+     * 主键
      */
 //    @Id
 //    private String id;
